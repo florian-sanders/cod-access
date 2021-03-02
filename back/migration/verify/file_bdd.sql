@@ -4,10 +4,10 @@ BEGIN;
 
 -- XXX Add verifications here.
 SELECT pseudo FROM client;
-SELECT entitled FROM role;
-SELECT name FROM image;
+SELECT entitled FROM responsibility;
+SELECT name FROM picture;
 SELECT code FROM question;
-SELECT name FROM type;
+SELECT name FROM kind;
 SELECT brief FROM exercise;
 SELECT slug FROM doc;
 SELECT name FROM theme;
