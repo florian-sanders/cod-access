@@ -14,7 +14,7 @@ CREATE TABLE responsibility (
 
 CREATE TABLE picture (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name text NOT NULL,
+    name text,
     path text NOT NULL,
     alternative text,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
