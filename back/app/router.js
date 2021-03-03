@@ -11,4 +11,7 @@ router.route('/clients')
 router.route('/signin')
     .post(authController.submitLoginForm)
 
+router.route('/signup')
+    .post(authController.submitSignupForm)
+
 module.exports = router;
