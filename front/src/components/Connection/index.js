@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 
-import FieldGroup from 'src/containers/Connection/FieldGroup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle, faUser } from '@fortawesome/free-solid-svg-icons';
+
+import SignInForm from 'src/containers/Connection/SignInForm';
+import UserMenu from 'src/containers/Connection/UserMenu';
+
 import './styles.scss';
 
 const Connection = ({
   isVisible,
   toggleConnection,
+  isLogged,
 }) => (
   <div className="header-wrapper__connection">
     <button
@@ -20,8 +23,22 @@ const Connection = ({
       aria-controls="connection-menu"
       onClick={toggleConnection}
     >
-      <FontAwesomeIcon className="header-wrapper__connection__toggle-btn__icon" icon={faUserCircle} size="2x" />
-      <span className="header-wrapper__connection__toggle-btn__text">Connexion</span>
+      {
+        isLogged
+          ? (
+            <>
+              <FontAwesomeIcon className="header-wrapper__connection__toggle-btn__icon" icon={faUserCircle} size="2x" />
+              <span className="header-wrapper__connection__toggle-btn__text">Profil</span>
+            </>
+          )
+          : (
+            <>
+              <FontAwesomeIcon className="header-wrapper__connection__toggle-btn__icon" icon={faUser} size="2x" />
+              <span className="header-wrapper__connection__toggle-btn__text">Connexion</span>
+            </>
+          )
+      }
+
     </button>
     <div
       id="connection-menu"
@@ -29,34 +46,13 @@ const Connection = ({
         'header-wrapper__connection__toggle-area--visible': isVisible,
       })}
     >
+      {
+        isLogged
+          ? <UserMenu />
+          : <SignInForm />
+      }
 
-      <form className="header-wrapper__connection__toggle-area__form" onSubmit={() => { }}>
-        <FieldGroup
-          type="email"
-          id="signin-email"
-          label="Adresse e-mail (nom@domaine.fr)"
-          name="email"
-          autocomplete="email"
-        />
-        <FieldGroup
-          type="password"
-          id="signin-password"
-          label="Mot de passe"
-          name="password"
-          autocomplete="current-password"
-        />
-        <button
-          className="header-wrapper__connection__toggle-area__form__submit"
-          type="submit"
-        >
-          Se connecter
-        </button>
-      </form>
-      <div className="header-wrapper__connection__toggle-area__signup">
-        <Link className="header-wrapper__connection__toggle-area__signup__link" to="/inscription">
-          Inscription
-        </Link>
-      </div>
+
     </div>
   </div>
 );
@@ -64,6 +60,7 @@ const Connection = ({
 Connection.propTypes = {
   isVisible: PropTypes.bool.isRequired,
   toggleConnection: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 export default Connection;

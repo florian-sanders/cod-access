@@ -1,16 +1,22 @@
 import {
   TOGGLE_CONNECTION_VISIBILITY,
   SET_FIELD_VALUE,
+  SIGN_IN,
+  SIGN_OUT,
 } from 'src/actions/auth';
 
 const initialState = {
   email: '',
   password: '',
   isVisible: false,
+  isLogged: false,
+  user: {
+    pseudo: '',
+    token: '',
+  },
 };
 
 const reducer = (state = initialState, action = {}) => {
-  console.log(action);
   switch (action.type) {
     case TOGGLE_CONNECTION_VISIBILITY:
       return {
@@ -21,6 +27,21 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         [action.name]: action.value,
+      };
+    case SIGN_IN:
+      return {
+        ...state,
+        isLogged: true,
+        user: {
+          ...state.user,
+          pseudo: action.pseudo,
+          token: action.token,
+        },
+      };
+    case SIGN_OUT:
+      return {
+        ...state,
+        isLogged: false,
       };
     default:
       return state;
