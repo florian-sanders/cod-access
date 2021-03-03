@@ -1,0 +1,47 @@
+@import "src/styles/vars";
+
+.header-wrapper__connection {
+  &__toggle-btn {
+    background-color: $primary-color;
+    color: $white-color;
+    border: none;
+    padding: 0.7rem $gutter;
+    border-radius: 0.5rem;
+    font-weight: bold;
+  }
+
+  &__toggle-area {
+    background-color: $grey-color;
+    padding: $gutter;
+    border-radius: 0.5rem;
+    box-shadow: 2px 2px 13px 0px rgba(0,0,0,0.75);
+    margin-top: 0.5rem;
+
+    &__form {
+      &__group {
+        display: flex;
+        flex-direction: column;
+        margin: $gutter 0;
+        gap: 0.5rem;
+
+        input {
+          padding: 0.5rem;
+          border-radius: 0.2rem;
+          border: solid 1px $dark-color;
+        }
+      }
+
+      &__submit {
+        background-color: $primary-color;
+        color: $white-color;
+        border: none;
+        padding: 0.7rem $gutter;
+        border-radius: 0.5rem;
+        font-weight: bold;
+        display: block;
+        width: max-content;
+        margin: 0 auto;
+      }
+    }
+  }
+}

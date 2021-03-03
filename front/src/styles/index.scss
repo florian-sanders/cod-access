@@ -1,8 +1,18 @@
 @use 'reset';
   
-@use 'vars';
+@import 'src/styles/vars';
 
-// body {
+body {
+  font-family: $font-text;
+  color: $dark-color;
+}
 
-// }
+.hidden {
+  display: none;
+}
 
+#root {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 7rem;
+}

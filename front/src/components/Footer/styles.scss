@@ -1,0 +1,16 @@
+@import 'src/styles/vars';
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: $gutter * 2;
+  background-color: $primary-color;
+  color: $white-color;
+
+  &__list {
+    display: flex;
+    justify-content: center;
+    gap: $gutter * 3;
+  }
+}
