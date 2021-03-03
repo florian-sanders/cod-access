@@ -10,13 +10,12 @@ const SignUp = ({}) => (
       <div className="signup__content__illustration" />
       <form action="" method="get" className="signup__content__form">
         <div className="signup__content__form__group">
-          <label hmtlFor="email" className="signup__content__form__group__label">Email</label>
+          <label hmtlFor="email" className="signup__content__form__group__label">Adresse email (nom@domaine.fr)</label>
           <input type="email" name="email" id="email" className="signup__content__form__group__input" aria-required="true" />
         </div>
         <div className="signup__content__form__group">
           <label hmtlFor="pseudo" className="signup__content__form__group__label">Pseudo</label>
           <input type="text" name="pseudo" id="pseudo" className="signup__content__form__group__input" aria-required="true" />
-
         </div>
         <div className="signup__content__form__group">
           <label hmtlFor="password" className="signup__content__form__group__label">Mot de passe</label>
