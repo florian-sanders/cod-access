@@ -6,6 +6,7 @@ import {
 
 import Home from 'src/components/Home';
 import SignUp from 'src/containers/SignUp';
+import Profile from 'src/components/Profile';
 import './styles.scss';
 
 const Page = () => (
@@ -16,6 +17,9 @@ const Page = () => (
       </Route>
       <Route exact path="/inscription">
         <SignUp />
+      </Route>
+      <Route exact path="/profil">
+        <Profile />
       </Route>
     </Switch>
   </main>
