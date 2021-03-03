@@ -13,4 +13,17 @@
     }
   }
   
+
+  @media screen and (max-width:60rem) {
+    &__link {
+      &__site-logo {
+        width: 30px;
+        margin-right: 0.5rem;
+      }
+
+      &__site-name {
+        font-size: 1rem;
+      }
+    }
+  }
 }
