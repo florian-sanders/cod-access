@@ -22,7 +22,7 @@
     background-color: $grey-color;
     padding: $gutter;
     border-radius: 0.5rem;
-    box-shadow: 2px 2px 13px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 13px 0px rgba(0, 0, 0, 0.75);
     margin-top: 0.5rem;
 
     &--visible {
@@ -58,6 +58,7 @@
   }
 
   @media screen and (max-width: 60rem) {
+    position: static;
     &__toggle-btn {
       padding: 0.4rem;
       &__text {
@@ -67,6 +68,12 @@
       &__icon {
         display: block;
       }
+    }
+
+    &__toggle-area {
+      left: 50%;
+      transform: translateX(-50%);
+      width: 85%;
     }
   }
 }
