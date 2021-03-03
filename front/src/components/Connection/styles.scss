@@ -55,6 +55,20 @@
         margin: 0 auto;
       }
     }
+
+    &__signup {
+      text-align: center;
+      text-decoration: underline;
+
+      &::before {
+        content: "";
+        display: block;
+        width: 2rem;
+        background-color: $dark-color;
+        height: 1px;
+        margin: $gutter auto;
+      }
+    }
   }
 
   @media screen and (max-width: 60rem) {

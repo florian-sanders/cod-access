@@ -9,12 +9,21 @@ const FieldGroup = ({
   id,
   label,
   type,
+  autocomplete,
 }) => (
   <div className="header-wrapper__connection__toggle-area__form__group">
     <label htmlFor={id}>
       {label}
     </label>
-    <input id={id} type={type} value={value} onChange={(evt) => changeValue(evt.target.value)} />
+    <input
+      id={id}
+      type={type}
+      value={value}
+      autoComplete={autocomplete}
+      onChange={
+        (evt) => changeValue(evt.target.value)
+      }
+    />
   </div>
 );
 
