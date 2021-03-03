@@ -2,9 +2,13 @@ const express = require('express');
 
 const router = express.Router();
 
-const mainController = require('./controllers/mainController');
+const clientController = require('./controllers/clientController');
+const authController = require('./controllers/authController');
 
-router.route('/')
-    .get(mainController.home)
+router.route('/clients')
+    .get(clientController.getClients)
+
+router.route('/signin')
+    .post(authController.submitLoginForm)
 
 module.exports = router;

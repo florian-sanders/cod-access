@@ -1,0 +1,17 @@
+const sequelize = require('../database');
+
+const { Model, DataTypes } = require('sequelize');
+
+class Client extends Model { }
+
+//utilisation .init fonction de sequalize
+Client.init({
+    email: DataTypes.TEXT,
+    pseudo: DataTypes.TEXT,
+    password: DataTypes.TEXT,
+}, {
+    sequelize,
+    tableName: 'client'
+});
+
+module.exports = Client;
