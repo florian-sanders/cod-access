@@ -56,7 +56,7 @@ const Home = () => (
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor blandit integer aliquam mi nisi habitasse nunc sit mi.</p>
           <p>Vestibulum ullamcorper nibh sagittis etiam mattis adipiscing velit. Sagittis vivamus amet massa suspendisse nunc euismod.</p>
           <p>Tristique tincidunt vestibulum netus justo. Rhoncus leo massa sed quam. Volutpat gravida vitae faucibus sem nulla molestie consectetur.</p>
-          <Link className="home-wrapper__article__wrapper__text__link" to="/challenges">S'inscrire</Link>
+          <Link className="home-wrapper__article__wrapper__text__link" to="/inscription">S'inscrire</Link>
         </div>
       </div>
     </article>
