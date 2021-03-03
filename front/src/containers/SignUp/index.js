@@ -9,7 +9,6 @@ const mapStateToProps = (state) => ({
   pseudo: state.signup.pseudo,
   password: state.signup.password,
   passwordConfirm: state.signup.passwordConfirm,
-
 });
 
 const mapDispatchToProps = (dispatch) => ({
