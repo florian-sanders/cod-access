@@ -4,29 +4,30 @@ import Proptypes from 'prop-types';
 import './styles.scss';
 
 const FieldGroup = ({
-  id,
   value,
-  label,
   changeValue,
+  id,
+  label,
+  type,
 }) => (
   <div className="header-wrapper__connection__toggle-area__form__group">
     <label htmlFor={id}>
       {label}
     </label>
-    <input id={id} value={value} onChange={(evt) => changeValue(evt.target.value)} />
+    <input id={id} type={type} value={value} onChange={(evt) => changeValue(evt.target.value)} />
   </div>
 );
 
 FieldGroup.propTypes = {
   id: Proptypes.string.isRequired,
-  value: Proptypes.string,
+  value: Proptypes.string.isRequired,
   label: Proptypes.string.isRequired,
-  changeValue: Proptypes.func,
+  changeValue: Proptypes.func.isRequired,
+  type: Proptypes.string,
 };
 
 FieldGroup.defaultProps = {
-  value: '',
-  changeValue: () => { },
+  type: 'text',
 };
 
 export default FieldGroup;

@@ -52,7 +52,7 @@ const Menu = ({
         <NavLink to="/contact" exact activeClassName="header-wrapper__menu--active">
           Contact
         </NavLink>
-      </li>ipsum
+      </li>
     </ul>
   </nav>
 );
