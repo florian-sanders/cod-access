@@ -1,0 +1,19 @@
+@import "src/styles/vars";
+
+.header-wrapper__menu {
+  margin-left: auto;
+  margin-right: $gutter * 2;
+
+  &__list {
+    display: flex;
+    gap: $gutter;
+
+    &__link {
+      padding: 0.3rem 0.5rem;
+
+      &--active {
+        border-bottom: solid 3px $primary-color;
+      }
+    }
+  }
+}
