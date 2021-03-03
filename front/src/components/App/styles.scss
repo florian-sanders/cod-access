@@ -5,6 +5,11 @@
   display: flex;
   align-items: center;
   flex-direction: row;
+
+  @media screen and (max-width:60rem){
+    padding: 1.5rem 1rem;
+    justify-content: space-between;
+  }
 }
 
 a.skip-link.sr-only-focusable {

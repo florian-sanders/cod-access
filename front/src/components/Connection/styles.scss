@@ -8,6 +8,10 @@
     padding: 0.7rem $gutter;
     border-radius: 0.5rem;
     font-weight: bold;
+
+    &__icon {
+      display: none;
+    }
   }
 
   &__toggle-area {
@@ -41,6 +45,19 @@
         display: block;
         width: max-content;
         margin: 0 auto;
+      }
+    }
+  }
+
+  @media screen and (max-width: 60rem) {
+    &__toggle-btn {
+      padding: 0.4rem;
+      &__text {
+        display: none;
+      }
+
+      &__icon {
+        display: block;
       }
     }
   }

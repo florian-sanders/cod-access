@@ -3,7 +3,7 @@ import React from 'react';
 
 // == Import
 import Header from 'src/components/Header';
-import Menu from 'src/components/Menu';
+import Menu from 'src/containers/Menu';
 import Connection from 'src/components/Connection';
 import Page from 'src/components/Page';
 import Footer from 'src/components/Footer';

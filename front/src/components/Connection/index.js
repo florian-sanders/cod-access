@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 import FieldGroup from './FieldGroup';
 import './styles.scss';
@@ -11,9 +13,10 @@ const Connection = () => (
       aria-expanded="false"
       aria-controls="connection-menu"
     >
-      Connexion
+      <FontAwesomeIcon className="header-wrapper__connection__toggle-btn__icon" icon={faUserCircle} size="2x" />
+      <span className="header-wrapper__connection__toggle-btn__text">Connexion</span>
     </button>
-    <div id="connection-menu" className="header-wrapper__connection__toggle-area">
+    <div id="connection-menu" className="header-wrapper__connection__toggle-area hidden">
       <form className="header-wrapper__connection__toggle-area__form" onSubmit={() => { }}>
         <FieldGroup
           type="email"

@@ -1,11 +1,33 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './styles.scss';
 
-const Menu = () => (
-  <nav className="header-wrapper__menu header-wrapper__menu" role="navigation" aria-label="principal">
-    <ul className="header-wrapper__menu__list">
+const Menu = ({
+  toggleMenu,
+  mobileMenuVisibility,
+}) => (
+  <nav className="header-wrapper__menu" role="navigation" aria-label="principal">
+    <button
+      className="header-wrapper__menu__toggle-btn"
+      type="button"
+      aria-expanded={mobileMenuVisibility}
+      aria-controls="menu-toggle-area"
+      onClick={toggleMenu}
+    >
+      <span className="sr-only">Menu</span>
+      <span className="header-wrapper__menu__toggle-btn__stripe" />
+      <span className="header-wrapper__menu__toggle-btn__stripe" />
+      <span className="header-wrapper__menu__toggle-btn__stripe" />
+    </button>
+    <ul
+      id="menu-toggle-area"
+      className={classNames('header-wrapper__menu__list', {
+        'header-wrapper__menu__list--visible': mobileMenuVisibility,
+      })}
+    >
       <li>
         <NavLink className="header-wrapper__menu__list__link" to="/" exact activeClassName="header-wrapper__menu__list__link--active">
           Accueil
@@ -30,9 +52,19 @@ const Menu = () => (
         <NavLink to="/contact" exact activeClassName="header-wrapper__menu--active">
           Contact
         </NavLink>
-      </li>
+      </li>ipsum
     </ul>
   </nav>
 );
+
+Menu.propTypes = {
+  toggleMenu: PropTypes.func,
+  mobileMenuVisibility: PropTypes.bool,
+};
+
+Menu.defaultProps = {
+  toggleMenu: () => { },
+  mobileMenuVisibility: false,
+};
 
 export default Menu;
