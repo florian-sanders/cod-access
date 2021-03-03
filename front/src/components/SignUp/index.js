@@ -1,37 +1,72 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Proptypes from 'prop-types';
+import FieldGroup from './FieldGroup';
 
 import './styles.scss';
 
-const SignUp = ({}) => (
+const SignUp = ({
+  changeField, email, pseudo, password, passwordConfirm,
+}) => (
   <div className="signup">
     <h1 className="signup__title">Inscription</h1>
     <div className="signup__content">
       <div className="signup__content__illustration" />
       <form action="" method="get" className="signup__content__form">
+        <FieldGroup
+          type="email"
+          id="email"
+          value={email}
+          label="Adresse e-mail (nom@domaine.fr)"
+          name="email"
+          onChange={changeField}
+        />
+        <FieldGroup
+          type="text"
+          id="pseudo"
+          value={pseudo}
+          label="Pseudo"
+          name="pseudo"
+          onChange={changeField}
+        />
+        <FieldGroup
+          type="password"
+          id="password"
+          value={password}
+          label="Mot de passe"
+          name="password"
+          onChange={changeField}
+        />
+        <FieldGroup
+          type="password"
+          id="password_confirm"
+          value={passwordConfirm}
+          label="Confirmez votre mot de passe"
+          name="passwordConfirm"
+          onChange={changeField}
+        />
         <div className="signup__content__form__group">
-          <label hmtlFor="email" className="signup__content__form__group__label">Email</label>
-          <input type="email" name="email" id="email" className="signup__content__form__group__input" aria-required="true" />
-        </div>
-        <div className="signup__content__form__group">
-          <label hmtlFor="pseudo" className="signup__content__form__group__label">Pseudo</label>
-          <input type="text" name="pseudo" id="pseudo" className="signup__content__form__group__input" aria-required="true" />
-
-        </div>
-        <div className="signup__content__form__group">
-          <label hmtlFor="password" className="signup__content__form__group__label">Mot de passe</label>
-          <input type="password" name="password" id="password" className="signup__content__form__group__input" aria-required="true" />
-        </div>
-        <div className="signup__content__form__group">
-          <label hmtlFor="password_confirm" className="signup__content__form__group__label">Confirmez votre mot de passe</label>
-          <input type="password" name="password_confirm" id="password_confirm" className="signup__content__form__group__input" aria-required="true" />
-        </div>
-        <div className="signup__content__form__group">
-          <input type="submit" value="S'enregistrer" className="signup__content__form__submit" />
+          <button
+            className="signup__content__form__submit"
+            type="submit"
+          >
+            S'enregistrer
+          </button>
         </div>
       </form>
     </div>
   </div>
 );
+
+SignUp.propTypes = {
+  email: Proptypes.string.isRequired,
+  pseudo: Proptypes.string.isRequired,
+  password: Proptypes.string.isRequired,
+  passwordConfirm: Proptypes.string.isRequired,
+  changeField: Proptypes.func,
+};
+
+SignUp.defaultProps = {
+  changeField: () => {},
+};
 
 export default SignUp;
