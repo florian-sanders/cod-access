@@ -6,3 +6,8 @@
   align-items: center;
   flex-direction: row;
 }
+
+a.skip-link.sr-only-focusable {
+  display: block;
+  margin: 1rem;
+}

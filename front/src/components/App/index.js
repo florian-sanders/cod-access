@@ -12,6 +12,7 @@ import './styles.scss';
 // == Composant
 const App = () => (
   <>
+    <a className="skip-link sr-only-focusable" href="#main-content">Contenu</a> {/* skipLink for a11y, keyboard users mainly */}
     <div className="header-wrapper">
       <Header />
       <Menu />
