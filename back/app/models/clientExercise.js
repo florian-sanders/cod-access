@@ -8,7 +8,7 @@ Client_exercise.init({
     score: DataTypes.INTEGER,
 }, {
     sequelize,
-    tableName: 'client_exercice'
+    tableName: 'client_exercise'
 });
 
 module.exports = Client_exercise;

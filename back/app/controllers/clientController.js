@@ -2,7 +2,7 @@ const { Client } = require('../models');
 
 module.exports = {
 
-    getAllClients: async (req, res, next) => {
+    getAllClients: async (req, res) => {
         try{
             const clients = await Client.findAll();
             console.log('clients', clients);
@@ -15,7 +15,7 @@ module.exports = {
         }
     },
 
-    getOneClient: async (req, res, next) => {
+    getOneClient: async (req, res) => {
         try{
             const id = Number(req.params.id);
             if (isNaN(id)) {
@@ -24,7 +24,7 @@ module.exports = {
                 });
             }
             const client = await Client.findByPk(id, {
-                include: ['responsibility','client_picture','docs']
+                include: ['client_picture','responsibility','docs','exercises']
               });
             console.log('client', client);
             return res.status(200).json(
