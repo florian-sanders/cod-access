@@ -113,8 +113,9 @@ module.exports = {
               };
               console.log('200 ok', client.pseudo);
               res.json({ 
-                logged: true, 
                 pseudo: client.pseudo,
+                email: client.email,
+                // role: client.responsibility_id,
                 token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
               });
             }
