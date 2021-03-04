@@ -7,7 +7,7 @@ const Exercise = require('./exercise');
 const Doc = require('./doc');
 const Theme = require('./theme');
 const Possible_answer = require('./possibleAnswer');
-// const Client_exercise = require('./clientExercise');
+const Client_exercise = require('./clientExercise');
 
 // Association 1:N 
 Picture.hasMany(Doc, {
@@ -76,14 +76,14 @@ Doc.belongsToMany(Client, {
 
 Client.belongsToMany(Exercise, {
     as: 'exercises',
-    through: 'client_exercise',
+    through: Client_exercise,
     foreignKey: 'client_id',
     otherKey: 'exercise_id',
     // timestamps: false
 });
 Exercise.belongsToMany(Client, {
     as: 'clients',
-    through: 'client_exercise',
+    through: Client_exercise,
     // don't forget to reverse the informations
     foreignKey: 'exercise_id',
     otherKey: 'client_id',
