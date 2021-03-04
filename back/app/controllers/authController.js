@@ -67,6 +67,7 @@ module.exports = {
         });
         await newClient.save();
         console.log('200 ok', newClient);
+        res.sendStatus(200);
         res.json(
           newClient
         );
