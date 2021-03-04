@@ -92,7 +92,8 @@ module.exports = {
         return res.status(200).json(newClient);
       }
     } catch (error) {
-      console.trace(error);
+      console.error(error);
+      return res.status(500);
     }
   },
 
@@ -129,6 +130,7 @@ module.exports = {
               };
               console.log('200 ok', client);
               return res.status(200).json({ 
+                id: client.id,
                 pseudo: client.pseudo,
                 email: client.email,
                 role: client.responsibility.entitled,
@@ -147,7 +149,8 @@ module.exports = {
           }
         }
       } catch (error) {
-        console.trace(error);
+        console.error(error);
+        return res.status(500);
       }
     },
 };
