@@ -22,7 +22,10 @@ router.route('/signup')
 router.route('/exercises')
     .get(exerciseController.getAllExercises);
 
+router.route('/themes_exercises')
+    .get(themeController.getAllThemesForExercises);   
+    
 router.route('/themes')
-    .get(themeController.getAllThemes);    
+    .get(themeController.getAllThemes);   
 
 module.exports = router;
