@@ -2,13 +2,13 @@ const sequelize = require('../database');
 
 const { Model, DataTypes } = require('sequelize');
 
-class Responsability extends Model { }
+class Responsibility extends Model { }
 
-Responsability.init({
+Responsibility.init({
     entitled: DataTypes.TEXT,
 }, {
     sequelize,
-    tableName: 'responsability'
+    tableName: 'responsibility'
 });
 
-module.exports = Responsability;
+module.exports = Responsibility;

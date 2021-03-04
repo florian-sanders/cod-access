@@ -91,7 +91,8 @@ module.exports = {
           const client = await Client.findOne({
             where: {
               email: req.body.email
-            }
+            },
+            include: 'responsibility'
           });
 
           if (!client) {
@@ -102,20 +103,19 @@ module.exports = {
             message: 'miss client'
           });
           } else {
-          //   const isValidPassword = await bcrypt.compare(req.body.password, client.password);
-          //   if (isValidPassword) { }
-            if(req.body.password === client.password){
+            const isValidPassword = await bcrypt.compare(req.body.password, client.password);
+              if(isValidPassword){
             
               const jwtContent = { clientId: client.id };
               const jwtOptions = { 
                 algorithm: 'HS256', 
                 expiresIn: '3h' 
               };
-              console.log('200 ok', client.pseudo);
+              console.log('200 ok', client);
               res.json({ 
                 pseudo: client.pseudo,
                 email: client.email,
-                // role: client.responsibility_id,
+                role: client.responsibility.entitled,
                 token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
               });
             }
