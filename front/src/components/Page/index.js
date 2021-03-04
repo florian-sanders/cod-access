@@ -22,7 +22,7 @@ const Page = () => (
       <Route exact path="/profil">
         <Profile />
       </Route>
-      <Route exact path="/exercices">
+      <Route exact path="/challenges">
         <ExercicesPage />
       </Route>
     </Switch>
