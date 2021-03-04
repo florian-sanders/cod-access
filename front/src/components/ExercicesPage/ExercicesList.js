@@ -1,16 +1,15 @@
 import React from 'react';
-import Exercice from './Exercice';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './styles.scss';
 
-const ExercicesList = ({}) => (
-  <div>
-    <h2>Thème</h2>
-    <Exercice />
-    <Exercice />
-  </div>
-
+const ExercicesList = ({ exercices }) => (
+  exercices.map((exercice) => (
+    <div className="exercices__wrapper__theme__exercice">
+      <Link to="#" className="exercices__wrapper__theme__exercice__link">{exercice.title}</Link>
+    </div>
+  ))
 );
 
 export default ExercicesList;
