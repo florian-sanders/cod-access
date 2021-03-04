@@ -19,6 +19,9 @@ router.route('/signin')
 router.route('/signup')
     .post(authController.submitSignupForm);
 
+router.route('/contact')
+    .post(authController.submitContact);
+
 router.route('/exercises')
     .get(exerciseController.getAllExercises);
 
