@@ -1,10 +1,7 @@
 const bcrypt = require('bcrypt');
 const emailValidator = require('email-validator');
-const jwt = require('express-jwt');
 const jsonwebtoken = require('jsonwebtoken');
-
 const jwtSecret = 'OurSuperLongRandomSecretToSignOurJWTgre5ezg4jyt5j4ui64gn56bd4sfs5qe4erg5t5yjh46yu6knsw4q';
-const authorizationMiddleware = jwt({ secret: jwtSecret, algorithms: ['HS256'] });
 const { Client } = require('../models');
 const nodemailer = require('nodemailer');
 
@@ -123,7 +120,10 @@ module.exports = {
           const isValidPassword = await bcrypt.compare(req.body.password, client.password);
             if(isValidPassword){
           
-            const jwtContent = { clientId: client.id };
+            const jwtContent = {
+              clientId: client.id,
+              clientRole: client.responsibility.entitled,
+            };
             const jwtOptions = { 
               algorithm: 'HS256', 
               expiresIn: '3h' 
@@ -133,7 +133,7 @@ module.exports = {
               id: client.id,
               pseudo: client.pseudo,
               email: client.email,
-              role: client.responsibility.entitled,
+              responsibility: client.responsibility,
               token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
             });
             

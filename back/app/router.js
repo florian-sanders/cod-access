@@ -7,11 +7,15 @@ const authController = require('./controllers/authController');
 const exerciseController = require('./controllers/exerciseController');
 const themeController = require('./controllers/themeController');
 
+const jwt = require('express-jwt');
+const jwtSecret = 'OurSuperLongRandomSecretToSignOurJWTgre5ezg4jyt5j4ui64gn56bd4sfs5qe4erg5t5yjh46yu6knsw4q';
+const authorizationMiddleware = jwt({ secret: jwtSecret, algorithms: ['HS256'] });
+
 router.route('/clients')
     .get(clientController.getAllClients);
 
-router.route('/profile/:id')
-    .get(clientController.getOneClient);
+router.route('/profile')
+    .get(authorizationMiddleware, clientController.getOneClient);
 
 router.route('/signin')
     .post(authController.submitLoginForm);
