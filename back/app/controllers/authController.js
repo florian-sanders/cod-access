@@ -98,59 +98,130 @@ module.exports = {
   },
 
   submitLoginForm: async (req, res) => {
-      try {
-        if (req.body.email.length === 0 || req.body.password.length === 0) {
-          console.log('need email & password');
-          return res.status(411).json({
-            errorType: 411,
-            message: 'need email or password'
-          });
-        } else {
-          const client = await Client.findOne({
-            where: {
-              email: req.body.email
-            },
-            include: 'responsibility'
-          });
+    try {
+      if (req.body.email.length === 0 || req.body.password.length === 0) {
+        console.log('need email & password');
+        return res.status(411).json({
+          errorType: 411,
+          message: 'need email or password'
+        });
+      } else {
+        const client = await Client.findOne({
+          where: {
+            email: req.body.email
+          },
+          include: 'responsibility'
+        });
 
-          if (!client) {
-          console.log('miss client');
-          return res.status(404).json({
-            errorType: 404,
-            message: 'miss client'
-          });
-          } else {
-            const isValidPassword = await bcrypt.compare(req.body.password, client.password);
-              if(isValidPassword){
+        if (!client) {
+        console.log('miss client');
+        return res.status(404).json({
+          errorType: 404,
+          message: 'miss client'
+        });
+        } else {
+          const isValidPassword = await bcrypt.compare(req.body.password, client.password);
+            if(isValidPassword){
+          
+            const jwtContent = { clientId: client.id };
+            const jwtOptions = { 
+              algorithm: 'HS256', 
+              expiresIn: '3h' 
+            };
+            console.log('200 ok', client);
+            return res.status(200).json({ 
+              id: client.id,
+              pseudo: client.pseudo,
+              email: client.email,
+              role: client.responsibility.entitled,
+              token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
+            });
             
-              const jwtContent = { clientId: client.id };
-              const jwtOptions = { 
-                algorithm: 'HS256', 
-                expiresIn: '3h' 
-              };
-              console.log('200 ok', client);
-              return res.status(200).json({ 
-                id: client.id,
-                pseudo: client.pseudo,
-                email: client.email,
-                role: client.responsibility.entitled,
-                token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
-              });
-              
-            }
-    
-            else {
-              console.log('unauthorized');
-              return res.status(401).json({
-                errorType: 401,
-                message: 'unauthorized'
-              });
-            }
+          }
+  
+          else {
+            console.log('unauthorized');
+            return res.status(401).json({
+              errorType: 401,
+              message: 'unauthorized'
+            });
           }
         }
-      } catch (error) {
-        console.error(error);
-        return res.status(500);
       }
-    },
+    } catch (error) {
+      console.error(error);
+      return res.status(500);
+    }
+  },
+
+  submitContact: async (req, res) => {
+    try {  
+      if (req.body.name.length === 0) {
+        console.log('need name');
+        return res.status(411).json({
+          errorType: 411,
+          message: 'need name'
+        });
+      };
+      if (req.body.content.length === 0) {
+        console.log('need content');
+        return res.status(411).json({
+          errorType: 411,
+          message: 'need content'
+        });
+      };
+      const isValidEmail = emailValidator.validate(req.body.email);
+      if (!isValidEmail) {
+        console.log('email incorrect');
+        return res.status(406).json({
+          errorType: 406,
+          message: 'email incorrect'
+        });
+      }
+        //need email/name/content from front
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'cod.access11@gmail.com',
+            pass: 'ftiU86nRd34E'
+          },
+          tls: {
+              rejectUnauthorized: false
+            }
+        });
+        //send mail to client
+        const mailOptionsToClient = {
+          from: 'cod.access11@gmail.com',
+          to: req.body.email,
+          subject: 'Validation submit',
+          text: `Merci Mr ${req.body.name} pour l'intérêt que vous portez à notre site. Nous avons bien reçu votre message et traiterons votre demande dans les plis brefs délais. Cordialement.`
+        };
+
+        transporter.sendMail(mailOptionsToClient, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent to client: ' + info.response);
+          }
+        });
+        //send mail to us
+        const mailOptionsToUs = {
+          from: 'cod.access11@gmail.com',
+          to: 'cod.access11@gmail.com',
+          subject: 'New message from' + ' ' + req.body.name,
+          text: req.body.content
+        };
+
+        transporter.sendMail(mailOptionsToUs, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent to us: ' + info.response);
+          }
+        });
+      } catch (error) {
+      console.error(error);
+      return res.status(500);
+    }
+  },
 };
