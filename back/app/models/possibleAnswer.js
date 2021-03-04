@@ -9,7 +9,7 @@ PossibleAnswer.init({
     correct: DataTypes.BOOLEAN,
 }, {
     sequelize,
-    tableName: 'possibleAnswer'
+    tableName: 'possible_answer'
 });
 
 module.exports = PossibleAnswer;
