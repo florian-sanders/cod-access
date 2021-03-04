@@ -6,6 +6,7 @@ const jsonwebtoken = require('jsonwebtoken');
 const jwtSecret = 'OurSuperLongRandomSecretToSignOurJWTgre5ezg4jyt5j4ui64gn56bd4sfs5qe4erg5t5yjh46yu6knsw4q';
 const authorizationMiddleware = jwt({ secret: jwtSecret, algorithms: ['HS256'] });
 const { Client } = require('../models');
+const nodemailer = require('nodemailer');
 
 module.exports = {
 
@@ -14,8 +15,7 @@ module.exports = {
 
       if (req.body.pseudo.length === 0) {
         console.log('need pseudo');
-        res.sendStatus(411);
-        res.json({
+        return res.status(411).json({
           errorType: 411,
           message: 'need pseudo'
         });
@@ -23,24 +23,21 @@ module.exports = {
       const isValidEmail = emailValidator.validate(req.body.email);
       if (!isValidEmail) {
         console.log('email incorrect');
-        res.sendStatus(406);
-        res.json({
+        return res.status(406).json({
           errorType: 406,
           message: 'email incorrect'
         });
       }
       if (req.body.password.length < 6) {
         console.log('password need 6');
-        res.sendStatus(411);
-        res.json({
+        return res.status(411).json({
           errorType: 411,
           message: 'password need 6'
         });
       }
       if (req.body.password !== req.body.passwordConfirm) {
         console.log('password and confirm not same')
-        res.sendStatus(406);
-        res.json({
+        return res.status(406).json({
           errorType: 406,
           message: 'password and confirm not same'
         });
@@ -52,8 +49,7 @@ module.exports = {
       });
       if(client){
         console.log('email used');
-        res.sendStatus(406);
-        res.json({
+        return res.status(406).json({
           errorType: 406,
           message: 'email used'
         });
@@ -67,12 +63,34 @@ module.exports = {
         });
         await newClient.save();
         console.log('200 ok', newClient);
-        res.sendStatus(200);
-        res.json(
-          newClient
-        );
+           
+        //send mail to newClient
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'cod.access11@gmail.com',
+            pass: 'ftiU86nRd34E'
+          },
+          tls: {
+              rejectUnauthorized: false
+            }
+        });
+        const mailOptions = {
+          from: 'cod.access11@gmail.com',
+          to: req.body.email,
+          subject: 'Cod\'access welcome on board!',
+          text: 'Bienvenue sur cod\'access'
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+        return res.status(200).json(newClient);
       }
-
     } catch (error) {
       console.trace(error);
     }
@@ -82,8 +100,7 @@ module.exports = {
       try {
         if (req.body.email.length === 0 || req.body.password.length === 0) {
           console.log('need email & password');
-          res.sendStatus(411);
-          res.json({
+          return res.status(411).json({
             errorType: 411,
             message: 'need email or password'
           });
@@ -97,8 +114,7 @@ module.exports = {
 
           if (!client) {
           console.log('miss client');
-          res.sendStatus(404);
-          res.json({
+          return res.status(404).json({
             errorType: 404,
             message: 'miss client'
           });
@@ -112,18 +128,18 @@ module.exports = {
                 expiresIn: '3h' 
               };
               console.log('200 ok', client);
-              res.json({ 
+              return res.status(200).json({ 
                 pseudo: client.pseudo,
                 email: client.email,
                 role: client.responsibility.entitled,
                 token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
               });
+              
             }
     
             else {
               console.log('unauthorized');
-              res.sendStatus(401);
-              res.json({
+              return res.status(401).json({
                 errorType: 401,
                 message: 'unauthorized'
               });
