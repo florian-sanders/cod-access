@@ -9,7 +9,7 @@ import {
 } from 'react-redux';
 
 import store from 'src/store';
-import App from 'src/components/App';
+import App from 'src/containers/App';
 
 const rootReactElement = (
   <Provider store={store}>

@@ -1,6 +1,7 @@
+import axiosInstance from 'src/api';
 import {
   TOGGLE_CONNECTION_VISIBILITY,
-  SET_FIELD_VALUE,
+  SET_SIGN_IN_FIELD_VALUE,
   SIGN_IN,
   SIGN_OUT,
 } from 'src/actions/auth';
@@ -11,8 +12,9 @@ const initialState = {
   isVisible: false,
   isLogged: false,
   user: {
+    email: '',
     pseudo: '',
-    token: '',
+    role: '',
   },
 };
 
@@ -23,7 +25,7 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         isVisible: !state.isVisible,
       };
-    case SET_FIELD_VALUE:
+    case SET_SIGN_IN_FIELD_VALUE:
       return {
         ...state,
         [action.name]: action.value,
@@ -34,11 +36,14 @@ const reducer = (state = initialState, action = {}) => {
         isLogged: true,
         user: {
           ...state.user,
+          email: action.email,
           pseudo: action.pseudo,
-          token: action.token,
+          role: action.role,
         },
       };
     case SIGN_OUT:
+      localStorage.removeItem('codAccessToken');
+      delete axiosInstance.defaults.headers.common.Authorization;
       return {
         ...state,
         isLogged: false,
