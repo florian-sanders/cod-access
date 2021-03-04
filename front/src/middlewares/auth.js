@@ -1,5 +1,6 @@
 import {
   TRY_SIGN_IN,
+  CHECK_IS_SIGNED_IN,
   signIn,
 } from 'src/actions/auth';
 import axiosInstance from 'src/api';
@@ -19,6 +20,9 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
 
+        localStorage.setItem('codAccessToken', response.data.token);
+
+        axiosInstance.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('codAccessToken')}`;
         store.dispatch(signIn(response.data));
       }
       catch (err) {
@@ -26,6 +30,21 @@ export default (store) => (next) => async (action) => {
       }
       finally {
         // loader later
+      }
+      return next(action);
+    case CHECK_IS_SIGNED_IN:
+      try {
+        axiosInstance.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('codAccessToken')}`;
+        const response = await axiosInstance.get('/profile');
+
+        if (response.status !== 200) {
+          throw new Error();
+        }
+
+        store.dispatch(signIn(response.data));
+      }
+      catch (err) {
+        console.log(err);
       }
       return next(action);
     default:
