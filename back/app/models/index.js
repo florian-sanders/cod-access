@@ -121,5 +121,20 @@ Theme.belongsToMany(Exercise, {
     otherKey: 'exercise_id',
     timestamps: false
 });
+// Client.belongsToMany(Doc, {
+//     as: 'docs',
+//     through: 'client_doc',
+//     foreignKey: 'client_id',
+//     otherKey: 'doc_id',
+//     timestamps: false
+// });
+// Doc.belongsToMany(Client, {
+//     as: 'clients',
+//     through: 'client_doc',
+//     // don't forget to reverse the informations
+//     foreignKey: 'doc_id',
+//     otherKey: 'client_id',
+//     timestamps: false
+// });
 
 module.exports = { Client, Responsibility, Kind, Picture, Possible_answer, Question, Exercise, Doc, Theme };
