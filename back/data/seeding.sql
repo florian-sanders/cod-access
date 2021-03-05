@@ -77,12 +77,12 @@ VALUES
 ('theme 6', 'orange')
 ;
 
-INSERT INTO "possible_answer" ("content", "correct")
+INSERT INTO "possible_answer" ("content", "correct", "question_id")
 VALUES 
-('i am the first answer', 'true'),
-('i am the second answer', 'false'),
-('i am the third answer', 'false'),
-('i am the four answer', 'false')
+('i am the first answer', 'true',1),
+('i am the second answer', 'false',1),
+('i am the third answer', 'false',1),
+('i am the four answer', 'false',1)
 ;
 
 INSERT INTO "client_exercise" ("score", "client_id", "exercise_id")
