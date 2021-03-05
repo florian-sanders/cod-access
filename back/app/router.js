@@ -28,6 +28,9 @@ router.route('/contact')
 
 router.route('/exercises')
     .get(exerciseController.getAllExercises);
+ 
+router.route('/exercises/:id')
+    .get(exerciseController.getOneExercise);
 
 router.route('/themes_exercises')
     .get(themeController.getAllThemesForExercises);   

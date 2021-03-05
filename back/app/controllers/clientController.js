@@ -15,7 +15,7 @@ module.exports = {
         }
     },
 
-    getOneClient: async (req, res) => {
+    getOneClient: async (req, res, next) => {
         try{
             const id = Number(req.user.clientId);
             if (isNaN(id)) {
