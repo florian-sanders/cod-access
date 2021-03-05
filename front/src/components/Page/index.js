@@ -8,7 +8,7 @@ import Home from 'src/components/Home';
 import SignUp from 'src/containers/SignUp';
 import Profile from 'src/components/Profile';
 import './styles.scss';
-import ExercicesPage from '../ExercicesPage';
+import ExercisesPage from 'src/containers/ExercisesPage';
 
 const Page = () => (
   <main id="main-content" role="main" tabIndex="-1">
@@ -23,7 +23,7 @@ const Page = () => (
         <Profile />
       </Route>
       <Route exact path="/challenges">
-        <ExercicesPage />
+        <ExercisesPage />
       </Route>
     </Switch>
   </main>
