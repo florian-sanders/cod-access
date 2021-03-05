@@ -32,6 +32,9 @@ router.route('/exercises')
 router.route('/exercises/:id')
     .get(exerciseController.getOneExercise);
 
+router.route('/delete_One_Exercise/:id')
+    .delete(exerciseController.deleteOneExercise);
+
 router.route('/themes_exercises')
     .get(themeController.getAllThemesForExercises);   
     
