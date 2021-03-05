@@ -1,4 +1,7 @@
-const { Exercise } = require('../models');
+const {
+    Exercise,
+    Question
+} = require('../models');
 
 module.exports = {
 
@@ -27,7 +30,20 @@ module.exports = {
                 });
             }
             const exercise = await Exercise.findByPk(id, {
+
                 include: ['kind', 'clients', 'themes']
+=======
+                // association des reponses possible aux questions de l'exercice ciblé
+                include: [
+                    'kind',
+                    'clients',
+                    'themes',
+                    {
+                        association: 'questions',
+                        include: ['possible_answers'],
+                    }
+                ]
+
             });
             console.log('exercise', exercise);
             return res.status(200).json(

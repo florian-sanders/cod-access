@@ -1,4 +1,6 @@
-import { TOGGLE_MENU_VISIBILITY } from 'src/actions/other';
+import {
+  TOGGLE_MENU_VISIBILITY,
+} from 'src/actions/other';
 
 const initialState = {
   mobileMenuVisibility: false,
