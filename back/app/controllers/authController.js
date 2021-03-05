@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt');
 const emailValidator = require('email-validator');
 const jsonwebtoken = require('jsonwebtoken');
-const jwtSecret = 'OurSuperLongRandomSecretToSignOurJWTgre5ezg4jyt5j4ui64gn56bd4sfs5qe4erg5t5yjh46yu6knsw4q';
+const jwtSecret = process.env.JWTSECRET;
+const mailPassword = process.env.MAILPASSWORD;
+const mailPath = process.env.MAILPATH;
 const { Client } = require('../models');
 const nodemailer = require('nodemailer');
 
@@ -59,33 +61,35 @@ module.exports = {
           responsibility_id: 1
         });
         await newClient.save();
-        console.log('200 ok', newClient);
-           
+
         //send mail to newClient
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            user: 'cod.access11@gmail.com',
-            pass: 'ftiU86nRd34E'
+            user: mailPath,
+            pass: mailPassword
           },
           tls: {
               rejectUnauthorized: false
             }
         });
         const mailOptions = {
-          from: 'cod.access11@gmail.com',
+          from: mailPath,
           to: req.body.email,
-          subject: 'Cod\'access welcome on board!',
+          subject: 'Cod\'access bienvenue à bord!',
           text: 'Bienvenue sur cod\'access'
         };
         
         transporter.sendMail(mailOptions, function(error, info){
           if (error) {
             console.log(error);
+            return res.status(500).json('mail failed');
           } else {
             console.log('Email sent: ' + info.response);
           }
         });
+
+        console.log('200 ok', newClient);
         return res.status(200).json(newClient);
       }
     } catch (error) {
@@ -125,7 +129,7 @@ module.exports = {
               clientRole: client.responsibility.entitled,
             };
             const jwtOptions = { 
-              algorithm: 'HS256', 
+              algorithm: process.env.JWTALGO, 
               expiresIn: '3h' 
             };
             console.log('200 ok', client);
@@ -182,8 +186,8 @@ module.exports = {
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            user: 'cod.access11@gmail.com',
-            pass: 'ftiU86nRd34E'
+            user: mailPath,
+            pass: mailPassword
           },
           tls: {
               rejectUnauthorized: false
@@ -191,23 +195,24 @@ module.exports = {
         });
         //send mail to client
         const mailOptionsToClient = {
-          from: 'cod.access11@gmail.com',
+          from: mailPath,
           to: req.body.email,
-          subject: 'Validation submit',
+          subject: 'Validation d\'inscription',
           text: `Merci Mr ${req.body.name} pour l'intérêt que vous portez à notre site. Nous avons bien reçu votre message et traiterons votre demande dans les plis brefs délais. Cordialement.`
         };
 
         transporter.sendMail(mailOptionsToClient, function(error, info){
           if (error) {
             console.log(error);
+            return res.status(500).json('mail failed');
           } else {
-            console.log('Email sent to client: ' + info.response);
+            console.log('Email sent: ' + info.response);
           }
         });
         //send mail to us
         const mailOptionsToUs = {
-          from: 'cod.access11@gmail.com',
-          to: 'cod.access11@gmail.com',
+          from: mailPath,
+          to: mailPath,
           subject: 'New message from' + ' ' + req.body.name,
           text: req.body.content
         };
@@ -215,8 +220,10 @@ module.exports = {
         transporter.sendMail(mailOptionsToUs, function(error, info){
           if (error) {
             console.log(error);
+            return res.status(500).json('mail failed');
           } else {
-            console.log('Email sent to us: ' + info.response);
+            console.log('Email sent: ' + info.response);
+            return res.status(200).json('mails send');
           }
         });
       } catch (error) {
