@@ -14,8 +14,8 @@ CREATE TABLE responsibility (
 
 CREATE TABLE picture (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name text,
-    path text NOT NULL,
+    "name" text,
+    "path" text NOT NULL,
     alternative text,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
@@ -25,7 +25,7 @@ CREATE TABLE client (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     email text NOT NULL,
     pseudo text NOT NULL,
-    password text NOT NULL,
+    "password" text NOT NULL,
     responsibility_id int REFERENCES responsibility(id),
     picture_id int REFERENCES picture(id),
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -34,7 +34,7 @@ CREATE TABLE client (
 
 CREATE TABLE kind (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name text NOT NULL,
+    "name" text NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
@@ -43,8 +43,9 @@ CREATE TABLE exercise (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title text NOT NULL,
     brief text,
+    slug text,
     published boolean NOT NULL,
-    kind_id int REFERENCES kind(id),
+    kind_id int REFERENCES kind(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
@@ -54,8 +55,8 @@ CREATE TABLE question (
     brief text,
     code text NOT NULL,
     explanation text NOT NULL,
-    exercise_id int REFERENCES exercise(id),
-    picture_id int REFERENCES picture(id),
+    exercise_id int REFERENCES exercise(id) ON DELETE CASCADE,
+    picture_id int REFERENCES picture(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
@@ -67,14 +68,14 @@ CREATE TABLE doc (
     slug text NOT NULL,
     content text NOT NULL,
     published boolean NOT NULL,
-    picture_id int REFERENCES picture(id),
+    picture_id int REFERENCES picture(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
 
 CREATE TABLE theme (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name text NOT NULL,
+    "name" text NOT NULL,
     color text NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
@@ -84,7 +85,7 @@ CREATE TABLE possible_answer (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     content text NOT NULL,
     correct boolean NOT NULL,
-    question_id int REFERENCES question(id),
+    question_id int REFERENCES question(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
@@ -92,32 +93,32 @@ CREATE TABLE possible_answer (
 CREATE TABLE client_exercise (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     score int,
-    client_id int REFERENCES client(id),
-    exercise_id int REFERENCES exercise(id),
+    client_id int REFERENCES client(id) ON DELETE CASCADE,
+    exercise_id int REFERENCES exercise(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
 
 CREATE TABLE client_doc (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    client_id int REFERENCES client(id),
-    doc_id int REFERENCES doc(id),
+    client_id int REFERENCES client(id) ON DELETE CASCADE,
+    doc_id int REFERENCES doc(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
 
 CREATE TABLE theme_doc (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    theme_id int REFERENCES theme(id),
-    doc_id int REFERENCES doc(id),
+    theme_id int REFERENCES theme(id) ON DELETE CASCADE,
+    doc_id int REFERENCES doc(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
 
 CREATE TABLE exercise_theme (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    exercise_id int REFERENCES exercise(id),
-    theme_id int REFERENCES theme(id),
+    exercise_id int REFERENCES exercise(id) ON DELETE CASCADE,
+    theme_id int REFERENCES theme(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
