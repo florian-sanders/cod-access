@@ -23,3 +23,10 @@ export const TOGGLE_FILTER_THEME_VISIBILITY = 'TOGGLE_FILTER_THEME_VISIBILITY';
 export const toogleFilterThemeVisibility = () => ({
   type: TOGGLE_FILTER_THEME_VISIBILITY,
 });
+
+export const SET_THEMES_FILTER = 'SET_THEMES_FILTER';
+
+export const setThemesFilter = (newThemesFilter) => ({
+  type: SET_THEMES_FILTER,
+  newThemesFilter,
+});

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ExercisesList from './ExercisesList';
-import Filtre from './Filtre';
+import Filter from './Filter';
 
 import './styles.scss';
 
@@ -11,6 +11,8 @@ const ExercisesPage = ({
   loadingExercisesPage,
   themeFilterVisibility,
   toggleFilter,
+  themesFilter,
+  setThemesFilter,
 }) => {
   useEffect(() => {
     fetchThemesExercises();
@@ -22,13 +24,20 @@ const ExercisesPage = ({
     );
   }
 
+  const themesToDisplay = themesFilter.filter((theme) => (theme.checked));
+
+  const themesGood = allThemesExercises.map((themeD) => themesToDisplay.filter((theme) => (theme.id === themeD.id)))
+
+  console.log('themesGood',themesGood);
+
   return (
     <section className="exercises">
       <h1 className="exercises__title">Choisissez un challenge parmis les thèmes proposés</h1>
-      <Filtre
-        themes={allThemesExercises}
+      <Filter
+        themes={themesFilter}
         visibility={themeFilterVisibility}
         toggleFilter={toggleFilter}
+        setThemesFilter={setThemesFilter}
       />
       <div className="exercises__wrapper">
         {allThemesExercises.map((theme) => (
@@ -54,11 +63,14 @@ ExercisesPage.propTypes = {
   loadingExercisesPage: PropTypes.bool,
   toggleFilter: PropTypes.func,
   themeFilterVisibility: PropTypes.bool,
+  themesFilter: PropTypes.array,
+  setThemesFilter: PropTypes.func.isRequired,
 };
 
 ExercisesPage.defaultProps = {
   loadingExercisesPage: false,
   themeFilterVisibility: false,
+  themesFilter: [],
   allThemesExercises: [],
   toggleFilter: () => {},
 };

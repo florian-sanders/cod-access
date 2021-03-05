@@ -2,12 +2,14 @@ import {
   SET_THEMES_EXERCISES,
   SET_EXERCISESPAGE_LOADING,
   TOGGLE_FILTER_THEME_VISIBILITY,
+  SET_THEMES_FILTER,
 } from 'src/actions/exercises';
 
 const initialState = {
   allThemesExercises: [],
   loadingExercisesPage: false,
   themeFilterVisibility: false,
+  themesFilter: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -26,6 +28,11 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         themeFilterVisibility: !state.themeFilterVisibility,
+      };
+    case SET_THEMES_FILTER:
+      return {
+        ...state,
+        themesFilter: action.newThemesFilter,
       };
     default:
       return state;
