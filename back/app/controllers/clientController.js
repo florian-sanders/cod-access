@@ -35,5 +35,32 @@ module.exports = {
             return res.status(500);
         }
     },
+    
+    deleteOneClient: async (req, res, next) => {
+
+        try {
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            const client = await Client.findByPk(id);
+            
+            if (!client) {
+                console.log('miss client');
+                return res.status(404).json({
+                  errorType: 404,
+                  message: 'miss client'
+                });
+            }
+        
+            await client.destroy();
+            return res.json('client delete');
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
 
 }

@@ -15,6 +15,9 @@ const authorizationMiddleware = jwt({ secret: jwtSecret, algorithms: [algorithms
 router.route('/clients')
     .get(clientController.getAllClients);
 
+router.route('/clients/:id')
+    .delete(clientController.deleteOneClient);  
+
 router.route('/profile')
     .get(authorizationMiddleware, clientController.getOneClient);
 
