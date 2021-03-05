@@ -20,6 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.5.0",
     "pg": "^8.5.1",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.5.0",
+    "swagger-ui": "^3.44.1",
+    "swagger-ui-dist": "^3.44.1"
   }
 }

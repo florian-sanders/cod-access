@@ -1,5 +1,4 @@
 const express = require('express');
-
 const router = express.Router();
 
 const clientController = require('./controllers/clientController');
@@ -8,8 +7,9 @@ const exerciseController = require('./controllers/exerciseController');
 const themeController = require('./controllers/themeController');
 
 const jwt = require('express-jwt');
-const jwtSecret = 'OurSuperLongRandomSecretToSignOurJWTgre5ezg4jyt5j4ui64gn56bd4sfs5qe4erg5t5yjh46yu6knsw4q';
-const authorizationMiddleware = jwt({ secret: jwtSecret, algorithms: ['HS256'] });
+const jwtSecret = process.env.JWTSECRET;
+const algorithmsJWT =  process.env.JWTALGO;
+const authorizationMiddleware = jwt({ secret: jwtSecret, algorithms: [algorithmsJWT] });
 
 router.route('/clients')
     .get(clientController.getAllClients);
@@ -29,7 +29,7 @@ router.route('/contact')
 router.route('/exercises')
     .get(exerciseController.getAllExercises);
  
-router.route('/exercises/:id')
+router.route('/exercises/dragndrop/:id')
     .get(exerciseController.getOneExercise);
 
 router.route('/themes_exercises')
