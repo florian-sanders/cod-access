@@ -49,11 +49,16 @@ module.exports = {
                 });
             }
             const exercise = await Exercise.findByPk(id);
+            
+            if (!exercise) {
+                throw new Error('Exercise does not exist');
+            }
             await exercise.destroy();
             return res.json('exercise delete');
         } catch (error) {
-            console.error(error);
-            return res.status(500);
+            return res.status(500).json({
+                error: error.message,
+            });
         }
     },
 }
