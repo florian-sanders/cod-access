@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ExercicesList from './ExercicesList';
 import Filtre from './Filtre';
 import PropTypes from 'prop-types';
@@ -43,19 +43,42 @@ const themesData = [
   },
 ];
 
-const ExercicesPage = ({}) => (
-  <section className="exercices">
-    <h1 className="exercices__title">Choisissez un challenge parmis les thèmes proposés</h1>
-    <Filtre />
-    <div className="exercices__wrapper">
-      {themesData.map((theme) => (
-        <div className="exercices__wrapper__theme">
-          <h2 className="exercices__wrapper__theme__title">{theme.name}</h2>
-          <ExercicesList key={theme.id} exercices={theme.exercices} />
-        </div>
-      ))}
-    </div>
-  </section>
-);
+const ExercicesPage = ({ fetchThemesExercices, allThemesExercices, loading }) => {
+  useEffect(() => {
+    fetchThemesExercices();
+  }, []);
+
+  return (
+    // { loading ? 'chargement' : 'S\'enregistrer' }
+    <section className="exercices">
+      <h1 className="exercices__title">Choisissez un challenge parmis les thèmes proposés</h1>
+      <Filtre />
+      <div className="exercices__wrapper">
+        {themesData.map((theme) => (
+          <div className="exercices__wrapper__theme">
+            <h2 className="exercices__wrapper__theme__title">{theme.name}</h2>
+            <ExercicesList key={theme.id} exercices={theme.exercices} />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+ExercicesPage.propTypes = {
+  fetchThemesExercices: PropTypes.func.isRequired,
+  allThemesExercices: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      exercices: PropTypes.array,
+    }),
+  ).isRequired,
+  loading: PropTypes.bool,
+};
+
+ExercicesPage.defaultProps = {
+  loading: false,
+};
 
 export default ExercicesPage;
