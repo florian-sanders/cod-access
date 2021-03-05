@@ -46,6 +46,16 @@ Possible_answer.belongsTo(Question, {
     foreignKey: 'question_id'
 });
 
+Exercise.hasMany(Question, {
+    as: 'questions',
+    foreignKey: 'exercise_id'
+});
+
+Question.belongsTo(Exercise, {
+    as: 'exercise',
+    foreignKey: 'exercise_id'
+});
+
 // Association 1:1
 Question.belongsTo(Picture, {
     as: 'question_picture',
