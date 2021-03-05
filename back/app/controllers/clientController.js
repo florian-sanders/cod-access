@@ -17,7 +17,7 @@ module.exports = {
 
     getOneClient: async (req, res) => {
         try{
-            const id = Number(req.params.id);
+            const id = Number(req.user.clientId);
             if (isNaN(id)) {
                 return res.status(400).json({
                     error: `the provided id must be a number`
