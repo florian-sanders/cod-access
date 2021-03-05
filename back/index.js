@@ -3,6 +3,7 @@ const express = require('express');
 const router = require('./app/router');
 const bodyParser = require('body-parser');
 const pathToSwaggerUi = require('swagger-ui-dist').absolutePath()
+console.log('process.env.PG_URL', process.env.PG_URL)
 
 const app = express();
 const cors = require('cors');

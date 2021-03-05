@@ -5,6 +5,7 @@ const clientController = require('./controllers/clientController');
 const authController = require('./controllers/authController');
 const exerciseController = require('./controllers/exerciseController');
 const themeController = require('./controllers/themeController');
+const docController = require('./controllers/docController');
 
 const jwt = require('express-jwt');
 const jwtSecret = process.env.JWTSECRET;
@@ -39,6 +40,19 @@ router.route('/themes_exercises')
     .get(themeController.getAllThemesForExercises);   
     
 router.route('/themes')
-    .get(themeController.getAllThemes);   
+    .get(themeController.getAllThemes); 
+
+router.route('/docs')
+    .get(docController.getAllDocs);  
+
+router.route('/docs/:id')
+    .get(docController.getOneDoc);  
+
+router.route('/published-docs')
+    .get(docController.getAllDocsPublished);  
+  
+router.route('/docs/:id')
+    .delete(docController.deleteOneDoc);  
+    
 
 module.exports = router;
