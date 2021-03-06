@@ -11,9 +11,9 @@ import Footer from 'src/components/Footer';
 import './styles.scss';
 
 // == Composant
-const App = ({ recoverAuth }) => {
+const App = ({ checkAuth }) => {
   useEffect(() => {
-    if (localStorage.getItem('codAccessToken')) recoverAuth();
+    checkAuth();
   }, []);
   return (
     <>
