@@ -13,7 +13,7 @@ import './styles.scss';
 // == Composant
 const App = ({ recoverAuth }) => {
   useEffect(() => {
-    if (localStorage.getItem('codAccessToken')) recoverAuth();
+    if (document.cookie) recoverAuth();
   }, []);
   return (
     <>

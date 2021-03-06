@@ -1,4 +1,3 @@
-import axiosInstance from 'src/api';
 import {
   TOGGLE_CONNECTION_VISIBILITY,
   SET_SIGN_IN_FIELD_VALUE,
@@ -42,8 +41,7 @@ const reducer = (state = initialState, action = {}) => {
         },
       };
     case SIGN_OUT:
-      localStorage.removeItem('codAccessToken');
-      delete axiosInstance.defaults.headers.common.Authorization;
+      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       return {
         ...state,
         isLogged: false,

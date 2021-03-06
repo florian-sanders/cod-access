@@ -20,9 +20,6 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
 
-        localStorage.setItem('codAccessToken', response.data.token);
-
-        axiosInstance.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('codAccessToken')}`;
         store.dispatch(signIn(response.data));
       }
       catch (err) {
@@ -34,7 +31,6 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case CHECK_IS_SIGNED_IN:
       try {
-        axiosInstance.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('codAccessToken')}`;
         const response = await axiosInstance.get('/profile');
 
         if (response.status !== 200) {
