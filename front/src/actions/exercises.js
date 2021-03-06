@@ -30,3 +30,11 @@ export const setThemesFilter = (newThemesFilter) => ({
   type: SET_THEMES_FILTER,
   newThemesFilter,
 });
+
+export const SET_THEME_CHECKBOX = 'SET_THEME_CHECKBOX';
+
+export const setThemeCheckbox = (idTheme, checked) => ({
+  type: SET_THEME_CHECKBOX,
+  idTheme,
+  checked,
+});

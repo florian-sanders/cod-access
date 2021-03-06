@@ -16,15 +16,14 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
         store.dispatch(setThemesExercises(response.data));
-        const themes = [];
-        response.data.map((theme) => (
-          themes.push({
-            id: theme.id,
-            name: theme.name,
-            color: theme.color,
+        const themes = {};
+        for (let i = 0; i < response.data.length; i++) {
+          themes[response.data[i].id] = {
+            name: response.data[i].name,
+            color: response.data[i].color,
             checked: false,
-          })
-        ));
+          };
+        }
         store.dispatch(setThemesFilter(themes));
       }
       catch (err) {

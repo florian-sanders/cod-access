@@ -12,7 +12,7 @@ const ExercisesPage = ({
   themeFilterVisibility,
   toggleFilter,
   themesFilter,
-  setThemesFilter,
+  handleCheckbox,
 }) => {
   useEffect(() => {
     fetchThemesExercises();
@@ -24,20 +24,19 @@ const ExercisesPage = ({
     );
   }
 
-  const themesToDisplay = themesFilter.filter((theme) => (theme.checked));
-
-  const themesGood = allThemesExercises.map((themeD) => themesToDisplay.filter((theme) => (theme.id === themeD.id)))
-
-  console.log('themesGood',themesGood);
+  const themes = [];
+  for (const property in themesFilter) {
+    themes.push({id: property, ...themesFilter[property]});
+  };
 
   return (
     <section className="exercises">
       <h1 className="exercises__title">Choisissez un challenge parmis les thèmes proposés</h1>
       <Filter
-        themes={themesFilter}
+        themes={themes}
         visibility={themeFilterVisibility}
         toggleFilter={toggleFilter}
-        setThemesFilter={setThemesFilter}
+        handleCheckbox={handleCheckbox}
       />
       <div className="exercises__wrapper">
         {allThemesExercises.map((theme) => (
@@ -63,14 +62,14 @@ ExercisesPage.propTypes = {
   loadingExercisesPage: PropTypes.bool,
   toggleFilter: PropTypes.func,
   themeFilterVisibility: PropTypes.bool,
-  themesFilter: PropTypes.array,
-  setThemesFilter: PropTypes.func.isRequired,
+  themesFilter: PropTypes.object,
+  handleCheckbox: PropTypes.func.isRequired,
 };
 
 ExercisesPage.defaultProps = {
   loadingExercisesPage: false,
   themeFilterVisibility: false,
-  themesFilter: [],
+  themesFilter: {},
   allThemesExercises: [],
   toggleFilter: () => {},
 };

@@ -4,6 +4,7 @@ import {
   fetchThemesExercises,
   toogleFilterThemeVisibility,
   setThemesFilter,
+  setThemeCheckbox,
 } from 'src/actions/exercises';
 
 const mapStateToProps = (state) => ({
@@ -17,6 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchThemesExercises: () => dispatch(fetchThemesExercises()),
   toggleFilter: () => dispatch(toogleFilterThemeVisibility()),
   setThemesFilter: (themes) => dispatch(setThemesFilter(themes)),
+  handleCheckbox: (idTheme, checked) => dispatch(setThemeCheckbox(idTheme, checked)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExercisesPage);

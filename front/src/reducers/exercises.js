@@ -3,13 +3,14 @@ import {
   SET_EXERCISESPAGE_LOADING,
   TOGGLE_FILTER_THEME_VISIBILITY,
   SET_THEMES_FILTER,
+  SET_THEME_CHECKBOX,
 } from 'src/actions/exercises';
 
 const initialState = {
   allThemesExercises: [],
   loadingExercisesPage: false,
   themeFilterVisibility: false,
-  themesFilter: [],
+  themesFilter: {},
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -33,6 +34,17 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         themesFilter: action.newThemesFilter,
+      };
+    case SET_THEME_CHECKBOX:
+      return {
+        ...state,
+        themesFilter: {
+          ...state.themesFilter,
+          [action.idTheme]: {
+            ...state.themesFilter[action.idTheme],
+            checked: !action.checked,
+          },
+        },
       };
     default:
       return state;
