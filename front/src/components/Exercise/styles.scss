@@ -1,0 +1,38 @@
+@import 'src/styles/vars';
+
+.exercise-section {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  &__page-heading {
+    font-size: $font-size-title-h1;
+    margin-bottom: $gutter;
+  }
+
+  &__brief {
+    background-color: $grey-color;
+    padding: $gutter;
+    border-radius: .5rem;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  &__question {
+    margin: $gutter auto;
+    max-width: 80%;
+
+    &__drop-area {
+      display: inline-block;
+      padding: 0.5rem 2rem;
+      border: solid 1px #000;
+
+      &--hovered {
+        background-color: blue;
+      }
+    }
+
+    &__answers {
+      display: flex;
+    }
+  }
+}

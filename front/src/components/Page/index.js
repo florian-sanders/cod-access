@@ -9,6 +9,9 @@ import SignUp from 'src/containers/SignUp';
 import Profile from 'src/components/Profile';
 import './styles.scss';
 import ExercicesPage from '../ExercicesPage';
+import Exercise from 'src/components/Exercise'
+
+import data from './data';
 
 const Page = () => (
   <main id="main-content" role="main" tabIndex="-1">
@@ -24,6 +27,9 @@ const Page = () => (
       </Route>
       <Route exact path="/challenges">
         <ExercicesPage />
+      </Route>
+      <Route exact path="/exercice1">
+        <Exercise exercise={data} />
       </Route>
     </Switch>
   </main>
