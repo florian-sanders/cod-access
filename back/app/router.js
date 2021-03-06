@@ -9,14 +9,31 @@ const docController = require('./controllers/docController');
 
 const jwt = require('express-jwt');
 const jwtSecret = process.env.JWTSECRET;
-const algorithmsJWT =  process.env.JWTALGO;
-const authorizationMiddleware = jwt({ secret: jwtSecret, algorithms: [algorithmsJWT] });
+const algorithmsJWT = process.env.JWTALGO;
+// middleware checking JWT. JWT is stored into httpOnly cookie.
+// If token is valid, will go to next middleware, if not, will throw an error.
+const authorizationMiddleware = jwt({
+    secret: jwtSecret,
+    algorithms: [algorithmsJWT],
+    getToken: (req) => req.cookies.token,
+});
+
+// route used by the React App upon loading to retrieve a csrf token.
+// this token will be sent into a cookie as well as a header set by the React App
+// the csrf middleware in the entry file of the server is in charge of checking
+// that both the tokens (sent in cookie + sent in header) are a match.
+// This is to ensure the React App is the source of the request.
+router.route('/csrf-token')
+    .get(authController.getCSRFToken);
+
+router.route('/signout')
+    .get(authController.signout);
 
 router.route('/clients')
     .get(clientController.getAllClients);
 
 router.route('/clients/:id')
-    .delete(clientController.deleteOneClient);  
+    .delete(clientController.deleteOneClient);
 
 router.route('/profile')
     .get(authorizationMiddleware, clientController.getOneClient);
@@ -32,7 +49,7 @@ router.route('/contact')
 
 router.route('/exercises')
     .get(exerciseController.getAllExercises);
- 
+
 router.route('/exercises/dragndrop/:id')
     .get(exerciseController.getOneExercise);
 
@@ -40,22 +57,22 @@ router.route('/delete_One_Exercise/:id')
     .delete(exerciseController.deleteOneExercise);
 
 router.route('/themes_exercises')
-    .get(themeController.getAllThemesForExercises);   
-    
+    .get(themeController.getAllThemesForExercises);
+
 router.route('/themes')
-    .get(themeController.getAllThemes); 
+    .get(themeController.getAllThemes);
 
 router.route('/docs')
-    .get(docController.getAllDocs);  
+    .get(docController.getAllDocs);
 
 router.route('/docs/:id')
-    .get(docController.getOneDoc);  
+    .get(docController.getOneDoc);
 
 router.route('/published-docs')
-    .get(docController.getAllDocsPublished);  
-  
+    .get(docController.getAllDocsPublished);
+
 router.route('/docs/:id')
-    .delete(docController.deleteOneDoc);  
-    
+    .delete(docController.deleteOneDoc);
+
 
 module.exports = router;
