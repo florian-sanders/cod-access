@@ -20,7 +20,7 @@ const ExercisesPage = ({
 
   if (loadingExercisesPage) {
     return (
-      <p>Chargement</p>
+      <p className="loader">Chargement</p>
     );
   }
 

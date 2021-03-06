@@ -23,7 +23,7 @@ const reducer = (state = initialState, action = {}) => {
     case SET_EXERCISESPAGE_LOADING:
       return {
         ...state,
-        loadingExercisesPage: action.loadingExercisesPage,
+        loadingExercisesPage: action.loading,
       };
     case TOGGLE_FILTER_THEME_VISIBILITY:
       return {
