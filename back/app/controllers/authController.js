@@ -9,6 +9,12 @@ const nodemailer = require('nodemailer');
 
 module.exports = {
 
+  signout: async (req, res) => {
+    res.status(200)
+      .clearCookie('token', { httpOnly: true })
+      .json({message: 'sign out'});
+  },
+
   submitSignupForm: async (req, res) => {
     try{
 
@@ -133,12 +139,15 @@ module.exports = {
               expiresIn: '3h' 
             };
             console.log('200 ok', client);
+            const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
+            
+            res.cookie('token', token, { httpOnly: true });
+            
             return res.status(200).json({ 
               id: client.id,
               pseudo: client.pseudo,
               email: client.email,
               responsibility: client.responsibility,
-              token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
             });
             
           }
