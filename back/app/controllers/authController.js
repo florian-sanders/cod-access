@@ -125,7 +125,7 @@ module.exports = {
           where: {
             email: req.body.email
           },
-          include: 'responsibility'
+          include: ['responsibility', 'client_picture']
         });
 
         if (!client) {
