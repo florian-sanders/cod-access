@@ -9,7 +9,10 @@ import SignUp from 'src/containers/SignUp';
 import Profile from 'src/components/Profile';
 import './styles.scss';
 import ExercisesPage from 'src/containers/ExercisesPage';
+<<<<<<< HEAD
 import Exercise from 'src/containers/Exercise';
+=======
+>>>>>>> develop
 
 const Page = () => (
   <main id="main-content" role="main" tabIndex="-1">
@@ -25,9 +28,12 @@ const Page = () => (
       </Route>
       <Route exact path="/challenges">
         <ExercisesPage />
+<<<<<<< HEAD
       </Route>
       <Route exact path="/exercice/:exerciseId">
         <Exercise />
+=======
+>>>>>>> develop
       </Route>
     </Switch>
   </main>
