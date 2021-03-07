@@ -6,6 +6,7 @@ const authController = require('./controllers/authController');
 const exerciseController = require('./controllers/exerciseController');
 const themeController = require('./controllers/themeController');
 const docController = require('./controllers/docController');
+const swaggerController = require('./controllers/swaggerController');
 
 const jwt = require('express-jwt');
 const jwtSecret = process.env.JWTSECRET;
@@ -53,7 +54,7 @@ router.route('/exercises')
 router.route('/exercises/dragndrop/:id')
     .get(exerciseController.getOneExercise);
 
-router.route('/delete_One_Exercise/:id')
+router.route('/exercises/dragndrop/:id')
     .delete(exerciseController.deleteOneExercise);
 
 router.route('/themes_exercises')
@@ -68,11 +69,14 @@ router.route('/docs')
 router.route('/docs/:id')
     .get(docController.getOneDoc);
 
-router.route('/published-docs')
+router.route('/published_docs')
     .get(docController.getAllDocsPublished);
 
 router.route('/docs/:id')
     .delete(docController.deleteOneDoc);
 
+// route used to see all the API in swagger
+router.route('/getAllAPI')
+    .get(swaggerController.getAllAPI);
 
 module.exports = router;
