@@ -69,6 +69,9 @@ router.route('/docs')
 router.route('/docs/:id')
     .get(docController.getOneDoc);
 
+router.route('/docs/:id/client')
+    .post(docController.addDocToClient);
+
 router.route('/docs/:id')
     .patch(docController.changeOneDoc);
 

@@ -1,4 +1,4 @@
-const { Doc } = require('../models');
+const { Doc, Client } = require('../models');
 
 module.exports = {
 
@@ -98,6 +98,9 @@ module.exports = {
             if(req.body.picture_id === "") {
                 req.body.picture_id = null
             }
+            if(req.body.published === "") {
+                req.body.published = false
+            }
  
             const newDoc = new Doc({
                 title: req.body.title,
@@ -144,6 +147,36 @@ module.exports = {
             await result.save();
             console.log('200 ok', result);
             return res.status(200).json(result);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+    
+    addDocToClient: async (req, res, next) => {
+        
+        try {
+            const data = req.body;
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            let doc = await Doc.findByPk(id, {
+                include: 'clients'
+            });
+        
+            let client = await Client.findByPk(Number(data.client_id), {
+                include: 'docs'
+            })
+            await client.addDoc(doc);
+            doc = await Doc.findByPk(id, {
+                include: 'clients'
+            })
+            console.log('200 ok', doc);
+            return res.status(200).json(doc);
         
         } catch (error) {
             console.error(error);
