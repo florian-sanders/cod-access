@@ -23,7 +23,7 @@ const csrfProtection = csrf({
 
 // for every request, check whether csrf cookie token value and request header token value match
 // if they match, will go to next middleware, if not, will throw an error
-app.use(csrfProtection);
+// app.use(csrfProtection);
 
 app.use(bodyParser.json());
 
