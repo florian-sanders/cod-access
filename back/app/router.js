@@ -69,11 +69,17 @@ router.route('/docs')
 router.route('/docs/:id')
     .get(docController.getOneDoc);
 
+router.route('/docs/:id')
+    .patch(docController.changeOneDoc);
+
 router.route('/published_docs')
     .get(docController.getAllDocsPublished);
 
 router.route('/docs/:id')
     .delete(docController.deleteOneDoc);
+
+router.route('/docs/new')
+    .post(docController.newDoc);
 
 // route used to see all the API in swagger
 router.route('/getAllAPI')

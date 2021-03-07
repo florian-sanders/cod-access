@@ -466,7 +466,7 @@
         }
       },
       
-      "docs/news": {
+      "docs/new": {
         "post": {
           "tags": [
             "Doc"
@@ -525,7 +525,7 @@
           "tags": [
             "Doc"
           ],
-          "summary": "Get all docs",
+          "summary": "Get all docs published",
           "description": "Give all docs published",
           "responses": {
             "200": {

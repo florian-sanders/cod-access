@@ -86,4 +86,68 @@ module.exports = {
         }
     },
 
+    newDoc: async (req, res, next) => {
+        
+        try {
+            
+            if ((req.body.title || req.body.brief || req.body.slug || req.body.content || req.body.published) === null) {
+                return res.status(411).json({
+                    error: `some case is empty`
+                });
+            }
+            if(req.body.picture_id === "") {
+                req.body.picture_id = null
+            }
+ 
+            const newDoc = new Doc({
+                title: req.body.title,
+                brief: req.body.brief,
+                slug: req.body.slug,
+                content: req.body.content,
+                published: req.body.published,
+                picture_id: req.body.picture_id,
+            });
+            await newDoc.save();
+            console.log('200 ok', newDoc);
+            return res.status(200).json(newDoc);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+    
+    changeOneDoc: async (req, res, next) => {
+        
+        try {
+            const data = req.body;
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            const result = await Doc.findByPk(id);
+            if(typeof data.picture_id !== Number) {
+                data.picture_id = result.picture_id;
+                // insomnia return always a string??
+                // data.picture_id = Number(data.picture_id);
+            }
+            if(typeof data.published !== Boolean) {
+                data.published = result.published;
+            }
+            for (const properties in data) {
+                if (typeof result[properties] !== 'undefined') {
+                    result[properties] = data[properties];
+                }
+            }
+            await result.save();
+            console.log('200 ok', result);
+            return res.status(200).json(result);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
 }
