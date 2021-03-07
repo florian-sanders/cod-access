@@ -33,6 +33,16 @@
 
     &__answers {
       display: flex;
+      flex-flow: row wrap;
+      gap: $gutter;
+      margin-top: $gutter;
+
+      &__answer {
+        flex: 1 1 40%;
+        border: solid 1px #000;
+        text-align: center;
+        padding: 1rem;
+      }
     }
   }
 }
