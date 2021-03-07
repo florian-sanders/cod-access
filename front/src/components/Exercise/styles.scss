@@ -1,4 +1,4 @@
-@import 'src/styles/vars';
+@import "src/styles/vars";
 
 .exercise-section {
   max-width: 1100px;
@@ -12,36 +12,42 @@
   &__brief {
     background-color: $grey-color;
     padding: $gutter;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     max-width: 80%;
     margin: 0 auto;
   }
 
-  &__question {
-    margin: $gutter auto;
-    max-width: 80%;
+  &__questions {
+    &__question {
+      margin: $gutter auto;
+      max-width: 80%;
 
-    &__drop-area {
-      display: inline-block;
-      padding: 0.5rem 2rem;
-      border: solid 1px #000;
-
-      &--hovered {
-        background-color: blue;
+      &--hidden {
+        display: none;
       }
-    }
 
-    &__answers {
-      display: flex;
-      flex-flow: row wrap;
-      gap: $gutter;
-      margin-top: $gutter;
-
-      &__answer {
-        flex: 1 1 40%;
+      &__drop-area {
+        display: inline-block;
+        padding: 0.5rem 2rem;
         border: solid 1px #000;
-        text-align: center;
-        padding: 1rem;
+
+        &--hovered {
+          background-color: blue;
+        }
+      }
+
+      &__answers {
+        display: flex;
+        flex-flow: row wrap;
+        gap: $gutter;
+        margin-top: $gutter;
+
+        &__answer {
+          flex: 1 1 40%;
+          border: solid 1px #000;
+          text-align: center;
+          padding: 1rem;
+        }
       }
     }
   }

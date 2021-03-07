@@ -1,90 +1,100 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import classNames from 'classnames';
 
-import PossibleAnswer from './PossibleAnswer';
+import Answer from 'src/containers/Exercise/Answer';
 
 import './styles.scss';
 
-const Question = ({ question: { brief, code, explanation, picture, possibleAnswers } }) => {
-  const [state, setState] = useState({
-    questionId: 1,
-    userAnswers: [],
-  });
-
-  const newUserAnswer = (result) => {
-    console.log(result.draggableId);
-    setState({
-      ...state,
-      userAnswers: [
-        ...state.userAnswers,
-        result.draggableId,
-      ],
+const Question = ({
+  isHidden,
+  id,
+  brief,
+  code,
+  picture,
+  possible_answers: possibleAnswers,
+  userAnswers,
+  newUserAnswer,
+  questionIndex,
+}) => {
+  const handleDragEnd = (result) => {
+    newUserAnswer({
+      questionId: id,
+      answerId: Number(result.draggableId),
+      previousAnswers: userAnswers,
     });
   };
 
-  const removeAnswer = (answerIndex) => {
-    console.log(answerIndex);
-    setState({
-      ...state,
-      userAnswers: [
-        ...state.userAnswers.filter((i) => i !== answerIndex.toString()),
-      ],
-    });
-  }
-
   return (
-    <DragDropContext onDragEnd={newUserAnswer}>
-      <article className="exercise-section__question">
-        <p>Question 1</p>
-        <p>{brief}</p>
-        <img src={picture[0].path} alt="" />
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <article className={
+        classNames('exercise-section__questions__question', {
+          'exercise-section__questions__question--hidden': isHidden,
+        })
+      }
+      >
+        <p>Question {questionIndex + 1}</p>
+        {
+          brief && (<p>{brief}</p>)
+        }
+        {
+          picture && (<img src="toto.png" alt="" />)
+        }
         <pre>
           <code>
-            &lt;p&gt;
-            &lt;img src="toto.png"
+            {code}
             <Droppable droppableId="user-answers">
               {(provided, snapshot) => (
                 <span
                   className={
-                    snapshot.isDraggingOver
-                      ? 'exercise-section__question__drop-area--hovered'
-                      : 'exercise-section__question__drop-area'
+                    classNames(
+                      'exercise-section__questions__question__drop-area',
+                      {
+                        'exercise-section__questions__question__drop-area--hovered': snapshot.isDraggingOver,
+                      },
+                    )
                   }
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
                   Drop me here
                   {provided.placeholder}
-                  {console.log(state)}
                   {
-                    state.userAnswers.map((i) => (
-                      <PossibleAnswer answer={possibleAnswers[i]} index={0} isDragDisabled hasDeleteBtn removeAnswer={removeAnswer}/>
+                    userAnswers.map((answerId, index) => (
+                      <Answer
+                        answer={possibleAnswers.find((answer) => (
+                          answer.id === answerId
+                        ))}
+                        userAnswers={userAnswers}
+                        isUserAnswer
+                        questionId={id}
+                        index={index}
+                        isDragDisabled
+                        key={answerId}
+                      />
                     ))
                   }
                 </span>
               )}
             </Droppable>
-            /&gt;
-          &lt;/p&gt;
-        </code>
+          </code>
         </pre>
         <Droppable droppableId="possible-answers" isDropDisabled>
           {(provided, snapshot) => (
-            <article className="exercise-section__question__answers" ref={provided.innerRef}>
+            <article className="exercise-section__questions__question__answers" ref={provided.innerRef}>
               {
-                possibleAnswers.map((possibleAnswer, index) => {
-                  console.log(possibleAnswer,);
-                  return (
-                    <PossibleAnswer
-                      answer={possibleAnswer}
-                      index={index}
-                      isDragDisabled={
-                        state.userAnswers.includes(index.toString())
-                      }
-                    />
-                  )
-                })
+                possibleAnswers.map((possibleAnswer, index) => (
+                  <Answer
+                    answer={possibleAnswer}
+                    index={index}
+                    isDragDisabled={
+                      userAnswers.includes(possibleAnswer.id)
+                    }
+                    key={possibleAnswer.id}
+                  />
+                ))
               }
               {provided.placeholder}
             </article>
@@ -93,6 +103,25 @@ const Question = ({ question: { brief, code, explanation, picture, possibleAnswe
       </article>
     </DragDropContext>
   );
+};
+
+Question.propTypes = {
+  id: PropTypes.number.isRequired,
+  brief: PropTypes.string,
+  code: PropTypes.string.isRequired,
+  picture: PropTypes.string,
+  possible_answers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    content: PropTypes.string,
+  })).isRequired,
+  userAnswers: PropTypes.array.isRequired,
+  newUserAnswer: PropTypes.func.isRequired,
+  questionIndex: PropTypes.number.isRequired,
+};
+
+Question.defaultProps = {
+  brief: '',
+  picture: '',
 };
 
 export default Question;
