@@ -1,0 +1,80 @@
+@import 'src/styles/vars';
+
+.exercises{
+  padding: $gutter;
+
+  &__title{
+    font-size: $font-size-title-h1;
+    font-family: $font-title;
+    text-align: center;
+    margin-bottom: $gutter;
+  }
+
+  &__filter--btn{
+    margin-bottom: $gutter;
+    font-size: 1.2rem;
+    background-color: $white-color;
+    color : $dark-color;
+    border:none;
+    border: 1px, solid, $dark-grey-color;
+    border-radius: 5px;
+    padding: 1rem;
+    border-radius: 30px;
+
+    &:hover{
+      border-color: $dark-color;
+    }
+  }
+
+  &__filter{
+    position: absolute;
+    padding: $gutter;
+    background-color: $white-color;
+    border: 1px solid $dark-color;
+
+    &__legend{
+      display: none;
+    }
+
+    &__item{
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__wrapper{
+    display:flex;
+    justify-content: space-between;
+
+    &__theme{
+      margin-bottom: $gutter;
+      width: 45%;
+
+
+      &__title{
+        font-size: $font-size-title-h2;
+        font-weight: bold;
+        font-family: $font-title;
+        margin-bottom: $gutter;
+      }
+
+      &__exercise{
+        margin-bottom: 1rem;
+
+
+        &__link{
+          display: inline-block;
+          padding: 1rem;
+          width: 100%;
+          border: solid 1px $dark-grey-color;
+          border-radius: 15px;
+
+          &:hover{
+            background-color: $primary-color;
+            color: white;
+          }
+        }
+      }
+    }
+
+  }
+}
