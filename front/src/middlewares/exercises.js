@@ -25,6 +25,11 @@ export default (store) => (next) => async (action) => {
             color: themeWithExercices.color,
             checked: false,
           }));
+
+        const themesIdToDisplay = response.data.map(
+          (themeWithExercices) => (themeWithExercices.id),
+        );
+        store.dispatch(setAllThemesIdToDisplay(themesIdToDisplay));
         store.dispatch(setAllThemesFilterCheckbox(ThemesFilterCheckbox));
       }
       catch (err) {
