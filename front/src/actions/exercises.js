@@ -59,6 +59,13 @@ export const setThemesIdToDisplay = () => ({
   type: SET_THEMES_ID_TO_DISPLAY,
 });
 
+export const SET_ALL_THEMES_ID_TO_DISPLAY = '  SET_ALL_THEMES_ID_TO_DISPLAY';
+
+export const setAllThemesIdToDisplay = (themesId) => ({
+  type: SET_ALL_THEMES_ID_TO_DISPLAY,
+  themesId,
+});
+
 export const SET_NEW_USER_ANSWER = 'SET_NEW_USER_ANSWER';
 
 export const setNewUserAnswer = ({ questionId, answerId, previousAnswers }) => ({

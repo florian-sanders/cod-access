@@ -4,6 +4,7 @@ import {
   setExercisesPageLoading,
   setAllThemesFilterCheckbox,
   FETCH_EXERCISE,
+  setAllThemesIdToDisplay,
   setCurrentExercise,
 } from 'src/actions/exercises';
 import axiosInstance from 'src/api';
@@ -25,7 +26,11 @@ export default (store) => (next) => async (action) => {
             color: themeWithExercices.color,
             checked: false,
           }));
+        const themesIdToDisplay = response.data.map(
+          (themeWithExercices) => (themeWithExercices.id),
+        );
         store.dispatch(setAllThemesFilterCheckbox(ThemesFilterCheckbox));
+        store.dispatch(setAllThemesIdToDisplay(themesIdToDisplay));
       }
       catch (err) {
         console.log('error', err);
