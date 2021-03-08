@@ -4,11 +4,25 @@ export const fetchThemesExercises = () => ({
   type: FETCH_THEMES_EXERCISES,
 });
 
+export const FETCH_EXERCISE = 'FETCH_EXERCISE';
+
+export const fetchExercise = (exerciseId) => ({
+  type: FETCH_EXERCISE,
+  exerciseId,
+});
+
 export const SET_THEMES_EXERCISES = 'SET_THEMES_EXERCISES';
 
 export const setThemesExercises = (data) => ({
   type: SET_THEMES_EXERCISES,
   data,
+});
+
+export const SET_CURRENT_EXERCISE = 'SET_CURRENT_EXERCISE';
+
+export const setCurrentExercise = (currentExercise) => ({
+  type: SET_CURRENT_EXERCISE,
+  currentExercise,
 });
 
 export const SET_EXERCISESPAGE_LOADING = 'SET_EXERCISESPAGE_LOADING';
@@ -43,4 +57,29 @@ export const SET_THEMES_ID_TO_DISPLAY = 'SET_THEMES_ID_TO_DISPLAY';
 
 export const setThemesIdToDisplay = () => ({
   type: SET_THEMES_ID_TO_DISPLAY,
+});
+
+export const SET_NEW_USER_ANSWER = 'SET_NEW_USER_ANSWER';
+
+export const setNewUserAnswer = ({ questionId, answerId, previousAnswers }) => ({
+  type: SET_NEW_USER_ANSWER,
+  questionId,
+  answerId,
+  previousAnswers,
+});
+
+export const REMOVE_USER_ANSWER = 'REMOVE_USER_ANSWER';
+
+export const removeUserAnswer = ({ questionId, answerId, previousAnswers }) => ({
+  type: REMOVE_USER_ANSWER,
+  questionId,
+  answerId,
+  previousAnswers,
+});
+
+export const SHOW_QUESTION = 'SHOW_QUESTION';
+
+export const showQuestion = (questionIndex) => ({
+  type: SHOW_QUESTION,
+  questionIndex,
 });

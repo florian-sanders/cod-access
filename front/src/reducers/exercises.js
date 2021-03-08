@@ -5,6 +5,10 @@ import {
   SET_ALL_THEMES_FILTER_CHECKBOX,
   SET_THEME_CHECKBOX,
   SET_THEMES_ID_TO_DISPLAY,
+  SET_CURRENT_EXERCISE,
+  SET_NEW_USER_ANSWER,
+  REMOVE_USER_ANSWER,
+  SHOW_QUESTION,
 } from 'src/actions/exercises';
 
 const initialState = {
@@ -12,7 +16,17 @@ const initialState = {
   loadingExercisesPage: false,
   themeFilterVisibility: false,
   themesFilterCheckbox: [],
-  themesIdToDisplay: [2, 3, 6],
+  themesIdToDisplay: [],
+  currentExercise: {
+    loading: true,
+    title: '',
+    brief: '',
+    themes: [],
+    questions: [],
+    userAnswers: [],
+    currentQuestionIndex: 0,
+  },
+  userAnswers: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -60,6 +74,61 @@ const reducer = (state = initialState, action = {}) => {
           .map((theme) => theme.id).length === 0
           ? state.themesFilterCheckbox.map((theme) => theme.id)
           : state.themesFilterCheckbox.filter((theme) => theme.checked).map((theme) => theme.id),
+      };
+    case SET_CURRENT_EXERCISE:
+      return {
+        ...state,
+        currentExercise: {
+          ...state.currentExercise,
+          ...action.currentExercise,
+        },
+      };
+    case SET_NEW_USER_ANSWER:
+      return {
+        ...state,
+        currentExercise: {
+          ...state.currentExercise,
+          questions: state.currentExercise.questions.map(
+            (question) => (
+              question.id === action.questionId
+                ? {
+                  ...question,
+                  userAnswers: [
+                    ...action.previousAnswers,
+                    action.answerId,
+                  ],
+                }
+                : question
+            ),
+          ),
+        },
+      };
+    case REMOVE_USER_ANSWER:
+      return {
+        ...state,
+        currentExercise: {
+          ...state.currentExercise,
+          questions: state.currentExercise.questions.map(
+            (question) => (
+              question.id === action.questionId
+                ? {
+                  ...question,
+                  userAnswers: action.previousAnswers.filter(
+                    (answerId) => answerId !== action.answerId,
+                  ),
+                }
+                : question
+            ),
+          ),
+        },
+      };
+    case SHOW_QUESTION:
+      return {
+        ...state,
+        currentExercise: {
+          ...state.currentExercise,
+          currentQuestionIndex: action.questionIndex,
+        },
       };
     default:
       return state;

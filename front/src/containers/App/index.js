@@ -8,7 +8,7 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  recoverAuth: () => dispatch(checkIsSignedIn()),
+  checkAuth: () => dispatch(checkIsSignedIn()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
