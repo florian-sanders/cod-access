@@ -1,0 +1,54 @@
+@import "src/styles/vars";
+
+.header-wrapper__menu {
+  margin-left: auto;
+  margin-right: $gutter * 2;
+  
+  &__toggle-btn {
+    display: none;
+    width: 3rem;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+
+    &__stripe {
+      height: 5px;
+      width: 100%;
+      display: block;
+      margin: 0.2rem 0;
+      border-radius: 0.3rem;
+      background-color: $primary-color;
+    }
+  }
+
+  &__list {
+    display: flex;
+    gap: $gutter;
+
+    &__link {
+      padding: 0.3rem 0.5rem;
+
+      &--active {
+        border-bottom: solid 3px $primary-color;
+      }
+    }
+  }
+
+  @media screen and (max-width:60rem) {
+    order: 1;
+    margin: 0;
+    
+    &__toggle-btn {
+      display: block;
+    }
+
+    &__list {
+      display: none;
+
+      &--visible {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}

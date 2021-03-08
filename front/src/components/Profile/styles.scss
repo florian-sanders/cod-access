@@ -1,0 +1,30 @@
+@import 'src/styles/vars';
+
+.profile{
+  max-width: 800px;
+  margin: auto;
+
+  &__title{
+    font-size: $font-size-title-h1;
+    font-family: $font-text;
+    margin-bottom: 2*$gutter;
+    text-transform: uppercase;
+  }
+
+  &__content{
+    display:flex;
+
+    &__img{
+      width: 150px;
+    }
+
+    &__infos{
+
+      &__pseudo{
+        font-size: $font-size-title-h2;
+        margin-bottom: $gutter;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,821 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "cod'access roads",
+      "version": "1.0.0",
+      "title": "Cod'access",
+      "contact": {
+        "email": "cod.access11@gmail.com"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+       {
+        "name": "Auth",
+        "description": "Login client / Signup new / Contact us"
+      },
+      {
+        "name": "Client",
+        "description": "Every user management for admins"
+      },
+      {
+        "name": "Exercise",
+        "description": "Crud for exercise"
+      },
+      {
+        "name": "Theme",
+        "description": "Access to themes with exercises"
+      },
+      {
+        "name": "Doc",
+        "description": "Everything about docs"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "signup": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "summary": "Create a new client",
+          "description": "Create new client in database",
+           "parameters": [ 
+            { 
+                "name": "email", 
+                "in": "email", 
+                "description": "email du client", 
+                "required": true, 
+                "type": "email" 
+            },
+                   { 
+                "name": "password", 
+                "in": "password", 
+                "description": "password du client", 
+                "required": true, 
+                "type": "password" 
+            },
+                    { 
+                "name": "pseudo", 
+                "in": "pseudo", 
+                "description": "pseudo du client", 
+                "required": true, 
+                "type": "string" 
+            },
+                           { 
+                "name": "responsibility_id", 
+                "in": "responsibility_id", 
+                "description": "responsibility_id du client", 
+                "required": true, 
+                "type": "integer"
+            },
+                           { 
+                "name": "passwordConfirm", 
+                "in": "passwordConfirm", 
+                "description": "passwordConfirm du client", 
+                "required": true, 
+                "type": "password"
+            }
+                  ], 
+          "responses": {
+            "200": {
+             "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Clients"
+              }
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "signin": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "summary": "Connect the client",
+          "description": "Connect client from database",
+           "parameters": [ 
+            { 
+                "name": "email", 
+                "in": "email", 
+                "description": "email du client", 
+                "required": true, 
+                "type": "email" 
+            },
+                   { 
+                "name": "password", 
+                "in": "password", 
+                "description": "password du client", 
+                "required": true, 
+                "type": "password"
+            }
+                  ], 
+          "responses": {
+            "200": {
+             "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Client-signin"
+              }
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "contact": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "summary": "Send an email from client to us",
+          "description": "Submit contact form",
+           "parameters": [ 
+            { 
+                "name": "email", 
+                "in": "email", 
+                "description": "email du client", 
+                "required": true, 
+                "type": "email"
+            },
+                   { 
+                "name": "name", 
+                "in": "name", 
+                "description": "nom du client", 
+                "required": true, 
+                "type": "string"
+            },
+                        { 
+                "name": "content", 
+                "in": "content", 
+                "description": "contenu du client", 
+                "required": true, 
+                "type": "string" 
+            }
+                  ], 
+          "responses": {
+            "200": {
+             "description": "successful operation 1 email for the client and one for us"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "clients": {
+        "get": {
+          "tags": [
+            "Client"
+          ],
+          "summary": "Get all users for admin",
+          "description": "Give all users for manage",
+          "responses": {
+            "200": {
+             "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Clients"
+              }
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "profile": {
+        "get": {
+          "tags": [
+            "Client"
+          ],
+          "summary": "Get one client",
+          "description": "Give the profile client",
+           "parameters": [ 
+            { 
+                "name": "token",  
+                "description": "token du client à retourner", 
+                "required": true, 
+                "type": "string" 
+            } 
+                  ], 
+          "responses": {
+            "200": {
+              "description": "successful operation", 
+                   "schema": {
+                "$ref": "#/definitions/Clients"
+              }
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        }
+      },
+      
+      "profile/{id}": {
+        "patch": {
+          "tags": [
+            "Client"
+          ],
+          "summary": "For any modification profile",
+          "description": "Using by the client to change his profile",
+           "parameters": [ 
+            { 
+                "name": "id", 
+                "in": "path", 
+                "description": "id du client à retourner", 
+                "required": true, 
+                "type": "integer", 
+                "format": "int32" 
+            } 
+                  ], 
+          "responses": {
+            "200": {
+              "description": "successful operation" 
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        }
+      },
+      
+      "favorites/{id_client}/{id_docs}": {
+        "post": {
+          "tags": [
+            "Client"
+          ],
+          "summary": "Add a doc in client favorites",
+          "description": "Using by the client to add a doc in his favorites",
+           "parameters": [ 
+            { 
+                "name": "id", 
+                "in": "path", 
+                "description": "id du client à retourner", 
+                "required": true, 
+                "type": "integer", 
+                "format": "int32" 
+            } 
+                  ], 
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        }
+      },
+      
+      "clients/{id}": {
+        "delete": {
+          "tags": [
+            "Client"
+          ],
+          "summary": "Delete one user by admin",
+          "description": "Using to delete a user",
+           "parameters": [ 
+            { 
+                "name": "id", 
+                "in": "path", 
+                "description": "id du client à retourner", 
+                "required": true, 
+                "type": "integer", 
+                "format": "int32" 
+            } 
+                  ], 
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        }
+      },
+      
+      "clients/{ id }": {
+        "patch": {
+          "tags": [
+            "Client"
+          ],
+          "summary": "Change client role by admin",
+          "description": "Using to change a role client to admin",
+           "parameters": [ 
+            { 
+                "name": "id", 
+                "in": "path", 
+                "description": "id du client à retourner", 
+                "required": true, 
+                "type": "integer", 
+                "format": "int32" 
+            } 
+                  ], 
+          "responses": {
+            "200": {
+              "description": "successful operation" 
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        }
+      },
+      
+      "exercises": {
+        "get": {
+          "tags": [
+            "Exercise"
+          ],
+          "summary": "Get all exercises for admin",
+          "description": "Give all exercises for manage",
+          "responses": {
+            "200": {
+             "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Exercise"
+              }
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "exercises/dragndrop/{id}": {
+        "get": {
+          "tags": [
+            "Exercise"
+          ],
+          "summary": "Get one exercise for admin",
+          "description": "Give one exercise for manage",
+          "responses": {
+            "200": {
+             "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Exercise"
+              }
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "exercises/dragndrop/{ id}": {
+        "post": {
+          "tags": [
+            "Exercise"
+          ],
+          "summary": "Submit a new exercise",
+          "description": "Add an execise by admin",
+          "responses": {
+            "200": {
+             "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "exercises/dragndrop/{ id }": {
+        "delete": {
+          "tags": [
+            "Exercise"
+          ],
+          "summary": "Delete one exercise",
+          "description": "Delete one exercise from database",
+          "responses": {
+            "200": {
+             "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "themes_exercises": {
+        "get": {
+          "tags": [
+            "Theme"
+          ],
+          "summary": "Get all themes with exercises",
+          "description": "Give all themes with exercises published",
+          "responses": {
+            "200": {
+             "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "themes": {
+        "get": {
+          "tags": [
+            "Theme"
+          ],
+          "summary": "Get all themes",
+          "description": "Give all themes",
+          "responses": {
+            "200": {
+             "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        }
+      },
+      
+      "docs": {
+        "get": {
+          "tags": [
+            "Doc"
+          ],
+          "summary": "Get all docs",
+          "description": "Give all docs",
+          "responses": {
+            "200": {
+             "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        }
+      },
+      
+      "docs/new": {
+        "post": {
+          "tags": [
+            "Doc"
+          ],
+          "summary": "Create a new doc",
+          "description": "Add a new doc in database by admin",
+          "responses": {
+            "200": {
+             "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        }
+      },
+      
+      "docs/{id}": {
+        "get": {
+          "tags": [
+            "Doc"
+          ],
+          "summary": "Get one doc",
+          "description": "Give one doc",
+          "responses": {
+            "200": {
+             "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "docs/{ id}": {
+        "patch": {
+          "tags": [
+            "Doc"
+          ],
+          "summary": "For any modification to a doc ",
+          "description": "Using by admin to change a doc in database",
+          "responses": {
+            "200": {
+             "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        }
+      },
+      
+      "published_docs": {
+        "get": {
+          "tags": [
+            "Doc"
+          ],
+          "summary": "Get all docs published",
+          "description": "Give all docs published",
+          "responses": {
+            "200": {
+             "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      },
+      
+      "docs/{ id }": {
+        "delete": {
+          "tags": [
+            "Doc"
+          ],
+          "summary": "Delete one doc",
+          "description": "Delete one doc from database",
+          "responses": {
+            "200": {
+             "description": "successful operation"
+            },
+            "500": {
+              "description": "server wrong"
+            }
+          }
+        } 
+      }
+      
+   },
+   
+    "definitions": {
+  
+      "Client-signin": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+            "email": {
+            "type": "email",
+            "example": "derfy@gamil.com"
+          },
+            "pseudo": {
+            "type": "string",
+            "example": "derfy"
+          },
+            "created_at": {
+            "type": "string",
+            "example": "2021-03-05T15:07:03.572Z"
+          },
+            "updated_at": {
+            "type": "string",
+            "example": null
+          },
+            "responsability": {
+            "properties": {
+            "id": {
+            "type": "integer",
+            "example": 1
+            },
+            "entitled": {
+            "type": "string",
+            "example": "client"
+          },
+            "created_at": {
+            "type": "string",
+            "example": "2021-03-05T15:07:03.572Z"
+          },
+            "updated_at": {
+            "type": "string",
+            "example": null
+          }
+              }
+          },
+            "picture_id": {
+            "type": "integer",
+            "example": 1
+          },
+            "token": {
+            "type": "string",
+            "example": "eyJhbGcNiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6NywiY2xpZW50Um9sZSI6ImNsaWVudCIsImlhdCI6MTYxNTA0MDQ4NywiZXhwIjoxNjE1MDUxMjg3fQ.WWaLpWh5JrWqkuxLRQ6vVERJ_odIJBn_KCRyO422mxw"
+          }
+        }
+      },
+      
+      "Clients": {
+        "type": "object",
+        "properties": {
+            "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+            "email": {
+            "type": "email",
+            "example": "derfy@gamil.com"
+          },
+            "pseudo": {
+            "type": "string",
+            "example": "derfy"
+          },
+      
+          "password": {
+            "type": "password",
+            "example": "*******"
+          },
+            "created_at": {
+            "type": "string",
+            "example": "2021-03-05T15:07:03.572Z"
+          },
+            "updated_at": {
+            "type": "string",
+            "example": null
+          },
+            "responsability_id": {
+            "type": "integer",
+            "example": 1
+          },
+            "picture_id": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      
+       "Exercise_theme": {
+        "type": "object",
+        "properties": {
+               "exercise_id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 2
+          },
+                 "theme_id": {
+            "type": "integer",
+            "format": "int64",
+              "example": 2
+          }
+          }
+        },
+         
+       "Client_exercise": {
+        "type": "object",
+        "properties": {
+            "score": {
+            "type": "integer",
+            "format": "int64",
+            "example": 2
+          },
+            "created_at": {
+            "type": "string",
+            "example": "2021-03-05T15:07:03.572Z"
+          },
+            "updated_at": {
+            "type": "string",
+            "example": null
+          },
+            "exercise_id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 2
+          },
+            "theme_id": {
+            "type": "integer",
+            "format": "int64",
+             "example": 2
+          }
+          }
+        },
+      
+       "Exercise": {
+        "type": "object",
+        "properties": {
+            "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+            "title": {
+            "type": "string",
+            "example": "attribut alt"
+          },
+            "brief": {
+            "type": "string",
+            "example": "exo1"
+          },
+      
+          "published": {
+            "type": "boolean",
+            "example": true
+          },
+            "created_at": {
+            "type": "string",
+            "example": "2021-03-05T15:07:03.572Z"
+          },
+            "updated_at": {
+            "type": "string",
+            "example": null
+          },
+            "kind_id": {
+            "type": "integer",
+            "example": 1
+          },
+            "kind": {
+             "properties": {
+                "id": {
+                "type": "integer",
+                "example": 1
+                },
+                "name": {
+                "type": "string",
+                "example": "drag n drop"
+                },
+                  "created_at": {
+                  "type": "string",
+                  "example": "2021-03-05T15:07:03.572Z"
+                },
+                  "updated_at": {
+                  "type": "string",
+                  "example": null
+                }
+              }
+          },
+          "clients": {
+          "type": "array",
+          "items": {
+          "properties": {
+                  "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+             "email": {
+            "type": "email",
+            "example": "derfy@gamil.com"
+          },
+            "pseudo": {
+            "type": "string",
+            "example": "derfy"
+          },
+      
+          "password": {
+            "type": "password",
+            "example": "*******"
+          },
+            "created_at": {
+            "type": "string",
+            "example": "2021-03-05T15:07:03.572Z"
+          },
+            "updated_at": {
+            "type": "string",
+            "example": null
+          },
+            "responsability_id": {
+            "type": "integer",
+            "example": 1
+          },
+            "picture_id": {
+            "type": "integer",
+            "example": 1
+          },
+                 "Client_exercise": {
+                   "$ref": "#/definitions/Client_exercise"
+                                     }
+                        }
+                    }
+                      },
+          "themes": {
+          "type": "array",
+          "items": {
+          "properties": {
+                "id": {
+                "type": "integer",
+                "example": 1
+                },
+                   "name": {
+                "type": "string",
+                "example": "html"
+                },
+                   "color": {
+                "type": "string",
+                "example": "rouge"
+                },
+                "exercise_theme": {
+                   "$ref": "#/definitions/Exercise_theme"
+                          }
+                        }
+                    }
+                      }
+        }
+      }
+    }
+  }

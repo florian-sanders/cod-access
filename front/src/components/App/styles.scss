@@ -1,0 +1,18 @@
+@import "src/styles/vars";
+
+.header-wrapper {
+  padding: 2rem 5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  @media screen and (max-width:60rem){
+    padding: 1.5rem 1rem;
+    justify-content: space-between;
+  }
+}
+
+a.skip-link.sr-only-focusable {
+  display: block;
+  margin: 1rem;
+}
