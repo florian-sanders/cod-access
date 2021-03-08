@@ -2,6 +2,7 @@ import {
   FETCH_THEMES_EXERCISES,
   setThemesExercises,
   setExercisesPageLoading,
+  setAllThemesFilterCheckbox,
   FETCH_EXERCISE,
   setCurrentExercise,
 } from 'src/actions/exercises';
@@ -13,11 +14,18 @@ export default (store) => (next) => async (action) => {
       try {
         store.dispatch(setExercisesPageLoading(true));
         const response = await axiosInstance.get('/themes_exercises');
-        console.log(response);
         if (response.status !== 200) {
           throw new Error();
         }
         store.dispatch(setThemesExercises(response.data));
+        const ThemesFilterCheckbox = response.data.map((themeWithExercices) => (
+          {
+            id: themeWithExercices.id,
+            name: themeWithExercices.name,
+            color: themeWithExercices.color,
+            checked: false,
+          }));
+        store.dispatch(setAllThemesFilterCheckbox(ThemesFilterCheckbox));
       }
       catch (err) {
         console.log('error', err);

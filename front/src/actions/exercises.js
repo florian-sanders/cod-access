@@ -38,6 +38,27 @@ export const toogleFilterThemeVisibility = () => ({
   type: TOGGLE_FILTER_THEME_VISIBILITY,
 });
 
+export const SET_ALL_THEMES_FILTER_CHECKBOX = 'SET_ALL_THEMES_FILTER_CHECKBOX';
+
+export const setAllThemesFilterCheckbox = (newThemesFilter) => ({
+  type: SET_ALL_THEMES_FILTER_CHECKBOX,
+  newThemesFilter,
+});
+
+export const SET_THEME_CHECKBOX = 'SET_THEME_CHECKBOX';
+
+export const setThemeCheckbox = (idTheme, checked) => ({
+  type: SET_THEME_CHECKBOX,
+  idTheme,
+  checked,
+});
+
+export const SET_THEMES_ID_TO_DISPLAY = 'SET_THEMES_ID_TO_DISPLAY';
+
+export const setThemesIdToDisplay = () => ({
+  type: SET_THEMES_ID_TO_DISPLAY,
+});
+
 export const SET_NEW_USER_ANSWER = 'SET_NEW_USER_ANSWER';
 
 export const setNewUserAnswer = ({ questionId, answerId, previousAnswers }) => ({
