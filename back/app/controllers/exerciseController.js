@@ -1,5 +1,6 @@
 const {
     Exercise,
+    Client
 } = require('../models');
 
 module.exports = {
@@ -21,7 +22,11 @@ module.exports = {
 
     getOneExercise: async (req, res, next) => {
         try {
-            //const id = Number(req.user.exerciseId);
+            if(req.user){
+                const client_id = req.user.clientId;
+                console.log('client_id', client_id)
+            }
+         
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -29,20 +34,16 @@ module.exports = {
                 });
             }
             const exercise = await Exercise.findByPk(id, {
-
-                include: ['kind', 'clients', 'themes'],
-
-                // association des reponses possible aux questions de l'exercice ciblé
                 include: [
                     'kind',
-                    'clients',
                     'themes',
+                    'clients',
                     {
                         association: 'questions',
-                        include: ['possible_answers'],
+                        include: ['possible_answers', 'question_picture'],
                     }
-                ]
-
+                ],
+                // include: [{model:Client, as:'clients',where:{id: req.user.clientId},required:false}]
             });
             console.log('exercise', exercise);
             return res.status(200).json(

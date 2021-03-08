@@ -40,6 +40,7 @@ module.exports = {
     getOneDoc: async (req, res, next) => {
 
         try{
+           
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -157,7 +158,7 @@ module.exports = {
     addDocToClient: async (req, res, next) => {
         
         try {
-            const data = req.body;
+            const client_id = req.user.clientId
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -168,7 +169,7 @@ module.exports = {
                 include: 'clients'
             });
         
-            let client = await Client.findByPk(Number(data.client_id), {
+            let client = await Client.findByPk(client_id, {
                 include: 'docs'
             })
             await client.addDoc(doc);

@@ -13,7 +13,16 @@ const jwtSecret = process.env.JWTSECRET;
 const algorithmsJWT = process.env.JWTALGO;
 // middleware checking JWT. JWT is stored into httpOnly cookie.
 // If token is valid, will go to next middleware, if not, will throw an error.
-const authorizationMiddleware = jwt({
+// credentialsRequired only if i want let pass everyone
+// if only client connect delete the line credentialsRequired
+const authorizationMiddlewareLetPass = jwt({
+    secret: jwtSecret,
+    algorithms: [algorithmsJWT],
+    credentialsRequired: false,
+    getToken: (req) => req.cookies.token,
+});
+
+const authorizationMiddlewareNotPass = jwt({
     secret: jwtSecret,
     algorithms: [algorithmsJWT],
     getToken: (req) => req.cookies.token,
@@ -37,7 +46,7 @@ router.route('/clients/:id')
     .delete(clientController.deleteOneClient);
 
 router.route('/profile')
-    .get(authorizationMiddleware, clientController.getOneClient);
+    .get(authorizationMiddlewareNotPass, clientController.getOneClient);
 
 router.route('/signin')
     .post(authController.submitLoginForm);
@@ -52,7 +61,7 @@ router.route('/exercises')
     .get(exerciseController.getAllExercises);
 
 router.route('/exercises/dragndrop/:id')
-    .get(exerciseController.getOneExercise);
+    .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise);
 
 router.route('/exercises/dragndrop/:id')
     .delete(exerciseController.deleteOneExercise);
@@ -67,10 +76,10 @@ router.route('/docs')
     .get(docController.getAllDocs);
 
 router.route('/docs/:id')
-    .get(docController.getOneDoc);
+    .get(authorizationMiddlewareLetPass,docController.getOneDoc);
 
 router.route('/docs/:id/client')
-    .post(docController.addDocToClient);
+    .post(authorizationMiddlewareNotPass,docController.addDocToClient);
 
 router.route('/docs/:id')
     .patch(docController.changeOneDoc);
