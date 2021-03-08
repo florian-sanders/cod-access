@@ -29,8 +29,8 @@ export default (store) => (next) => async (action) => {
         const themesIdToDisplay = response.data.map(
           (themeWithExercices) => (themeWithExercices.id),
         );
-        store.dispatch(setAllThemesFilterCheckbox(ThemesFilterCheckbox));
         store.dispatch(setAllThemesIdToDisplay(themesIdToDisplay));
+        store.dispatch(setAllThemesFilterCheckbox(ThemesFilterCheckbox));
       }
       catch (err) {
         console.log('error', err);
