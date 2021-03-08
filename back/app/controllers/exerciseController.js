@@ -22,11 +22,6 @@ module.exports = {
 
     getOneExercise: async (req, res, next) => {
         try {
-            if(req.user){
-                const client_id = req.user.clientId;
-                console.log('client_id', client_id)
-            }
-         
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -56,7 +51,12 @@ module.exports = {
 
     deleteOneExercise: async (req, res, next) => {
         try {
-            //const id = Number(req.user.exerciseId);
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
