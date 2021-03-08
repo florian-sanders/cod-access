@@ -1,0 +1,29 @@
+.header-wrapper__header {
+  &__link {
+    display: flex;
+    align-items: center;
+
+    &__site-logo {
+      width: 50px;
+      margin-right: 1rem;
+    }
+  
+    &__site-name {
+      font-size: 2rem;
+    }
+  }
+  
+
+  @media screen and (max-width:60rem) {
+    &__link {
+      &__site-logo {
+        width: 30px;
+        margin-right: 0.5rem;
+      }
+
+      &__site-name {
+        font-size: 1rem;
+      }
+    }
+  }
+}
