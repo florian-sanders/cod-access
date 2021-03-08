@@ -64,7 +64,7 @@ export default (store) => (next) => async (action) => {
         console.log('error', err);
       }
       finally {
-        // store.dispatch(setExercisesPageLoading(false));
+        store.dispatch(setExercisesPageLoading(false));
       }
       return next(action);
     default:
