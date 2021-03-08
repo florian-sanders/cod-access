@@ -1,0 +1,4 @@
+%syntax-version=1.0.0
+%project=create_db
+
+file_bdd 2021-03-02T13:41:10Z BOURIGEAUD Frederic <bourigeaudfrederic@yahoo.fr> # file sql for bdd
