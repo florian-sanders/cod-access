@@ -40,10 +40,11 @@ router.route('/signout')
     .get(authController.signout);
 
 router.route('/clients')
-    .get(clientController.getAllClients);
+    .get(authorizationMiddlewareNotPass,clientController.getAllClients);
 
 router.route('/clients/:id')
-    .delete(clientController.deleteOneClient);
+    .patch(authorizationMiddlewareNotPass,clientController.changeRoleClient)
+    .delete(authorizationMiddlewareNotPass,clientController.deleteOneClient);
 
 router.route('/profile')
     .get(authorizationMiddlewareNotPass, clientController.getOneClient);
@@ -61,10 +62,8 @@ router.route('/exercises')
     .get(exerciseController.getAllExercises);
 
 router.route('/exercises/dragndrop/:id')
-    .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise);
-
-router.route('/exercises/dragndrop/:id')
-    .delete(exerciseController.deleteOneExercise);
+    .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise)
+    .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
 
 router.route('/themes_exercises')
     .get(themeController.getAllThemesForExercises);
@@ -76,22 +75,20 @@ router.route('/docs')
     .get(docController.getAllDocs);
 
 router.route('/docs/:id')
-    .get(authorizationMiddlewareLetPass,docController.getOneDoc);
+    .get(authorizationMiddlewareLetPass,docController.getOneDoc)
+    .patch(authorizationMiddlewareNotPass,docController.changeOneDoc)
+    .delete(authorizationMiddlewareNotPass,docController.deleteOneDoc);
 
 router.route('/docs/:id/client')
-    .post(authorizationMiddlewareNotPass,docController.addDocToClient);
-
-router.route('/docs/:id')
-    .patch(docController.changeOneDoc);
-
+    .post(authorizationMiddlewareNotPass,docController.addDocToClient)
+    .delete(authorizationMiddlewareNotPass,docController.deleteDocToClient);
+    
 router.route('/published_docs')
-    .get(docController.getAllDocsPublished);
-
-router.route('/docs/:id')
-    .delete(docController.deleteOneDoc);
+        .get(docController.getAllDocsPublished);
 
 router.route('/docs/new')
-    .post(docController.newDoc);
+    .post(authorizationMiddlewareNotPass,docController.newDoc);
+  
 
 // route used to see all the API in swagger
 router.route('/getAllAPI')

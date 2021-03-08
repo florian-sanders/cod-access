@@ -6,6 +6,12 @@ module.exports = {
 
     getAllClients: async (req, res) => {
         try{
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
             const clients = await Client.findAll();
             console.log('clients', clients);
             return res.status(200).json(
@@ -40,9 +46,58 @@ module.exports = {
         }
     },
     
+    changeRoleClient: async (req, res, next) => {
+
+        try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            if(req.body.responsibility === 'client'){
+                req.body.responsibility = 1
+            }else if(req.body.responsibility === 'admin'){
+                req.body.responsibility = 2
+            }else{
+                return res.status(400).json({
+                    error: `the status must be client or admin`
+                });
+            }
+            const client = await Client.findByPk(id, {
+                include: 'responsibility'
+            });
+            
+            if (!client) {
+                console.log('miss client');
+                return res.status(404).json({
+                  errorType: 404,
+                  message: 'miss client'
+                });
+            }
+            await client.update({responsibility_id: req.body.responsibility});
+            return res.json('client update');
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+
     deleteOneClient: async (req, res, next) => {
 
         try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
