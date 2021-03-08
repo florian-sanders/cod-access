@@ -24,10 +24,10 @@ export const toogleFilterThemeVisibility = () => ({
   type: TOGGLE_FILTER_THEME_VISIBILITY,
 });
 
-export const SET_THEMES_FILTER = 'SET_THEMES_FILTER';
+export const SET_ALL_THEMES_FILTER_CHECKBOX = 'SET_ALL_THEMES_FILTER_CHECKBOX';
 
-export const setThemesFilter = (newThemesFilter) => ({
-  type: SET_THEMES_FILTER,
+export const setAllThemesFilterCheckbox = (newThemesFilter) => ({
+  type: SET_ALL_THEMES_FILTER_CHECKBOX,
   newThemesFilter,
 });
 
@@ -37,4 +37,10 @@ export const setThemeCheckbox = (idTheme, checked) => ({
   type: SET_THEME_CHECKBOX,
   idTheme,
   checked,
+});
+
+export const SET_THEMES_ID_TO_DISPLAY = 'SET_THEMES_ID_TO_DISPLAY';
+
+export const setThemesIdToDisplay = () => ({
+  type: SET_THEMES_ID_TO_DISPLAY,
 });

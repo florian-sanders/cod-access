@@ -20,7 +20,7 @@ const ThemeCheckBox = ({ theme, handleCheckbox }) => (
 
 ThemeCheckBox.propTypes = {
   theme: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired,
   }),

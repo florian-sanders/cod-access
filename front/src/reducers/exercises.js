@@ -2,15 +2,17 @@ import {
   SET_THEMES_EXERCISES,
   SET_EXERCISESPAGE_LOADING,
   TOGGLE_FILTER_THEME_VISIBILITY,
-  SET_THEMES_FILTER,
+  SET_ALL_THEMES_FILTER_CHECKBOX,
   SET_THEME_CHECKBOX,
+  SET_THEMES_ID_TO_DISPLAY,
 } from 'src/actions/exercises';
 
 const initialState = {
   allThemesExercises: [],
   loadingExercisesPage: false,
   themeFilterVisibility: false,
-  themesFilter: {},
+  themesFilterCheckbox: [],
+  themesIdToDisplay: [2, 3, 6],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -30,21 +32,34 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         themeFilterVisibility: !state.themeFilterVisibility,
       };
-    case SET_THEMES_FILTER:
+    case SET_ALL_THEMES_FILTER_CHECKBOX:
       return {
         ...state,
-        themesFilter: action.newThemesFilter,
+        themesFilterCheckbox: action.newThemesFilter,
       };
     case SET_THEME_CHECKBOX:
       return {
         ...state,
-        themesFilter: {
-          ...state.themesFilter,
-          [action.idTheme]: {
-            ...state.themesFilter[action.idTheme],
-            checked: !action.checked,
-          },
-        },
+        themesFilterCheckbox:
+          state.themesFilterCheckbox.map(
+            (theme) => (
+              theme.id === action.idTheme
+                ? {
+                  ...theme,
+                  checked: !action.checked,
+                }
+                : theme
+            ),
+          ),
+      };
+    case SET_THEMES_ID_TO_DISPLAY:
+      return {
+        ...state,
+        themesIdToDisplay:
+        state.themesFilterCheckbox.filter((theme) => theme.checked)
+          .map((theme) => theme.id).length === 0
+          ? state.themesFilterCheckbox.map((theme) => theme.id)
+          : state.themesFilterCheckbox.filter((theme) => theme.checked).map((theme) => theme.id),
       };
     default:
       return state;
