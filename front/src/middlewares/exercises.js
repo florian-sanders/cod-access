@@ -56,8 +56,6 @@ export default (store) => (next) => async (action) => {
           questions: data.questions,
         };
 
-        console.log(currentExercise);
-
         store.dispatch(setCurrentExercise(currentExercise));
       }
       catch (err) {
