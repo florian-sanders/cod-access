@@ -37,13 +37,12 @@ module.exports = {
                 include: [
                     'kind',
                     'themes',
-                    'clients',
                     {
                         association: 'questions',
                         include: ['possible_answers', 'question_picture'],
                     }
                 ],
-                // include: [{model:Client, as:'clients',where:{id: req.user.clientId},required:false}]
+                include: [{model:Client, as:'clients',where:{id: req.user.clientId},required:false}]
             });
             console.log('exercise', exercise);
             return res.status(200).json(
