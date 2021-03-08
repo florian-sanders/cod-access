@@ -1,4 +1,6 @@
 const { Client } = require('../models');
+const jsonwebtoken = require('jsonwebtoken');
+const jwt = require('express-jwt');
 
 module.exports = {
 
@@ -17,6 +19,8 @@ module.exports = {
 
     getOneClient: async (req, res, next) => {
         try{
+            // var decoded = jwt.verify(token, process.env.JWTSECRET);
+            // console.log('decoded', decoded)
             const id = Number(req.user.clientId);
             if (isNaN(id)) {
                 return res.status(400).json({
