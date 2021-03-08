@@ -6,7 +6,7 @@ import {
 
 import Home from 'src/components/Home';
 import SignUp from 'src/containers/SignUp';
-import Profile from 'src/components/Profile';
+import Profile from 'src/containers/Profile';
 import './styles.scss';
 import ExercisesPage from 'src/containers/ExercisesPage';
 import Exercise from 'src/containers/Exercise';
