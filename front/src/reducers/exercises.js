@@ -9,7 +9,6 @@ import {
   SET_NEW_USER_ANSWER,
   REMOVE_USER_ANSWER,
   SHOW_QUESTION,
-  SET_ALL_THEMES_ID_TO_DISPLAY,
 } from 'src/actions/exercises';
 
 const initialState = {
@@ -75,11 +74,6 @@ const reducer = (state = initialState, action = {}) => {
           .map((theme) => theme.id).length === 0
           ? state.themesFilterCheckbox.map((theme) => theme.id)
           : state.themesFilterCheckbox.filter((theme) => theme.checked).map((theme) => theme.id),
-      };
-    case SET_ALL_THEMES_ID_TO_DISPLAY:
-      return {
-        ...state,
-        themesIdToDisplay: action.themesId,
       };
     case SET_CURRENT_EXERCISE:
       return {

@@ -4,7 +4,6 @@ import {
   setExercisesPageLoading,
   setAllThemesFilterCheckbox,
   FETCH_EXERCISE,
-  setAllThemesIdToDisplay,
   setCurrentExercise,
 } from 'src/actions/exercises';
 import axiosInstance from 'src/api';
@@ -26,6 +25,7 @@ export default (store) => (next) => async (action) => {
             color: themeWithExercices.color,
             checked: false,
           }));
+
         const themesIdToDisplay = response.data.map(
           (themeWithExercices) => (themeWithExercices.id),
         );
@@ -56,15 +56,13 @@ export default (store) => (next) => async (action) => {
           questions: data.questions,
         };
 
-        console.log(currentExercise);
-
         store.dispatch(setCurrentExercise(currentExercise));
       }
       catch (err) {
         console.log('error', err);
       }
       finally {
-        // store.dispatch(setExercisesPageLoading(false));
+        store.dispatch(setExercisesPageLoading(false));
       }
       return next(action);
     default:
