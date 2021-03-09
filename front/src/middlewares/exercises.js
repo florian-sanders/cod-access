@@ -81,7 +81,7 @@ export default (store) => (next) => async (action) => {
           answers: question.userAnswers,
         }));
 
-        const response = await axiosInstance.post(`/exercises/dragndrop/${currentExercise.id}')`, userAnswers);
+        const response = await axiosInstance.post(`/exercises/dragndrop/${currentExercise.id}`, userAnswers);
 
         if (response.status !== 200) {
           throw new Error();
