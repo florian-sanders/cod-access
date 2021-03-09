@@ -64,6 +64,7 @@ router.route('/exercises')
 
 router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise)
+    .post(authorizationMiddlewareLetPass,exerciseController.submitExercise)
     .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
 
 router.route('/exercises/dragndrop/new')

@@ -104,4 +104,17 @@ module.exports = {
             return res.status(500);
         }
     },
+    
+    submitExercise: async (req, res, next) => {
+        
+        try {
+
+            console.log('200 ok');
+            return res.status(200).json('ok');
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
 }
