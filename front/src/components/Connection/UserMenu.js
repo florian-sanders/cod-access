@@ -35,6 +35,7 @@ const UserMenu = ({ pseudo, signOut, role }) => (
 UserMenu.propTypes = {
   pseudo: PropTypes.string.isRequired,
   signOut: PropTypes.func.isRequired,
+  role: PropTypes.string.isRequired,
 };
 
 export default UserMenu;

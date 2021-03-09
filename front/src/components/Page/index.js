@@ -10,7 +10,7 @@ import SignUp from 'src/containers/SignUp';
 import Profile from 'src/containers/Profile';
 import ExercisesPage from 'src/containers/ExercisesPage';
 import Exercise from 'src/containers/Exercise';
-import Dashboard from 'src/components/Dashboard';
+import Dashboard from 'src/containers/Dashboard';
 
 const Page = () => (
   <main id="main-content" role="main" tabIndex="-1">
