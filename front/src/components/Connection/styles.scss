@@ -29,6 +29,10 @@
       display: block;
     }
 
+    &__title{
+      margin-bottom: 1rem;
+    }
+
     &__form {
       &__group {
         display: flex;
@@ -53,6 +57,17 @@
         display: block;
         width: max-content;
         margin: 0 auto;
+      }
+
+    }
+    
+    &__list{
+      &__link{
+        display:block;
+        padding-bottom: 1rem;
+        &--active{
+          font-weight: bold;
+        }
       }
     }
 

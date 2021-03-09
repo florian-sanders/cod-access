@@ -1,19 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './styles.scss';
 
-const UserMenu = ({ pseudo, signOut }) => (
+const UserMenu = ({ pseudo, signOut, role }) => (
   <>
-    <p>Bienvenue à bord {pseudo}</p>
-    <ul>
+    <p className="header-wrapper__connection__toggle-area__title">Bienvenue à bord {pseudo}</p>
+    <ul className="header-wrapper__connection__toggle-area__list">
       <li>
-        <Link to="/profil">Profil</Link>
+        <NavLink to="/profil" exact className="header-wrapper__connection__toggle-area__list__link" activeClassName="header-wrapper__connection__toggle-area__list__link--active">Profil</NavLink>
       </li>
+      {
+        role === 'admin'
+        && (
+          <li className="header-wrapper__connection__toggle-area__list__link">
+            <NavLink to="/admin/utilisateurs" exact className="header-wrapper__connection__toggle-area__list__link" activeClassName="header-wrapper__connection__toggle-area__list__link--active">Tableau de bord</NavLink>
+          </li>
+        )
+      }
       <li>
-        <Link to="/profil-edit">Paramètres</Link>
+        <NavLink to="/profil-edit" exact className="header-wrapper__connection__toggle-area__list__link" activeClassName="header-wrapper__connection__toggle-area__list__link--active">Paramètres</NavLink>
       </li>
       <li>
         <button type="button" onClick={signOut}>
