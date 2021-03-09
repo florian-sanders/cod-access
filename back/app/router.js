@@ -47,7 +47,8 @@ router.route('/clients/:id')
     .delete(authorizationMiddlewareNotPass,clientController.deleteOneClient);
 
 router.route('/profile')
-    .get(authorizationMiddlewareNotPass, clientController.getOneClient);
+    .get(authorizationMiddlewareNotPass, clientController.getOneClient)
+    .patch(authorizationMiddlewareNotPass, clientController.updateClient);
 
 router.route('/signin')
     .post(authController.submitLoginForm);
