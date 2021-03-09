@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import PropTypes, { shape } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import Question from 'src/containers/Exercise/Question';
 import './styles.scss';
@@ -63,7 +63,7 @@ Exercise.propTypes = {
   currentQuestionIndex: PropTypes.number,
   getExercise: PropTypes.func.isRequired,
   changeQuestion: PropTypes.func.isRequired,
-  submitAnswers: PropTypes.func.isRequired,
+  submitAnswers: PropTypes.func,
 };
 
 Exercise.defaultProps = {
@@ -71,6 +71,7 @@ Exercise.defaultProps = {
   questions: [],
   loading: true,
   currentQuestionIndex: 0,
+  submitAnswers: () => {},
 };
 
 export default Exercise;

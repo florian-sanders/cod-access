@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 import classNames from 'classnames';
+import { nanoid } from 'nanoid';
 
-import Answer from 'src/containers/Exercise/Answer';
+import DropAnswer from './DropAnswer';
+import DragPossibleAnswers from './DragPossibleAnswers';
 
 import './styles.scss';
 
@@ -27,6 +29,11 @@ const Question = ({
     });
   };
 
+  // move this to container / middleware later
+  code = code.slice(0, 2) + '[[drop]]' + code.slice(2);
+  const regex = /(?:\[\[|\]\])+/;
+  const test = code.split(regex);
+
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <article className={
@@ -44,68 +51,37 @@ const Question = ({
         }
         <pre>
           <code>
-            {code}
-            <Droppable droppableId="user-answers">
-              {(provided, snapshot) => (
-                <span
-                  className={
-                    classNames(
-                      'exercise-section__questions__question__drop-area',
-                      {
-                        'exercise-section__questions__question__drop-area--hovered': snapshot.isDraggingOver,
-                      },
-                    )
-                  }
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  Drop me here
-                  {provided.placeholder}
-                  {
-                    userAnswers.map((answerId, index) => (
-                      <Answer
-                        answer={possibleAnswers.find((answer) => (
-                          answer.id === answerId
-                        ))}
-                        userAnswers={userAnswers}
-                        isUserAnswer
-                        questionId={id}
-                        index={index}
-                        isDragDisabled
-                        key={answerId}
-                      />
-                    ))
-                  }
-                </span>
-              )}
-            </Droppable>
+            {
+              test.map((text) => {
+                if (text === 'drop') {
+                  return (
+                    <DropAnswer
+                      possibleAnswers={possibleAnswers}
+                      userAnswers={userAnswers}
+                      questionId={id}
+                      key={nanoid()}
+                    />
+                  );
+                }
+                return (
+                  <span key={nanoid()}>{text}</span>
+                );
+              })
+            }
+
           </code>
         </pre>
-        <Droppable droppableId="possible-answers" isDropDisabled>
-          {(provided, snapshot) => (
-            <article className="exercise-section__questions__question__answers" ref={provided.innerRef}>
-              {
-                possibleAnswers.map((possibleAnswer, index) => (
-                  <Answer
-                    answer={possibleAnswer}
-                    index={index}
-                    isDragDisabled={
-                      userAnswers.includes(possibleAnswer.id)
-                    }
-                    key={possibleAnswer.id}
-                  />
-                ))
-              }
-              {provided.placeholder}
-            </article>
-          )}
-        </Droppable>
+        <DragPossibleAnswers
+          possibleAnswers={possibleAnswers}
+          userAnswers={userAnswers}
+        />
       </article>
     </DragDropContext>
   );
 };
 
 Question.propTypes = {
+  isHidden: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,
   brief: PropTypes.string,
   code: PropTypes.string.isRequired,
