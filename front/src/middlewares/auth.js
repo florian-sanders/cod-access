@@ -2,7 +2,9 @@ import {
   TRY_SIGN_IN,
   CHECK_IS_SIGNED_IN,
   SIGN_OUT,
+  EDIT_PSEUDO_USER,
   signIn,
+  setInfoUser,
 } from 'src/actions/auth';
 import axiosInstance from 'src/api';
 
@@ -72,6 +74,24 @@ export default (store) => (next) => async (action) => {
         if (status !== 200) {
           throw new Error();
         }
+      }
+      catch (err) {
+        console.log(err);
+      }
+      return next(action);
+    case EDIT_PSEUDO_USER:
+      try {
+        const { auth: { newPseudo } } = store.getState();
+        const response = await axiosInstance.patch('/profile', {
+          pseudo: newPseudo,
+        });
+        if (response.status !== 200) {
+          throw new Error();
+        }
+        console.log(response.data);
+        store.dispatch(setInfoUser('pseudo', response.data.pseudo));
+        const { auth: { user: pseudo } } = store.getState();
+        console.log('pseudo', pseudo);
       }
       catch (err) {
         console.log(err);
