@@ -5,7 +5,7 @@
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint --fix src/**/*.js",
-    "clean": "rm -rf ../back/assets/",
+    "clean": "rm -rf ../back/assets/*",
     "clean:all": "rm -rf ../back/assets/ node_modules yarn.lock package-lock.json"
   },
   "devDependencies": {
