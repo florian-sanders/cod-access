@@ -25,7 +25,11 @@ module.exports = {
             where: {
                 published: true
               },
-                include: ['picture','clients','themes']
+                include: [
+                    'picture',
+                    'themes',
+                    {model:Client, as:'clients',where:{id: req.user.clientId},required:false}
+            ]
               });
             console.log('docs', docs);
             return res.status(200).json(

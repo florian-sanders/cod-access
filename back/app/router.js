@@ -47,7 +47,8 @@ router.route('/clients/:id')
     .delete(authorizationMiddlewareNotPass,clientController.deleteOneClient);
 
 router.route('/profile')
-    .get(authorizationMiddlewareNotPass, clientController.getOneClient);
+    .get(authorizationMiddlewareNotPass, clientController.getOneClient)
+    .patch(authorizationMiddlewareNotPass, clientController.updateClient);
 
 router.route('/signin')
     .post(authController.submitLoginForm);
@@ -63,7 +64,11 @@ router.route('/exercises')
 
 router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise)
+    .post(authorizationMiddlewareLetPass,exerciseController.submitExercise)
     .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
+
+router.route('/exercises/dragndrop/new')
+    .post(authorizationMiddlewareNotPass,exerciseController.newExercise)
 
 router.route('/themes_exercises')
     .get(themeController.getAllThemesForExercises);
@@ -84,7 +89,7 @@ router.route('/docs/:id/client')
     .delete(authorizationMiddlewareNotPass,docController.deleteDocToClient);
     
 router.route('/published_docs')
-        .get(docController.getAllDocsPublished);
+        .get(authorizationMiddlewareLetPass,docController.getAllDocsPublished);
 
 router.route('/docs/new')
     .post(authorizationMiddlewareNotPass,docController.newDoc);
