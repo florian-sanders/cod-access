@@ -90,3 +90,9 @@ export const showQuestion = (questionIndex) => ({
   type: SHOW_QUESTION,
   questionIndex,
 });
+
+export const SEND_ANSWERS = 'SEND_ANSWERS';
+
+export const sendAnswers = () => ({
+  type: SEND_ANSWERS,
+});

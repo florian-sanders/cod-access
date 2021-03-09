@@ -1,6 +1,7 @@
 import {
   FETCH_THEMES_EXERCISES,
   FETCH_EXERCISE,
+  SEND_ANSWERS,
   setThemesExercises,
   setExercisesPageLoading,
   setAllThemesFilterCheckbox,
@@ -65,6 +66,31 @@ export default (store) => (next) => async (action) => {
       }
       finally {
         store.dispatch(setExercisesPageLoading(false));
+      }
+      return next(action);
+    case SEND_ANSWERS:
+      try {
+        const {
+          exercises: {
+            currentExercise,
+          },
+        } = store.getState();
+
+        const userAnswers = currentExercise.questions.map((question) => ({
+          questionId: question.id,
+          answers: question.userAnswers,
+        }));
+
+        const response = await axiosInstance.post(`/exercises/dragndrop/${currentExercise.id}')`, userAnswers);
+
+        if (response.status !== 200) {
+          throw new Error();
+        }
+
+        console.log('réponses envoyées');
+      }
+      catch (err) {
+        console.log(err);
       }
       return next(action);
     default:

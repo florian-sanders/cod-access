@@ -5,6 +5,7 @@ import Exercise from 'src/components/Exercise';
 import {
   fetchExercise,
   showQuestion,
+  sendAnswers,
 } from 'src/actions/exercises';
 
 const mapStateToProps = ({ exercises: { currentExercise } }) => ({
@@ -14,7 +15,7 @@ const mapStateToProps = ({ exercises: { currentExercise } }) => ({
 const mapDispatchToProps = (dispatch, { match: { params: { exerciseId } } }) => ({
   getExercise: () => dispatch(fetchExercise(exerciseId)),
   changeQuestion: (questionIndex) => dispatch(showQuestion(questionIndex)),
-  submitAnswer: () => {},
+  submitAnswers: () => dispatch(sendAnswers()),
 });
 
 export default withRouter(
