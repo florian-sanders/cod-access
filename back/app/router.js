@@ -85,7 +85,7 @@ router.route('/docs/:id/client')
     .delete(authorizationMiddlewareNotPass,docController.deleteDocToClient);
     
 router.route('/published_docs')
-        .get(docController.getAllDocsPublished);
+        .get(authorizationMiddlewareLetPass,docController.getAllDocsPublished);
 
 router.route('/docs/new')
     .post(authorizationMiddlewareNotPass,docController.newDoc);
