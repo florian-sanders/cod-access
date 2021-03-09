@@ -66,6 +66,9 @@ router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise)
     .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
 
+router.route('/exercises/dragndrop/new')
+    .post(authorizationMiddlewareNotPass,exerciseController.newExercise)
+
 router.route('/themes_exercises')
     .get(themeController.getAllThemesForExercises);
 
