@@ -88,6 +88,12 @@ router.route('/published_docs')
 
 router.route('/docs/new')
     .post(authorizationMiddlewareNotPass,docController.newDoc);
+
+router.route('/forget')
+    .post(authController.forgetPassword);
+
+router.route('/forget/new')
+    .post(authorizationMiddlewareNotPass,authController.newPassword);
   
 
 // route used to see all the API in swagger
