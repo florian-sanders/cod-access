@@ -77,4 +77,31 @@ module.exports = {
             });
         }
     },
+
+    newExercise: async (req, res, next) => {
+        
+        try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
+            // const newExercise = new Exercise({
+            //     title: req.body.title,
+            //     brief: req.body.brief,
+            //     slug: req.body.slug,
+            //     content: req.body.content,
+            //     published: req.body.published,
+            //     picture_id: req.body.picture_id,
+            // });
+            // await newExercise.save();
+            console.log('200 ok');
+            return res.status(200).json('ok');
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
 }
