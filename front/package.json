@@ -5,8 +5,8 @@
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint --fix src/**/*.js",
-    "clean": "rm -rf dist",
-    "clean:all": "rm -rf dist node_modules yarn.lock package-lock.json"
+    "clean": "rm -rf ../back/assets/*",
+    "clean:all": "rm -rf ../back/assets/ node_modules yarn.lock package-lock.json"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -23,6 +23,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
     "cssnano": "^4.1.10",
+    "dotenv-webpack": "^7.0.1",
     "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-import-resolver-alias": "^1.1.2",
