@@ -146,10 +146,10 @@ module.exports = {
               algorithm: process.env.JWTALGO,
               expiresIn: '3h'
             };
-            console.log('200 ok', client);
             const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
-
             res.cookie('token', token, { httpOnly: true });
+            
+            console.log('200 ok', client);
             return res.status(200).json({
               id: client.id,
               pseudo: client.pseudo,
@@ -242,6 +242,143 @@ module.exports = {
           return res.status(200).json('mails send');
         }
       });
+    } catch (error) {
+      console.error(error);
+      return res.status(500);
+    }
+  },
+  
+  forgetPassword: async (req, res) => {
+    try {
+      if (req.body.email.length === 0) {
+        console.log('need name');
+        return res.status(411).json({
+          errorType: 411,
+          message: 'need name'
+        });
+      };
+      const isValidEmail = emailValidator.validate(req.body.email);
+      if (!isValidEmail) {
+        console.log('email incorrect');
+        return res.status(406).json({
+          errorType: 406,
+          message: 'email incorrect'
+        });
+      };
+      //verify email exist in db
+      const client = await Client.findOne({where:{email: req.body.email}})
+      if(!client) {
+        console.log('email not found');
+        return res.status(404).json({
+          errorType: 404,
+          message: 'email not found'
+        });
+      };
+      const jwtContent = {
+        clientId: client.id,
+        clientEmail: client.email
+      };
+      const jwtOptions = {
+        algorithm: process.env.JWTALGO,
+        expiresIn: '1h'
+      };
+      const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
+      res.cookie('token', token, { httpOnly: true });
+
+      // need email to front for sending email
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: mailPath,
+          pass: mailPassword
+        },
+        tls: {
+          rejectUnauthorized: false
+        }
+      });
+      //send mail to client
+      const mailOptionsToClient = {
+        from: mailPath,
+        to: req.body.email,
+        subject: 'Creation d\'un nouveau mot de passe',
+        text: `Veuillez cliquer sur le lien ci-dessous pour pouvoir créer un nouveau mot de passe: http://localhost:8080/forget`
+      };
+      transporter.sendMail(mailOptionsToClient, function (error, info) {
+        if (error) {
+          console.log(error);
+          return res.status(500).json('mail failed');
+        } else {
+          console.log('Email sent: ' + info.response);
+          return res.status(200).json('mail ok');
+        }
+      });
+     
+    } catch (error) {
+      console.error(error);
+      return res.status(500);
+    }
+  },
+  
+  newPassword: async (req, res) => {
+    try {
+      // need password and passwordConfirm to front
+      const client = await Client.findOne({where:{id: req.user.clientId, email: req.user.clientEmail}})
+      if(!client) {
+        console.log('client not found');
+        return res.status(404).json({
+          errorType: 404,
+          message: 'client not found'
+        });
+      };
+      if (req.body.password.length < 6) {
+        console.log('password need 6');
+        return res.status(411).json({
+          errorType: 411,
+          message: 'password need 6'
+        });
+      }
+      if (req.body.password !== req.body.passwordConfirm) {
+        console.log('password and confirm not same')
+        return res.status(406).json({
+          errorType: 406,
+          message: 'password and confirm not same'
+        });
+      }
+
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      if(client){
+        await client.update({password: hashedPassword});
+        console.log('client updated');
+      }
+
+      // need email to front for sending email
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: mailPath,
+          pass: mailPassword
+        },
+        tls: {
+          rejectUnauthorized: false
+        }
+      });
+      //send mail to client
+      const mailOptionsToClient = {
+        from: mailPath,
+        to: req.user.clientEmail,
+        subject: 'Modification de votre mot de passe',
+        text: `Votre mot de passe a bien été mis à jour si vous n'êtes pas l'autheur de cette action contactez notre service au plus vite.`
+      };
+      transporter.sendMail(mailOptionsToClient, function (error, info) {
+        if (error) {
+          console.log(error);
+          return res.status(500).json('mail failed');
+        } else {
+          console.log('Email sent: ' + info.response);
+          return res.status(200).json('mail ok');
+        }
+      });
+     
     } catch (error) {
       console.error(error);
       return res.status(500);
