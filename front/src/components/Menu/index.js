@@ -49,7 +49,7 @@ const Menu = ({
         </NavLink>
       </li>
       <li>
-        <NavLink to="/contact" exact activeClassName="header-wrapper__menu--active">
+        <NavLink className="header-wrapper__menu__list__link" to="/contact" exact activeClassName="header-wrapper__menu__list__link--active">
           Contact
         </NavLink>
       </li>

@@ -5,6 +5,7 @@ import { signOut } from 'src/actions/auth';
 
 const mapStateToProps = ({ auth }) => ({
   pseudo: auth.user.pseudo,
+  role: auth.user.role,
 });
 
 const mapDispatchToProps = (dispatch) => ({

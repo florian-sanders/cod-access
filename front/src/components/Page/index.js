@@ -4,12 +4,13 @@ import {
   Route,
 } from 'react-router-dom';
 
+import './styles.scss';
 import Home from 'src/components/Home';
 import SignUp from 'src/containers/SignUp';
 import Profile from 'src/containers/Profile';
-import './styles.scss';
 import ExercisesPage from 'src/containers/ExercisesPage';
 import Exercise from 'src/containers/Exercise';
+import Dashboard from 'src/containers/Dashboard';
 
 const Page = () => (
   <main id="main-content" role="main" tabIndex="-1">
@@ -28,6 +29,9 @@ const Page = () => (
       </Route>
       <Route exact path="/exercice/:exerciseId">
         <Exercise />
+      </Route>
+      <Route path="/admin">
+        <Dashboard />
       </Route>
     </Switch>
   </main>

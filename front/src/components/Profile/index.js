@@ -28,7 +28,6 @@ const Profile = ({ email, pseudo }) => (
 Profile.propTypes = {
   email: PropTypes.string.isRequired,
   pseudo: PropTypes.string.isRequired,
-  checkAuth: PropTypes.func.isRequired,
   // img: PropTypes.shape({
   //   path: PropTypes.string,
   //   alternative: PropTypes.string,
