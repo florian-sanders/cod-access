@@ -1,6 +1,7 @@
 const {
     Exercise,
-    Client
+    Client,
+    Client_exercise
 } = require('../models');
 
 module.exports = {
@@ -36,7 +37,7 @@ module.exports = {
                         association: 'questions',
                         include: ['possible_answers', 'question_picture'],
                     },
-                    {model:Client, as:'clients',where:{id: req.user.clientId},required:false}
+                    // {model:Client, as:'clients',where:{id: req.user.clientId},required:false}
                 ],
                
             });
@@ -108,9 +109,82 @@ module.exports = {
     submitExercise: async (req, res, next) => {
         
         try {
+            // console.log('req.body', req.body)
+            const id_exercise = Number(req.params.id);
+            if (isNaN(id_exercise)) {
+                console.log('not id')
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            const exercise = await Exercise.findByPk(id_exercise, {
+                include: [
+                   'clients',
+                {
+                    association: 'questions',
+                    include: ['possible_answers'],
+                },
+            ]
+            })
 
+            let correct_answers = [];
+            let wrong_answers = [];
+            for (const questions of exercise.questions){
+                for (const answers of questions.possible_answers){
+                    if(answers.correct === true){
+                        correct_answers.push(answers.id)
+                    }else{
+                        wrong_answers.push(answers.id)
+                    }
+                }
+            }
+            // console.log('correct_answers', correct_answers);
+
+            let correct=[]
+            let incorrect=[]
+
+            for (const question of req.body){
+                const iscorrect = correct_answers.find(e=>e===question.answers[0])
+                if (iscorrect){
+                    correct.push(question)
+                  }else{
+                    incorrect.push(question)
+                  }
+            }
+            // console.log('correct', correct);
+            // console.log('incorrect', incorrect);
+            const scoreResult = Math.round((correct.length/exercise.questions.length)*100)
+            console.log('score', scoreResult)
+         
+            if(req.user){
+                const id_client = req.user.clientId
+                const client = await Client.findByPk(id_client, {
+                    include: 'exercises'
+                })
+                await client.addExercise(exercise);
+
+                const exerciseAlreadyDone = client.exercises.find(e=>e.id===id_exercise)
+                if(exerciseAlreadyDone){
+
+                }
+                const oldScore = exerciseAlreadyDone.Client_exercise.score
+                // console.log('oldScore', oldScore)
+                if(scoreResult > oldScore){
+                    const result = new Client_exercise({
+                        score: scoreResult,
+                        client_id: id_client,
+                        exercise_id: id_exercise
+                    })
+                    await result.save()
+                    return res.status(200).json(`client finish with score: ${scoreResult}`,
+                    correct,
+                    incorrect,
+                    client);
+                }
+            };
+              
             console.log('200 ok');
-            return res.status(200).json('ok');
+            return res.status(200).json(`client finish with score: ${scoreResult}`,correct,incorrect);
         
         } catch (error) {
             console.error(error);

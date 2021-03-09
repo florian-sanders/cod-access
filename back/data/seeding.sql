@@ -84,6 +84,7 @@ VALUES
 ('i am the third answer', 'false',1),
 ('i am the four answer', 'false',1)
 ;
+-- INSERT INTO "possible_answer" ("content", "correct", "question_id") VALUES ('i am the first answer', 'false',10),('i am the second answer', 'false',10),('i am the third answer', 'false',10),('i am the four answer', 'true',10)
 
 INSERT INTO "client_exercise" ("score", "client_id", "exercise_id")
 VALUES
