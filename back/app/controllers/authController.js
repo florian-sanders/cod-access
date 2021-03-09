@@ -19,9 +19,9 @@ module.exports = {
   // the csrf middleware in the entry file of the server is in charge of checking
   // that both the tokens (sent in cookie + sent in header) are a match.
   // This is to ensure the React App is the source of the request.
-  getCSRFToken: (req, res) => {
-    res.json({ csrfToken: req.csrfToken() });
-  },
+  // getCSRFToken: (req, res) => {
+  //   res.json({ csrfToken: req.csrfToken() });
+  // },
 
   submitSignupForm: async (req, res) => {
     try {
