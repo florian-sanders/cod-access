@@ -5,6 +5,8 @@ import {
   editEmailUser,
   editPseudoUser,
   editPasswordUser,
+  setSelectedFile,
+  uploadFileProfile,
 } from 'src/actions/auth';
 
 const mapStateToProps = (state) => ({
@@ -14,6 +16,7 @@ const mapStateToProps = (state) => ({
   newPassword: state.auth.newPassword,
   newPasswordConfirm: state.auth.newPasswordConfirm,
   user: state.auth.user,
+  selectedFile: state.auth.selectedFile,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -21,6 +24,8 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmitEmail: () => dispatch(editEmailUser()),
   onSubmitPseudo: () => dispatch(editPseudoUser()),
   onSubmitPassword: () => dispatch(editPasswordUser()),
+  onSubmitFile: () => dispatch(uploadFileProfile()),
+  setSelectedFile: (file) => dispatch(setSelectedFile(file)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

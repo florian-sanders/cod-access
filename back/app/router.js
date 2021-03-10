@@ -7,6 +7,7 @@ const exerciseController = require('./controllers/exerciseController');
 const themeController = require('./controllers/themeController');
 const docController = require('./controllers/docController');
 const swaggerController = require('./controllers/swaggerController');
+const uploadController = require('./controllers/uploadController');
 
 const jwt = require('express-jwt');
 const jwtSecret = process.env.JWTSECRET;
@@ -36,6 +37,7 @@ const authorizationMiddlewareNotPass = jwt({
 // router.route('/csrf-token')
 //     .get(authController.getCSRFToken);
 
+
 router.route('/signout')
     .get(authController.signout);
 
@@ -52,6 +54,10 @@ router.route('/profile')
 
 router.route('/signin')
     .post(authController.submitLoginForm);
+
+
+router.route('/upload')
+    .post(uploadController.image);
 
 router.route('/signup')
     .post(authController.submitSignupForm);

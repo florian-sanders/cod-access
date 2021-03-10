@@ -15,6 +15,9 @@ const Settings = ({
   onSubmitEmail,
   onSubmitPseudo,
   onSubmitPassword,
+  onSubmitFile,
+  setSelectedFile,
+  selectedFile,
 }) => {
   const handleSubmitEmail = (evt) => {
     evt.preventDefault();
@@ -28,9 +31,30 @@ const Settings = ({
     evt.preventDefault();
     onSubmitPassword();
   };
+  const onChangeFile = (evt) => {
+    console.log(evt.target.files[0]);
+    setSelectedFile(evt.target.files[0]);
+  };
+  const handleSubmitFile = (evt) => {
+    evt.preventDefault();
+    onSubmitFile();
+  };
+  console.log('selectedFile', selectedFile);
   return (
     <section className="settings">
       <h1 className="settings__title">Paramètres</h1>
+      <form onSubmit={handleSubmitFile} encType="multipart/form-data">
+        <div>
+          <label htmlFor="upload">Upload Your File </label>
+          <input id="upload" type="file" onChange={onChangeFile} />
+        </div>
+        <button
+          className="signup__content__form__submit"
+          type="submit"
+        >
+          Valider la modification
+        </button>
+      </form>
       <form
         className="settings__form"
         onSubmit={handleSubmitEmail}
@@ -130,6 +154,8 @@ Settings.propTypes = {
   onSubmitPseudo: PropTypes.func.isRequired,
   onSubmitEmail: PropTypes.func.isRequired,
   onSubmitPassword: PropTypes.func.isRequired,
+  onSubmitFile: PropTypes.func.isRequired,
+  setSelectedFile: PropTypes.func.isRequired,
 };
 
 export default Settings;

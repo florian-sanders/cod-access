@@ -5,11 +5,13 @@ import {
   SIGN_IN,
   SIGN_OUT,
   SET_INFO_USER,
+  SET_SELECTED_FILE,
 } from 'src/actions/auth';
 
 const initialState = {
   email: '',
   password: '',
+  selectedFile: null,
   newEmail: '',
   newPseudo: '',
   currentPassword: '',
@@ -64,6 +66,11 @@ const reducer = (state = initialState, action = {}) => {
           ...state.user,
           [action.name]: action.newInfo,
         },
+      };
+    case SET_SELECTED_FILE:
+      return {
+        ...state,
+        selectedFile: action.file,
       };
     default:
       return state;

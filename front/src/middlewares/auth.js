@@ -4,6 +4,7 @@ import {
   SIGN_OUT,
   EDIT_PSEUDO_USER,
   EDIT_EMAIL_USER,
+  UPLOAD_FILE_PROFILE,
   signIn,
   setInfoUser,
 } from 'src/actions/auth';
@@ -104,10 +105,31 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log(response.data);
         store.dispatch(setInfoUser('email', response.data.email));
-        const { auth: { user: email } } = store.getState();
-        console.log('email', email);
+      }
+      catch (err) {
+        console.log(err);
+      }
+      return next(action);
+    case UPLOAD_FILE_PROFILE:
+      try {
+        const { auth: { selectedFile } } = store.getState();
+        const data = new FormData();
+        data.append('profile', selectedFile);
+        const config = {
+          headers: {
+            'content-type': 'multipart/form-data',
+          },
+        };
+        const response = await axiosInstance.post('/upload', {
+          data, config,
+        });
+        if (response.status !== 200) {
+          throw new Error();
+        }
+        console.log('response', response.status);
+        // store.dispatch(setInfoUser('pseudo', response.data.pseudo));
+        console.log('middleware', selectedFile);
       }
       catch (err) {
         console.log(err);

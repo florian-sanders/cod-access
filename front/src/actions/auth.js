@@ -9,6 +9,7 @@ export const EDIT_EMAIL_USER = 'EDIT_EMAIL_USER';
 export const EDIT_PSEUDO_USER = 'EDIT_PSEUDO_USER';
 export const EDIT_PASSWORD_USER = 'EDIT_PASSWORD_USER';
 export const SET_INFO_USER = 'SET_INFO_USER';
+export const SET_SELECTED_FILE = 'SET_SELECTED_FILE';
 
 export const toggleConnectionVisibility = () => ({
   type: TOGGLE_CONNECTION_VISIBILITY,
@@ -65,4 +66,15 @@ export const setInfoUser = (name, newInfo) => ({
   type: SET_INFO_USER,
   name,
   newInfo,
+});
+
+export const setSelectedFile = (file) => ({
+  type: SET_SELECTED_FILE,
+  file,
+});
+
+export const UPLOAD_FILE_PROFILE = 'UPLOAD_FILE_PROFILE';
+
+export const uploadFileProfile = () => ({
+  type: UPLOAD_FILE_PROFILE,
 });
