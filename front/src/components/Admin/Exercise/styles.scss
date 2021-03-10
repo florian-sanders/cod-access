@@ -1,0 +1,75 @@
+@import "src/styles/vars";
+
+.admin-exercise {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: $gutter;
+  min-height: 100vh;
+  box-shadow: $shadow;
+
+  &__heading-page {
+    font-size: $font-size-title-h1;
+    font-weight: bold;
+  }
+
+  &__general-info {
+    margin-bottom: $gutter;
+    padding: 1rem;
+
+    &__themes {
+      margin-top: $gutter;
+    }
+  }
+
+  &__question {
+    padding: $gutter;
+    margin-top: $gutter;
+    box-shadow: $shadow;
+    border-radius: 0.4rem;
+
+    &__heading {
+      font-size: $font-size-title-h2;
+      font-weight: 600;
+    }
+
+    &__general-info {
+    }
+
+    &__answers {
+      margin-top: $gutter;
+      padding-left: 1rem;
+
+      &__heading {
+        font-size: $font-size-text;
+      }
+
+      &__answer {
+        margin-top: 1rem;
+        &::after {
+          content: "";
+          display: block;
+          width: 50%;
+          background-color: $dark-color;
+          height: 1px;
+          margin: $gutter / 2 auto;
+        }
+      }
+
+      &__btn-add {
+        margin-top: 1rem;
+      }
+    }
+
+    &__explanation {
+      margin-top: $gutter;
+    }
+  }
+
+  &__btn-add {
+    margin-top: $gutter;
+  }
+
+  &__submit-publish {
+    margin-top: $gutter;
+  }
+}
