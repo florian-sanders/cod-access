@@ -8,6 +8,7 @@ const Settings = ({
   user,
   newEmail,
   newPseudo,
+  currentPassword,
   newPassword,
   newPasswordConfirm,
   changeField,
@@ -80,10 +81,10 @@ const Settings = ({
       >
         <FieldGroup
           type="password"
-          id="password"
-          value={newPassword}
+          id="currentPassword"
+          value={currentPassword}
           label="Mot de passe actuel"
-          name="password"
+          name="currentPassword"
           onChange={changeField}
         />
         <FieldGroup
@@ -124,6 +125,7 @@ Settings.propTypes = {
   newPseudo: PropTypes.string.isRequired,
   newPassword: PropTypes.string.isRequired,
   newPasswordConfirm: PropTypes.string.isRequired,
+  currentPassword: PropTypes.string.isRequired,
   changeField: PropTypes.func.isRequired,
   onSubmitPseudo: PropTypes.func.isRequired,
   onSubmitEmail: PropTypes.func.isRequired,

@@ -10,6 +10,7 @@ import {
 const mapStateToProps = (state) => ({
   newEmail: state.auth.newEmail,
   newPseudo: state.auth.newPseudo,
+  currentPassword: state.auth.currentPassword,
   newPassword: state.auth.newPassword,
   newPasswordConfirm: state.auth.newPasswordConfirm,
   user: state.auth.user,

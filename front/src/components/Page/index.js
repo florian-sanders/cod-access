@@ -26,7 +26,9 @@ const Page = ({ isLogged }) => (
       <Route exact path="/profil">
         <Profile />
       </Route>
-      {/* </Route>
+      {/* 
+      <PrivateRoute path="/profil-edit" component={Settings} isLogged={isLogged}/>
+      </Route>
       {
         isLogged
         && (

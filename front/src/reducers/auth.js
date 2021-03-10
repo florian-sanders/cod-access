@@ -12,6 +12,7 @@ const initialState = {
   password: '',
   newEmail: '',
   newPseudo: '',
+  currentPassword: '',
   newPassword: '',
   newPasswordConfirm: '',
   isVisible: false,
@@ -60,6 +61,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         user: {
+          ...state.user,
           [action.name]: action.newInfo,
         },
       };
