@@ -152,6 +152,9 @@ module.exports = {
                     });
                 }}
                 await client.update({email: req.body.email});
+                return res.status(200).json(
+                    client
+                    );
             }
             if(req.body.password){
                 if (req.body.password.length < 6) {
