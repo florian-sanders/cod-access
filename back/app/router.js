@@ -35,10 +35,10 @@ const authorizationMiddlewareNewPassword = jwt({
     getToken: (req) => req.params.token,
 });
 
-router.use((req, res, next)=>{
-    console.log('req.url', req.url)
-    next()
-})
+// router.use((req, res, next)=>{
+//     console.log('req.url', req.url)
+//     next()
+// })
 
 // route used by the React App upon loading to retrieve a csrf token.
 // this token will be sent into a cookie as well as a header set by the React App
@@ -65,7 +65,6 @@ router.route('/profile')
 
 router.route('/signin')
     .post(authController.submitLoginForm);
-
 
 router.route('/upload')
     .post(uploadController.image);
@@ -108,6 +107,7 @@ router.route('/published_docs')
 router.route('/docs/new')
     .post(authorizationMiddlewareNotPass,docController.newDoc);
 
+
 // create exercise
 router.route('/exercises/new_exercise')
     .post(authorizationMiddlewareNotPass,exerciseController.newExercise);
@@ -117,7 +117,12 @@ router.route('/exercises/new_question/:id')
 // create answer
 router.route('/exercises/new_answer/:id')
     .post(authorizationMiddlewareNotPass,exerciseController.newAnswer);
+// create assosiation exercise/theme
+router.route('/exercises/associate_exercise_theme')
+    .post(authorizationMiddlewareNotPass,exerciseController.associate_exercise_theme)
+    .delete(authorizationMiddlewareNotPass,exerciseController.delete_exercise_theme);
 
+// forget password client
 router.route('/forget')
     .post(authController.forgetPassword)
     .patch(authorizationMiddlewareNewPassword,authController.newPassword);
