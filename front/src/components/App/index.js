@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Header from 'src/components/Header';
 import Menu from 'src/containers/Menu';
 import Connection from 'src/containers/Connection';
-import Page from 'src/components/Page';
+import Page from 'src/containers/Page';
 import Footer from 'src/components/Footer';
 import './styles.scss';
 
