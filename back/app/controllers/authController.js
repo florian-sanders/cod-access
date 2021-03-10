@@ -274,7 +274,9 @@ module.exports = {
         algorithm: process.env.JWTALGO,
         expiresIn: '0.15h'
       };
-      const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
+      let token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
+      console.log('token', token)
+      token = token.replace(/\./g,'$')
       // need email to front for sending email
       const transporter = nodemailer.createTransport({
         service: 'gmail',

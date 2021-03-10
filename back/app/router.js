@@ -32,7 +32,6 @@ const authorizationMiddlewareNotPass = jwt({
 const authorizationMiddlewareNewPassword = jwt({
     secret: jwtSecret,
     algorithms: [algorithmsJWT],
-    getToken: (req) => req.params.token,
 });
 
 // router.use((req, res, next)=>{
