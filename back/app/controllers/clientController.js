@@ -3,8 +3,19 @@ const jsonwebtoken = require('jsonwebtoken');
 const jwt = require('express-jwt');
 const bcrypt = require('bcrypt');
 const emailValidator = require('email-validator');
+// const multer = require('multer');
+// const upload = multer({ storage: storage }).single('file')
 
 module.exports = {
+
+    // upload: (req, res) => {
+    //     try {
+    //       res.send(req.file);
+    //     }catch(err) {
+    //       res.send(400);
+    //     }
+    //   });
+    
 
     getAllClients: async (req, res) => {
         try{
