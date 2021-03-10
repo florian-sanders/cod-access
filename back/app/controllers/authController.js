@@ -280,11 +280,13 @@ module.exports = {
       };
       const jwtOptions = {
         algorithm: process.env.JWTALGO,
-        expiresIn: '1h'
+        expiresIn: '0.15h'
       };
       const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
-      res.cookie('token', token, { httpOnly: true });
+      // have to stock the token into url
+      // res.cookie('token', token, { httpOnly: true });
 
+      
       // need email to front for sending email
       const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -301,7 +303,7 @@ module.exports = {
         from: mailPath,
         to: req.body.email,
         subject: 'Creation d\'un nouveau mot de passe',
-        text: `Veuillez cliquer sur le lien ci-dessous pour pouvoir créer un nouveau mot de passe: http://localhost:8080/forget`
+        text: `Veuillez cliquer sur le lien ci-dessous pour pouvoir créer un nouveau mot de passe: http://localhost:8080/forget/${token}`
       };
       transporter.sendMail(mailOptionsToClient, function (error, info) {
         if (error) {
@@ -319,9 +321,13 @@ module.exports = {
     }
   },
   
+  recovert: async (req, res) => {
+    res.sendFile()
+  },
+
   newPassword: async (req, res) => {
     try {
-      // need password and passwordConfirm to front
+      console.log('hello')
       const client = await Client.findOne({where:{id: req.user.clientId, email: req.user.clientEmail}})
       if(!client) {
         console.log('client not found');

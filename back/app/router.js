@@ -29,6 +29,17 @@ const authorizationMiddlewareNotPass = jwt({
     getToken: (req) => req.cookies.token,
 });
 
+const authorizationMiddlewareNewPassword = jwt({
+    secret: jwtSecret,
+    algorithms: [algorithmsJWT],
+    getToken: (req) => req.params.token,
+});
+
+router.use((req, res, next)=>{
+    console.log('req.url', req.url)
+    next()
+})
+
 // route used by the React App upon loading to retrieve a csrf token.
 // this token will be sent into a cookie as well as a header set by the React App
 // the csrf middleware in the entry file of the server is in charge of checking
@@ -73,9 +84,6 @@ router.route('/exercises/dragndrop/:id')
     .post(authorizationMiddlewareLetPass,exerciseController.submitExercise)
     .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
 
-router.route('/exercises/dragndrop/new')
-    .post(authorizationMiddlewareNotPass,exerciseController.newExercise)
-
 router.route('/themes_exercises')
     .get(themeController.getAllThemesForExercises);
 
@@ -95,14 +103,25 @@ router.route('/docs/:id/client')
     .delete(authorizationMiddlewareNotPass,docController.deleteDocToClient);
     
 router.route('/published_docs')
-        .get(authorizationMiddlewareLetPass,docController.getAllDocsPublished);
+    .get(authorizationMiddlewareLetPass,docController.getAllDocsPublished);
 
 router.route('/docs/new')
     .post(authorizationMiddlewareNotPass,docController.newDoc);
 
+// create exercise
+router.route('/exercises/new_exercise')
+    .post(authorizationMiddlewareNotPass,exerciseController.newExercise);
+// create question
+router.route('/exercises/new_question/:id')
+    .post(authorizationMiddlewareNotPass,exerciseController.newQuestion);
+// create answer
+router.route('/exercises/new_answer/:id')
+    .post(authorizationMiddlewareNotPass,exerciseController.newAnswer);
+
 router.route('/forget')
     .post(authController.forgetPassword)
-    .patch(authorizationMiddlewareNotPass,authController.newPassword);
+    .patch(authorizationMiddlewareNewPassword,authController.newPassword);
+
 
 // route used to see all the API in swagger
 router.route('/getAllAPI')

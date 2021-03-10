@@ -1,7 +1,9 @@
 const {
     Exercise,
     Client,
-    Client_exercise
+    Client_exercise,
+    Question,
+    Possible_answer
 } = require('../models');
 
 module.exports = {
@@ -80,25 +82,66 @@ module.exports = {
     },
 
     newExercise: async (req, res, next) => {
-        
         try {
-            const role = req.user.clientRole
-            if(role !== 'admin'){
+            const newExercise = new Exercise({
+                title: req.body.title,
+                brief: req.body.brief,
+                slug: req.body.slug,
+                content: req.body.content,
+                published: req.body.published,
+                picture_id: req.body.picture_id,
+            });
+            await newExercise.save();
+            console.log('200 ok');
+            return res.status(200).json(newExercise);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+
+    newQuestion: async (req, res, next) => {
+        try {
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
                 return res.status(400).json({
-                    error: `access only by admin`
+                    error: `the provided id must be a number`
                 });
             }
-            // const newExercise = new Exercise({
-            //     title: req.body.title,
-            //     brief: req.body.brief,
-            //     slug: req.body.slug,
-            //     content: req.body.content,
-            //     published: req.body.published,
-            //     picture_id: req.body.picture_id,
-            // });
-            // await newExercise.save();
+            const newQuestion = new Question({
+                brief: req.body.brief,
+                code: req.body.code,
+                explanation: req.body.explanation,
+                exercise_id: id,
+                picture_id: req.body.picture_id,
+            });
+            await newQuestion.save();
             console.log('200 ok');
-            return res.status(200).json('ok');
+            return res.status(200).json(newQuestion);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+
+    newAnswer: async (req, res, next) => {
+        try {
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            const newAnswer = new Possible_answer({
+                content: req.body.content,
+                correct: req.body.correct,
+                question_id: id,
+            });
+            await newAnswer.save();
+            console.log('200 ok');
+            return res.status(200).json(newAnswer);
         
         } catch (error) {
             console.error(error);
