@@ -12,8 +12,8 @@ const FieldGroup = ({
   name,
   placeholder,
 }) => (
-  <div className="signup__content__form__group">
-    <label htmlFor={id} className="signup__content__form__group__label">
+  <div className="">
+    <label htmlFor={id} className="label">
       {label}
     </label>
     <input
@@ -23,7 +23,7 @@ const FieldGroup = ({
       value={value}
       placeholder={placeholder}
       onChange={(evt) => onChange(evt.target.value, name)}
-      className="signup__content__form__group__input"
+      className="input"
       aria-required="true"
     />
   </div>

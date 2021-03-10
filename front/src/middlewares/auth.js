@@ -116,18 +116,11 @@ export default (store) => (next) => async (action) => {
         const { auth: { selectedFile } } = store.getState();
         const data = new FormData();
         data.append('profile', selectedFile);
-        const config = {
-          headers: {
-            'content-type': 'multipart/form-data',
-          },
-        };
-        const response = await axiosInstance.post('/upload', {
-          data, config,
-        });
+        const response = await axiosInstance.post('/upload', data, {});
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log('response', response.status);
+        console.log('response', response.data.path);
         // store.dispatch(setInfoUser('pseudo', response.data.pseudo));
         console.log('middleware', selectedFile);
       }

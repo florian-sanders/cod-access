@@ -42,14 +42,17 @@ const Settings = ({
   console.log('selectedFile', selectedFile);
   return (
     <section className="settings">
-      <h1 className="settings__title">Paramètres</h1>
-      <form onSubmit={handleSubmitFile} encType="multipart/form-data">
-        <div>
-          <label htmlFor="upload">Upload Your File </label>
+      <h1 className="title_h1">Paramètres</h1>
+      <form
+        className="settings__form"
+        onSubmit={handleSubmitFile}
+      >
+        <div className="">
+          <label htmlFor="upload">Modifier votre photo de profil</label>
           <input id="upload" type="file" onChange={onChangeFile} />
         </div>
         <button
-          className="signup__content__form__submit"
+          className="button--blue"
           type="submit"
         >
           Valider la modification
@@ -70,7 +73,7 @@ const Settings = ({
         />
         <div className="">
           <button
-            className="signup__content__form__submit"
+            className="button--blue"
             type="submit"
           >
             Valider la modification
@@ -92,7 +95,7 @@ const Settings = ({
         />
         <div className="">
           <button
-            className="signup__content__form__submit"
+            className="button--blue"
             type="submit"
           >
             Valider la modification
@@ -129,7 +132,7 @@ const Settings = ({
         />
         <div className="">
           <button
-            className="signup__content__form__submit"
+            className="button--blue"
             type="submit"
           >
             Valider la modification
