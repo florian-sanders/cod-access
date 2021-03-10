@@ -1,19 +1,21 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 
 import reducer from 'src/reducers';
+import otherMiddleware from 'src/middlewares/other';
 import authMiddleware from 'src/middlewares/auth';
 import signupMiddleware from 'src/middlewares/signup';
 import exercisesMiddleware from 'src/middlewares/exercises';
-import adminExercisesMiddleware from 'src/middlewares/admin/exercises'
+import exerciseManagerMiddleware from 'src/middlewares/exerciseManager/';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancers = composeEnhancers(
   applyMiddleware(
+    otherMiddleware,
     authMiddleware,
     signupMiddleware,
     exercisesMiddleware,
-    adminExercisesMiddleware,
+    exerciseManagerMiddleware,
   ),
 );
 

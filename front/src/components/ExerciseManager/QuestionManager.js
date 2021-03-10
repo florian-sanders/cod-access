@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Answer from 'src/containers/Admin/Exercise/Answer';
+import AnswerManager from 'src/containers/ExerciseManager/AnswerManager';
 import TextField from './TextField';
 import './styles.scss';
 
-const Question = ({
+const QuestionManager = ({
   id,
   brief,
   code,
@@ -21,13 +21,9 @@ const Question = ({
       <legend>
         <h2 className="admin-exercise__question__heading">Question {questionNumber}</h2>
       </legend>
-      {
-        questionNumber > 1 && (
-          <button type="button" onClick={removeQuestion}>Supprimer
-            <span className="sr-only">Question {questionNumber}</span>
-          </button>
-        )
-      }
+      <button type="button" onClick={removeQuestion}>Supprimer
+        <span className="sr-only">Question {questionNumber}</span>
+      </button>
       <div className="admin-exercise__question__general-info">
         <TextField
           className="admin-exercise__question__general-info__field-group"
@@ -72,7 +68,7 @@ const Question = ({
         </legend>
         {
           possibleAnswers.map((answer, index) => (
-            <Answer
+            <AnswerManager
               questionId={id}
               id={answer.id}
               questionNumber={questionNumber}
@@ -105,4 +101,4 @@ const Question = ({
   </article>
 );
 
-export default Question;
+export default QuestionManager;

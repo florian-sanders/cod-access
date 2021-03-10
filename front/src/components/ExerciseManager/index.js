@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
+import Question from 'src/containers/ExerciseManager/QuestionManager';
 import TextField from './TextField';
 import ThemeCheckbox from './ThemeCheckbox';
-import Question from 'src/containers/Admin/Exercise/Question';
 import './styles.scss';
 
 const Exercise = ({
@@ -18,10 +18,6 @@ const Exercise = ({
   save,
   publish,
 }) => {
-  useEffect(() => {
-    getThemes();
-  }, []);
-
   const handleSaveSubmit = (evt) => {
     evt.preventDefault();
     console.log('yo');
