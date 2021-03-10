@@ -30,6 +30,7 @@ module.exports = {
             return res.status(200).json(
             clients
             );
+
         } catch(error) {
             console.error(error);
             return res.status(500);
@@ -38,8 +39,6 @@ module.exports = {
 
     getOneClient: async (req, res, next) => {
         try{
-            // var decoded = jwt.verify(token, process.env.JWTSECRET);
-            // console.log('decoded', decoded)
             const id = Number(req.user.clientId);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -53,6 +52,7 @@ module.exports = {
             return res.status(200).json(
                 client
                 );
+
         } catch(error) {
             console.error(error);
             return res.status(500);
@@ -60,7 +60,6 @@ module.exports = {
     },
     
     changeRoleClient: async (req, res, next) => {
-
         try {
             const role = req.user.clientRole
             if(role !== 'admin'){
@@ -96,6 +95,7 @@ module.exports = {
             }
             await client.update({responsibility_id: req.body.responsibility});
             return res.json('client update');
+
         } catch (error) {
             console.error(error);
             return res.status(500);
@@ -103,7 +103,6 @@ module.exports = {
     },
 
     deleteOneClient: async (req, res, next) => {
-
         try {
             const role = req.user.clientRole
             if(role !== 'admin'){
@@ -118,7 +117,6 @@ module.exports = {
                 });
             }
             const client = await Client.findByPk(id);
-            
             if (!client) {
                 console.log('miss client');
                 return res.status(404).json({
@@ -126,9 +124,9 @@ module.exports = {
                   message: 'miss client'
                 });
             }
-        
             await client.destroy();
             return res.json('client delete');
+
         } catch (error) {
             console.error(error);
             return res.status(500);
@@ -136,7 +134,6 @@ module.exports = {
     },
 
     updateClient: async (req, res, next) => {
-        
         try {
             const id = Number(req.user.clientId);
             if (isNaN(id)) {

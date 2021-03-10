@@ -3,7 +3,8 @@ const {
     Client,
     Client_exercise,
     Question,
-    Possible_answer
+    Possible_answer,
+    Theme
 } = require('../models');
 
 module.exports = {
@@ -25,6 +26,10 @@ module.exports = {
 
     getOneExercise: async (req, res, next) => {
         try {
+            let myClient = null;
+            if(req.user){
+                myClient = req.user.clientId
+            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -39,7 +44,7 @@ module.exports = {
                         association: 'questions',
                         include: ['possible_answers', 'question_picture'],
                     },
-                    // {model:Client, as:'clients',where:{id: req.user.clientId},required:false}
+                    {model:Client, as:'clients',where:{id: myClient},required:false}
                 ],
                
             });
@@ -83,6 +88,12 @@ module.exports = {
 
     newExercise: async (req, res, next) => {
         try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
             const newExercise = new Exercise({
                 title: req.body.title,
                 brief: req.body.brief,
@@ -103,6 +114,12 @@ module.exports = {
 
     newQuestion: async (req, res, next) => {
         try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -128,6 +145,12 @@ module.exports = {
 
     newAnswer: async (req, res, next) => {
         try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -149,10 +172,79 @@ module.exports = {
         }
     },
     
-    submitExercise: async (req, res, next) => {
-        
+    associate_exercise_theme: async (req, res, next) => {
         try {
-            // console.log('req.body', req.body)
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
+            const id_exercise = Number(req.body.exercise_id)
+            const id_theme = Number(req.body.theme_id)
+            if((id_exercise || id_theme) === null){
+                return res.status(406).json({
+                    error: `need exercise_id and theme_id`
+                });
+            }
+            let exercise = await Exercise.findByPk(id_exercise);
+            let theme = await Theme.findByPk(id_theme)
+            if(!exercise || !theme){
+                return res.status(406).json({
+                            error: `need exercise and theme`
+                        });
+            }
+            await exercise.addTheme(theme);
+            exercise = await Exercise.findByPk(id_exercise, {
+                include: 'themes'
+            })
+            console.log('200 ok', exercise);
+            return res.status(200).json(exercise);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+    
+    delete_exercise_theme: async (req, res, next) => {
+        try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
+            const id_exercise = Number(req.body.exercise_id)
+            const id_theme = Number(req.body.theme_id)
+            if((id_exercise || id_theme) === null){
+                return res.status(406).json({
+                    error: `need exercise_id and theme_id`
+                });
+            }
+            let exercise = await Exercise.findByPk(id_exercise);
+            let theme = await Theme.findByPk(id_theme)
+            if(!exercise || !theme){
+                return res.status(406).json({
+                            error: `need exercise and theme`
+                        });
+            }
+            await exercise.removeTheme(theme);
+            exercise = await Exercise.findByPk(id_exercise, {
+                include: 'themes'
+            })
+            console.log('200 ok', exercise);
+            return res.status(200).json(exercise);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+    
+    submitExercise: async (req, res, next) => {
+        try {
+            console.log('req.body', req.body)
             const id_exercise = Number(req.params.id);
             if (isNaN(id_exercise)) {
                 console.log('not id')
@@ -169,7 +261,6 @@ module.exports = {
                 },
             ]
             })
-
             let correct_answers = [];
             let wrong_answers = [];
             for (const questions of exercise.questions){
@@ -181,11 +272,8 @@ module.exports = {
                     }
                 }
             }
-            // console.log('correct_answers', correct_answers);
-
             let correct=[]
             let incorrect=[]
-
             for (const question of req.body){
                 const iscorrect = correct_answers.find(e=>e===question.answers[0])
                 if (iscorrect){
@@ -194,11 +282,9 @@ module.exports = {
                     incorrect.push(question)
                   }
             }
-            // console.log('correct', correct);
-            // console.log('incorrect', incorrect);
+            console.log('correct', correct)
+            console.log('incorrect', incorrect)
             const scoreResult = Math.round((correct.length/exercise.questions.length)*100)
-            console.log('score', scoreResult)
-         
             if(req.user){
                 const id_client = req.user.clientId
                 const client = await Client.findByPk(id_client, {
@@ -211,7 +297,6 @@ module.exports = {
 
                 }
                 const oldScore = exerciseAlreadyDone.Client_exercise.score
-                // console.log('oldScore', oldScore)
                 if(scoreResult > oldScore){
                     const result = new Client_exercise({
                         score: scoreResult,
@@ -225,7 +310,6 @@ module.exports = {
                     client);
                 }
             };
-              
             console.log('200 ok');
             return res.status(200).json(`client finish with score: ${scoreResult}`,correct,incorrect);
         

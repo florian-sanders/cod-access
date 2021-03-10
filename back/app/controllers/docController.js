@@ -3,7 +3,6 @@ const { Doc, Client } = require('../models');
 module.exports = {
 
     getAllDocs: async (req, res) => {
-
         try{
             const docs = await Doc.findAll({
                 include: ['picture','clients','themes']
@@ -19,8 +18,11 @@ module.exports = {
     },
 
     getAllDocsPublished: async (req, res) => {
-
         try{
+            let myClient = null;
+            if(req.user){
+                myClient = req.user.clientId
+            }
             const docs = await Doc.findAll({    
             where: {
                 published: true
@@ -28,7 +30,7 @@ module.exports = {
                 include: [
                     'picture',
                     'themes',
-                    {model:Client, as:'clients',where:{id: req.user.clientId},required:false}
+                    {model:Client, as:'clients',where:{id: myClient},required:false}
             ]
               });
             console.log('docs', docs);
@@ -42,9 +44,7 @@ module.exports = {
     },
 
     getOneDoc: async (req, res, next) => {
-
         try{
-           
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -65,7 +65,6 @@ module.exports = {
     },
 
     deleteOneDoc: async (req, res, next) => {
-        
         try {
             const role = req.user.clientRole
             if(role !== 'admin'){
@@ -88,7 +87,6 @@ module.exports = {
                   message: 'miss doc'
                 });
             }
-        
             await doc.destroy();
             return res.json('doc delete');
         } catch (error) {
@@ -98,7 +96,6 @@ module.exports = {
     },
 
     newDoc: async (req, res, next) => {
-        
         try {
             const role = req.user.clientRole
             if(role !== 'admin'){
@@ -117,7 +114,6 @@ module.exports = {
             if(req.body.published === "") {
                 req.body.published = false
             }
- 
             const newDoc = new Doc({
                 title: req.body.title,
                 brief: req.body.brief,
@@ -137,7 +133,6 @@ module.exports = {
     },
     
     changeOneDoc: async (req, res, next) => {
-        
         try {
             const role = req.user.clientRole
             if(role !== 'admin'){
@@ -177,7 +172,6 @@ module.exports = {
     },
     
     addDocToClient: async (req, res, next) => {
-        
         try {
             const client_id = req.user.clientId
             const id = Number(req.params.id);
@@ -207,7 +201,6 @@ module.exports = {
     },
 
     deleteDocToClient: async (req, res, next) => {
-        
         try {
             const client_id = req.user.clientId
             const id = Number(req.params.id);
@@ -219,7 +212,6 @@ module.exports = {
             let doc = await Doc.findByPk(id, {
                 include: 'clients'
             });
-        
             let client = await Client.findByPk(client_id, {
                 include: 'docs'
             })
