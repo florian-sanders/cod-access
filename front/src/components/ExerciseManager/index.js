@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Question from 'src/containers/ExerciseManager/QuestionManager';
 import TextField from './TextField';
@@ -7,6 +7,8 @@ import './styles.scss';
 
 const Exercise = ({
   loading,
+  updateLoading,
+  error,
   getThemes,
   changeValue,
   title,
@@ -14,23 +16,23 @@ const Exercise = ({
   questions,
   themes,
   handleCheckbox,
-  addQuestion,
-  save,
+  createQuestion,
   publish,
+  saveOnBlur,
+  isSaved,
+  createExercise,
 }) => {
-  const handleSaveSubmit = (evt) => {
-    evt.preventDefault();
-    console.log('yo');
-    save();
-  };
-
-  const handlePublishSubmit = (evt) => {
-    evt.preventDefault();
-    publish();
-  };
+  useEffect(() => {
+    createExercise();
+  }, []);
 
   if (loading) {
+    console.log('ça charge');
     return (<p>Chargement en cours</p>);
+  }
+
+  if (error) {
+    return (<p>Il y a eu un problème</p>);
   }
 
   return (
@@ -48,6 +50,9 @@ const Exercise = ({
               name="title"
               value={title}
               changeValue={changeValue}
+              isSaved={isSaved}
+              saveOnBlur={saveOnBlur}
+              updateLoading={updateLoading}
             />
 
             <TextField
@@ -59,6 +64,9 @@ const Exercise = ({
               name="brief"
               value={brief}
               changeValue={changeValue}
+              isSaved={isSaved}
+              saveOnBlur={saveOnBlur}
+              updateLoading={updateLoading}
             />
 
             <fieldset className="admin-exercise__general-info__themes">
@@ -71,6 +79,8 @@ const Exercise = ({
                     type="checkbox"
                     name="theme"
                     handleCheckbox={handleCheckbox}
+                    saveOnBlur={saveOnBlur}
+                    isSaved={isSaved}
                     key={theme.id}
                   />
                 ))
@@ -87,15 +97,15 @@ const Exercise = ({
           <button
             className="admin-exercise__btn-add"
             type="button"
-            onClick={addQuestion}
+            onClick={createQuestion}
           >
             Ajouter une question supplémentaire
           </button>
         </section>
         <section className="admin-exercise__submit-publish">
           <button type="button">Annuler</button>
-          <button type="submit" onClick={handleSaveSubmit}>Sauvegarder (en brouillon)</button>
-          <button type="submit" onClick={handlePublishSubmit}>Publier (en ligne)</button>
+          <button type="submit">Sauvegarder (en brouillon)</button>
+          <button type="submit">Publier (en ligne)</button>
         </section>
       </form>
     </section>

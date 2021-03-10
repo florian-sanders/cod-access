@@ -5,7 +5,7 @@ const router = require('./app/router');
 const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const pathToSwaggerUi = require('swagger-ui-dist').absolutePath()
+const pathToSwaggerUi = require('swagger-ui-dist').absolutePath();
 
 const app = express();
 
@@ -25,19 +25,19 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 // express static used by react
-app.use(express.static(__dirname + '/assets'));
-app.use((req, res, next) => {
-    if (!req.url.startsWith('/api'))
-        return res.sendFile(path.join(__dirname, "assets", "index.html"));
-    else
-        return next();
-});
+// app.use(express.static(__dirname + '/assets'));
+// app.use((req, res, next) => {
+//     if (!req.url.startsWith('/api'))
+//         return res.sendFile(path.join(__dirname, "assets", "index.html"));
+//     else 
+//         return next();
+// });
 
 // express static used by swagger
 app.use("/swagger", express.static(pathToSwaggerUi));
 
 // road in router
-app.use('/api/', router);
+app.use('/api', router);
 
 const port = process.env.PORT || 5000;
 

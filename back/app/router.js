@@ -7,6 +7,7 @@ const exerciseController = require('./controllers/exerciseController');
 const themeController = require('./controllers/themeController');
 const docController = require('./controllers/docController');
 const swaggerController = require('./controllers/swaggerController');
+const uploadController = require('./controllers/uploadController');
 
 const jwt = require('express-jwt');
 const jwtSecret = process.env.JWTSECRET;
@@ -28,13 +29,25 @@ const authorizationMiddlewareNotPass = jwt({
     getToken: (req) => req.cookies.token,
 });
 
+const authorizationMiddlewareNewPassword = jwt({
+    secret: jwtSecret,
+    algorithms: [algorithmsJWT],
+    getToken: (req) => req.params.token,
+});
+
+// router.use((req, res, next)=>{
+//     console.log('req.url', req.url)
+//     next()
+// })
+
 // route used by the React App upon loading to retrieve a csrf token.
 // this token will be sent into a cookie as well as a header set by the React App
 // the csrf middleware in the entry file of the server is in charge of checking
 // that both the tokens (sent in cookie + sent in header) are a match.
 // This is to ensure the React App is the source of the request.
-router.route('/csrf-token')
-    .get(authController.getCSRFToken);
+// router.route('/csrf-token')
+//     .get(authController.getCSRFToken);
+
 
 router.route('/signout')
     .get(authController.signout);
@@ -53,6 +66,9 @@ router.route('/profile')
 router.route('/signin')
     .post(authController.submitLoginForm);
 
+router.route('/upload')
+    .post(uploadController.image);
+
 router.route('/signup')
     .post(authController.submitSignupForm);
 
@@ -66,9 +82,6 @@ router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise)
     .post(authorizationMiddlewareLetPass,exerciseController.submitExercise)
     .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
-
-router.route('/exercises/dragndrop/new')
-    .post(authorizationMiddlewareNotPass,exerciseController.newExercise)
 
 router.route('/themes_exercises')
     .get(themeController.getAllThemesForExercises);
@@ -89,14 +102,31 @@ router.route('/docs/:id/client')
     .delete(authorizationMiddlewareNotPass,docController.deleteDocToClient);
     
 router.route('/published_docs')
-        .get(authorizationMiddlewareLetPass,docController.getAllDocsPublished);
+    .get(authorizationMiddlewareLetPass,docController.getAllDocsPublished);
 
 router.route('/docs/new')
     .post(authorizationMiddlewareNotPass,docController.newDoc);
 
+
+// create exercise
+router.route('/exercises/new_exercise')
+    .post(authorizationMiddlewareNotPass,exerciseController.newExercise);
+// create question
+router.route('/exercises/new_question/:id')
+    .post(authorizationMiddlewareNotPass,exerciseController.newQuestion);
+// create answer
+router.route('/exercises/new_answer/:id')
+    .post(authorizationMiddlewareNotPass,exerciseController.newAnswer);
+// create assosiation exercise/theme
+router.route('/exercises/associate_exercise_theme')
+    .post(authorizationMiddlewareNotPass,exerciseController.associate_exercise_theme)
+    .delete(authorizationMiddlewareNotPass,exerciseController.delete_exercise_theme);
+
+// forget password client
 router.route('/forget')
     .post(authController.forgetPassword)
-    .patch(authorizationMiddlewareNotPass,authController.newPassword);
+    .patch(authorizationMiddlewareNewPassword,authController.newPassword);
+
 
 // route used to see all the API in swagger
 router.route('/getAllAPI')

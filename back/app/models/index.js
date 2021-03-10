@@ -133,4 +133,4 @@ Theme.belongsToMany(Exercise, {
 });
 
 
-module.exports = { Client, Responsibility, Kind, Picture, Possible_answer, Question, Exercise, Doc, Theme };
+module.exports = { Client, Responsibility, Kind, Picture, Possible_answer, Question, Exercise, Doc, Theme, Client_exercise };

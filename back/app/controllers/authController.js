@@ -25,7 +25,6 @@ module.exports = {
 
   submitSignupForm: async (req, res) => {
     try {
-
       if (req.body.pseudo.length === 0) {
         console.log('need pseudo');
         return res.status(411).json({
@@ -75,7 +74,6 @@ module.exports = {
           responsibility_id: 1
         });
         await newClient.save();
-
         //send mail to newClient
         const transporter = nodemailer.createTransport({
           service: 'gmail',
@@ -93,7 +91,6 @@ module.exports = {
           subject: 'Cod\'access bienvenue à bord!',
           text: 'Bienvenue sur cod\'access'
         };
-
         transporter.sendMail(mailOptions, function (error, info) {
           if (error) {
             console.log(error);
@@ -127,7 +124,6 @@ module.exports = {
           },
           include: ['responsibility', 'client_picture']
         });
-
         if (!client) {
           console.log('miss client');
           return res.status(404).json({
@@ -157,9 +153,7 @@ module.exports = {
               responsibility: client.responsibility,
             });
             
-          }
-
-          else {
+          } else {
             console.log('unauthorized');
             return res.status(401).json({
               errorType: 401,
@@ -216,7 +210,6 @@ module.exports = {
         subject: 'Confirmation d\envois de message',
         text: `Merci Mr ${req.body.name} pour l'intérêt que vous portez à notre site. Nous avons bien reçu votre message et traiterons votre demande dans les plis brefs délais. Cordialement.`
       };
-
       transporter.sendMail(mailOptionsToClient, function (error, info) {
         if (error) {
           console.log(error);
@@ -232,7 +225,6 @@ module.exports = {
         subject: 'New message from' + ' ' + req.body.name,
         text: req.body.content
       };
-
       transporter.sendMail(mailOptionsToUs, function (error, info) {
         if (error) {
           console.log(error);
@@ -280,11 +272,9 @@ module.exports = {
       };
       const jwtOptions = {
         algorithm: process.env.JWTALGO,
-        expiresIn: '1h'
+        expiresIn: '0.15h'
       };
       const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
-      res.cookie('token', token, { httpOnly: true });
-
       // need email to front for sending email
       const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -301,7 +291,7 @@ module.exports = {
         from: mailPath,
         to: req.body.email,
         subject: 'Creation d\'un nouveau mot de passe',
-        text: `Veuillez cliquer sur le lien ci-dessous pour pouvoir créer un nouveau mot de passe: http://localhost:8080/forget`
+        text: `Veuillez cliquer sur le lien ci-dessous pour pouvoir créer un nouveau mot de passe: http://localhost:8080/forget/${token}`
       };
       transporter.sendMail(mailOptionsToClient, function (error, info) {
         if (error) {
@@ -318,10 +308,10 @@ module.exports = {
       return res.status(500);
     }
   },
-  
+
   newPassword: async (req, res) => {
     try {
-      // need password and passwordConfirm to front
+      console.log('hello')
       const client = await Client.findOne({where:{id: req.user.clientId, email: req.user.clientEmail}})
       if(!client) {
         console.log('client not found');
@@ -344,13 +334,11 @@ module.exports = {
           message: 'password and confirm not same'
         });
       }
-
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       if(client){
         await client.update({password: hashedPassword});
         console.log('client updated');
       }
-
       // need email to front for sending email
       const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -378,6 +366,7 @@ module.exports = {
           return res.status(200).clearCookie('token', { httpOnly: true }).json('mdp updated, mail ok');
         }
       });
+      
     } catch (error) {
       console.error(error);
       return res.status(500);

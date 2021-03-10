@@ -2,14 +2,21 @@ import { connect } from 'react-redux';
 import QuestionManager from 'src/components/ExerciseManager/QuestionManager';
 
 import {
+  patchQuestionManager,
   setQuestionManagerFieldValue,
-  deleteQuestion,
+  deleteQuestionManager,
 } from 'src/actions/exerciseManager/questionManager';
 
-import { createAnswer } from 'src/actions/exerciseManager/answerManager';
+import { postAnswerManager } from 'src/actions/exerciseManager/answerManager';
 
 const mapStateToProps = ({
-  questionManager: { questions },
+  questionManager: {
+    questions,
+    loading,
+    error,
+    updateLoading,
+    isSaved,
+  },
   answerManager: { possibleAnswers },
 }, { id }) => {
   const thisQuestion = questions.find((question) => question.id === id);
@@ -18,7 +25,11 @@ const mapStateToProps = ({
     brief: thisQuestion.brief,
     code: thisQuestion.code,
     explanation: thisQuestion.explanation,
-    picturePath: thisQuestion.picturePath,
+    updateLoading,
+    error,
+    loading,
+    isSaved,
+    // picturePath: thisQuestion.picturePath,
     possibleAnswers: possibleAnswers.filter((answer) => answer.questionId === thisQuestion.id),
   };
 };
@@ -29,8 +40,9 @@ const mapDispatchToProps = (dispatch, { id }) => ({
     name,
     questionId: id,
   })),
-  addAnswer: () => dispatch(createAnswer(id)),
-  removeQuestion: () => dispatch(deleteQuestion(id)),
+  removeQuestion: () => dispatch(deleteQuestionManager(id)),
+  createAnswer: () => dispatch(postAnswerManager(id)),
+  saveOnBlur: () => dispatch(patchQuestionManager(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionManager);

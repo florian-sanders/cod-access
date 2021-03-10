@@ -5,6 +5,9 @@ import TextField from './TextField';
 import './styles.scss';
 
 const QuestionManager = ({
+  loading,
+  updateLoading,
+  error,
   id,
   brief,
   code,
@@ -13,8 +16,10 @@ const QuestionManager = ({
   possibleAnswers,
   questionNumber,
   changeValue,
-  addAnswer,
   removeQuestion,
+  createAnswer,
+  saveOnBlur,
+  isSaved,
 }) => (
   <article className="admin-exercise__question">
     <fieldset>
@@ -34,6 +39,9 @@ const QuestionManager = ({
           name="brief"
           value={brief}
           changeValue={changeValue}
+          isSaved={isSaved}
+          saveOnBlur={saveOnBlur}
+          updateLoading={updateLoading}
         />
 
         <TextField
@@ -45,6 +53,9 @@ const QuestionManager = ({
           name="picturePath"
           value=""
           changeValue={changeValue}
+          isSaved={isSaved}
+          saveOnBlur={saveOnBlur}
+          updateLoading={updateLoading}
         />
 
         <TextField
@@ -56,6 +67,9 @@ const QuestionManager = ({
           name="code"
           value={code}
           changeValue={changeValue}
+          isSaved={isSaved}
+          saveOnBlur={saveOnBlur}
+          updateLoading={updateLoading}
         />
       </div>
 
@@ -81,7 +95,7 @@ const QuestionManager = ({
         <button
           className="admin-exercise__question__answers__btn-add"
           type="button"
-          onClick={addAnswer}
+          onClick={createAnswer}
         >
           Ajouter une réponse supplémentaire
         </button>
@@ -95,6 +109,9 @@ const QuestionManager = ({
           name="explanation"
           value={explanation}
           changeValue={changeValue}
+          isSaved={isSaved}
+          saveOnBlur={saveOnBlur}
+          updateLoading={updateLoading}
         />
       </fieldset>
     </fieldset>

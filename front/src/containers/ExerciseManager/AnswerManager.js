@@ -3,28 +3,40 @@ import AnswerManager from 'src/components/ExerciseManager/AnswerManager';
 
 import {
   setAnswerManagerFieldValue,
-  createAnswer,
-  deleteAnswer,
+  patchAnswerManager,
+  deleteAnswerManager,
 } from 'src/actions/exerciseManager/answerManager';
 
-const mapStateToProps = ({ answerManager: { possibleAnswers } }, { id }) => {
+const mapStateToProps = (
+  {
+    answerManager: {
+      possibleAnswers,
+      updateLoading,
+      error,
+      loading,
+      isSaved,
+    },
+  }, { id },
+) => {
   const thisAnswer = possibleAnswers.find((answer) => answer.id === id);
 
   return {
-    id: thisAnswer.id,
-    content: thisAnswer.content,
-    correct: thisAnswer.correct,
+    ...thisAnswer,
+    updateLoading,
+    error,
+    loading,
+    isSaved,
   };
 };
 
-const mapDispatchToProps = (dispatch, { questionId, id }) => ({
+const mapDispatchToProps = (dispatch, { id }) => ({
   changeValue: (value, name) => dispatch(setAnswerManagerFieldValue({
     value,
     name,
     answerId: id,
   })),
-  removeAnswer: () => dispatch(deleteAnswer(id)),
-  addAnswer: () => dispatch(createAnswer(questionId)),
+  removeAnswer: () => dispatch(deleteAnswerManager(id)),
+  saveOnBlur: () => dispatch(patchAnswerManager(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnswerManager);

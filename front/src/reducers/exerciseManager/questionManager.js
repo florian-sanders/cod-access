@@ -1,20 +1,41 @@
-import { nanoid } from 'nanoid';
-
 import {
   SET_QUESTION_MANAGER_FIELD_VALUE,
-  CREATE_QUESTION,
-  DELETE_QUESTION,
+  SET_QUESTION_MANAGER,
+  DELETE_QUESTION_MANAGER,
+  SET_QUESTION_MANAGER_LOADING,
+  SET_QUESTION_MANAGER_UPDATE_LOADING,
+  SET_QUESTION_MANAGER_ERROR,
+  SET_QUESTION_MANAGER_IS_SAVED,
 } from 'src/actions/exerciseManager/questionManager';
 
 const initialState = {
+  loading: false,
+  updateLoading: false,
+  isSaved: true,
   questions: [],
 };
 
 const questionManager = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_QUESTION_MANAGER_ERROR:
+      return {
+        ...state,
+        error: action.status,
+      };
+    case SET_QUESTION_MANAGER_LOADING:
+      return {
+        ...state,
+        loading: action.status,
+      };
+    case SET_QUESTION_MANAGER_UPDATE_LOADING:
+      return {
+        ...state,
+        updateLoading: action.status,
+      };
     case SET_QUESTION_MANAGER_FIELD_VALUE:
       return {
         ...state,
+        isSaved: false,
         questions: state.questions.map((question) => {
           const updatedQuestion = { ...question };
           if (question.id === action.questionId) {
@@ -24,27 +45,25 @@ const questionManager = (state = initialState, action = {}) => {
           return updatedQuestion;
         }),
       };
-    case CREATE_QUESTION:
+    case SET_QUESTION_MANAGER:
       return {
         ...state,
         questions: [
           ...state.questions,
-          {
-            id: nanoid(),
-            brief: '',
-            code: '',
-            explanation: '',
-            picturePath: '',
-            possibleAnswers: [],
-          },
+          action.question,
         ],
       };
-    case DELETE_QUESTION:
+    case DELETE_QUESTION_MANAGER:
       return {
         ...state,
         questions: state.questions.filter(
           (question) => question.id !== action.questionId,
         ),
+      };
+    case SET_QUESTION_MANAGER_IS_SAVED:
+      return {
+        ...state,
+        isSaved: action.status,
       };
     default:
       return state;
