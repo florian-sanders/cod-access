@@ -17,7 +17,6 @@ const Settings = ({
   onSubmitPassword,
   onSubmitFile,
   setSelectedFile,
-  selectedFile,
 }) => {
   const handleSubmitEmail = (evt) => {
     evt.preventDefault();
@@ -32,14 +31,12 @@ const Settings = ({
     onSubmitPassword();
   };
   const onChangeFile = (evt) => {
-    console.log(evt.target.files[0]);
     setSelectedFile(evt.target.files[0]);
   };
   const handleSubmitFile = (evt) => {
     evt.preventDefault();
     onSubmitFile();
   };
-  console.log('selectedFile', selectedFile);
   return (
     <section className="settings">
       <h1 className="title_h1">Paramètres</h1>

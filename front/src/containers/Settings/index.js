@@ -16,7 +16,6 @@ const mapStateToProps = (state) => ({
   newPassword: state.auth.newPassword,
   newPasswordConfirm: state.auth.newPasswordConfirm,
   user: state.auth.user,
-  selectedFile: state.auth.selectedFile,
 });
 
 const mapDispatchToProps = (dispatch) => ({
