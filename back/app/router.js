@@ -7,7 +7,8 @@ const exerciseController = require('./controllers/exerciseController');
 const themeController = require('./controllers/themeController');
 const docController = require('./controllers/docController');
 const swaggerController = require('./controllers/swaggerController');
-const uploadController = require('./controllers/uploadController');
+const pictureController = require('./controllers/pictureController');
+const multerConfig = require('./middleware/multer-config');
 
 const jwt = require('express-jwt');
 const jwtSecret = process.env.JWTSECRET;
@@ -66,7 +67,7 @@ router.route('/signin')
     .post(authController.submitLoginForm);
 
 router.route('/upload')
-    .post(uploadController.image);
+    .post(authorizationMiddlewareNotPass,multerConfig.imageToClient);
 
 router.route('/signup')
     .post(authController.submitSignupForm);
@@ -79,8 +80,8 @@ router.route('/exercises')
 
 router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise)
-    .post(authorizationMiddlewareLetPass,exerciseController.submitExercise)
-    .patch(authorizationMiddlewareLetPass,exerciseController.changeExercise)
+    .post(authorizationMiddlewareNotPass,exerciseController.submitExercise)
+    .patch(authorizationMiddlewareNotPass,exerciseController.changeExercise)
     .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
 
 router.route('/themes_exercises')
