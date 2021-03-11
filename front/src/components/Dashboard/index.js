@@ -3,7 +3,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import UsersList from './UsersList';
+import AdminUsersList from 'src/containers/AdminUsersList';
 import ExercicesList from './ExercisesList';
 
 import './styles.scss';
@@ -12,7 +12,7 @@ const Dashboard = () => (
   <section className="admin">
     <Switch>
       <Route path="/admin/utilisateurs">
-        <UsersList />
+        <AdminUsersList />
       </Route>
       <Route path="/admin/exercices">
         <ExercicesList />
