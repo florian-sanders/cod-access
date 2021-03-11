@@ -3,8 +3,9 @@ import {
   DELETE_USER,
   EDIT_USER_ROLE,
   setLoadingUsersList,
-  setUsers,
+  setAllUsers,
   setAllUsersRole,
+  setUsers,
 } from 'src/actions/users';
 import axiosInstance from 'src/api';
 
@@ -17,12 +18,9 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log(response.data);
         const usersRole = {};
-        response.data.map((user) => {
-          usersRole[user.id] = user.responsibility.entitled;
-        });
-        store.dispatch(setUsers(response.data));
+        response.data.map((user) => (usersRole[user.id] = user.responsibility.entitled));
+        store.dispatch(setAllUsers(response.data));
         store.dispatch(setAllUsersRole(usersRole));
       }
       catch (err) {
@@ -50,12 +48,11 @@ export default (store) => (next) => async (action) => {
       try {
         const { users: { usersRole } } = store.getState();
         const responsibility = usersRole[action.idUser];
-        console.log('middleware users', action.idUser, usersRole[action.idUser]);
         const response = await axiosInstance.patch(`/clients/${action.idUser}`, { responsibility });
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log(response.data);
+        store.dispatch(setUsers(action.idUser, responsibility));
       }
       catch (err) {
         console.log('error', err);
