@@ -11,7 +11,6 @@ export default (store) => (next) => async (action) => {
         const {
           forget: { email },
         } = store.getState();
-        console.log('email', email);
 
         const response = await axiosInstance.post('/forget', {
           email,

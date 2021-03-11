@@ -121,9 +121,6 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log('response', response.data.path);
-        // store.dispatch(setInfoUser('pseudo', response.data.pseudo));
-        console.log('middleware', selectedFile);
       }
       catch (err) {
         console.log(err);

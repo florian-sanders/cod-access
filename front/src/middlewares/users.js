@@ -3,6 +3,8 @@ import {
   DELETE_USER,
   EDIT_USER_ROLE,
   setLoadingUsersList,
+  setAllUsers,
+  setAllUsersRole,
   setUsers,
 } from 'src/actions/users';
 import axiosInstance from 'src/api';
@@ -16,7 +18,10 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-        store.dispatch(setUsers(response.data));
+        const usersRole = {};
+        response.data.map((user) => (usersRole[user.id] = user.responsibility.entitled));
+        store.dispatch(setAllUsers(response.data));
+        store.dispatch(setAllUsersRole(usersRole));
       }
       catch (err) {
         console.log('error', err);
@@ -31,11 +36,6 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-        const usersRole = {};
-        response.data.map((user) => {
-          usersRole[user.id] = user.role;
-        });
-        console.log(response.data);
       }
       catch (err) {
         console.log('error', err);
@@ -46,11 +46,13 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case EDIT_USER_ROLE:
       try {
-        const response = await axiosInstance.patch(`/clients/${action.idUser}`);
+        const { users: { usersRole } } = store.getState();
+        const responsibility = usersRole[action.idUser];
+        const response = await axiosInstance.patch(`/clients/${action.idUser}`, { responsibility });
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log(response.data);
+        store.dispatch(setUsers(action.idUser, responsibility));
       }
       catch (err) {
         console.log('error', err);

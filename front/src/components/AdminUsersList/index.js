@@ -1,10 +1,19 @@
 import React, { useEffect } from 'react';
+// import ModalRole from './ModalRole';
 import PropTypes from 'prop-types';
 
 import AdminMenu from 'src/components/AdminMenu';
 import './styles.scss';
 
-const AdminUsersList = ({fetchUsers, users, loadingUsersList, deleteUser, editUserRole}) => {
+const AdminUsersList = ({
+  fetchUsers,
+  users,
+  loadingUsersList,
+  deleteUser,
+  usersRole,
+  editUserRole,
+  handleChangeSelect,
+}) => {
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -19,14 +28,9 @@ const AdminUsersList = ({fetchUsers, users, loadingUsersList, deleteUser, editUs
     deleteUser(idUser);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (idUser, event) => {
     event.preventDefault();
-    console.log(event.target.value);
-  };
-
-  const handleChange = (event) => {
-    // event.preventDefault();
-    // console.log(event.target.value);
+    editUserRole(idUser);
   };
 
   return (
@@ -54,14 +58,23 @@ const AdminUsersList = ({fetchUsers, users, loadingUsersList, deleteUser, editUs
                   <td>{user.email}</td>
                   <td>{user.pseudo}</td>
                   <td>
-                    {user.responsibility_id}
-                    <form onSubmit={handleSubmit}>
-                      <select onChange={handleChange}>
-                        <option value="2">Admin</option>
-                        <option value="1">Utilisateur</option>
+                    {user.responsibility.entitled}
+                    <form onSubmit={() => handleSubmit(user.id, event)}>
+                      <select
+                        value={usersRole[user.id]}
+                        onChange={(event) => handleChangeSelect(user.id, event.target.value)}
+                      >
+                        <option value="admin">Admin</option>
+                        <option value="utilisateur">Utilisateur</option>
                       </select>
                       <button type="submit">Valider les modifications</button>
                     </form>
+                    {/* <ModalRole
+                      handleChangeSelect={handleChangeSelect}
+                      idUser={user.id}
+                      role={usersRole[user.id]}
+                      isVisible={modalVisible}
+                    /> */}
                   </td>
                   <td>{user.created_at}</td>
                   <td>{user.updated_at}</td>
@@ -75,9 +88,7 @@ const AdminUsersList = ({fetchUsers, users, loadingUsersList, deleteUser, editUs
                     </button>
                     <button
                       type="button"
-                      onClick={() => {
-                        editUserRole(user.id);
-                      }}
+                      // onClick={}
                     >Modifier les droits
                     </button>
                   </td>
@@ -90,6 +101,33 @@ const AdminUsersList = ({fetchUsers, users, loadingUsersList, deleteUser, editUs
       </div>
     </>
   );
-}
+};
+
+AdminUsersList.propTypes = {
+  fetchUsers: PropTypes.func.isRequired,
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      email: PropTypes.string.isRequired,
+      pseudo: PropTypes.string.isRequired,
+      created_at: PropTypes.string.isRequired,
+      updated_at: PropTypes.string.isRequired,
+      responsibility: PropTypes.shape({
+        entitled: PropTypes.string.isRequired,
+      }),
+    }),
+  ),
+  loadingUsersList: PropTypes.bool,
+  deleteUser: PropTypes.func.isRequired,
+  usersRole: PropTypes.object,
+  editUserRole: PropTypes.func.isRequired,
+  handleChangeSelect: PropTypes.func.isRequired,
+};
+
+AdminUsersList.defaultProps = {
+  users: [],
+  loadingUsersList: false,
+  usersRole: {},
+};
 
 export default AdminUsersList;
