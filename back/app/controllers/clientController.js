@@ -25,7 +25,9 @@ module.exports = {
                     error: `access only by admin`
                 });
             }
-            const clients = await Client.findAll();
+            const clients = await Client.findAll({
+                include:'responsibility'
+            });
             console.log('clients', clients);
             return res.status(200).json(
             clients
