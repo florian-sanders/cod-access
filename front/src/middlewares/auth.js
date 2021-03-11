@@ -62,7 +62,6 @@ export default (store) => (next) => async (action) => {
         if (statusProfile !== 200) {
           throw new Error();
         }
-
         store.dispatch(signIn(dataProfile));
       }
       catch (err) {

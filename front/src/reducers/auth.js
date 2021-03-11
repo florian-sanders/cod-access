@@ -23,6 +23,7 @@ const initialState = {
     email: '',
     pseudo: '',
     role: '',
+    picturePath: '',
   },
 };
 
@@ -52,6 +53,7 @@ const reducer = (state = initialState, action = {}) => {
           email: action.email,
           pseudo: action.pseudo,
           role: action.role,
+          picturePath: action.picturePath,
         },
       };
     case SIGN_OUT:
