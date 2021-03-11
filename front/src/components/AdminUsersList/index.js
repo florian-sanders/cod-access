@@ -19,6 +19,16 @@ const AdminUsersList = ({fetchUsers, users, loadingUsersList, deleteUser, editUs
     deleteUser(idUser);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(event.target.value);
+  };
+
+  const handleChange = (event) => {
+    // event.preventDefault();
+    // console.log(event.target.value);
+  };
+
   return (
     <>
       <AdminMenu />
@@ -43,7 +53,16 @@ const AdminUsersList = ({fetchUsers, users, loadingUsersList, deleteUser, editUs
                   <td>{user.id}</td>
                   <td>{user.email}</td>
                   <td>{user.pseudo}</td>
-                  <td>{user.responsibility_id}</td>
+                  <td>
+                    {user.responsibility_id}
+                    <form onSubmit={handleSubmit}>
+                      <select onChange={handleChange}>
+                        <option value="2">Admin</option>
+                        <option value="1">Utilisateur</option>
+                      </select>
+                      <button type="submit">Valider les modifications</button>
+                    </form>
+                  </td>
                   <td>{user.created_at}</td>
                   <td>{user.updated_at}</td>
                   <td>

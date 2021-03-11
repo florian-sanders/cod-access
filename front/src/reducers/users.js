@@ -5,6 +5,7 @@ import {
 
 const initialState = {
   users: [],
+  usersRole: {},
   loadingUsersList: false,
 };
 

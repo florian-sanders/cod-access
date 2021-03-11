@@ -31,6 +31,10 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
+        const usersRole = {};
+        response.data.map((user) => {
+          usersRole[user.id] = user.role;
+        });
         console.log(response.data);
       }
       catch (err) {
