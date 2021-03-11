@@ -75,7 +75,7 @@ module.exports = {
                     error: `the provided id must be a number`
                 });
             }
-            if(req.body.responsibility === 'client'){
+            if(req.body.responsibility === 'utilisateur'){
                 req.body.responsibility = 1
             }else if(req.body.responsibility === 'admin'){
                 req.body.responsibility = 2
