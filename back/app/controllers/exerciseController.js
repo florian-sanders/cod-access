@@ -432,7 +432,9 @@ module.exports = {
             })
             let correct_answers = [];
             let wrong_answers = [];
+            let explanation = []
             for (const questions of exercise.questions){
+                explanation.push({id: questions.id, explanation: questions.explanation})
                 for (const answers of questions.possible_answers){
                     if(answers.correct === true){
                         correct_answers.push(answers.id)
@@ -453,6 +455,7 @@ module.exports = {
             }
             console.log('correct', correct)
             console.log('incorrect', incorrect)
+            console.log('explanation', explanation)
             const scoreResult = Math.round((correct.length/exercise.questions.length)*100)
             if(req.user){
                 const id_client = req.user.clientId
@@ -476,11 +479,12 @@ module.exports = {
                     return res.status(200).json(`client finish with score: ${scoreResult}`,
                     correct,
                     incorrect,
-                    client);
+                    client,
+                    explanation);
                 }
             };
             console.log('200 ok');
-            return res.status(200).json(`client finish with score: ${scoreResult}`,correct,incorrect);
+            return res.status(200).json(`client finish with score: ${scoreResult}`,correct,incorrect,explanation);
         
         } catch (error) {
             console.error(error);
