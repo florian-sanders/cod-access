@@ -8,6 +8,7 @@ import exercisesMiddleware from 'src/middlewares/exercises';
 import exerciseManagerMiddleware from 'src/middlewares/exerciseManager/';
 import questionManagerMiddleware from 'src/middlewares/exerciseManager/questionManager/';
 import answerManagerMiddleware from 'src/middlewares/exerciseManager/answerManager/';
+import themeManagerMiddleware from 'src/middlewares/exerciseManager/themeManager/';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -20,6 +21,7 @@ const enhancers = composeEnhancers(
     exerciseManagerMiddleware,
     questionManagerMiddleware,
     answerManagerMiddleware,
+    themeManagerMiddleware,
   ),
 );
 

@@ -4,8 +4,8 @@ import {
 } from 'src/actions/other';
 
 import {
-  setExerciseManagerThemes,
-} from 'src/actions/exerciseManager';
+  setThemeManagerCheckboxes,
+} from 'src/actions/exerciseManager/themeManager';
 
 import axiosInstance from 'src/api';
 
@@ -20,7 +20,7 @@ export default (store) => (next) => async (action) => {
         }
 
         store.dispatch(setThemes(response.data));
-        store.dispatch(setExerciseManagerThemes(response.data));
+        store.dispatch(setThemeManagerCheckboxes(response.data));
       }
       catch (err) {
         console.log(err);

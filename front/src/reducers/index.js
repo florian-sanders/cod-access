@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import exerciseManager from 'src/reducers/exerciseManager';
 import questionManager from 'src/reducers/exerciseManager/questionManager';
 import answerManager from 'src/reducers/exerciseManager/answerManager';
+import themeManager from 'src/reducers/exerciseManager/themeManager';
 import other from 'src/reducers/other';
 import auth from 'src/reducers/auth';
 import signup from 'src/reducers/signup';
@@ -16,4 +17,5 @@ export default combineReducers({
   exerciseManager,
   questionManager,
   answerManager,
+  themeManager,
 });

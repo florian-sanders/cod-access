@@ -1,12 +1,12 @@
 import {
   SET_EXERCISE_MANAGER,
   SET_EXERCISE_MANAGER_FIELD_VALUE,
-  SET_EXERCISE_MANAGER_THEMES,
   SET_EXERCISE_MANAGER_LOADING,
   SET_EXERCISE_MANAGER_UPDATE_LOADING,
   SET_EXERCISE_MANAGER_ERROR,
-  TOGGLE_EXERCISE_MANAGER_THEME,
   SET_EXERCISE_MANAGER_IS_SAVED,
+  SET_EXERCISE_MANAGER_IS_LEAVING,
+  RESET_EXERCISE_MANAGER,
 } from 'src/actions/exerciseManager';
 
 const initialState = {
@@ -17,12 +17,16 @@ const initialState = {
   id: null,
   title: '',
   brief: '',
-  themes: [],
   isSaved: false,
+  isLeaving: false,
 };
 
 const exerciseManager = (state = initialState, action = {}) => {
   switch (action.type) {
+    case RESET_EXERCISE_MANAGER:
+      return {
+        ...initialState,
+      };
     case SET_EXERCISE_MANAGER:
       return {
         ...state,
@@ -49,28 +53,12 @@ const exerciseManager = (state = initialState, action = {}) => {
         isSaved: false,
         [action.name]: action.value,
       };
-    case SET_EXERCISE_MANAGER_THEMES:
-      return {
-        ...state,
-        themes: action.themes.map((theme) => ({
-          ...theme,
-          checked: false,
-        })),
-      };
-    case TOGGLE_EXERCISE_MANAGER_THEME:
-      return {
-        ...state,
-        themes: state.themes.map((theme) => {
-          const newTheme = { ...theme };
-
-          if (theme.id === action.themeId) {
-            newTheme.checked = !theme.checked;
-          }
-
-          return newTheme;
-        }),
-      };
     case SET_EXERCISE_MANAGER_IS_SAVED:
+      return {
+        ...state,
+        isSaved: action.status,
+      };
+    case SET_EXERCISE_MANAGER_IS_LEAVING:
       return {
         ...state,
         isSaved: action.status,

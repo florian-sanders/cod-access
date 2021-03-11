@@ -1,11 +1,12 @@
 import {
   SET_ANSWER_MANAGER_FIELD_VALUE,
   SET_ANSWER_MANAGER,
-  DELETE_ANSWER_MANAGER,
+  UNSET_ANSWER_MANAGER,
   SET_ANSWER_MANAGER_LOADING,
   SET_ANSWER_MANAGER_UPDATE_LOADING,
   SET_ANSWER_MANAGER_ERROR,
   SET_ANSWER_MANAGER_IS_SAVED,
+  RESET_ANSWER_MANAGER,
 } from 'src/actions/exerciseManager/answerManager';
 
 const initialState = {
@@ -17,6 +18,10 @@ const initialState = {
 
 const answerManager = (state = initialState, action = {}) => {
   switch (action.type) {
+    case RESET_ANSWER_MANAGER:
+      return {
+        ...initialState,
+      };
     case SET_ANSWER_MANAGER_ERROR:
       return {
         ...state,
@@ -53,7 +58,7 @@ const answerManager = (state = initialState, action = {}) => {
           action.answer,
         ],
       };
-    case DELETE_ANSWER_MANAGER:
+    case UNSET_ANSWER_MANAGER:
       return {
         ...state,
         possibleAnswers: state.possibleAnswers.filter(

@@ -1,11 +1,13 @@
 import {
   POST_ANSWER_MANAGER,
   PATCH_ANSWER_MANAGER,
+  DELETE_ANSWER_MANAGER,
   setAnswerManagerIsSaved,
   setAnswerManagerLoading,
   setAnswerManagerUpdateLoading,
   setAnswerManagerError,
   setAnswerManager,
+  unsetAnswerManager,
 } from 'src/actions/exerciseManager/answerManager';
 
 import axiosInstance from 'src/api';
@@ -43,16 +45,22 @@ export default (store) => (next) => async (action) => {
     case PATCH_ANSWER_MANAGER:
       try {
         store.dispatch(setAnswerManagerUpdateLoading(true));
+        const {
+          answerManager: {
+            possibleAnswers,
+          },
+        } = store.getState();
 
-        const { status, data } = await axiosInstance.get('/themes', {
+        const thisAnswer = possibleAnswers.find((answer) => answer.id === action.answerId);
 
+        const { status } = await axiosInstance.patch(`/exercises/new_answer/${action.answerId}`, {
+          content: thisAnswer.content,
+          correct: thisAnswer.correct,
         });
 
         if (status !== 200) {
           throw new Error();
         }
-
-        console.log(data);
 
         store.dispatch(setAnswerManagerIsSaved(true));
       }
@@ -62,6 +70,25 @@ export default (store) => (next) => async (action) => {
       }
       finally {
         store.dispatch(setAnswerManagerUpdateLoading(false));
+      }
+      return next(action);
+    case DELETE_ANSWER_MANAGER:
+      try {
+        const { status } = await axiosInstance.delete(`exercises/new_answer/${action.answerId}`);
+
+        if (status !== 200) {
+          throw new Error(`Delete Answer #${action.answerId} fail`);
+        }
+
+        store.dispatch(unsetAnswerManager(action.answerId));
+        store.dispatch(setAnswerManagerIsSaved(true));
+      }
+      catch (err) {
+        console.log(err);
+        store.dispatch(setAnswerManagerError(true));
+      }
+      finally {
+        store.dispatch(setAnswerManagerLoading(false));
       }
       return next(action);
     default:

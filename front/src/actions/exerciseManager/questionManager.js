@@ -34,8 +34,9 @@ export const postQuestionManager = () => ({
 
 export const PATCH_QUESTION_MANAGER = 'PATCH_QUESTION_MANAGER';
 
-export const patchQuestionManager = () => ({
+export const patchQuestionManager = (questionId) => ({
   type: PATCH_QUESTION_MANAGER,
+  questionId,
 });
 
 export const SET_QUESTION_MANAGER_FIELD_VALUE = 'SET_QUESTION_MANAGER_FIELD_VALUE';
@@ -56,7 +57,13 @@ export const setQuestionManager = (question) => ({
 
 export const DELETE_QUESTION_MANAGER = 'DELETE_QUESTION_MANAGER';
 
-export const deleteQuestionManager = (id) => ({
+export const deleteQuestionManager = (questionId) => ({
   type: DELETE_QUESTION_MANAGER,
-  questionId: id,
+  questionId,
+});
+
+export const RESET_QUESTION_MANAGER = 'RESET_QUESTION_MANAGER';
+
+export const resetQuestionManager = () => ({
+  type: RESET_QUESTION_MANAGER,
 });

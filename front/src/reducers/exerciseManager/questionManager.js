@@ -6,6 +6,7 @@ import {
   SET_QUESTION_MANAGER_UPDATE_LOADING,
   SET_QUESTION_MANAGER_ERROR,
   SET_QUESTION_MANAGER_IS_SAVED,
+  RESET_QUESTION_MANAGER,
 } from 'src/actions/exerciseManager/questionManager';
 
 const initialState = {
@@ -17,6 +18,10 @@ const initialState = {
 
 const questionManager = (state = initialState, action = {}) => {
   switch (action.type) {
+    case RESET_QUESTION_MANAGER:
+      return {
+        ...initialState,
+      };
     case SET_QUESTION_MANAGER_ERROR:
       return {
         ...state,

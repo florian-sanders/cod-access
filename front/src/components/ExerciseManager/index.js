@@ -1,33 +1,41 @@
 import React, { useEffect } from 'react';
+import { Prompt } from 'react-router-dom';
 
 import Question from 'src/containers/ExerciseManager/QuestionManager';
+import ThemeManager from 'src/containers/ExerciseManager/ThemeManager';
 import TextField from './TextField';
 import ThemeCheckbox from './ThemeCheckbox';
+import Modal from './Modal';
 import './styles.scss';
 
 const Exercise = ({
   loading,
   updateLoading,
   error,
-  getThemes,
   changeValue,
   title,
   brief,
   questions,
-  themes,
-  handleCheckbox,
   createQuestion,
-  publish,
+  published,
   saveOnBlur,
   isSaved,
   createExercise,
+  removeExercise,
+  isLeaving,
+  setIsLeaving,
 }) => {
   useEffect(() => {
     createExercise();
+    if (!published) {
+      window.onbeforeunload = () => true;
+    }
+    else {
+      window.onbeforeunload = undefined;
+    }
   }, []);
 
   if (loading) {
-    console.log('ça charge');
     return (<p>Chargement en cours</p>);
   }
 
@@ -37,10 +45,29 @@ const Exercise = ({
 
   return (
     <section className="admin-exercise">
+      <Prompt
+        when={!published}
+        message={() => {
+          setIsLeaving(true);
+        }}
+      />
+      {
+        isLeaving && (
+          <Modal />
+        )
+      }
       <h1 className="admin-exercise__heading-page">Créer un exercice</h1>
+      <p>Statut de l'exercice : sauvegardé en brouillon</p>
       <form>
         <section>
           <article className="admin-exercise__general-info">
+            <button
+              className="admin-exercise__btn-remove"
+              type="button"
+              onClick={removeExercise}
+            >
+              Supprimer l'exercice
+            </button>
             <TextField
               className="admin-exercise__general-info__field-group"
               id="exercise-title"
@@ -69,23 +96,7 @@ const Exercise = ({
               updateLoading={updateLoading}
             />
 
-            <fieldset className="admin-exercise__general-info__themes">
-              <legend>Thématiques</legend>
-              {
-                themes.map((theme) => (
-                  <ThemeCheckbox
-                    className="admin-exercise__general-info__field-group"
-                    theme={theme}
-                    type="checkbox"
-                    name="theme"
-                    handleCheckbox={handleCheckbox}
-                    saveOnBlur={saveOnBlur}
-                    isSaved={isSaved}
-                    key={theme.id}
-                  />
-                ))
-              }
-            </fieldset>
+            <ThemeManager />
           </article>
 
           {
@@ -102,14 +113,9 @@ const Exercise = ({
             Ajouter une question supplémentaire
           </button>
         </section>
-        <section className="admin-exercise__submit-publish">
-          <button type="button">Annuler</button>
-          <button type="submit">Sauvegarder (en brouillon)</button>
-          <button type="submit">Publier (en ligne)</button>
-        </section>
       </form>
     </section>
-  )
+  );
 };
 
 export default Exercise;

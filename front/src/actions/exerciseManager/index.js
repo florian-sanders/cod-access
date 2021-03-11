@@ -47,6 +47,12 @@ export const saveExercise = () => ({
   type: SAVE_EXERCISE,
 });
 
+export const DELETE_EXERCISE_MANAGER = 'DELETE_EXERCISE_MANAGER';
+
+export const deleteExerciseManager = () => ({
+  type: DELETE_EXERCISE_MANAGER,
+});
+
 export const POST_EXERCISE_MANAGER = 'POST_EXERCISE_MANAGER';
 
 export const postExerciseManager = () => ({
@@ -71,4 +77,17 @@ export const SET_EXERCISE_MANAGER = 'SET_EXERCISE_MANAGER';
 export const setExerciseManager = (exercise) => ({
   type: SET_EXERCISE_MANAGER,
   exercise,
+});
+
+export const SET_EXERCISE_MANAGER_IS_LEAVING = 'SET_EXERCISE_MANAGER__IS_LEAVING';
+
+export const setExerciseManagerIsLeaving = (status) => ({
+  type: SET_EXERCISE_MANAGER_IS_LEAVING,
+  status,
+});
+
+export const RESET_EXERCISE_MANAGER = 'RESET_EXERCISE_MANAGER';
+
+export const resetExerciseManager = () => ({
+  type: RESET_EXERCISE_MANAGER,
 });

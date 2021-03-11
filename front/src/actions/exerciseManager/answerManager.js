@@ -35,8 +35,9 @@ export const postAnswerManager = (questionId) => ({
 
 export const PATCH_ANSWER_MANAGER = 'PATCH_ANSWER_MANAGER';
 
-export const patchAnswerManager = () => ({
+export const patchAnswerManager = (answerId) => ({
   type: PATCH_ANSWER_MANAGER,
+  answerId,
 });
 
 export const SET_ANSWER_MANAGER_FIELD_VALUE = 'SET_ANSWER_MANAGER_FIELD_VALUE';
@@ -61,4 +62,17 @@ export const DELETE_ANSWER_MANAGER = 'DELETE_ANSWER_MANAGER';
 export const deleteAnswerManager = (answerId) => ({
   type: DELETE_ANSWER_MANAGER,
   answerId,
+});
+
+export const UNSET_ANSWER_MANAGER = 'UNSET_ANSWER_MANAGER';
+
+export const unsetAnswerManager = (answerId) => ({
+  type: UNSET_ANSWER_MANAGER,
+  answerId,
+});
+
+export const RESET_ANSWER_MANAGER = 'RESET_ANSWER_MANAGER';
+
+export const resetAnswerManager = () => ({
+  type: RESET_ANSWER_MANAGER,
 });

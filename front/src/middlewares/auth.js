@@ -45,6 +45,8 @@ export default (store) => (next) => async (action) => {
         // server will check if our csrf cookie token value matches our header token value,
         // meaning the request comes from the app and not another site
         axiosInstance.defaults.headers.post['X-CSRF-Token'] = dataCSRF.csrfToken;
+        axiosInstance.defaults.headers.patch['X-CSRF-Token'] = dataCSRF.csrfToken;
+        axiosInstance.defaults.headers.delete['X-CSRF-Token'] = dataCSRF.csrfToken;
 
         // once csrf token is set (both in cookie and headers), try to access the profile route
         // if our client has an HTTPOnly cookie with a valid JWT, server will respond 200

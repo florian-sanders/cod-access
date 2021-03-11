@@ -1,5 +1,18 @@
 @import "src/styles/vars";
 
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f;
+  display: none;
+
+  &--visible {
+    display: block;
+  }
+}
+
 .admin-exercise {
   max-width: 900px;
   margin: 0 auto;

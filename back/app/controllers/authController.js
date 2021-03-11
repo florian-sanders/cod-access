@@ -274,7 +274,9 @@ module.exports = {
         algorithm: process.env.JWTALGO,
         expiresIn: '0.15h'
       };
-      const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
+      let token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
+      console.log('token', token)
+      token = token.replace(/\./g,'$')
       // need email to front for sending email
       const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -363,7 +365,7 @@ module.exports = {
           return res.status(500).json('mail failed');
         } else {
           console.log('Email sent: ' + info.response);
-          return res.status(200).clearCookie('token', { httpOnly: true }).json('mdp updated, mail ok');
+          return res.status(200).json('mdp updated, mail ok');
         }
       });
       
