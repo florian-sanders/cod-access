@@ -34,8 +34,8 @@ export const trySignIn = () => ({
 export const signIn = ({
   email,
   pseudo,
-  client_picture: { path: picturePath },
   responsibility: { entitled: role },
+  client_picture: { path: picturePath },
 }) => ({
   type: SIGN_IN,
   email,
