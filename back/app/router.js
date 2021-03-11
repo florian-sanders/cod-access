@@ -80,6 +80,7 @@ router.route('/exercises')
 router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise)
     .post(authorizationMiddlewareLetPass,exerciseController.submitExercise)
+    .patch(authorizationMiddlewareLetPass,exerciseController.changeExercise)
     .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
 
 router.route('/themes_exercises')
@@ -112,10 +113,14 @@ router.route('/exercises/new_exercise')
     .post(authorizationMiddlewareNotPass,exerciseController.newExercise);
 // create question
 router.route('/exercises/new_question/:id')
-    .post(authorizationMiddlewareNotPass,exerciseController.newQuestion);
+    .post(authorizationMiddlewareNotPass,exerciseController.newQuestion)
+    .patch(authorizationMiddlewareNotPass,exerciseController.changeQuestion)
+    .delete(authorizationMiddlewareNotPass,exerciseController.deleteQuestion);
 // create answer
 router.route('/exercises/new_answer/:id')
-    .post(authorizationMiddlewareNotPass,exerciseController.newAnswer);
+    .post(authorizationMiddlewareNotPass,exerciseController.newAnswer)
+    .patch(authorizationMiddlewareNotPass,exerciseController.changeAnswer)
+    .delete(authorizationMiddlewareNotPass,exerciseController.deleteAnswer);
 // create assosiation exercise/theme
 router.route('/exercises/associate_exercise_theme')
     .post(authorizationMiddlewareNotPass,exerciseController.associate_exercise_theme)

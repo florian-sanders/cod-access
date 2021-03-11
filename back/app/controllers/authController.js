@@ -365,7 +365,7 @@ module.exports = {
           return res.status(500).json('mail failed');
         } else {
           console.log('Email sent: ' + info.response);
-          return res.status(200).clearCookie('token', { httpOnly: true }).json('mdp updated, mail ok');
+          return res.status(200).json('mdp updated, mail ok');
         }
       });
       
