@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const PrivateUserRoute = ({ component: Component, isLogged, ...rest }) => (
   // Show the component only when the user is logged in
-  // Otherwise, redirect the user to /signin page
+  // Otherwise, redirect the user to home page
   <Route
     {...rest}
     render={(props) => (
