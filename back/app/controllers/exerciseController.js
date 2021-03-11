@@ -4,7 +4,7 @@ const {
     Client_exercise,
     Question,
     Possible_answer,
-    Theme
+    Theme,
 } = require('../models');
 
 module.exports = {
@@ -57,6 +57,40 @@ module.exports = {
             return res.status(500);
         }
     },
+    
+    changeExercise: async (req, res, next) => {
+        try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
+            const data = req.body;
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            const result = await Exercise.findByPk(id);
+            if(data.published) {
+                data.published = Boolean(data.published);
+            }
+            for (const properties in data) {
+                if (typeof result[properties] !== 'undefined') {
+                    result[properties] = data[properties];
+                }
+            }
+            await result.save();
+            console.log('200 ok', result);
+            return res.status(200).json(result);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
 
     deleteOneExercise: async (req, res, next) => {
         try {
@@ -75,7 +109,9 @@ module.exports = {
             const exercise = await Exercise.findByPk(id);
             
             if (!exercise) {
-                throw new Error('Exercise does not exist');
+                return res.status(404).json({
+                    error: 'no exercise',
+                });
             }
             await exercise.destroy();
             return res.json('exercise delete');
@@ -99,8 +135,8 @@ module.exports = {
                 brief: req.body.brief,
                 slug: req.body.slug,
                 content: req.body.content,
-                published: req.body.published,
-                picture_id: req.body.picture_id,
+                published: false,
+                picture_id: Number(req.body.picture_id),
             });
             await newExercise.save();
             console.log('200 ok');
@@ -126,6 +162,11 @@ module.exports = {
                     error: `the provided id must be a number`
                 });
             }
+            if(req.body.picture_id){
+                req.body.picture_id = Number(req.body.picture_id)
+            } else {
+                req.body.picture_id = null
+            }
             const newQuestion = new Question({
                 brief: req.body.brief,
                 code: req.body.code,
@@ -136,6 +177,72 @@ module.exports = {
             await newQuestion.save();
             console.log('200 ok');
             return res.status(200).json(newQuestion);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+
+    changeQuestion: async (req, res, next) => {
+        try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
+            const data = req.body;
+            if(data.picture_id) {
+                data.picture_id = Number(data.picture_id);
+            }else {
+                data.picture_id = null
+            }
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            const result = await Question.findByPk(id);
+            for (const properties in data) {
+                if (typeof result[properties] !== 'undefined') {
+                    result[properties] = data[properties];
+                }
+            }
+            await result.save();
+            console.log('200 ok', result);
+            return res.status(200).json(result);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+    
+    deleteQuestion: async (req, res, next) => {
+        try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            const question = await Question.findByPk(id);
+            
+            if (!question) {
+                return res.status(400).json({
+                    error: 'Question does not exist'
+                });
+            }
+            await question.destroy();
+            return res.json('question delete');
         
         } catch (error) {
             console.error(error);
@@ -159,12 +266,74 @@ module.exports = {
             }
             const newAnswer = new Possible_answer({
                 content: req.body.content,
-                correct: req.body.correct,
+                correct: Boolean(req.body.correct),
                 question_id: id,
             });
             await newAnswer.save();
             console.log('200 ok');
             return res.status(200).json(newAnswer);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+    
+    changeAnswer: async (req, res, next) => {
+        try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
+            const data = req.body;
+            data.correct = Boolean(data.correct)
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            const result = await Possible_answer.findByPk(id);
+            for (const properties in data) {
+                if (typeof result[properties] !== 'undefined') {
+                    result[properties] = data[properties];
+                }
+            }
+            await result.save();
+            console.log('200 ok', result);
+            return res.status(200).json(result);
+        
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+
+    deleteAnswer: async (req, res, next) => {
+        try {
+            const role = req.user.clientRole
+            if(role !== 'admin'){
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            const answer = await Possible_answer.findByPk(id);
+            
+            if (!answer) {
+                return res.status(400).json({
+                    error: 'Answer does not exist'
+                });
+            }
+            await answer.destroy();
+            return res.json('answer delete');
         
         } catch (error) {
             console.error(error);
