@@ -111,7 +111,7 @@ AdminUsersList.propTypes = {
       email: PropTypes.string.isRequired,
       pseudo: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,
-      updated_at: PropTypes.string.isRequired,
+      updated_at: PropTypes.string,
       responsibility: PropTypes.shape({
         entitled: PropTypes.string.isRequired,
       }),

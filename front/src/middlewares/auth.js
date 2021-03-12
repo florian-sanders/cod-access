@@ -9,7 +9,9 @@ import {
   signIn,
   signOut,
   setInfoUser,
+  setSelectedFile,
 } from 'src/actions/auth';
+
 import axiosInstance from 'src/api';
 
 export default (store) => (next) => async (action) => {
@@ -129,10 +131,19 @@ export default (store) => (next) => async (action) => {
         const { auth: { selectedFile } } = store.getState();
         const data = new FormData();
         data.append('profile', selectedFile);
-        const response = await axiosInstance.post('/upload_client', data, {});
-        if (response.status !== 200) {
+        const {
+          data: {
+            myFile: {
+              path: pathPicture,
+            },
+          },
+          status,
+        } = await axiosInstance.post('/upload_client', data, {});
+        if (status !== 200) {
           throw new Error();
         }
+        store.dispatch(setInfoUser('picturePath', pathPicture.substring(6)));
+        store.dispatch(setSelectedFile(null));
       }
       catch (err) {
         console.log(err);

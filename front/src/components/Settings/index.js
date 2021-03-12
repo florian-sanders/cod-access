@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import diverImgPath from 'src/assets/img/diver.svg';
+import { returnFileSize } from 'src/utils';
 import FieldGroup from './FieldGroup';
 import './styles.scss';
 
@@ -17,6 +17,7 @@ const Settings = ({
   onSubmitPassword,
   onSubmitFile,
   setSelectedFile,
+  selectedFile,
 }) => {
   const handleSubmitEmail = (evt) => {
     evt.preventDefault();
@@ -37,16 +38,37 @@ const Settings = ({
     evt.preventDefault();
     onSubmitFile();
   };
+
   return (
     <section className="settings">
       <h1 className="title_h1">Paramètres</h1>
+      <h2>Modifier la photo de profil</h2>
       <form
-        className="settings__form"
+        className="settings__form__upload"
         onSubmit={handleSubmitFile}
       >
-        <div className="">
-          <label htmlFor="upload">Modifier votre photo de profil</label>
-          <input id="upload" type="file" onChange={onChangeFile} />
+        <label className="settings__form__upload__label" htmlFor="upload">Télécharger une image</label>
+        <input className="settings__form__upload__input" id="upload" type="file" onChange={onChangeFile} accept="image/*" />
+        <div className="settings__form__upload__preview">
+          {
+            selectedFile === null
+              ? (
+                <p>Aucun fichier selectionné</p>
+              )
+              : (
+                <>
+                  <p>Nom : {selectedFile.name}</p>
+                  <p>Taille : {returnFileSize(selectedFile.size)}</p>
+                  {
+                    selectedFile.type.substring(0, 5) === 'image'
+                      ? <p>Format : {selectedFile.type}, {selectedFile.type.substring(0, 5)}</p>
+                      : <p>Le document sélectionné n'est pas une image, veuillez réessayer.</p>
+                  }
+                  <img src={window.URL.createObjectURL(selectedFile)} alt="" />
+
+                </>
+              )
+          }
         </div>
         <button
           className="button--blue"
@@ -156,6 +178,11 @@ Settings.propTypes = {
   onSubmitPassword: PropTypes.func.isRequired,
   onSubmitFile: PropTypes.func.isRequired,
   setSelectedFile: PropTypes.func.isRequired,
+  selectedFile: PropTypes.object,
+};
+
+Settings.defaultProps = {
+  selectedFile: {},
 };
 
 export default Settings;
