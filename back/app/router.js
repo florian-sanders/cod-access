@@ -53,11 +53,11 @@ router.route('/signout')
     .get(authController.signout);
 
 router.route('/clients')
-    .get(authorizationMiddlewareNotPass,clientController.getAllClients);
+    .get(authorizationMiddlewareNotPass, clientController.getAllClients);
 
 router.route('/clients/:id')
-    .patch(authorizationMiddlewareNotPass,clientController.changeRoleClient)
-    .delete(authorizationMiddlewareNotPass,clientController.deleteOneClient);
+    .patch(authorizationMiddlewareNotPass, clientController.changeRoleClient)
+    .delete(authorizationMiddlewareNotPass, clientController.deleteOneClient);
 
 router.route('/profile')
     .get(authorizationMiddlewareNotPass, clientController.getOneClient)
@@ -67,10 +67,10 @@ router.route('/signin')
     .post(authController.submitLoginForm);
 
 router.route('/upload_client')
-    .post(authorizationMiddlewareNotPass,multerConfig.imageToClient)
+    .post(authorizationMiddlewareNotPass, multerConfig.imageToClient)
 
 router.route('/upload_question')
-    .post(authorizationMiddlewareNotPass,multerConfig.imageToQuestion);
+    .post(authorizationMiddlewareNotPass, multerConfig.imageToQuestion);
 
 router.route('/signup')
     .post(authController.submitSignupForm);
@@ -82,10 +82,8 @@ router.route('/exercises')
     .get(exerciseController.getAllExercises);
 
 router.route('/exercises/dragndrop/:id')
-    .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise)
-    .post(authorizationMiddlewareNotPass,exerciseController.submitExercise)
-    .patch(authorizationMiddlewareNotPass,exerciseController.changeExercise)
-    .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
+    .get(authorizationMiddlewareLetPass, exerciseController.getOneExerciseVisitor)
+    .post(authorizationMiddlewareLetPass, exerciseController.submitExercise);
 
 router.route('/themes_exercises')
     .get(themeController.getAllThemesForExercises);
@@ -97,43 +95,49 @@ router.route('/docs')
     .get(docController.getAllDocs);
 
 router.route('/docs/:id')
-    .get(authorizationMiddlewareLetPass,docController.getOneDoc)
-    .patch(authorizationMiddlewareNotPass,docController.changeOneDoc)
-    .delete(authorizationMiddlewareNotPass,docController.deleteOneDoc);
+    .get(authorizationMiddlewareLetPass, docController.getOneDoc)
+    .patch(authorizationMiddlewareNotPass, docController.changeOneDoc)
+    .delete(authorizationMiddlewareNotPass, docController.deleteOneDoc);
 
 router.route('/docs/:id/client')
-    .post(authorizationMiddlewareNotPass,docController.addDocToClient)
-    .delete(authorizationMiddlewareNotPass,docController.deleteDocToClient);
-    
+    .post(authorizationMiddlewareNotPass, docController.addDocToClient)
+    .delete(authorizationMiddlewareNotPass, docController.deleteDocToClient);
+
 router.route('/published_docs')
-    .get(authorizationMiddlewareLetPass,docController.getAllDocsPublished);
+    .get(authorizationMiddlewareLetPass, docController.getAllDocsPublished);
 
 router.route('/docs/new')
-    .post(authorizationMiddlewareNotPass,docController.newDoc);
+    .post(authorizationMiddlewareNotPass, docController.newDoc);
 
 
 // create exercise
-router.route('/exercises/new_exercise')
-    .post(authorizationMiddlewareNotPass,exerciseController.newExercise);
+router.route('/admin/exercises/new_exercise')
+    .post(authorizationMiddlewareNotPass, exerciseController.newExercise);
+
+router.route('/admin/exercises/:id')
+    .get(authorizationMiddlewareNotPass, exerciseController.getOneExerciseAdmin)
+    .patch(authorizationMiddlewareNotPass, exerciseController.changeExercise)
+    .delete(authorizationMiddlewareNotPass, exerciseController.deleteOneExercise);
+
 // create question
-router.route('/exercises/new_question/:id')
-    .post(authorizationMiddlewareNotPass,exerciseController.newQuestion)
-    .patch(authorizationMiddlewareNotPass,exerciseController.changeQuestion)
-    .delete(authorizationMiddlewareNotPass,exerciseController.deleteQuestion);
+router.route('/admin/exercises/new_question/:id')
+    .post(authorizationMiddlewareNotPass, exerciseController.newQuestion)
+    .patch(authorizationMiddlewareNotPass, exerciseController.changeQuestion)
+    .delete(authorizationMiddlewareNotPass, exerciseController.deleteQuestion);
 // create answer
-router.route('/exercises/new_answer/:id')
-    .post(authorizationMiddlewareNotPass,exerciseController.newAnswer)
-    .patch(authorizationMiddlewareNotPass,exerciseController.changeAnswer)
-    .delete(authorizationMiddlewareNotPass,exerciseController.deleteAnswer);
+router.route('/admin/exercises/new_answer/:id')
+    .post(authorizationMiddlewareNotPass, exerciseController.newAnswer)
+    .patch(authorizationMiddlewareNotPass, exerciseController.changeAnswer)
+    .delete(authorizationMiddlewareNotPass, exerciseController.deleteAnswer);
 // create assosiation exercise/theme
-router.route('/exercises/associate_exercise_theme')
-    .post(authorizationMiddlewareNotPass,exerciseController.associate_exercise_theme)
-    .delete(authorizationMiddlewareNotPass,exerciseController.delete_exercise_theme);
+router.route('/admin/exercises/associate_exercise_theme')
+    .post(authorizationMiddlewareNotPass, exerciseController.associate_exercise_theme)
+    .delete(authorizationMiddlewareNotPass, exerciseController.delete_exercise_theme);
 
 // forget password client
 router.route('/forget')
     .post(authController.forgetPassword)
-    .patch(authorizationMiddlewareNewPassword,authController.newPassword);
+    .patch(authorizationMiddlewareNewPassword, authController.newPassword);
 
 
 // route used to see all the API in swagger

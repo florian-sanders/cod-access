@@ -9,6 +9,7 @@ const mapStateToProps = ({ exercises: { currentExercise } }, { questionIndex }) 
   return {
     userAnswers: thisQuestion.userAnswers || [],
     isHidden: currentExercise.currentQuestionIndex !== questionIndex,
+    explanation: thisQuestion.explanation,
   };
 };
 
