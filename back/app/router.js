@@ -83,7 +83,7 @@ router.route('/exercises')
 
 router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise)
-    .post(authorizationMiddlewareNotPass,exerciseController.submitExercise)
+    .post(authorizationMiddlewareLetPass,exerciseController.submitExercise)
     .patch(authorizationMiddlewareNotPass,exerciseController.changeExercise)
     .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
 
