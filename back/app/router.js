@@ -7,7 +7,6 @@ const exerciseController = require('./controllers/exerciseController');
 const themeController = require('./controllers/themeController');
 const docController = require('./controllers/docController');
 const swaggerController = require('./controllers/swaggerController');
-const pictureController = require('./controllers/pictureController');
 const multerConfig = require('./middleware/multer-config');
 
 const jwt = require('express-jwt');
@@ -34,11 +33,6 @@ const authorizationMiddlewareNewPassword = jwt({
     secret: jwtSecret,
     algorithms: [algorithmsJWT],
 });
-
-// router.use((req, res, next)=>{
-//     console.log('req.url', req.url)
-//     next()
-// })
 
 // route used by the React App upon loading to retrieve a csrf token.
 // this token will be sent into a cookie as well as a header set by the React App
@@ -79,7 +73,7 @@ router.route('/contact')
     .post(authController.submitContact);
 
 router.route('/exercises')
-    .get(exerciseController.getAllExercises);
+    .get(authorizationMiddlewareNotPass,exerciseController.getAllExercises);
 
 router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass,exerciseController.getOneExercise)
@@ -88,7 +82,7 @@ router.route('/exercises/dragndrop/:id')
     .delete(authorizationMiddlewareNotPass,exerciseController.deleteOneExercise);
 
 router.route('/themes_exercises')
-    .get(themeController.getAllThemesForExercises);
+    .get(authorizationMiddlewareLetPass,themeController.getAllThemesForExercises);
 
 router.route('/themes')
     .get(themeController.getAllThemes);
