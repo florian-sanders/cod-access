@@ -1,14 +1,22 @@
-const { Theme, Exercise } = require('../models');
+const { Theme, Exercise, Client } = require('../models');
 
 module.exports = {
 
     getAllThemesForExercises: async (req, res, next) => {
         try{
+            let myClient = null;
+            if (req.user) {
+                myClient = req.user.clientId
+            }
             const theme = await Theme.findAll({
-                include: [{model:Exercise, as: 'exercises',where:{published: true}}]
-              });
-
-            console.log('theme', theme);
+                include: [
+                    {model:Exercise, as: 'exercises',where:{published: true}},
+                    {
+                        association: 'exercises',
+                        include: [ {model: Client, as: 'clients', where: { id: myClient }, required: false}],
+                    },
+                ]
+            });
             return res.status(200).json(
             theme
             );
@@ -22,8 +30,6 @@ module.exports = {
     getAllThemes: async (req, res, next) => {
         try{
             const theme = await Theme.findAll();
-
-            console.log('theme', theme);
             return res.status(200).json(
             theme
             );

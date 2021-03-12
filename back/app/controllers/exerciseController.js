@@ -11,6 +11,12 @@ module.exports = {
 
     getAllExercises: async (req, res, next) => {
         try {
+            const role = req.user.clientRole
+            if (role !== 'admin') {
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
             const exercises = await Exercise.findAll({
                 include: ['kind', 'clients', 'themes']
             });
@@ -118,6 +124,8 @@ module.exports = {
             const result = await Exercise.findByPk(id);
             if (data.published) {
                 data.published = Boolean(data.published);
+            }else{
+                data.published = false
             }
             for (const properties in data) {
                 if (typeof result[properties] !== 'undefined') {
@@ -508,40 +516,68 @@ module.exports = {
                     incorrect.push(question)
                 }
             }
-            console.log('correct', correct)
-            console.log('incorrect', incorrect)
-            console.log('explanation', explanation)
+            // console.log('correct', correct)
+            // console.log('incorrect', incorrect)
+
             const scoreResult = Math.round((correct.length / exercise.questions.length) * 100)
+
             if (req.user) {
                 const id_client = req.user.clientId
                 const client = await Client.findByPk(id_client, {
-                    include: 'exercises'
+                include: [ {model: Exercise, as: 'exercises', where: { id: exercise.id }, required: false}],
                 })
-                await client.addExercise(exercise);
-
-                const exerciseAlreadyDone = client.exercises.find(e => e.id === id_exercise)
-                if (exerciseAlreadyDone) {
-
-                }
-                const oldScore = exerciseAlreadyDone.Client_exercise.score
-                if (scoreResult > oldScore) {
+     
+                if(!client.exercises[0]){
+                    // never played i have to save
+                    await client.addExercise(exercise);
                     const result = new Client_exercise({
-                        score: scoreResult,
-                        client_id: id_client,
-                        exercise_id: id_exercise
+                    score: scoreResult,
+                    client_id: id_client,
+                    exercise_id: id_exercise
                     })
                     await result.save()
+                    console.log('first play', result)
                     return res.status(200).json({
+                    message: `client finish with score: ${scoreResult}`,
+                    correct,
+                    incorrect,
+                    client,
+                    explanation
+                    });
+
+                } else {
+                    // played already i have to update
+                    const oldScore = client.exercises[0].Client_exercise.score
+                    if(oldScore === null || oldScore < scoreResult ){
+                        const updateScore = await Client_exercise.findOne({
+                        where:{client_id: id_client,exercise_id: id_exercise}
+                        })
+                        await updateScore.update({score: scoreResult})
+                        console.log('deja joué mais j\'update car score meilleure', oldScore, updateScore)
+                        return res.status(200).json({
                         message: `client finish with score: ${scoreResult}`,
                         rightAnswers: correct_answers,
                         correct,
                         incorrect,
                         scoreResult,
                         explanation
-                    });
+                        });
+
+                    } else {
+                        // older score was better i'm doing nothing
+                        console.log('je ne fait rien')
+                        return res.status(200).json({
+                        message: `client finish with score: ${scoreResult}`,
+                        correct,
+                        incorrect,
+                        client,
+                        explanation
+                        });
+                    }
                 }
             };
-            console.log('200 ok');
+
+            console.log('score du user sans co', scoreResult);
             return res.status(200).json({
                 message: `client finish with score: ${scoreResult}`,
                 rightAnswers: correct_answers,

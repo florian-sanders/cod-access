@@ -3,13 +3,16 @@ import {
   CHECK_IS_SIGNED_IN,
   SIGN_OUT,
   EDIT_PSEUDO_USER,
+  EDIT_PASSWORD_USER,
   EDIT_EMAIL_USER,
   UPLOAD_FILE_PROFILE,
   GET_CSRF_TOKEN,
   signIn,
   signOut,
   setInfoUser,
+  setSelectedFile,
 } from 'src/actions/auth';
+
 import axiosInstance from 'src/api';
 
 export default (store) => (next) => async (action) => {
@@ -124,15 +127,40 @@ export default (store) => (next) => async (action) => {
         console.log(err);
       }
       return next(action);
+    case EDIT_PASSWORD_USER:
+      try {
+        const { auth: { currentPassword, newPassword, newPasswordConfirm } } = store.getState();
+        const response = await axiosInstance.patch('/profile', {
+          password: currentPassword,
+          newPassword,
+          newPasswordConfirm,
+        });
+        if (response.status !== 200) {
+          throw new Error();
+        }
+      }
+      catch (err) {
+        console.log(err);
+      }
+      return next(action);
     case UPLOAD_FILE_PROFILE:
       try {
         const { auth: { selectedFile } } = store.getState();
         const data = new FormData();
-        data.append('image', selectedFile);
-        const response = await axiosInstance.post('/upload', data, {});
-        if (response.status !== 200) {
+        data.append('profile', selectedFile);
+        const {
+          data: {
+            myFile: {
+              path: pathPicture,
+            },
+          },
+          status,
+        } = await axiosInstance.post('/upload_client', data, {});
+        if (status !== 200) {
           throw new Error();
         }
+        store.dispatch(setInfoUser('picturePath', pathPicture.substring(6)));
+        store.dispatch(setSelectedFile(null));
       }
       catch (err) {
         console.log(err);

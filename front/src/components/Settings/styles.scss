@@ -5,5 +5,28 @@
     margin: 2rem auto;
     width: 40%;
   }
+}
 
+.settings{
+  &__form__upload{
+    margin: 2rem auto;
+    width: 40%;
+
+    &__label{
+      display: block;
+      padding: 1rem;
+      border: 1px solid grey;
+    }
+
+    &__input{
+      opacity:0;
+    }
+
+    &__preview{
+      img{
+        width: 200px;
+      }
+    }
+
+  }
 }
