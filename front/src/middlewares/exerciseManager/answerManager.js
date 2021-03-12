@@ -16,7 +16,7 @@ export default (store) => (next) => async (action) => {
   switch (action.type) {
     case POST_ANSWER_MANAGER:
       try {
-        const { status, data } = await axiosInstance.post(`/exercises/new_answer/${action.questionId}`, {
+        const { status, data } = await axiosInstance.post(`/admin/exercises/new_answer/${action.questionId}`, {
           content: '',
           correct: false,
         });
@@ -53,7 +53,7 @@ export default (store) => (next) => async (action) => {
 
         const thisAnswer = possibleAnswers.find((answer) => answer.id === action.answerId);
 
-        const { status } = await axiosInstance.patch(`/exercises/new_answer/${action.answerId}`, {
+        const { status } = await axiosInstance.patch(`/admin/exercises/new_answer/${action.answerId}`, {
           content: thisAnswer.content,
           correct: thisAnswer.correct,
         });
@@ -74,7 +74,7 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case DELETE_ANSWER_MANAGER:
       try {
-        const { status } = await axiosInstance.delete(`exercises/new_answer/${action.answerId}`);
+        const { status } = await axiosInstance.delete(`/admin/exercises/new_answer/${action.answerId}`);
 
         if (status !== 200) {
           throw new Error(`Delete Answer #${action.answerId} fail`);

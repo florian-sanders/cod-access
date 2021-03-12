@@ -20,7 +20,7 @@ export default (store) => (next) => async (action) => {
   switch (action.type) {
     case POST_EXERCISE_MANAGER:
       try {
-        const { status, data } = await axiosInstance.post('/exercises/new_exercise', {
+        const { status, data } = await axiosInstance.post('/admin/exercises/new_exercise', {
           title: '',
           brief: '',
           published: false,
@@ -54,7 +54,7 @@ export default (store) => (next) => async (action) => {
           exerciseManager,
         } = store.getState();
 
-        const { status } = await axiosInstance.patch(`/exercises/dragndrop/${exerciseManager.id}`, {
+        const { status } = await axiosInstance.patch(`/admin/exercises/${exerciseManager.id}`, {
           id: exerciseManager.id,
           title: exerciseManager.title,
           brief: exerciseManager.brief,
@@ -83,7 +83,7 @@ export default (store) => (next) => async (action) => {
           other: { themes },
         } = store.getState();
 
-        const { status: statusExercise } = await axiosInstance.delete(`/exercises/dragndrop/${exerciseManager.id}`);
+        const { status: statusExercise } = await axiosInstance.delete(`/admin/exercises/${exerciseManager.id}`);
 
         if (statusExercise !== 200) {
           throw new Error('Exercise delete fail');

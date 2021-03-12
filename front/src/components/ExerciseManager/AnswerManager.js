@@ -51,7 +51,7 @@ const AnswerManager = ({
 );
 
 AnswerManager.propTypes = {
-  content: PropTypes.number.isRequired,
+  content: PropTypes.string.isRequired,
   correct: PropTypes.bool.isRequired,
   questionNumber: PropTypes.number.isRequired,
   answerNumber: PropTypes.number.isRequired,

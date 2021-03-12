@@ -9,6 +9,7 @@ import './styles.scss';
 const DragPossibleAnswers = ({
   possibleAnswers,
   userAnswers,
+  questionId,
 }) => (
   <Droppable droppableId="possible-answers" isDropDisabled>
     {(provided, snapshot) => (
@@ -16,11 +17,12 @@ const DragPossibleAnswers = ({
         {
           possibleAnswers.map((possibleAnswer, index) => (
             <Answer
-              answer={possibleAnswer}
+              {...possibleAnswer}
               index={index}
               isDragDisabled={
                 userAnswers.includes(possibleAnswer.id)
               }
+              questionId={questionId}
               key={possibleAnswer.id}
             />
           ))

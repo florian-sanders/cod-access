@@ -25,15 +25,15 @@ export default (store) => (next) => async (action) => {
         let response;
 
         const themeCheckbox = themes.find((theme) => action.themeId === theme.id);
-        console.log(action.themeId);
+
         if (themeCheckbox.checked) {
-          response = await axiosInstance.post('/exercises/associate_exercise_theme', {
+          response = await axiosInstance.post('/admin/exercises/associate_exercise_theme', {
             exercise_id: exerciseId,
             theme_id: action.themeId,
           });
         }
         else {
-          response = await axiosInstance.delete('/exercises/associate_exercise_theme', {
+          response = await axiosInstance.delete('/admin/exercises/associate_exercise_theme', {
             exercise_id: exerciseId,
             theme_id: action.themeId,
           });

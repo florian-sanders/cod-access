@@ -5,6 +5,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import classNames from 'classnames';
 import { nanoid } from 'nanoid';
 
+import Answer from 'src/containers/Exercise/Answer';
 import DropAnswer from './DropAnswer';
 import DragPossibleAnswers from './DragPossibleAnswers';
 
@@ -20,6 +21,7 @@ const Question = ({
   userAnswers,
   newUserAnswer,
   questionIndex,
+  explanation,
 }) => {
   const handleDragEnd = (result) => {
     newUserAnswer({
@@ -30,7 +32,7 @@ const Question = ({
   };
 
   // move this to container / middleware later
-  code = code.slice(0, 2) + '[[drop]]' + code.slice(2);
+  //code = code.slice(0, 2) + '[[drop]]' + code.slice(2);
   const regex = /(?:\[\[|\]\])+/;
   const test = code.split(regex);
 
@@ -74,7 +76,15 @@ const Question = ({
         <DragPossibleAnswers
           possibleAnswers={possibleAnswers}
           userAnswers={userAnswers}
+          questionId={id}
         />
+        {
+          explanation !== '' && (
+            <article>
+              <p>{explanation}</p>
+            </article>
+          )
+        }
       </article>
     </DragDropContext>
   );
@@ -93,11 +103,13 @@ Question.propTypes = {
   userAnswers: PropTypes.array.isRequired,
   newUserAnswer: PropTypes.func.isRequired,
   questionIndex: PropTypes.number.isRequired,
+  explanation: PropTypes.string,
 };
 
 Question.defaultProps = {
   brief: '',
   picture: '',
+  explanation: '',
 };
 
 export default Question;

@@ -30,7 +30,7 @@ module.exports = {
         }
     },
 
-    getOneExercise: async (req, res, next) => {
+    getOneExerciseVisitor: async (req, res, next) => {
         try {
             let myClient = null;
             if (req.user) {
@@ -48,9 +48,51 @@ module.exports = {
                     'themes',
                     {
                         association: 'questions',
-                        include: ['possible_answers', 'question_picture'],
+                        attributes: { exclude: ['explanation'] },
+                        include: [
+                            {
+                                association: 'possible_answers',
+                                attributes: { exclude: ['correct'] },
+                            },
+                            'question_picture'
+                        ],
                     },
                     { model: Client, as: 'clients', where: { id: myClient }, required: false }
+                ],
+
+            });
+            console.log('exercise', exercise);
+            return res.status(200).json(
+                exercise
+            );
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+
+    getOneExerciseAdmin: async (req, res, next) => {
+        try {
+            const role = req.user.clientRole;
+            if (role !== 'admin') {
+                return res.status(400).json({
+                    error: `access only by admin`
+                });
+            }
+            const id = Number(req.params.id);
+            if (isNaN(id)) {
+                return res.status(400).json({
+                    error: `the provided id must be a number`
+                });
+            }
+            const exercise = await Exercise.findByPk(id, {
+                include: [
+                    'kind',
+                    'themes',
+                    {
+                        association: 'questions',
+                        include: ['possible_answers', 'question_picture'],
+                    },
                 ],
 
             });
@@ -441,6 +483,7 @@ module.exports = {
                     error: `the provided id must be a number`
                 });
             }
+
             const exercise = await Exercise.findByPk(id_exercise, {
                 include: [
                     'clients',
@@ -513,9 +556,10 @@ module.exports = {
                         console.log('deja joué mais j\'update car score meilleure', oldScore, updateScore)
                         return res.status(200).json({
                         message: `client finish with score: ${scoreResult}`,
+                        rightAnswers: correct_answers,
                         correct,
                         incorrect,
-                        client,
+                        scoreResult,
                         explanation
                         });
 
@@ -536,9 +580,11 @@ module.exports = {
             console.log('score du user sans co', scoreResult);
             return res.status(200).json({
                 message: `client finish with score: ${scoreResult}`,
+                rightAnswers: correct_answers,
                 correct,
                 incorrect,
-                explanation
+                explanation,
+                scoreResult,
             });
 
         } catch (error) {

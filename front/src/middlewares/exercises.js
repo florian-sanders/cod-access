@@ -7,6 +7,7 @@ import {
   setAllThemesFilterCheckbox,
   setAllThemesIdToDisplay,
   setCurrentExercise,
+  setResults,
 } from 'src/actions/exercises';
 import axiosInstance from 'src/api';
 
@@ -81,13 +82,19 @@ export default (store) => (next) => async (action) => {
           answers: question.userAnswers,
         }));
 
-        const response = await axiosInstance.post(`/exercises/dragndrop/${currentExercise.id}`, userAnswers);
+        const { status, data } = await axiosInstance.post(`/exercises/dragndrop/${currentExercise.id}`, userAnswers);
 
-        if (response.status !== 200) {
+        if (status !== 200) {
           throw new Error();
         }
 
-        console.log('réponses envoyées');
+        console.log(data);
+        store.dispatch(setResults({
+          explanations: data.explanation,
+          correctAnswers: data.correct,
+          incorrectAnswers: data.incorrect,
+          rightAnswers: data.rightAnswers,
+        }));
       }
       catch (err) {
         console.log(err);
