@@ -11,6 +11,8 @@ export const EDIT_PASSWORD_USER = 'EDIT_PASSWORD_USER';
 export const SET_INFO_USER = 'SET_INFO_USER';
 export const SET_SELECTED_FILE = 'SET_SELECTED_FILE';
 export const GET_CSRF_TOKEN = 'GET_CSRF_TOKEN';
+export const UPLOAD_FILE_PROFILE = 'UPLOAD_FILE_PROFILE';
+export const CLEAN_SELECTED_FILE = 'CLEAN_SELECTED_FILE';
 
 export const toggleConnectionVisibility = () => ({
   type: TOGGLE_CONNECTION_VISIBILITY,
@@ -80,8 +82,10 @@ export const setSelectedFile = (file) => ({
   file,
 });
 
-export const UPLOAD_FILE_PROFILE = 'UPLOAD_FILE_PROFILE';
-
 export const uploadFileProfile = () => ({
   type: UPLOAD_FILE_PROFILE,
+});
+
+export const cleanSelectedFile = () => ({
+  type: CLEAN_SELECTED_FILE,
 });
