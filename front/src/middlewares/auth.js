@@ -3,6 +3,7 @@ import {
   CHECK_IS_SIGNED_IN,
   SIGN_OUT,
   EDIT_PSEUDO_USER,
+  EDIT_PASSWORD_USER,
   EDIT_EMAIL_USER,
   UPLOAD_FILE_PROFILE,
   GET_CSRF_TOKEN,
@@ -121,6 +122,22 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
         store.dispatch(setInfoUser('email', response.data.email));
+      }
+      catch (err) {
+        console.log(err);
+      }
+      return next(action);
+    case EDIT_PASSWORD_USER:
+      try {
+        const { auth: { currentPassword, newPassword, newPasswordConfirm } } = store.getState();
+        const response = await axiosInstance.patch('/profile', {
+          password: currentPassword,
+          newPassword,
+          newPasswordConfirm,
+        });
+        if (response.status !== 200) {
+          throw new Error();
+        }
       }
       catch (err) {
         console.log(err);
