@@ -76,6 +76,8 @@ module.exports = {
             const result = await Exercise.findByPk(id);
             if (data.published) {
                 data.published = Boolean(data.published);
+            }else{
+                data.published = false
             }
             for (const properties in data) {
                 if (typeof result[properties] !== 'undefined') {
@@ -465,39 +467,46 @@ module.exports = {
                     incorrect.push(question)
                 }
             }
-            console.log('correct', correct)
-            console.log('incorrect', incorrect)
-            console.log('explanation', explanation)
+            // console.log('correct', correct)
+            // console.log('incorrect', incorrect)
+
             const scoreResult = Math.round((correct.length / exercise.questions.length) * 100)
+            console.log('scoreResult', scoreResult)
+
             if (req.user) {
                 const id_client = req.user.clientId
                 const client = await Client.findByPk(id_client, {
-                    include: 'exercises'
+                    // include: 'exercises'
+                include: [ {model: Exercise, as: 'exercises', where: { id: myClient }, required: false}],
                 })
                 await client.addExercise(exercise);
+                console.log('client', client)
 
-                const exerciseAlreadyDone = client.exercises.find(e => e.id === id_exercise)
-                if (exerciseAlreadyDone) {
+                // const exerciseAlreadyDone = client.exercises.find(e => e.id === id_exercise)
+                // if (exerciseAlreadyDone) {
 
-                }
-                const oldScore = exerciseAlreadyDone.Client_exercise.score
-                if (scoreResult > oldScore) {
-                    const result = new Client_exercise({
-                        score: scoreResult,
-                        client_id: id_client,
-                        exercise_id: id_exercise
-                    })
-                    await result.save()
-                    return res.status(200).json({
-                        message: `client finish with score: ${scoreResult}`,
-                        correct,
-                        incorrect,
-                        client,
-                        explanation
-                    });
-                }
+                // }
+                // const oldScore = exerciseAlreadyDone.Client_exercise.score
+                // console.log('old score',oldScore)
+                // // if (scoreResult > oldScore) {
+                //     const result = new Client_exercise({
+                //         score: scoreResult,
+                //         client_id: id_client,
+                //         exercise_id: id_exercise
+                //     })
+
+                //     // await result.save()
+                //     console.log(result)
+                //     return res.status(200).json({
+                //         message: `client finish with score: ${scoreResult}`,
+                //         correct,
+                //         incorrect,
+                //         client,
+                //         explanation
+                //     });
+               // }
             };
-            console.log('200 ok');
+            console.log('score du user sans co', scoreResult);
             return res.status(200).json({
                 message: `client finish with score: ${scoreResult}`,
                 correct,

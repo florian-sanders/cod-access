@@ -1,11 +1,22 @@
-const { Theme, Exercise } = require('../models');
+const { Theme, Exercise, Client } = require('../models');
 
 module.exports = {
 
     getAllThemesForExercises: async (req, res, next) => {
         try{
+            let myClient = null;
+            if (req.user) {
+                myClient = req.user.clientId
+            }
             const theme = await Theme.findAll({
-                include: [{model:Exercise, as: 'exercises',where:{published: true}}]
+                include: [
+                    {model:Exercise, as: 'exercises',where:{published: true}},
+                    {
+                        association: 'exercises',
+                        include: ['clients'],
+                        // include: [ {model: Client, as: 'clients', where: { id: myClient }, required: false}],
+                    },
+                ]
               });
 
             console.log('theme', theme);
