@@ -27,7 +27,7 @@ module.exports = {
     getOneExercise: async (req, res, next) => {
         try {
             let myClient = null;
-            if(req.user){
+            if (req.user) {
                 myClient = req.user.clientId
             }
             const id = Number(req.params.id);
@@ -44,9 +44,9 @@ module.exports = {
                         association: 'questions',
                         include: ['possible_answers', 'question_picture'],
                     },
-                    {model:Client, as:'clients',where:{id: myClient},required:false}
+                    { model: Client, as: 'clients', where: { id: myClient }, required: false }
                 ],
-               
+
             });
             console.log('exercise', exercise);
             return res.status(200).json(
@@ -57,11 +57,11 @@ module.exports = {
             return res.status(500);
         }
     },
-    
+
     changeExercise: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
@@ -74,7 +74,7 @@ module.exports = {
                 });
             }
             const result = await Exercise.findByPk(id);
-            if(data.published) {
+            if (data.published) {
                 data.published = Boolean(data.published);
             }
             for (const properties in data) {
@@ -85,7 +85,7 @@ module.exports = {
             await result.save();
             console.log('200 ok', result);
             return res.status(200).json(result);
-        
+
         } catch (error) {
             console.error(error);
             return res.status(500);
@@ -95,7 +95,7 @@ module.exports = {
     deleteOneExercise: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
@@ -107,7 +107,7 @@ module.exports = {
                 });
             }
             const exercise = await Exercise.findByPk(id);
-            
+
             if (!exercise) {
                 return res.status(404).json({
                     error: 'no exercise',
@@ -115,13 +115,13 @@ module.exports = {
             }
             await exercise.destroy({
                 include: [
-                  {
-                    association: 'questions',
-                    include: ['possible_answers', 'question_picture'],
-                  },
+                    {
+                        association: 'questions',
+                        include: ['possible_answers', 'question_picture'],
+                    },
                 ],
-              });
-            return res.json({message: 'exercise delete'});
+            });
+            return res.json({ message: 'exercise delete' });
         } catch (error) {
             return res.status(500).json({
                 error: error.message,
@@ -132,7 +132,7 @@ module.exports = {
     newExercise: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
@@ -148,7 +148,7 @@ module.exports = {
             await newExercise.save();
             console.log('200 ok');
             return res.status(200).json(newExercise);
-        
+
         } catch (error) {
             console.error(error);
             return res.status(500);
@@ -158,7 +158,7 @@ module.exports = {
     newQuestion: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
@@ -169,7 +169,7 @@ module.exports = {
                     error: `the provided id must be a number`
                 });
             }
-            if(req.body.picture_id){
+            if (req.body.picture_id) {
                 req.body.picture_id = Number(req.body.picture_id)
             } else {
                 req.body.picture_id = null
@@ -184,7 +184,7 @@ module.exports = {
             await newQuestion.save();
             console.log('200 ok');
             return res.status(200).json(newQuestion);
-        
+
         } catch (error) {
             console.error(error);
             return res.status(500);
@@ -194,15 +194,15 @@ module.exports = {
     changeQuestion: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
             }
             const data = req.body;
-            if(data.picture_id) {
+            if (data.picture_id) {
                 data.picture_id = Number(data.picture_id);
-            }else {
+            } else {
                 data.picture_id = null
             }
             const id = Number(req.params.id);
@@ -220,17 +220,17 @@ module.exports = {
             await result.save();
             console.log('200 ok', result);
             return res.status(200).json(result);
-        
+
         } catch (error) {
             console.error(error);
             return res.status(500);
         }
     },
-    
+
     deleteQuestion: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
@@ -242,7 +242,7 @@ module.exports = {
                 });
             }
             const question = await Question.findByPk(id);
-            
+
             if (!question) {
                 return res.status(400).json({
                     error: 'Question does not exist'
@@ -250,12 +250,12 @@ module.exports = {
             }
             await question.destroy({
                 include: [
-                 'possible_answers',
-                 'question_picture'
+                    'possible_answers',
+                    'question_picture'
                 ],
-              });
-            return res.json({message: 'question delete'});
-        
+            });
+            return res.json({ message: 'question delete' });
+
         } catch (error) {
             console.error(error);
             return res.status(500);
@@ -265,7 +265,7 @@ module.exports = {
     newAnswer: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
@@ -284,17 +284,17 @@ module.exports = {
             await newAnswer.save();
             console.log('200 ok');
             return res.status(200).json(newAnswer);
-        
+
         } catch (error) {
             console.error(error);
             return res.status(500);
         }
     },
-    
+
     changeAnswer: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
@@ -316,7 +316,7 @@ module.exports = {
             await result.save();
             console.log('200 ok', result);
             return res.status(200).json(result);
-        
+
         } catch (error) {
             console.error(error);
             return res.status(500);
@@ -326,7 +326,7 @@ module.exports = {
     deleteAnswer: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
@@ -338,42 +338,42 @@ module.exports = {
                 });
             }
             const answer = await Possible_answer.findByPk(id);
-            
+
             if (!answer) {
                 return res.status(400).json({
                     error: 'Answer does not exist'
                 });
             }
             await answer.destroy();
-            return res.json({message: 'answer delete'});
-        
+            return res.json({ message: 'answer delete' });
+
         } catch (error) {
             console.error(error);
             return res.status(500);
         }
     },
-    
+
     associate_exercise_theme: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
             }
             const id_exercise = Number(req.body.exercise_id)
             const id_theme = Number(req.body.theme_id)
-            if((id_exercise || id_theme) === null){
+            if ((id_exercise || id_theme) === null) {
                 return res.status(406).json({
                     error: `need exercise_id and theme_id`
                 });
             }
             let exercise = await Exercise.findByPk(id_exercise);
             let theme = await Theme.findByPk(id_theme)
-            if(!exercise || !theme){
+            if (!exercise || !theme) {
                 return res.status(406).json({
-                            error: `need exercise and theme`
-                        });
+                    error: `need exercise and theme`
+                });
             }
             await exercise.addTheme(theme);
             exercise = await Exercise.findByPk(id_exercise, {
@@ -381,34 +381,34 @@ module.exports = {
             })
             console.log('200 ok', exercise);
             return res.status(200).json(exercise);
-        
+
         } catch (error) {
             console.error(error);
             return res.status(500);
         }
     },
-    
+
     delete_exercise_theme: async (req, res, next) => {
         try {
             const role = req.user.clientRole
-            if(role !== 'admin'){
+            if (role !== 'admin') {
                 return res.status(400).json({
                     error: `access only by admin`
                 });
             }
             const id_exercise = Number(req.body.exercise_id)
             const id_theme = Number(req.body.theme_id)
-            if((id_exercise || id_theme) === null){
+            if ((id_exercise || id_theme) === null) {
                 return res.status(406).json({
                     error: `need exercise_id and theme_id`
                 });
             }
             let exercise = await Exercise.findByPk(id_exercise);
             let theme = await Theme.findByPk(id_theme)
-            if(!exercise || !theme){
+            if (!exercise || !theme) {
                 return res.status(406).json({
-                            error: `need exercise and theme`
-                        });
+                    error: `need exercise and theme`
+                });
             }
             await exercise.removeTheme(theme);
             exercise = await Exercise.findByPk(id_exercise, {
@@ -416,13 +416,13 @@ module.exports = {
             })
             console.log('200 ok', exercise);
             return res.status(200).json(exercise);
-        
+
         } catch (error) {
             console.error(error);
             return res.status(500);
         }
     },
-    
+
     submitExercise: async (req, res, next) => {
         try {
             console.log('req.body', req.body)
@@ -435,72 +435,76 @@ module.exports = {
             }
             const exercise = await Exercise.findByPk(id_exercise, {
                 include: [
-                   'clients',
-                {
-                    association: 'questions',
-                    include: ['possible_answers'],
-                },
-            ]
+                    'clients',
+                    {
+                        association: 'questions',
+                        include: ['possible_answers'],
+                    },
+                ]
             })
             let correct_answers = [];
             let wrong_answers = [];
             let explanation = []
-            for (const questions of exercise.questions){
-                explanation.push({id: questions.id, explanation: questions.explanation})
-                for (const answers of questions.possible_answers){
-                    if(answers.correct === true){
+            for (const questions of exercise.questions) {
+                explanation.push({ id: questions.id, explanation: questions.explanation })
+                for (const answers of questions.possible_answers) {
+                    if (answers.correct === true) {
                         correct_answers.push(answers.id)
-                    }else{
+                    } else {
                         wrong_answers.push(answers.id)
                     }
                 }
             }
-            let correct=[]
-            let incorrect=[]
-            for (const question of req.body){
-                const iscorrect = correct_answers.find(e=>e===question.answers[0])
-                if (iscorrect){
+            let correct = []
+            let incorrect = []
+            for (const question of req.body) {
+                const iscorrect = correct_answers.find(e => e === question.answers[0])
+                if (iscorrect) {
                     correct.push(question)
-                  }else{
+                } else {
                     incorrect.push(question)
-                  }
+                }
             }
             console.log('correct', correct)
             console.log('incorrect', incorrect)
             console.log('explanation', explanation)
-            const scoreResult = Math.round((correct.length/exercise.questions.length)*100)
-            if(req.user){
+            const scoreResult = Math.round((correct.length / exercise.questions.length) * 100)
+            if (req.user) {
                 const id_client = req.user.clientId
                 const client = await Client.findByPk(id_client, {
                     include: 'exercises'
                 })
                 await client.addExercise(exercise);
 
-                const exerciseAlreadyDone = client.exercises.find(e=>e.id===id_exercise)
-                if(exerciseAlreadyDone){
+                const exerciseAlreadyDone = client.exercises.find(e => e.id === id_exercise)
+                if (exerciseAlreadyDone) {
 
                 }
                 const oldScore = exerciseAlreadyDone.Client_exercise.score
-                if(scoreResult > oldScore){
+                if (scoreResult > oldScore) {
                     const result = new Client_exercise({
                         score: scoreResult,
                         client_id: id_client,
                         exercise_id: id_exercise
                     })
                     await result.save()
-                    return res.status(200).json({message: `client finish with score: ${scoreResult}`},
-                    correct,
-                    incorrect,
-                    client,
-                    explanation);
+                    return res.status(200).json({
+                        message: `client finish with score: ${scoreResult}`,
+                        correct,
+                        incorrect,
+                        client,
+                        explanation
+                    });
                 }
             };
             console.log('200 ok');
-            return res.status(200).json({message: `client finish with score: ${scoreResult}`},
-            correct,
-            incorrect,
-            explanation);
-        
+            return res.status(200).json({
+                message: `client finish with score: ${scoreResult}`,
+                correct,
+                incorrect,
+                explanation
+            });
+
         } catch (error) {
             console.error(error);
             return res.status(500);
