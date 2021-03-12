@@ -19,7 +19,9 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
         const usersRole = {};
-        response.data.map((user) => (usersRole[user.id] = user.responsibility.entitled));
+        response.data.forEach((user) => {
+          usersRole[user.id] = user.responsibility.entitled;
+        });
         store.dispatch(setAllUsers(response.data));
         store.dispatch(setAllUsersRole(usersRole));
       }
