@@ -51,6 +51,7 @@ export default (store) => (next) => async (action) => {
         axiosInstance.defaults.headers.post['X-CSRF-Token'] = dataCSRF.csrfToken;
         axiosInstance.defaults.headers.patch['X-CSRF-Token'] = dataCSRF.csrfToken;
         axiosInstance.defaults.headers.delete['X-CSRF-Token'] = dataCSRF.csrfToken;
+
         // once csrf token is set (both in cookie and headers), try to access the profile route
         // if our client has an HTTPOnly cookie with a valid JWT, server will respond 200
         // if response is 200, then sign in the user with profile info received. If not, do nothing.

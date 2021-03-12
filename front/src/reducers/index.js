@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
-import other from './other';
-import auth from './auth';
-import signup from './signup';
-import exercises from './exercises';
+
+import exerciseManager from 'src/reducers/exerciseManager';
+import questionManager from 'src/reducers/exerciseManager/questionManager';
+import answerManager from 'src/reducers/exerciseManager/answerManager';
+import themeManager from 'src/reducers/exerciseManager/themeManager';
+import other from 'src/reducers/other';
+import auth from 'src/reducers/auth';
+import signup from 'src/reducers/signup';
+import exercises from 'src/reducers/exercises';
 import forget from './forget';
 import users from './users';
 
@@ -11,6 +16,10 @@ export default combineReducers({
   auth,
   signup,
   exercises,
+  exerciseManager,
+  questionManager,
+  answerManager,
+  themeManager,
   forget,
   users,
 });
