@@ -24,7 +24,8 @@ const QuestionManager = ({
       <legend>
         <h2 className="admin-exercise__question__heading">Question {questionNumber}</h2>
       </legend>
-      <button type="button" onClick={removeQuestion}>Supprimer
+      <button type="button" onClick={removeQuestion}>
+        Supprimer
         <span className="sr-only">Question {questionNumber}</span>
       </button>
       <div className="admin-exercise__question__general-info">
