@@ -3,33 +3,22 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import UsersList from './UsersList';
+import AdminUsersList from 'src/containers/AdminUsersList';
 import ExercicesList from './ExercisesList';
 
 import './styles.scss';
 
-const Dashboard = ({ role }) => (
+const Dashboard = () => (
   <section className="admin">
-    {
-      role === 'admin'
-        ? (
-          <Switch>
-            <Route path="/admin/utilisateurs">
-              <UsersList />
-            </Route>
-            <Route path="/admin/exercices">
-              <ExercicesList />
-            </Route>
-          </Switch>
-        ) : <p>Vous n'êtes pas autorisé</p>
-    }
-
+    <Switch>
+      <Route path="/admin/utilisateurs">
+        <AdminUsersList />
+      </Route>
+      <Route path="/admin/exercices">
+        <ExercicesList />
+      </Route>
+    </Switch>
   </section>
 );
-
-Dashboard.propTypes = {
-  role: PropTypes.string.isRequired,
-};
 
 export default Dashboard;

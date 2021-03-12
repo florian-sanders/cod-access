@@ -2,7 +2,11 @@ import {
   TRY_SIGN_IN,
   CHECK_IS_SIGNED_IN,
   SIGN_OUT,
+  EDIT_PSEUDO_USER,
+  EDIT_EMAIL_USER,
+  UPLOAD_FILE_PROFILE,
   signIn,
+  setInfoUser,
 } from 'src/actions/auth';
 import axiosInstance from 'src/api';
 
@@ -59,7 +63,6 @@ export default (store) => (next) => async (action) => {
         if (statusProfile !== 200) {
           throw new Error();
         }
-
         store.dispatch(signIn(dataProfile));
       }
       catch (err) {
@@ -72,6 +75,50 @@ export default (store) => (next) => async (action) => {
         const { status } = await axiosInstance.get('/signout');
 
         if (status !== 200) {
+          throw new Error();
+        }
+      }
+      catch (err) {
+        console.log(err);
+      }
+      return next(action);
+    case EDIT_PSEUDO_USER:
+      try {
+        const { auth: { newPseudo } } = store.getState();
+        const response = await axiosInstance.patch('/profile', {
+          pseudo: newPseudo,
+        });
+        if (response.status !== 200) {
+          throw new Error();
+        }
+        store.dispatch(setInfoUser('pseudo', response.data.pseudo));
+      }
+      catch (err) {
+        console.log(err);
+      }
+      return next(action);
+    case EDIT_EMAIL_USER:
+      try {
+        const { auth: { newEmail } } = store.getState();
+        const response = await axiosInstance.patch('/profile', {
+          email: newEmail,
+        });
+        if (response.status !== 200) {
+          throw new Error();
+        }
+        store.dispatch(setInfoUser('email', response.data.email));
+      }
+      catch (err) {
+        console.log(err);
+      }
+      return next(action);
+    case UPLOAD_FILE_PROFILE:
+      try {
+        const { auth: { selectedFile } } = store.getState();
+        const data = new FormData();
+        data.append('profile', selectedFile);
+        const response = await axiosInstance.post('/upload', data, {});
+        if (response.status !== 200) {
           throw new Error();
         }
       }

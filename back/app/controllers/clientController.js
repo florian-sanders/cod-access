@@ -25,7 +25,9 @@ module.exports = {
                     error: `access only by admin`
                 });
             }
-            const clients = await Client.findAll();
+            const clients = await Client.findAll({
+                include:'responsibility'
+            });
             console.log('clients', clients);
             return res.status(200).json(
             clients
@@ -73,7 +75,7 @@ module.exports = {
                     error: `the provided id must be a number`
                 });
             }
-            if(req.body.responsibility === 'client'){
+            if(req.body.responsibility === 'utilisateur'){
                 req.body.responsibility = 1
             }else if(req.body.responsibility === 'admin'){
                 req.body.responsibility = 2
