@@ -13,13 +13,10 @@ module.exports = {
                     {model:Exercise, as: 'exercises',where:{published: true}},
                     {
                         association: 'exercises',
-                        include: ['clients'],
-                        // include: [ {model: Client, as: 'clients', where: { id: myClient }, required: false}],
+                        include: [ {model: Client, as: 'clients', where: { id: myClient }, required: false}],
                     },
                 ]
-              });
-
-            console.log('theme', theme);
+            });
             return res.status(200).json(
             theme
             );
@@ -33,8 +30,6 @@ module.exports = {
     getAllThemes: async (req, res, next) => {
         try{
             const theme = await Theme.findAll();
-
-            console.log('theme', theme);
             return res.status(200).json(
             theme
             );
