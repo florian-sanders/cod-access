@@ -128,8 +128,8 @@ export default (store) => (next) => async (action) => {
       try {
         const { auth: { selectedFile } } = store.getState();
         const data = new FormData();
-        data.append('image', selectedFile);
-        const response = await axiosInstance.post('/upload', data, {});
+        data.append('profile', selectedFile);
+        const response = await axiosInstance.post('/upload_client', data, {});
         if (response.status !== 200) {
           throw new Error();
         }
