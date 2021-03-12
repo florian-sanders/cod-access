@@ -67,7 +67,7 @@ router.route('/signin')
     .post(authController.submitLoginForm);
 
 router.route('/upload_client')
-    .post(authorizationMiddlewareNotPass,multerConfig.imageToClient)
+    .post(authorizationMiddlewareNotPass,multerConfig.imageToClient,clientController.getOneClient)
 
 router.route('/upload_question')
     .post(authorizationMiddlewareNotPass,multerConfig.imageToQuestion);
