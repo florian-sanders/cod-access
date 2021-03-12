@@ -66,8 +66,11 @@ router.route('/profile')
 router.route('/signin')
     .post(authController.submitLoginForm);
 
-router.route('/upload')
-    .post(authorizationMiddlewareNotPass,multerConfig.imageToClient);
+router.route('/upload_client')
+    .post(authorizationMiddlewareNotPass,multerConfig.imageToClient)
+
+router.route('/upload_question')
+    .post(authorizationMiddlewareNotPass,multerConfig.imageToQuestion);
 
 router.route('/signup')
     .post(authController.submitSignupForm);

@@ -96,7 +96,7 @@ module.exports = {
                 });
             }
             await client.update({responsibility_id: req.body.responsibility});
-            return res.json('client update');
+            return res.json({message: 'client update'});
 
         } catch (error) {
             console.error(error);
@@ -127,7 +127,7 @@ module.exports = {
                 });
             }
             await client.destroy();
-            return res.json('client delete');
+            return res.json({message: 'client delete'});
 
         } catch (error) {
             console.error(error);
