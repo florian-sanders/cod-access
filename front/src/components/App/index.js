@@ -11,8 +11,9 @@ import Footer from 'src/components/Footer';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkAuth, getCSRFToken }) => {
+const App = ({ checkAuth, getCSRFToken, loadThemes }) => {
   useEffect(() => {
+    loadThemes();
     getCSRFToken();
     if (localStorage.getItem('isSignedIn')) {
       checkAuth();
@@ -35,6 +36,7 @@ const App = ({ checkAuth, getCSRFToken }) => {
 App.propTypes = {
   checkAuth: PropTypes.func.isRequired,
   getCSRFToken: PropTypes.func.isRequired,
+  loadThemes: PropTypes.func.isRequired,
 };
 
 // == Export

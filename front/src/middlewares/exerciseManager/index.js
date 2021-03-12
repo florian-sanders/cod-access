@@ -93,7 +93,6 @@ export default (store) => (next) => async (action) => {
         store.dispatch(resetQuestionManager());
         store.dispatch(resetAnswerManager());
         store.dispatch(setThemeManagerCheckboxes(themes.data));
-        store.dispatch(postExerciseManager());
       }
       catch (err) {
         console.log(err);
