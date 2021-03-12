@@ -61,7 +61,7 @@ const exerciseManager = (state = initialState, action = {}) => {
     case SET_EXERCISE_MANAGER_IS_LEAVING:
       return {
         ...state,
-        isSaved: action.status,
+        isLeaving: action.status,
       };
     default:
       return state;

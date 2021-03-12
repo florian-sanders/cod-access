@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import { Prompt } from 'react-router-dom';
+import NavigationPrompt from 'react-router-navigation-prompt';
 
 import Question from 'src/containers/ExerciseManager/QuestionManager';
 import ThemeManager from 'src/containers/ExerciseManager/ThemeManager';
 import TextField from './TextField';
-import ThemeCheckbox from './ThemeCheckbox';
 import Modal from './Modal';
 import './styles.scss';
 
-const Exercise = ({
+const ExerciseManager = ({
   loading,
   updateLoading,
   error,
@@ -27,12 +26,12 @@ const Exercise = ({
 }) => {
   useEffect(() => {
     createExercise();
-    if (!published) {
+    /* if (!published) {
       window.onbeforeunload = () => true;
     }
     else {
       window.onbeforeunload = undefined;
-    }
+    } */
   }, []);
 
   if (loading) {
@@ -45,17 +44,15 @@ const Exercise = ({
 
   return (
     <section className="admin-exercise">
-      <Prompt
-        when={!published}
-        message={() => {
-          setIsLeaving(true);
-        }}
-      />
-      {
-        isLeaving && (
-          <Modal />
-        )
-      }
+      <NavigationPrompt when={!published}>
+        {({ onConfirm }, onCancel) => (
+          <Modal
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+            removeExercise={removeExercise}
+          />
+        )}
+      </NavigationPrompt>
       <h1 className="admin-exercise__heading-page">Créer un exercice</h1>
       <p>Statut de l'exercice : sauvegardé en brouillon</p>
       <form>
@@ -118,4 +115,6 @@ const Exercise = ({
   );
 };
 
-export default Exercise;
+
+
+export default ExerciseManager;
