@@ -45,10 +45,15 @@ CheckboxRadio.propTypes = {
   label: Proptypes.string.isRequired,
   changeValue: Proptypes.func.isRequired,
   type: Proptypes.string,
+  className: Proptypes.string,
+  name: Proptypes.string.isRequired,
+  saveOnBlur: Proptypes.func.isRequired,
+  isSaved: Proptypes.bool.isRequired,
 };
 
 CheckboxRadio.defaultProps = {
-  type: 'text',
+  type: 'checkbox',
+  className: '',
 };
 
 export default CheckboxRadio;

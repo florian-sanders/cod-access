@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import NavigationPrompt from 'react-router-navigation-prompt';
 
 import Question from 'src/containers/ExerciseManager/QuestionManager';
@@ -21,17 +22,9 @@ const ExerciseManager = ({
   isSaved,
   createExercise,
   removeExercise,
-  isLeaving,
-  setIsLeaving,
 }) => {
   useEffect(() => {
     createExercise();
-    /* if (!published) {
-      window.onbeforeunload = () => true;
-    }
-    else {
-      window.onbeforeunload = undefined;
-    } */
   }, []);
 
   if (loading) {
@@ -115,6 +108,20 @@ const ExerciseManager = ({
   );
 };
 
-
+ExerciseManager.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  updateLoading: PropTypes.bool.isRequired,
+  error: PropTypes.bool.isRequired,
+  changeValue: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  brief: PropTypes.string.isRequired,
+  questions: PropTypes.array.isRequired,
+  createQuestion: PropTypes.func.isRequired,
+  published: PropTypes.bool.isRequired,
+  saveOnBlur: PropTypes.func.isRequired,
+  isSaved: PropTypes.bool.isRequired,
+  createExercise: PropTypes.func.isRequired,
+  removeExercise: PropTypes.func.isRequired,
+};
 
 export default ExerciseManager;

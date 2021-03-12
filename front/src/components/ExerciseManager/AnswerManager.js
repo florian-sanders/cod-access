@@ -1,14 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from './TextField';
 import CheckboxRadio from './CheckboxRadio';
 import './styles.scss';
 
-const Answer = ({
-  loading,
-  updateLoading,
-  error,
-  id,
+const AnswerManager = ({
   content,
   correct,
   questionNumber,
@@ -36,7 +33,6 @@ const Answer = ({
         changeValue={changeValue}
         isSaved={isSaved}
         saveOnBlur={saveOnBlur}
-        updateLoading={updateLoading}
       />
 
       <CheckboxRadio
@@ -50,13 +46,19 @@ const Answer = ({
         isSaved={isSaved}
         saveOnBlur={saveOnBlur}
       />
-      {
-        updateLoading && (
-          <p>Sauvegarde en cours</p>
-        )
-      }
     </fieldset>
   </div>
 );
 
-export default Answer;
+AnswerManager.propTypes = {
+  content: PropTypes.number.isRequired,
+  correct: PropTypes.bool.isRequired,
+  questionNumber: PropTypes.number.isRequired,
+  answerNumber: PropTypes.number.isRequired,
+  changeValue: PropTypes.func.isRequired,
+  removeAnswer: PropTypes.func.isRequired,
+  saveOnBlur: PropTypes.func.isRequired,
+  isSaved: PropTypes.bool.isRequired,
+};
+
+export default AnswerManager;

@@ -21,7 +21,6 @@ const mapStateToProps = ({ exerciseManager, questionManager, other }) => ({
   updateLoading: exerciseManager.updateLoading,
   isSaved: exerciseManager.isSaved,
   questions: [...questionManager.questions],
-  isLeaving: exerciseManager.isLeaving,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,7 +28,6 @@ const mapDispatchToProps = (dispatch) => ({
   createQuestion: () => dispatch(postQuestionManager()),
   createExercise: () => dispatch(postExerciseManager()),
   removeExercise: () => dispatch(deleteExerciseManager()),
-  setIsLeaving: () => dispatch(setExerciseManagerIsLeaving(true)),
   saveOnBlur: () => dispatch(patchExerciseManager()),
 });
 
