@@ -12,7 +12,7 @@ const MIME_TYPES = {
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     //callback(null, 'storage file')
-    callback(null, 'assets/images');
+    callback(null, 'upload');
   },
   filename: (req, file, callback) => {
     const name = file.originalname.split(' ').join('_');
@@ -34,10 +34,11 @@ module.exports = {
       }
       const client_id = req.user.clientId
       const myFile = req.file
+      const pathPicture = myFile.path.substring(6)
 
       const picture = new Picture({
         name: myFile.filename,
-        path: myFile.path,
+        path: pathPicture,
         alternative: null
       })
 
@@ -46,10 +47,10 @@ module.exports = {
           include:'client_picture'
         }).then(user => {
           user.update({picture_id: result.id})
-          return res.status(200).json(
-            user
-            );
         })
+      });
+      return res.status(200).json({
+      message: 'ok', myFile
       });
     })
   },
@@ -75,8 +76,9 @@ module.exports = {
           include:'question_picture'
         }).then(question => {
           question.update({picture_id: result.id})
+          console.log('result.id', result.id)
           return res.status(200).json(
-            question
+            {picture_id: result.id}
             );
         })
       });

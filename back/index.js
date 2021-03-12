@@ -24,8 +24,10 @@ app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
 
+
 // express static used by react
-app.use(express.static(__dirname + '/assets'));
+app.use(express.static('upload'));
+app.use(express.static('assets'));
 app.use((req, res, next) => {
     if (!req.url.startsWith('/api'))
         return res.sendFile(path.join(__dirname, "assets", "index.html"));
