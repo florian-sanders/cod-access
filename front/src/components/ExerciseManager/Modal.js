@@ -5,7 +5,7 @@ import './styles.scss';
 
 const Modal = ({
   onConfirm: leave,
-  removeExercise
+  removeExercise,
 }) => (
   <div className="modal" role="dialog" aria-modal="true" tabIndex="-1" aria-label="Conserver ou supprimer le brouillon">
     <h1>Souhaitez-vous conserver ce brouillon ?</h1>

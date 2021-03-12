@@ -14,7 +14,6 @@ const TextField = ({
   name,
   saveOnBlur,
   isSaved,
-  updateLoading,
 }) => {
   const handleOnBlur = () => {
     if (!isSaved) {
@@ -54,11 +53,6 @@ const TextField = ({
               onBlur={handleOnBlur}
             />
           )
-      }
-      {
-        updateLoading && (
-          <p>Sauvegarde en cours</p>
-        )
       }
     </div>
   );
