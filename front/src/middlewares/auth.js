@@ -5,7 +5,9 @@ import {
   EDIT_PSEUDO_USER,
   EDIT_EMAIL_USER,
   UPLOAD_FILE_PROFILE,
+  GET_CSRF_TOKEN,
   signIn,
+  signOut,
   setInfoUser,
 } from 'src/actions/auth';
 import axiosInstance from 'src/api';
@@ -25,6 +27,7 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
 
+        localStorage.setItem('isSignedIn', true);
         store.dispatch(signIn(response.data));
       }
       catch (err) {
@@ -34,7 +37,7 @@ export default (store) => (next) => async (action) => {
         // loader later
       }
       return next(action);
-    case CHECK_IS_SIGNED_IN:
+    case GET_CSRF_TOKEN:
       try {
         // upon loading the app, retrieve the csrf token from the server
         const {
@@ -51,8 +54,14 @@ export default (store) => (next) => async (action) => {
         axiosInstance.defaults.headers.post['X-CSRF-Token'] = dataCSRF.csrfToken;
         axiosInstance.defaults.headers.patch['X-CSRF-Token'] = dataCSRF.csrfToken;
         axiosInstance.defaults.headers.delete['X-CSRF-Token'] = dataCSRF.csrfToken;
-
-        // once csrf token is set (both in cookie and headers), try to access the profile route
+      }
+      catch (err) {
+        console.log(err);
+      }
+      return next(action);
+    case CHECK_IS_SIGNED_IN:
+      try {
+        // try to access the profile route
         // if our client has an HTTPOnly cookie with a valid JWT, server will respond 200
         // if response is 200, then sign in the user with profile info received. If not, do nothing.
         const {
@@ -67,6 +76,7 @@ export default (store) => (next) => async (action) => {
       }
       catch (err) {
         console.log(err);
+        store.dispatch(signOut());
       }
       return next(action);
     case SIGN_OUT:
@@ -77,6 +87,8 @@ export default (store) => (next) => async (action) => {
         if (status !== 200) {
           throw new Error();
         }
+
+        localStorage.removeItem('isSignedIn');
       }
       catch (err) {
         console.log(err);
