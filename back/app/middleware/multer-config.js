@@ -1,5 +1,5 @@
 var express = require('express')
-const { Picture, Client } = require('../models');
+const { Picture, Client, Question } = require('../models');
 const multer =require('multer');
 
 //traduit les données envoyés par le front
@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
   }
 });
 
-var upload = multer({storage:storage}).single('image');
+var upload = multer({storage:storage}).single('profile');
 
 module.exports = {
   imageToClient: async (req,res,next) => {
@@ -48,6 +48,35 @@ module.exports = {
           user.update({picture_id: result.id})
           return res.status(200).json(
             user
+            );
+        })
+      });
+    })
+  },
+
+  imageToQuestion: async (req,res,next) => {
+    upload(req, res, (err) => {
+      if (err instanceof multer.MulterError) {
+         return res.status(500).json(err)
+      } else if (err) {
+        return res.status(500).json(err)
+      }
+      const id = req.body.question_id
+      const myFile = req.file
+
+      const picture = new Picture({
+        name: myFile.filename,
+        path: myFile.path,
+        alternative: null
+      })
+
+      picture.save().then(result => {
+        Question.findByPk(id, {
+          include:'question_picture'
+        }).then(question => {
+          question.update({picture_id: result.id})
+          return res.status(200).json(
+            question
             );
         })
       });

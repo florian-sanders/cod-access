@@ -113,8 +113,15 @@ module.exports = {
                     error: 'no exercise',
                 });
             }
-            await exercise.destroy();
-            return res.json('exercise delete');
+            await exercise.destroy({
+                include: [
+                  {
+                    association: 'questions',
+                    include: ['possible_answers', 'question_picture'],
+                  },
+                ],
+              });
+            return res.json({message: 'exercise delete'});
         } catch (error) {
             return res.status(500).json({
                 error: error.message,
@@ -241,8 +248,13 @@ module.exports = {
                     error: 'Question does not exist'
                 });
             }
-            await question.destroy();
-            return res.json('question delete');
+            await question.destroy({
+                include: [
+                 'possible_answers',
+                 'question_picture'
+                ],
+              });
+            return res.json({message: 'question delete'});
         
         } catch (error) {
             console.error(error);
@@ -333,7 +345,7 @@ module.exports = {
                 });
             }
             await answer.destroy();
-            return res.json('answer delete');
+            return res.json({message: 'answer delete'});
         
         } catch (error) {
             console.error(error);
@@ -476,7 +488,7 @@ module.exports = {
                         exercise_id: id_exercise
                     })
                     await result.save()
-                    return res.status(200).json(`client finish with score: ${scoreResult}`,
+                    return res.status(200).json({message: `client finish with score: ${scoreResult}`},
                     correct,
                     incorrect,
                     client,
@@ -484,7 +496,10 @@ module.exports = {
                 }
             };
             console.log('200 ok');
-            return res.status(200).json(`client finish with score: ${scoreResult}`,correct,incorrect,explanation);
+            return res.status(200).json({message: `client finish with score: ${scoreResult}`},
+            correct,
+            incorrect,
+            explanation);
         
         } catch (error) {
             console.error(error);
