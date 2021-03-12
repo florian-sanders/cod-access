@@ -25,13 +25,13 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 // express static used by react
-// app.use(express.static(__dirname + '/assets'));
-// app.use((req, res, next) => {
-//     if (!req.url.startsWith('/api'))
-//         return res.sendFile(path.join(__dirname, "assets", "index.html"));
-//     else 
-//         return next();
-// });
+app.use(express.static(__dirname + '/assets'));
+app.use((req, res, next) => {
+    if (!req.url.startsWith('/api'))
+        return res.sendFile(path.join(__dirname, "assets", "index.html"));
+    else 
+        return next();
+});
 
 // express static used by swagger
 app.use("/swagger", express.static(pathToSwaggerUi));

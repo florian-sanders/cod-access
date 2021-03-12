@@ -151,6 +151,8 @@ module.exports = {
               pseudo: client.pseudo,
               email: client.email,
               responsibility: client.responsibility,
+              picture_id: client.picture_id,
+              client_picture: client.client_picture
             });
             
           } else {
