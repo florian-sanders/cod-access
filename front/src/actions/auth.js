@@ -10,6 +10,7 @@ export const EDIT_PSEUDO_USER = 'EDIT_PSEUDO_USER';
 export const EDIT_PASSWORD_USER = 'EDIT_PASSWORD_USER';
 export const SET_INFO_USER = 'SET_INFO_USER';
 export const SET_SELECTED_FILE = 'SET_SELECTED_FILE';
+export const GET_CSRF_TOKEN = 'GET_CSRF_TOKEN';
 
 export const toggleConnectionVisibility = () => ({
   type: TOGGLE_CONNECTION_VISIBILITY,
@@ -35,13 +36,11 @@ export const signIn = ({
   email,
   pseudo,
   responsibility: { entitled: role },
-  client_picture: { path: picturePath },
 }) => ({
   type: SIGN_IN,
   email,
   pseudo,
   role,
-  picturePath,
 });
 
 export const signOut = () => ({
@@ -50,6 +49,10 @@ export const signOut = () => ({
 
 export const checkIsSignedIn = () => ({
   type: CHECK_IS_SIGNED_IN,
+});
+
+export const getCSRFToken = () => ({
+  type: GET_CSRF_TOKEN,
 });
 
 export const editEmailUser = () => ({

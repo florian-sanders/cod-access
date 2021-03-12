@@ -11,9 +11,12 @@ import Footer from 'src/components/Footer';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkAuth }) => {
+const App = ({ checkAuth, getCSRFToken }) => {
   useEffect(() => {
-    checkAuth();
+    getCSRFToken();
+    if (localStorage.getItem('isSignedIn')) {
+      checkAuth();
+    }
   }, []);
   return (
     <>
@@ -31,6 +34,7 @@ const App = ({ checkAuth }) => {
 
 App.propTypes = {
   checkAuth: PropTypes.func.isRequired,
+  getCSRFToken: PropTypes.func.isRequired,
 };
 
 // == Export
