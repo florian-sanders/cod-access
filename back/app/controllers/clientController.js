@@ -166,26 +166,38 @@ module.exports = {
                     client
                     );
             }
-            if(req.body.password){
-                if (req.body.password.length < 6) {
-                            console.log('password need 6');
-                            return res.status(411).json({
+
+            if (req.body.password) {
+                const isValidPassword = await bcrypt.compare(req.body.password, client.password);
+                if (isValidPassword) {
+
+                    if (req.body.newPassword.length < 6) {
+                        console.log('password need 6');
+                        return res.status(411).json({
                             errorType: 411,
                             message: 'password need 6'
-                            });
-                        }
-                if (req.body.password !== req.body.passwordConfirm) {
-                    console.log('password and confirm not same')
-                    return res.status(406).json({
-                    errorType: 406,
-                    message: 'password and confirm not same'
+                        });
+                    }
+                    if (req.body.newPassword !== req.body.newPasswordConfirm) {
+                        console.log('password and confirm not same')
+                        return res.status(406).json({
+                            errorType: 406,
+                            message: 'password and confirm not same'
+                        });
+                    }
+                    const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+                    await client.update({ password: hashedPassword });
+                    return res.status(200).json(
+                        client
+                    );
+
+                } else {
+                    console.log('unauthorized');
+                    return res.status(401).json({
+                        errorType: 401,
+                        message: 'unauthorized'
                     });
                 }
-                const hashedPassword = await bcrypt.hash(req.body.password, 10);
-                await client.update({password: hashedPassword});
-                return res.status(200).json(
-                    client
-                    );
             }
             if(req.body.pseudo){
                 await client.update({pseudo: req.body.pseudo}); 

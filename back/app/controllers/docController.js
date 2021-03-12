@@ -47,7 +47,7 @@ module.exports = {
         try{
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
+              res.status(400).json({
                     error: `the provided id must be a number`
                 });
             }
