@@ -67,3 +67,41 @@ export const RESET_QUESTION_MANAGER = 'RESET_QUESTION_MANAGER';
 export const resetQuestionManager = () => ({
   type: RESET_QUESTION_MANAGER,
 });
+
+export const SET_QUESTION_MANAGER_FILE = 'SET_QUESTION_MANAGER_FILE';
+
+export const setQuestionManagerFile = (file) => ({
+  type: SET_QUESTION_MANAGER_FILE,
+  file,
+});
+
+export const UPLOAD_QUESTION_MANAGER_IMAGE = 'UPLOAD_QUESTION_MANAGER_IMAGE';
+
+export const uploadQuestionManagerImage = ({ questionId, file }) => ({
+  type: UPLOAD_QUESTION_MANAGER_IMAGE,
+  questionId,
+  file,
+});
+
+export const SET_QUESTION_MANAGER_SELECTED_FILE = 'SET_QUESTION_MANAGER_SELECTED_FILE';
+
+export const setQuestionManagerSelectedFile = ({ questionId, file }) => ({
+  type: SET_QUESTION_MANAGER_SELECTED_FILE,
+  questionId,
+  file,
+});
+
+export const PATCH_QUESTION_MANAGER_IMAGE_ALT = 'PATCH_QUESTION_MANAGER_IMAGE_ALT';
+
+export const patchQuestionManagerImageAlt = (imageId) => ({
+  type: PATCH_QUESTION_MANAGER_IMAGE_ALT,
+  imageId,
+});
+
+export const SET_QUESTION_MANAGER_IMAGE_ID = 'SET_QUESTION_MANAGER_IMAGE_ID';
+
+export const setQuestionManagerImageId = ({ imageId, questionId }) => ({
+  type: SET_QUESTION_MANAGER_IMAGE_ID,
+  imageId,
+  questionId,
+});
