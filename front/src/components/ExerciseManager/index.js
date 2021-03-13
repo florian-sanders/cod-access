@@ -5,6 +5,7 @@ import NavigationPrompt from 'react-router-navigation-prompt';
 import Question from 'src/containers/ExerciseManager/QuestionManager';
 import ThemeManager from 'src/containers/ExerciseManager/ThemeManager';
 import TextField from './TextField';
+import CheckboxRadio from './CheckboxRadio';
 import Modal from './Modal';
 import './styles.scss';
 
@@ -58,6 +59,18 @@ const ExerciseManager = ({
             >
               Supprimer l'exercice
             </button>
+            <CheckboxRadio
+              className="admin-exercise__question__general-info__field-group"
+              id="exercise-published"
+              label="Publié"
+              type="checkbox"
+              name="published"
+              value={published}
+              changeValue={changeValue}
+              isSaved={isSaved}
+              saveOnBlur={saveOnBlur}
+            />
+
             <TextField
               className="admin-exercise__general-info__field-group"
               id="exercise-title"
