@@ -2,11 +2,14 @@ import {
   POST_QUESTION_MANAGER,
   PATCH_QUESTION_MANAGER,
   DELETE_QUESTION_MANAGER,
+  UPLOAD_QUESTION_MANAGER_IMAGE,
+  PATCH_QUESTION_MANAGER_IMAGE_ALT,
   setQuestionManagerIsSaved,
   setQuestionManagerLoading,
   setQuestionManagerUpdateLoading,
   setQuestionManagerError,
   setQuestionManager,
+  setQuestionManagerImageId,
 } from 'src/actions/exerciseManager/questionManager';
 
 import {
@@ -37,8 +40,11 @@ export default (store) => (next) => async (action) => {
           brief: data.brief,
           code: data.code,
           explanation: data.explanation,
+          imageAlternative: '',
+          selectedFile: null,
+          imageId: null,
         }));
-
+        console.log(data);
         store.dispatch(setQuestionManagerIsSaved(true));
       }
       catch (err) {
@@ -110,6 +116,59 @@ export default (store) => (next) => async (action) => {
       catch (err) {
         console.log(err);
         //store.dispatch(setQuestionManagerError(true));
+      }
+      finally {
+        store.dispatch(setQuestionManagerUpdateLoading(false));
+      }
+      return next(action);
+    case UPLOAD_QUESTION_MANAGER_IMAGE:
+      try {
+        console.log('upload');
+        store.dispatch(setQuestionManagerUpdateLoading(true));
+
+        const fileInfo = new FormData();
+        fileInfo.append('profile', action.file);
+        fileInfo.append('question_id', action.questionId);
+
+        if (!action.file) {
+          return next(action);
+        }
+
+        const response = await axiosInstance.post('/upload_question', fileInfo);
+
+        if (response.status !== 200) {
+          throw new Error();
+        }
+
+        console.log(response.data);
+
+        store.dispatch(setQuestionManagerImageId({
+          imageId: response.data.pictureId,
+          questionId: action.questionId,
+        }));
+        store.dispatch(setQuestionManagerIsSaved(true));
+      }
+      catch (err) {
+        console.log(err);
+      }
+      finally {
+        store.dispatch(setQuestionManagerUpdateLoading(false));
+      }
+      return next(action);
+    case PATCH_QUESTION_MANAGER_IMAGE_ALT:
+      try {
+        store.dispatch(setQuestionManagerUpdateLoading(true));
+
+        const response = await axiosInstance.patch(`/images/${action.imageId}`);
+
+        if (response.status !== 200) {
+          throw new Error('alt update fail');
+        }
+
+        store.dispatch(setQuestionManagerIsSaved(true));
+      }
+      catch (err) {
+        console.log(err);
       }
       finally {
         store.dispatch(setQuestionManagerUpdateLoading(false));

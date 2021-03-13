@@ -5,6 +5,9 @@ import {
   patchQuestionManager,
   setQuestionManagerFieldValue,
   deleteQuestionManager,
+  uploadQuestionManagerImage,
+  setQuestionManagerSelectedFile,
+  patchQuestionManagerImageAlt,
 } from 'src/actions/exerciseManager/questionManager';
 
 import { postAnswerManager } from 'src/actions/exerciseManager/answerManager';
@@ -22,15 +25,17 @@ const mapStateToProps = ({
   const thisQuestion = questions.find((question) => question.id === id);
 
   return {
-    brief: thisQuestion.brief,
-    code: thisQuestion.code,
-    explanation: thisQuestion.explanation,
     updateLoading,
     error,
     loading,
     isSaved,
-    // picturePath: thisQuestion.picturePath,
+    brief: thisQuestion.brief,
+    code: thisQuestion.code,
+    explanation: thisQuestion.explanation,
+    imageId: thisQuestion.imageId,
+    imageAlternative: thisQuestion.imageAlternative,
     possibleAnswers: possibleAnswers.filter((answer) => answer.questionId === thisQuestion.id),
+    selectedFile: thisQuestion.selectedFile,
   };
 };
 
@@ -43,6 +48,12 @@ const mapDispatchToProps = (dispatch, { id }) => ({
   removeQuestion: () => dispatch(deleteQuestionManager(id)),
   createAnswer: () => dispatch(postAnswerManager(id)),
   saveOnBlur: () => dispatch(patchQuestionManager(id)),
+  saveAltOnBlur: (imageId) => dispatch(patchQuestionManagerImageAlt(imageId)),
+  sendImageFile: (fileInfo) => dispatch(uploadQuestionManagerImage(fileInfo)),
+  changeSelectedFile: (file) => dispatch(setQuestionManagerSelectedFile({
+    questionId: id,
+    file,
+  })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionManager);

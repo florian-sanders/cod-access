@@ -64,10 +64,12 @@ TextField.propTypes = {
   label: Proptypes.string.isRequired,
   changeValue: Proptypes.func.isRequired,
   type: Proptypes.string,
+  accept: Proptypes.string,
 };
 
 TextField.defaultProps = {
   type: 'text',
+  accept: '',
 };
 
 export default TextField;

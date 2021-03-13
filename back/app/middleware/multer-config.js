@@ -1,6 +1,6 @@
 var express = require('express')
 const { Picture, Client, Question } = require('../models');
-const multer =require('multer');
+const multer = require('multer');
 
 //traduit les données envoyés par le front
 const MIME_TYPES = {
@@ -17,18 +17,18 @@ const storage = multer.diskStorage({
   filename: (req, file, callback) => {
     const name = file.originalname.split(' ').join('_');
     const extension = MIME_TYPES[file.mimetype];
-   //timestamp for unique name with Date.now()
-    callback(null, Date.now() +'_'+ name);
+    //timestamp for unique name with Date.now()
+    callback(null, Date.now() + '_' + name);
   }
 });
 
-var upload = multer({storage:storage}).single('profile');
+var upload = multer({ storage: storage }).single('profile');
 
 module.exports = {
-  imageToClient: async (req,res,next) => {
+  imageToClient: async (req, res, next) => {
     upload(req, res, (err) => {
       if (err instanceof multer.MulterError) {
-         return res.status(500).json(err)
+        return res.status(500).json(err)
       } else if (err) {
         return res.status(500).json(err)
       }
@@ -44,21 +44,21 @@ module.exports = {
 
       picture.save().then(result => {
         Client.findByPk(client_id, {
-          include:'client_picture'
+          include: 'client_picture'
         }).then(user => {
-          user.update({picture_id: result.id})
+          user.update({ picture_id: result.id })
         })
       });
       return res.status(200).json({
-      message: 'ok', myFile
+        message: 'ok', myFile
       });
     })
   },
 
-  imageToQuestion: async (req,res,next) => {
+  imageToQuestion: async (req, res, next) => {
     upload(req, res, (err) => {
       if (err instanceof multer.MulterError) {
-         return res.status(500).json(err)
+        return res.status(500).json(err)
       } else if (err) {
         return res.status(500).json(err)
       }
@@ -73,13 +73,16 @@ module.exports = {
 
       picture.save().then(result => {
         Question.findByPk(id, {
-          include:'question_picture'
+          include: 'question_picture'
         }).then(question => {
-          question.update({picture_id: result.id})
+          question.update({ picture_id: result.id })
           console.log('result.id', result.id)
           return res.status(200).json(
-            {picture_id: result.id}
-            );
+            {
+              pictureId: result.id,
+              picturePath: result.path,
+            }
+          );
         })
       });
     })
