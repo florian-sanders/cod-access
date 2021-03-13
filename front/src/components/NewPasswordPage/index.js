@@ -10,12 +10,9 @@ const NewPassword = ({
   const { token } = useParams();
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    validNewPassword(token);
+    const newToken = token.replace(/\$/g, '.');
+    validNewPassword(newToken);
   };
-  // useEffect(()=>{
-
-  // }, []);
-
   return (
     <>
       <form action="" method="get" className="form-new-password" onSubmit={handleSubmit}>

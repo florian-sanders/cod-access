@@ -27,15 +27,17 @@ export default (store) => (next) => async (action) => {
 
     case NEW_PASSWORD:
       try {
+        console.log('action.newToken', action.newToken);
         const {
           forget: { password, passwordConfirm },
         } = store.getState();
 
         const response = await axiosInstance.patch('/forget',
           {
-            headers: { Authorization: `Bearer ${action.token}` },
             password,
             passwordConfirm,
+          }, {
+            headers: { Authorization: `Bearer ${action.newToken}` },
           });
         if (response.status !== 200) {
           throw new Error();
