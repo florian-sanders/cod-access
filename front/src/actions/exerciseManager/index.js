@@ -28,7 +28,7 @@ export const setExerciseManagerError = (status) => ({
 
 export const SET_EXERCISE_MANAGER_FIELD_VALUE = 'SET_EXERCISE_MANAGER_FIELD_VALUE';
 
-export const setExerciseManagerFieldValue = (value, name) => ({
+export const setExerciseManagerFieldValue = ({ value, name }) => ({
   type: SET_EXERCISE_MANAGER_FIELD_VALUE,
   value,
   name,

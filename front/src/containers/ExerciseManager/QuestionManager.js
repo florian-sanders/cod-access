@@ -40,7 +40,7 @@ const mapStateToProps = ({
 };
 
 const mapDispatchToProps = (dispatch, { id }) => ({
-  changeValue: (value, name) => dispatch(setQuestionManagerFieldValue({
+  changeValue: ({ value, name }) => dispatch(setQuestionManagerFieldValue({
     value,
     name,
     questionId: id,

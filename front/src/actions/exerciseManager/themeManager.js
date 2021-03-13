@@ -28,16 +28,18 @@ export const setThemeManagerIsSaved = (status) => ({
 
 export const UPDATE_THEME_MANAGER = 'UPDATE_THEME_MANAGER';
 
-export const updateThemeManager = (themeId) => ({
+export const updateThemeManager = ({ themeId, isChecked }) => ({
   type: UPDATE_THEME_MANAGER,
   themeId,
+  isChecked,
 });
 
-export const TOGGLE_THEME_MANAGER = 'TOGGLE_THEME_MANAGER';
+export const SET_THEME_MANAGER_FIELD_VALUE = 'SET_THEME_MANAGER_FIELD_VALUE';
 
-export const toggleThemeManager = (themeId) => ({
-  type: TOGGLE_THEME_MANAGER,
+export const setThemeManagerFieldValue = ({ themeId, isChecked }) => ({
+  type: SET_THEME_MANAGER_FIELD_VALUE,
   themeId,
+  isChecked,
 });
 
 export const SET_THEME_MANAGER_CHECKBOXES = 'SET_THEME_MANAGER_CHECKBOXES';

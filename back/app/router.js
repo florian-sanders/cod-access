@@ -112,10 +112,7 @@ router.route('/docs/new')
 router.route('/admin/exercises/new_exercise')
     .post(authorizationMiddlewareNotPass, exerciseController.newExercise);
 
-router.route('/admin/exercises/:id')
-    .get(authorizationMiddlewareNotPass, exerciseController.getOneExerciseAdmin)
-    .patch(authorizationMiddlewareNotPass, exerciseController.changeExercise)
-    .delete(authorizationMiddlewareNotPass, exerciseController.deleteOneExercise);
+
 
 // create question
 router.route('/admin/exercises/new_question/:id')
@@ -131,6 +128,11 @@ router.route('/admin/exercises/new_answer/:id')
 router.route('/admin/exercises/associate_exercise_theme')
     .post(authorizationMiddlewareNotPass, exerciseController.associate_exercise_theme)
     .delete(authorizationMiddlewareNotPass, exerciseController.delete_exercise_theme);
+
+router.route('/admin/exercises/:id')
+    .get(authorizationMiddlewareNotPass, exerciseController.getOneExerciseAdmin)
+    .patch(authorizationMiddlewareNotPass, exerciseController.changeExercise)
+    .delete(authorizationMiddlewareNotPass, exerciseController.deleteOneExercise);
 
 // forget password client
 router.route('/forget')

@@ -55,7 +55,7 @@ export default (store) => (next) => async (action) => {
 
         const { status } = await axiosInstance.patch(`/admin/exercises/new_answer/${action.answerId}`, {
           content: thisAnswer.content,
-          correct: thisAnswer.correct,
+          correct: !thisAnswer.correct,
         });
 
         if (status !== 200) {

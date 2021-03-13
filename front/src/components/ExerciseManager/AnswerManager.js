@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import TextField from './TextField';
-import CheckboxRadio from './CheckboxRadio';
+import Checkbox from './Checkbox';
 import './styles.scss';
 
 const AnswerManager = ({
@@ -35,16 +35,15 @@ const AnswerManager = ({
         saveOnBlur={saveOnBlur}
       />
 
-      <CheckboxRadio
+      <Checkbox
         className="admin-exercise__question__general-info__field-group"
         id={`exercise-q${questionNumber}-r${answerNumber}-correct`}
         label="Bonne réponse"
         type="checkbox"
         name="correct"
         value={correct}
-        changeValue={changeValue}
-        isSaved={isSaved}
-        saveOnBlur={saveOnBlur}
+        saveCheckboxChange={saveOnBlur}
+        updateState={changeValue}
       />
     </fieldset>
   </div>

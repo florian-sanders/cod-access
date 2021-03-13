@@ -2,7 +2,7 @@ import {
   SET_THEME_MANAGER_LOADING,
   SET_THEME_MANAGER_UPDATE_LOADING,
   SET_THEME_MANAGER_ERROR,
-  TOGGLE_THEME_MANAGER,
+  SET_THEME_MANAGER_FIELD_VALUE,
   SET_THEME_MANAGER_IS_SAVED,
   SET_THEME_MANAGER_CHECKBOXES,
 } from 'src/actions/exerciseManager/themeManager';
@@ -40,15 +40,14 @@ const themeManager = (state = initialState, action = {}) => {
           checked: false,
         })),
       };
-    case TOGGLE_THEME_MANAGER:
+    case SET_THEME_MANAGER_FIELD_VALUE:
       return {
         ...state,
-        isSaved: false,
         themes: state.themes.map((theme) => {
           const newTheme = { ...theme };
 
           if (theme.id === action.themeId) {
-            newTheme.checked = !theme.checked;
+            newTheme.checked = action.isChecked;
           }
 
           return newTheme;

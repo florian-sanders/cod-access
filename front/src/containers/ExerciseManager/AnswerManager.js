@@ -30,13 +30,17 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = (dispatch, { id }) => ({
-  changeValue: (value, name) => dispatch(setAnswerManagerFieldValue({
+  changeValue: ({ value, name }) => dispatch(setAnswerManagerFieldValue({
     value,
     name,
     answerId: id,
   })),
   removeAnswer: () => dispatch(deleteAnswerManager(id)),
-  saveOnBlur: () => dispatch(patchAnswerManager(id)),
+  saveOnBlur: ({ name, value }) => dispatch(patchAnswerManager({
+    name,
+    value,
+    answerId: id,
+  })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnswerManager);
