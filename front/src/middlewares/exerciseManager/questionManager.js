@@ -22,7 +22,7 @@ export default (store) => (next) => async (action) => {
         const {
           exerciseManager: { id },
         } = store.getState();
-        const { status, data } = await axiosInstance.post(`/exercises/new_question/${id}`, {
+        const { status, data } = await axiosInstance.post(`/admin/exercises/new_question/${id}`, {
           brief: '',
           code: '',
           explanation: '',
@@ -59,8 +59,8 @@ export default (store) => (next) => async (action) => {
         } = store.getState();
 
         const thisQuestion = questions.find((question) => question.id === action.questionId);
-        console.log(thisQuestion);
-        const { status } = await axiosInstance.patch(`/exercises/new_question/${action.questionId}`, {
+
+        const { status } = await axiosInstance.patch(`/admin/exercises/new_question/${action.questionId}`, {
           title: thisQuestion.title,
           brief: thisQuestion.brief,
           code: thisQuestion.code,
@@ -99,7 +99,7 @@ export default (store) => (next) => async (action) => {
           store.dispatch(unsetAnswerManager(answer.id));
         });
 
-        const { status: statusQuestion } = await axiosInstance.delete(`/exercises/new_question/${action.questionId}`);
+        const { status: statusQuestion } = await axiosInstance.delete(`/admin/exercises/new_question/${action.questionId}`);
 
         if (statusQuestion !== 200) {
           throw new Error('question delete fail');
