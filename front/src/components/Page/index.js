@@ -38,7 +38,7 @@ const Page = ({ isLogged, role }) => (
         <ExercisesPage />
       </Route>
 
-      <Route exact path="/exercice/:exerciseId">
+      <Route exact path="/challenges/:exerciseId">
         <Exercise />
       </Route>
 
