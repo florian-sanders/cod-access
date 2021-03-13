@@ -35,7 +35,6 @@ const AdminUsersList = ({
 
   return (
     <>
-      <AdminMenu />
       <div className="admin_users">
         <h1 className="title_h1">Liste des utilisateurs</h1>
         <table>

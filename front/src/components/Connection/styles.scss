@@ -74,6 +74,9 @@
     &__signup {
       text-align: center;
       text-decoration: underline;
+      & a {
+        display:block,
+      }
 
       &::before {
         content: "";
