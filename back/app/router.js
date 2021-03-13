@@ -7,6 +7,7 @@ const exerciseController = require('./controllers/exerciseController');
 const themeController = require('./controllers/themeController');
 const docController = require('./controllers/docController');
 const swaggerController = require('./controllers/swaggerController');
+const imageController = require('./controllers/imageController');
 const multerConfig = require('./middleware/multer-config');
 
 const jwt = require('express-jwt');
@@ -61,10 +62,13 @@ router.route('/signin')
     .post(authController.submitLoginForm);
 
 router.route('/upload_client')
-    .post(authorizationMiddlewareNotPass,multerConfig.imageToClient,clientController.getOneClient);
+    .post(authorizationMiddlewareNotPass, multerConfig.imageToClient, clientController.getOneClient);
 
 router.route('/upload_question')
     .post(authorizationMiddlewareNotPass, multerConfig.imageToQuestion);
+
+router.route('/images/:imageId')
+    .patch(authorizationMiddlewareNotPass, imageController.changeImageAlt);
 
 router.route('/signup')
     .post(authController.submitSignupForm);
@@ -73,14 +77,14 @@ router.route('/contact')
     .post(authController.submitContact);
 
 router.route('/exercises')
-    .get(authorizationMiddlewareNotPass,exerciseController.getAllExercises);
+    .get(authorizationMiddlewareNotPass, exerciseController.getAllExercises);
 
 router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass, exerciseController.getOneExerciseVisitor)
     .post(authorizationMiddlewareLetPass, exerciseController.submitExercise);
 
 router.route('/themes_exercises')
-    .get(authorizationMiddlewareLetPass,themeController.getAllThemesForExercises);
+    .get(authorizationMiddlewareLetPass, themeController.getAllThemesForExercises);
 
 router.route('/themes')
     .get(themeController.getAllThemes);

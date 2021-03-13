@@ -7,6 +7,9 @@ import {
   SET_QUESTION_MANAGER_ERROR,
   SET_QUESTION_MANAGER_IS_SAVED,
   RESET_QUESTION_MANAGER,
+  SET_QUESTION_MANAGER_FILE,
+  SET_QUESTION_MANAGER_SELECTED_FILE,
+  SET_QUESTION_MANAGER_IMAGE_ID,
 } from 'src/actions/exerciseManager/questionManager';
 
 const initialState = {
@@ -69,6 +72,35 @@ const questionManager = (state = initialState, action = {}) => {
       return {
         ...state,
         isSaved: action.status,
+      };
+    case SET_QUESTION_MANAGER_FILE:
+      return {
+        ...state,
+        selectedFile: action.file,
+      };
+    case SET_QUESTION_MANAGER_SELECTED_FILE:
+      return {
+        ...state,
+        isSaved: false,
+        questions: state.questions.map((question) => {
+          if (question.id === action.questionId) {
+            question.selectedFile = action.file;
+          }
+
+          return question;
+        }),
+      };
+    case SET_QUESTION_MANAGER_IMAGE_ID:
+      console.log(action);
+      return {
+        ...state,
+        questions: state.questions.map((question) => {
+          if (question.id === action.questionId) {
+            question.imageId = action.imageId;
+          }
+
+          return question;
+        }),
       };
     default:
       return state;
