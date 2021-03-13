@@ -24,7 +24,7 @@ const mapStateToProps = ({ exerciseManager, questionManager, other }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeValue: (value, name) => dispatch(setExerciseManagerFieldValue(value, name)),
+  changeValue: ({ value, name }) => dispatch(setExerciseManagerFieldValue({ value, name })),
   createQuestion: () => dispatch(postQuestionManager()),
   createExercise: () => dispatch(postExerciseManager()),
   removeExercise: () => dispatch(deleteExerciseManager()),

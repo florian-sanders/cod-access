@@ -3,7 +3,6 @@ import {
   setThemeManagerIsSaved,
   setThemeManagerUpdateLoading,
   setThemeManagerError,
-  toggleThemeManager,
 } from 'src/actions/exerciseManager/themeManager';
 
 import axiosInstance from 'src/api';
@@ -18,15 +17,10 @@ export default (store) => (next) => async (action) => {
           exerciseManager: {
             id: exerciseId,
           },
-          themeManager: {
-            themes,
-          },
         } = store.getState();
         let response;
 
-        const themeCheckbox = themes.find((theme) => action.themeId === theme.id);
-
-        if (themeCheckbox.checked) {
+        if (action.isChecked) {
           response = await axiosInstance.post('/admin/exercises/associate_exercise_theme', {
             exercise_id: exerciseId,
             theme_id: action.themeId,
@@ -34,8 +28,10 @@ export default (store) => (next) => async (action) => {
         }
         else {
           response = await axiosInstance.delete('/admin/exercises/associate_exercise_theme', {
-            exercise_id: exerciseId,
-            theme_id: action.themeId,
+            data: {
+              exercise_id: exerciseId,
+              theme_id: action.themeId,
+            },
           });
         }
 
@@ -47,7 +43,6 @@ export default (store) => (next) => async (action) => {
       }
       catch (err) {
         console.log(err);
-        store.dispatch(toggleThemeManager());
         store.dispatch(setThemeManagerError(true));
       }
       finally {

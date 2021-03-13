@@ -350,6 +350,7 @@ module.exports = {
                 });
             }
             const data = req.body;
+            console.log(data);
             data.correct = Boolean(data.correct)
             console.log(typeof data.correct)
             const id = Number(req.params.id);
@@ -431,6 +432,7 @@ module.exports = {
                 include: 'themes'
             })
             console.log('200 ok', exercise);
+            
             return res.status(200).json(exercise);
 
         } catch (error) {
@@ -441,6 +443,7 @@ module.exports = {
 
     delete_exercise_theme: async (req, res, next) => {
         try {
+            console.log('YOUHOUUUUUUUUUUUUU', req.body);
             const role = req.user.clientRole
             if (role !== 'admin') {
                 return res.status(400).json({
@@ -465,7 +468,8 @@ module.exports = {
             exercise = await Exercise.findByPk(id_exercise, {
                 include: 'themes'
             })
-            console.log('200 ok', exercise);
+            //console.log('200 ok', exercise);
+            console.log('liaison supprimée')
             return res.status(200).json(exercise);
 
         } catch (error) {
@@ -500,6 +504,7 @@ module.exports = {
             for (const questions of exercise.questions) {
                 explanation.push({ id: questions.id, explanation: questions.explanation })
                 for (const answers of questions.possible_answers) {
+                    console.log(questions.possible_answers);
                     if (answers.correct === true) {
                         correct_answers.push(answers.id)
                     } else {
