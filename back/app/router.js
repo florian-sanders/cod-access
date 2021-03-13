@@ -79,6 +79,9 @@ router.route('/contact')
 router.route('/exercises')
     .get(authorizationMiddlewareNotPass, exerciseController.getAllExercises);
 
+router.route('/exercises_score')
+    .get(authorizationMiddlewareNotPass, exerciseController.getAllExercisesWithScore);
+
 router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass, exerciseController.getOneExerciseVisitor)
     .post(authorizationMiddlewareLetPass, exerciseController.submitExercise);

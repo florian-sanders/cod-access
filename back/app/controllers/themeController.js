@@ -10,13 +10,15 @@ module.exports = {
             }
             const themes = await Theme.findAll({
                 include: [
-                    {
-                        model:Exercise, as: 'exercises',
-                        where:{published: true},
-                        attributes: { exclude: ['brief', 'published'] },
-                    },
+                    // {
+                    //     model:Exercise, as: 'exercises',
+                    //     where:{published: true},
+                    //     attributes: { exclude: ['brief', 'published'] },
+                    // },
                     {
                         association: 'exercises',
+                        where:{published: true},
+                        attributes: { exclude: ['brief', 'published'] },
                         include: [ 
                             {
                                 model: Client, as: 'clients', where: { id: myClient },

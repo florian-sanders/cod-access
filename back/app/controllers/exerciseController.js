@@ -1,3 +1,4 @@
+const { ClientBase } = require('pg');
 const {
     Exercise,
     Client,
@@ -8,6 +9,38 @@ const {
 } = require('../models');
 
 module.exports = {
+
+    getAllExercisesWithScore: async (req, res, next) => {
+        try {
+            let myClient = null;
+            if (req.user) {
+                myClient = req.user.clientId
+            }
+            const exercises = await Exercise.findAndCountAll({
+                where: {
+                    published: true,
+                },
+                include: [
+                    'themes',
+                    {
+                        association: 'clients',
+                        where: { 
+                            id: myClient,
+                        },
+                        required: false,
+                        attributes: { exclude: ['password', 'email', 'pseudo', 'responsibility_id', 'picture_id'] },
+                    }
+                ]
+            });
+            console.log('exercises', exercises);
+            return res.status(200).json(
+                exercises
+            );
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
 
     getAllExercises: async (req, res, next) => {
         try {
