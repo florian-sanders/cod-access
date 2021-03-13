@@ -1,4 +1,5 @@
 import React from 'react';
+import ProgressBar from 'src/components/ProgressBar';
 import PropTypes from 'prop-types';
 
 import './styles.scss';
@@ -13,6 +14,7 @@ const Profile = ({ email, pseudo, picturePath }) => (
         <h2 className="profile__content__infos__email">Email : {email}</h2>
       </div>
     </div>
+    <ProgressBar />
   </div>
 );
 
