@@ -351,6 +351,7 @@ module.exports = {
             }
             const data = req.body;
             data.correct = Boolean(data.correct)
+            console.log(typeof data.correct)
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -516,8 +517,8 @@ module.exports = {
                     incorrect.push(question)
                 }
             }
-            // console.log('correct', correct)
-            // console.log('incorrect', incorrect)
+            console.log('correct', correct)
+            console.log('incorrect', incorrect)
 
             const scoreResult = Math.round((correct.length / exercise.questions.length) * 100)
 

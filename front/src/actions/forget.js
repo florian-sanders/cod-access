@@ -18,7 +18,7 @@ export const setSendForEmail = () => ({
   type: SEND_MAIL_LINK_NEW_PASSWORD,
 });
 
-export const setValidNewPassword = (token) => ({
+export const setValidNewPassword = (newToken) => ({
   type: NEW_PASSWORD,
-  token,
+  newToken,
 });
