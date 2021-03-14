@@ -115,8 +115,6 @@ router.route('/docs/new')
 router.route('/admin/exercises/new_exercise')
     .post(authorizationMiddlewareNotPass, exerciseController.newExercise);
 
-
-
 // create question
 router.route('/admin/exercises/new_question/:id')
     .post(authorizationMiddlewareNotPass, exerciseController.newQuestion)

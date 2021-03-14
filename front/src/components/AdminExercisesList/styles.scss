@@ -1,0 +1,21 @@
+.modal{
+  position: fixed;
+  margin: 2rem;
+  padding: 2rem;
+  background-color: aqua;
+}
+
+.pagination {
+  display: flex;
+  gap: 0.5rem;
+
+  &__link {
+    border: solid 1px #000;
+    padding: 1rem;
+
+    &--active {
+      background-color: #F0F;
+    }
+  }
+}
+
