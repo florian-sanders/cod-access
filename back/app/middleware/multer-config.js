@@ -64,6 +64,7 @@ module.exports = {
       }
       const id = Number(req.body.question_id)
       const myFile = req.file
+      myFile.path = myFile.path.substring(6)
 
       const picture = new Picture({
         name: myFile.filename,

@@ -23,9 +23,20 @@ const ExerciseManager = ({
   isSaved,
   createExercise,
   removeExercise,
+  getExercise,
+  createNew,
+  resetManagerStates,
 }) => {
   useEffect(() => {
-    createExercise();
+    if (createNew) {
+      createExercise();
+    }
+    else {
+      getExercise();
+    }
+    return () => {
+      resetManagerStates();
+    };
   }, []);
 
   if (loading) {
@@ -134,6 +145,13 @@ ExerciseManager.propTypes = {
   isSaved: PropTypes.bool.isRequired,
   createExercise: PropTypes.func.isRequired,
   removeExercise: PropTypes.func.isRequired,
+  createNew: PropTypes.bool,
+  getExercise: PropTypes.func.isRequired,
+  resetManagerStates: PropTypes.func.isRequired,
+};
+
+ExerciseManager.defaultProps = {
+  createNew: false,
 };
 
 export default ExerciseManager;

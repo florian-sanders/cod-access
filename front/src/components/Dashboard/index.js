@@ -22,7 +22,10 @@ const Dashboard = () => (
         <Route exact path="/admin/exercices">
           <AdminExercicesList />
         </Route>
-        <Route path="/admin/creer-exercice">
+        <Route exact path="/admin/creer-exercice">
+          <ExerciseManager createNew />
+        </Route>
+        <Route exact path="/admin/exercices/edit/:exerciseId">
           <ExerciseManager />
         </Route>
       </Switch>

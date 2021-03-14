@@ -86,8 +86,31 @@ export const setExerciseManagerIsLeaving = (status) => ({
   status,
 });
 
-export const RESET_EXERCISE_MANAGER = 'RESET_EXERCISE_MANAGER';
+export const RESET_MANAGERS = 'RESET_MANAGERS';
 
-export const resetExerciseManager = () => ({
-  type: RESET_EXERCISE_MANAGER,
+export const resetManagers = (themes) => ({
+  type: RESET_MANAGERS,
+  themes,
+});
+
+export const FETCH_EXERCISE_MANAGER = 'FETCH_EXERCISE_MANAGER';
+
+export const fetchExerciseManager = (exerciseId) => ({
+  type: FETCH_EXERCISE_MANAGER,
+  exerciseId,
+});
+
+export const SET_MANAGERS_FROM_DB = 'SET_MANAGERS_FROM_DB';
+
+export const setManagersFromDB = ({
+  exercise,
+  themes,
+  questions,
+  possibleAnswers,
+}) => ({
+  type: SET_MANAGERS_FROM_DB,
+  exercise,
+  themes,
+  questions,
+  possibleAnswers,
 });

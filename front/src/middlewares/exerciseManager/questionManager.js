@@ -4,12 +4,14 @@ import {
   DELETE_QUESTION_MANAGER,
   UPLOAD_QUESTION_MANAGER_IMAGE,
   PATCH_QUESTION_MANAGER_IMAGE_ALT,
+  DELETE_QUESTION_MANAGER_IMAGE,
   setQuestionManagerIsSaved,
   setQuestionManagerLoading,
   setQuestionManagerUpdateLoading,
   setQuestionManagerError,
   setQuestionManager,
   setQuestionManagerImageId,
+  resetQuestionManagerImage,
 } from 'src/actions/exerciseManager/questionManager';
 
 import {
@@ -43,6 +45,7 @@ export default (store) => (next) => async (action) => {
           imageAlternative: '',
           selectedFile: null,
           imageId: null,
+          imagePath: '',
         }));
         console.log(data);
         store.dispatch(setQuestionManagerIsSaved(true));
@@ -140,10 +143,9 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
 
-        console.log(response.data);
-
         store.dispatch(setQuestionManagerImageId({
           imageId: response.data.pictureId,
+          imageAlternative: response.data.picturePath,
           questionId: action.questionId,
         }));
         store.dispatch(setQuestionManagerIsSaved(true));
@@ -166,6 +168,26 @@ export default (store) => (next) => async (action) => {
         }
 
         store.dispatch(setQuestionManagerIsSaved(true));
+      }
+      catch (err) {
+        console.log(err);
+      }
+      finally {
+        store.dispatch(setQuestionManagerUpdateLoading(false));
+      }
+      return next(action);
+    case DELETE_QUESTION_MANAGER_IMAGE:
+      try {
+        store.dispatch(setQuestionManagerUpdateLoading(true));
+        console.log(action);
+
+        const response = await axiosInstance.delete(`/admin/image/${action.imageId}`);
+
+        if (response.status !== 200) {
+          throw new Error('image delete fail');
+        }
+
+        store.dispatch(resetQuestionManagerImage({ questionId: action.questionId }));
       }
       catch (err) {
         console.log(err);

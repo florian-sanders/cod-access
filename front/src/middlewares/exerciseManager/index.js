@@ -2,13 +2,14 @@ import {
   POST_EXERCISE_MANAGER,
   PATCH_EXERCISE_MANAGER,
   DELETE_EXERCISE_MANAGER,
+  FETCH_EXERCISE_MANAGER,
   setExerciseManagerIsSaved,
   setExerciseManagerLoading,
   setExerciseManagerUpdateLoading,
   setExerciseManagerError,
   setExerciseManager,
-  resetExerciseManager,
-  postExerciseManager,
+  resetManagers,
+  setManagersFromDB,
 } from 'src/actions/exerciseManager';
 import { resetQuestionManager } from 'src/actions/exerciseManager/questionManager';
 import { resetAnswerManager } from 'src/actions/exerciseManager/answerManager';
@@ -89,10 +90,60 @@ export default (store) => (next) => async (action) => {
           throw new Error('Exercise delete fail');
         }
 
-        store.dispatch(resetExerciseManager());
-        store.dispatch(resetQuestionManager());
-        store.dispatch(resetAnswerManager());
-        store.dispatch(setThemeManagerCheckboxes(themes.data));
+        store.dispatch(resetManagers(themes.data));
+      }
+      catch (err) {
+        console.log(err);
+        //store.dispatch(setExerciseManagerError(true));
+      }
+      finally {
+        store.dispatch(setExerciseManagerUpdateLoading(false));
+      }
+      return next(action);
+    case FETCH_EXERCISE_MANAGER:
+      try {
+        store.dispatch(setExerciseManagerUpdateLoading(true));
+
+        const { data: exerciseData, status } = await axiosInstance.get(`/admin/exercises/${action.exerciseId}`);
+
+        if (status !== 200) {
+          throw new Error('Exercise get fail');
+        }
+
+        const exercise = {
+          id: exerciseData.id,
+          title: exerciseData.title,
+          brief: exerciseData.brief,
+          published: exerciseData.published,
+        };
+
+        const themes = exerciseData.themes.map((theme) => theme.id);
+
+        const questions = exerciseData.questions.map((question) => ({
+          id: question.id,
+          brief: question.brief,
+          code: question.code,
+          explanation: question.explanation,
+          imageId: question.picture_id,
+          imageAlternative: question.question_picture
+            ? question.question_picture.alternative
+            : null,
+          imagePath: question.question_picture
+            ? question.question_picture.path
+            : null,
+          selectedFile: null,
+        }));
+
+        const possibleAnswers = exerciseData.questions.map(
+          (question) => question.possible_answers,
+        ).flat();
+
+        store.dispatch(setManagersFromDB({
+          exercise,
+          themes,
+          questions,
+          possibleAnswers,
+        }));
       }
       catch (err) {
         console.log(err);

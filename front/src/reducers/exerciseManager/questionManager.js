@@ -6,11 +6,16 @@ import {
   SET_QUESTION_MANAGER_UPDATE_LOADING,
   SET_QUESTION_MANAGER_ERROR,
   SET_QUESTION_MANAGER_IS_SAVED,
-  RESET_QUESTION_MANAGER,
   SET_QUESTION_MANAGER_FILE,
   SET_QUESTION_MANAGER_SELECTED_FILE,
   SET_QUESTION_MANAGER_IMAGE_ID,
+  RESET_QUESTION_MANAGER_IMAGE,
 } from 'src/actions/exerciseManager/questionManager';
+
+import {
+  SET_MANAGERS_FROM_DB,
+  RESET_MANAGERS,
+} from 'src/actions/exerciseManager';
 
 const initialState = {
   loading: false,
@@ -21,7 +26,35 @@ const initialState = {
 
 const questionManager = (state = initialState, action = {}) => {
   switch (action.type) {
-    case RESET_QUESTION_MANAGER:
+    case RESET_QUESTION_MANAGER_IMAGE:
+      return {
+        ...state,
+        isSaved: true,
+        questions: state.questions.map((question) => {
+          if (question.id === action.questionId) {
+            question.imageId = null;
+            question.imagePath = '';
+          }
+
+          return question;
+        })
+      }
+    case SET_MANAGERS_FROM_DB:
+      return {
+        ...state,
+        isSaved: true,
+        questions: action.questions.map((question) => ({
+          id: question.id,
+          brief: question.brief,
+          code: question.code,
+          explanation: question.explanation,
+          imageId: question.imageId,
+          imagePath: question.imagePath,
+          imageAlternative: question.imageAlternative,
+          selectedFile: null,
+        })),
+      };
+    case RESET_MANAGERS:
       return {
         ...initialState,
       };
@@ -91,7 +124,6 @@ const questionManager = (state = initialState, action = {}) => {
         }),
       };
     case SET_QUESTION_MANAGER_IMAGE_ID:
-      console.log(action);
       return {
         ...state,
         questions: state.questions.map((question) => {
