@@ -6,8 +6,12 @@ import {
   SET_ANSWER_MANAGER_UPDATE_LOADING,
   SET_ANSWER_MANAGER_ERROR,
   SET_ANSWER_MANAGER_IS_SAVED,
-  RESET_ANSWER_MANAGER,
 } from 'src/actions/exerciseManager/answerManager';
+
+import {
+  SET_MANAGERS_FROM_DB,
+  RESET_MANAGERS,
+} from 'src/actions/exerciseManager';
 
 const initialState = {
   loading: false,
@@ -18,7 +22,19 @@ const initialState = {
 
 const answerManager = (state = initialState, action = {}) => {
   switch (action.type) {
-    case RESET_ANSWER_MANAGER:
+    case SET_MANAGERS_FROM_DB:
+      console.log(action.possibleAnswers);
+      return {
+        ...state,
+        isSaved: true,
+        possibleAnswers: action.possibleAnswers.map((answer) => ({
+          id: answer.id,
+          questionId: answer.question_id,
+          content: answer.content,
+          correct: answer.correct,
+        })),
+      };
+    case RESET_MANAGERS:
       return {
         ...initialState,
       };

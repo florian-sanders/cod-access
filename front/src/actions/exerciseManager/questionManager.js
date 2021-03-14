@@ -105,3 +105,19 @@ export const setQuestionManagerImageId = ({ imageId, questionId }) => ({
   imageId,
   questionId,
 });
+
+export const DELETE_QUESTION_MANAGER_IMAGE = 'DELETE_QUESTION_MANAGER_IMAGE';
+
+export const deleteQuestionManagerImage = ({ questionId, imageId }) => ({
+  type: DELETE_QUESTION_MANAGER_IMAGE,
+  questionId,
+  imageId,
+});
+
+export const RESET_QUESTION_MANAGER_IMAGE = 'RESET_QUESTION_MANAGER_IMAGE';
+
+export const resetQuestionManagerImage = ({ questionId, imageId }) => ({
+  type: RESET_QUESTION_MANAGER_IMAGE,
+  questionId,
+  imageId,
+});

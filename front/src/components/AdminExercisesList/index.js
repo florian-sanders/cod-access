@@ -77,7 +77,7 @@ const AdminUsersList = ({
                       }}
                     >Supprimer
                     </button>
-                    <Link to={`admin/exercice/edit/${exercise.id}`}>
+                    <Link to={`/admin/exercices/edit/${exercise.id}`}>
                       Modifier
                     </Link>
                   </td>

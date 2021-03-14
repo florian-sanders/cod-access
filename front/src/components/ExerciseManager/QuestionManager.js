@@ -24,6 +24,8 @@ const QuestionManager = ({
   changeSelectedFile,
   saveAltOnBlur,
   imageId,
+  imagePath,
+  deleteImage,
 }) => {
   const handleImageChange = (evt) => {
     evt.preventDefault();
@@ -31,15 +33,23 @@ const QuestionManager = ({
   };
 
   const handleImageOnBlur = () => {
-    if (selectedFile && !isSaved) console.log('bingo', selectedFile);
-    if (selectedFile && !isSaved) sendImageFile({
-      questionId: id,
-      file: selectedFile,
-    });
+    if (selectedFile && !isSaved) {
+      sendImageFile({
+        questionId: id,
+        file: selectedFile,
+      });
+    }
   };
 
   const handleImageAltOnBlur = () => {
     if (!isSaved) saveAltOnBlur(imageId);
+  };
+
+  const handleDeleteImage = () => {
+    deleteImage({
+      imageId,
+      questionId: id,
+    });
   };
 
   return (
@@ -65,7 +75,15 @@ const QuestionManager = ({
             isSaved={isSaved}
             saveOnBlur={saveOnBlur}
           />
-
+          {
+            imagePath && (
+              <>
+                <p>Image actuelle :</p>
+                <img src={`${process.env.IMAGE}${imagePath}`} alt="" />
+                <button onClick={handleDeleteImage} type="button">Supprimer l'image</button>
+              </>
+            )
+          }
           <label
             className="admin-exercise__question__general-info__upload__label"
             htmlFor={`exercise-q${questionNumber}-upload`}
@@ -81,9 +99,10 @@ const QuestionManager = ({
             accept="image/*"
             onBlur={handleImageOnBlur}
           />
+
           <div className="admin-exercise__question__general-info__upload__preview">
             {
-              selectedFile === null
+              !selectedFile
                 ? (
                   <p>Aucun fichier selectionné</p>
                 )

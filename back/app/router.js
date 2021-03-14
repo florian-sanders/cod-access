@@ -44,6 +44,9 @@ const authorizationMiddlewareNewPassword = jwt({
 //     .get(authController.getCSRFToken);
 
 
+router.route('/admin/image/:imageId')
+    .delete(authorizationMiddlewareNotPass, imageController.deleteOneImage);
+
 router.route('/signout')
     .get(authController.signout);
 
@@ -134,6 +137,7 @@ router.route('/admin/exercises/:id')
     .get(authorizationMiddlewareNotPass, exerciseController.getOneExerciseAdmin)
     .patch(authorizationMiddlewareNotPass, exerciseController.changeExercise)
     .delete(authorizationMiddlewareNotPass, exerciseController.deleteOneExercise);
+
 
 // forget password client
 router.route('/forget')

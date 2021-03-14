@@ -8,6 +8,7 @@ import {
   uploadQuestionManagerImage,
   setQuestionManagerSelectedFile,
   patchQuestionManagerImageAlt,
+  deleteQuestionManagerImage,
 } from 'src/actions/exerciseManager/questionManager';
 
 import { postAnswerManager } from 'src/actions/exerciseManager/answerManager';
@@ -34,6 +35,7 @@ const mapStateToProps = ({
     explanation: thisQuestion.explanation,
     imageId: thisQuestion.imageId,
     imageAlternative: thisQuestion.imageAlternative,
+    imagePath: thisQuestion.imagePath,
     possibleAnswers: possibleAnswers.filter((answer) => answer.questionId === thisQuestion.id),
     selectedFile: thisQuestion.selectedFile,
   };
@@ -54,6 +56,9 @@ const mapDispatchToProps = (dispatch, { id }) => ({
     questionId: id,
     file,
   })),
+  deleteImage: ({ questionId, imageId }) => dispatch(
+    deleteQuestionManagerImage({ questionId, imageId }),
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionManager);
