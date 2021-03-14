@@ -8,6 +8,7 @@ import other from 'src/reducers/other';
 import auth from 'src/reducers/auth';
 import signup from 'src/reducers/signup';
 import exercises from 'src/reducers/exercises';
+import adminExercisesList from 'src/reducers/adminExercisesList';
 import forget from './forget';
 import users from './users';
 
@@ -20,6 +21,7 @@ export default combineReducers({
   questionManager,
   answerManager,
   themeManager,
+  adminExercisesList,
   forget,
   users,
 });

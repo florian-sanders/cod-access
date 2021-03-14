@@ -6,7 +6,8 @@ import {
 import AdminMenu from 'src/components/AdminMenu';
 import AdminUsersList from 'src/containers/AdminUsersList';
 import ExerciseManager from 'src/containers/ExerciseManager';
-import ExercicesList from './AdminExercisesList';
+import AdminExercicesList from 'src/containers/AdminExercisesList';
+
 
 import './styles.scss';
 
@@ -19,7 +20,7 @@ const Dashboard = () => (
           <AdminUsersList />
         </Route>
         <Route exact path="/admin/exercices">
-          <ExercicesList />
+          <AdminExercicesList />
         </Route>
         <Route path="/admin/creer-exercice">
           <ExerciseManager />
