@@ -53,7 +53,7 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
-    "nanoid": "^3.1.21",
+    "nanoid": "^3.1.22",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.0.0",

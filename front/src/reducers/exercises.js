@@ -26,6 +26,7 @@ const initialState = {
     themes: [],
     questions: [],
     currentQuestionIndex: 0,
+    isCorrected: false,
   },
 };
 
@@ -140,13 +141,15 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         currentExercise: {
           ...state.currentExercise,
+          currentQuestionIndex: 0,
+          isCorrected: true,
           questions: state.currentExercise.questions.map(
             (question) => {
               const { explanation } = action.explanations.find(
                 (expl) => question.id === expl.id,
               );
               question.explanation = explanation;
-              question.possible_answers = question.possible_answers.map((answer) => {
+              question.possibleAnswers = question.possibleAnswers.map((answer) => {
                 answer.isRightAnswer = action.rightAnswers.includes(answer.id);
                 answer.userCorrect = action.rightAnswers.includes(answer.id)
                   && question.userAnswers.includes(answer.id);
