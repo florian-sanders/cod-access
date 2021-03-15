@@ -10,6 +10,11 @@ const FieldGroup = ({
   label,
   type,
   autocomplete,
+  isMandatory,
+  name,
+  displayMessage,
+  setControlMessage,
+  message,
 }) => (
   <div className="header-wrapper__connection__toggle-area__form__group">
     <label htmlFor={id}>
@@ -21,9 +26,24 @@ const FieldGroup = ({
       value={value}
       autoComplete={autocomplete}
       onChange={
-        (evt) => changeValue(evt.target.value)
+        (evt) => changeValue({
+          value: evt.target.value,
+          name,
+        })
       }
+      onBlur={() => {
+        setControlMessage({
+          name,
+          message,
+          value,
+        });
+      }}
     />
+    {
+      message && (
+        <p>{message}</p>
+      )
+    }
   </div>
 );
 

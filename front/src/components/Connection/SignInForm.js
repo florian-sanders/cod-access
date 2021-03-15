@@ -22,6 +22,7 @@ const SignInForm = ({ trySignIn }) => {
           label="Adresse e-mail (nom@domaine.fr)"
           name="email"
           autocomplete="email"
+          isMandatory
         />
         <FieldGroup
           type="password"
