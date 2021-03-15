@@ -10,35 +10,63 @@ const FieldGroup = ({
   onChange,
   type,
   name,
-}) => (
-  <div className="signup__content__form__group">
-    <label htmlFor={id} className="signup__content__form__group__label">
-      {label}
-    </label>
-    <input
-      type={type}
-      name={name}
-      id={id}
-      value={value}
-      onChange={(evt) => onChange(evt.target.value, name)}
-      className="signup__content__form__group__input"
-      aria-required="true"
-    />
-  </div>
-);
+  autocomplete,
+  isMandatory,
+  setControlMessage,
+  message,
+}) => {
+  const handleOnBlur = () => {
+    if (isMandatory) {
+      setControlMessage({
+        name,
+        message,
+        value,
+      });
+    }
+  };
+
+  return (
+    <div className="signup__content__form__group">
+      <label htmlFor={id} className="signup__content__form__group__label">
+        {label}
+      </label>
+      <input
+        type={type}
+        name={name}
+        id={id}
+        value={value}
+        onChange={(evt) => onChange(evt.target.value, name)}
+        className="signup__content__form__group__input"
+        aria-required="true"
+        onBlur={handleOnBlur}
+        autoComplete={autocomplete}
+      />
+      {
+        message && (
+          <p>{message}</p>
+        )
+      }
+    </div>
+  );
+};
 
 FieldGroup.propTypes = {
   id: Proptypes.string.isRequired,
-  value: Proptypes.string,
+  value: Proptypes.string.isRequired,
   label: Proptypes.string.isRequired,
-  onChange: Proptypes.func,
-  type: Proptypes.string.isRequired,
+  onChange: Proptypes.func.isRequired,
+  type: Proptypes.string,
+  autocomplete: Proptypes.string,
+  isMandatory: Proptypes.bool,
   name: Proptypes.string.isRequired,
+  setControlMessage: Proptypes.func.isRequired,
+  message: Proptypes.string.isRequired,
 };
 
 FieldGroup.defaultProps = {
-  value: '',
-  onChange: () => { },
+  type: 'text',
+  isMandatory: false,
+  autocomplete: 'off',
 };
 
 export default FieldGroup;

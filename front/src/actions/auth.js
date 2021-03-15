@@ -99,6 +99,7 @@ export const setSignInControlMessage = ({ message, name, value }) => ({
   name,
   value,
 });
+
 export const fetchProgressByTheme = () => ({
   type: FETCH_PROGRESS_BY_THEME,
 });
