@@ -11,6 +11,7 @@ import Profile from 'src/containers/Profile';
 import ExercisesPage from 'src/containers/ExercisesPage';
 import Exercise from 'src/containers/Exercise';
 import Dashboard from 'src/components/Dashboard';
+import About from 'src/components/About';
 
 import ForgetPage from 'src/containers/ForgetPage';
 import NewPasswordPage from 'src/containers/NewPasswordPage';
@@ -50,6 +51,10 @@ const Page = ({ isLogged, role }) => (
 
       <Route exact path="/forget/:token">
         <NewPasswordPage />
+      </Route>
+
+      <Route exact path="/a-propos">
+        <About />
       </Route>
     </Switch>
   </main>
