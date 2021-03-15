@@ -6,6 +6,7 @@ const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const pathToSwaggerUi = require('swagger-ui-dist').absolutePath();
+const sanitizer = require('./app/middleware/body-sanitizer');
 
 const app = express();
 
@@ -23,6 +24,8 @@ const csrfProtection = csrf({
 app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(sanitizer);
 
 
 // express static used by react
