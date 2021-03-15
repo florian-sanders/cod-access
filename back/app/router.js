@@ -92,6 +92,9 @@ router.route('/exercises/dragndrop/:id')
 router.route('/themes_exercises')
     .get(authorizationMiddlewareLetPass, themeController.getAllThemesForExercises);
 
+router.route('/themes_score')
+    .get(authorizationMiddlewareNotPass, themeController.getScoreByTheme);
+
 router.route('/themes')
     .get(themeController.getAllThemes);
 
