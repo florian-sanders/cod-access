@@ -7,10 +7,12 @@ import {
   EDIT_EMAIL_USER,
   UPLOAD_FILE_PROFILE,
   GET_CSRF_TOKEN,
+  FETCH_PROGRESS_BY_THEME,
   signIn,
   signOut,
   setInfoUser,
   setSelectedFile,
+  setProgressByTheme,
 } from 'src/actions/auth';
 
 import axiosInstance from 'src/api';
@@ -161,6 +163,18 @@ export default (store) => (next) => async (action) => {
         }
         store.dispatch(setInfoUser('picturePath', pathPicture.substring(6)));
         store.dispatch(setSelectedFile(null));
+      }
+      catch (err) {
+        console.log(err);
+      }
+      return next(action);
+    case FETCH_PROGRESS_BY_THEME:
+      try {
+        const response = await axiosInstance.get('/themes_score');
+        if (response.status !== 200) {
+          throw new Error();
+        }
+        store.dispatch(setProgressByTheme(response.data));
       }
       catch (err) {
         console.log(err);

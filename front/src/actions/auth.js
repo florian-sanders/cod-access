@@ -13,6 +13,8 @@ export const SET_SELECTED_FILE = 'SET_SELECTED_FILE';
 export const GET_CSRF_TOKEN = 'GET_CSRF_TOKEN';
 export const UPLOAD_FILE_PROFILE = 'UPLOAD_FILE_PROFILE';
 export const CLEAN_SELECTED_FILE = 'CLEAN_SELECTED_FILE';
+export const FETCH_PROGRESS_BY_THEME = 'FETCH_PROGRESS_BY_THEME';
+export const SET_PROGRESS_BY_THEME = 'SET_PROGRESS_BY_THEME';
 
 export const toggleConnectionVisibility = () => ({
   type: TOGGLE_CONNECTION_VISIBILITY,
@@ -88,4 +90,13 @@ export const uploadFileProfile = () => ({
 
 export const cleanSelectedFile = () => ({
   type: CLEAN_SELECTED_FILE,
+});
+
+export const fetchProgressByTheme = () => ({
+  type: FETCH_PROGRESS_BY_THEME,
+});
+
+export const setProgressByTheme = (progress) => ({
+  type: SET_PROGRESS_BY_THEME,
+  progress,
 });
