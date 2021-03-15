@@ -3,6 +3,7 @@ import {
   SET_SIGN_UP_LOADING,
   SIGN_UP,
   SET_SIGN_UP_CONTROL_MESSAGE,
+  VALIDATE_SIGN_UP_EMAIL,
 } from 'src/actions/signup';
 
 const initialState = {
@@ -57,6 +58,14 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         loading: action.loading,
+      };
+    case VALIDATE_SIGN_UP_EMAIL:
+      return {
+        ...state,
+        email: {
+          ...state.email,
+          controlMessage: action.message,
+        },
       };
     default:
       return state;

@@ -14,6 +14,7 @@ const FieldGroup = ({
   isMandatory,
   setControlMessage,
   message,
+  validateInput,
 }) => {
   const handleOnBlur = () => {
     if (isMandatory) {
@@ -23,6 +24,7 @@ const FieldGroup = ({
         value,
       });
     }
+    validateInput({email: value, message });
   };
 
   return (

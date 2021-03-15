@@ -4,6 +4,8 @@ import {
   setSignUpFieldValue,
   trySignUp,
   setSignUpControlMessage,
+  validateSignUpEmail,
+  testSignUpPasswordStrength,
 } from 'src/actions/signup';
 
 const mapStateToProps = (state) => ({
@@ -20,6 +22,10 @@ const mapDispatchToProps = (dispatch) => ({
   trySignUp: () => dispatch(trySignUp()),
   setControlMessage:
     ({ message, name, value }) => dispatch(setSignUpControlMessage({ message, name, value })),
+  validateEmail: ({ message, email }) => dispatch(validateSignUpEmail({ message, email })),
+  testPasswordStrength: ({ message, password }) => dispatch(
+    testSignUpPasswordStrength({ message, password }),
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

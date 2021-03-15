@@ -33,3 +33,19 @@ export const setSignUpControlMessage = ({ message, name, value }) => ({
   name,
   value,
 });
+
+export const VALIDATE_SIGN_UP_EMAIL = 'VALIDATE_SIGN_UP_EMAIL';
+
+export const validateSignUpEmail = ({ message, email }) => ({
+  type: VALIDATE_SIGN_UP_EMAIL,
+  message,
+  email,
+});
+
+export const TEST_SIGN_UP_PASSWORD_STRENGTH = 'TEST_SIGN_UP_PASSWORD_STRENGTH';
+
+export const testSignUpPasswordStrength = ({ message, password }) => ({
+  type: TEST_SIGN_UP_PASSWORD_STRENGTH,
+  message,
+  password,
+});

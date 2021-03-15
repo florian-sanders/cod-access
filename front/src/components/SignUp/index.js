@@ -14,6 +14,8 @@ const SignUp = ({
   loading,
   isSignedUp,
   setControlMessage,
+  validateEmail,
+  testPasswordStrength,
 }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -38,6 +40,7 @@ const SignUp = ({
             isMandatory
             message={email.controlMessage}
             setControlMessage={setControlMessage}
+            validateInput={validateEmail}
           />
           <FieldGroup
             type="text"
@@ -60,6 +63,7 @@ const SignUp = ({
             isMandatory
             message={password.controlMessage}
             setControlMessage={setControlMessage}
+            validateInput={testPasswordStrength}
           />
           <FieldGroup
             type="password"
@@ -108,6 +112,8 @@ SignUp.propTypes = {
   loading: Proptypes.bool,
   isSignedUp: Proptypes.bool.isRequired,
   setControlMessage: Proptypes.func.isRequired,
+  validateEmail: Proptypes.func.isRequired,
+  testPasswordStrength: Proptypes.func.isRequired,
 };
 
 SignUp.defaultProps = {
