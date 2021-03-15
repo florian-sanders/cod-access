@@ -34,6 +34,7 @@ export default (store) => (next) => async (action) => {
 
         localStorage.setItem('isSignedIn', true);
         store.dispatch(signIn(response.data));
+        console.log('middleware signin', response.data);
       }
       catch (err) {
         console.log('error', err);
