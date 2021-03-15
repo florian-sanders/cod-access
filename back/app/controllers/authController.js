@@ -72,7 +72,7 @@ module.exports = {
           email: req.body.email,
           password: hashedPassword,
           pseudo: req.body.pseudo,
-          picture_id: 10,
+          picture_id: 1,
           responsibility_id: 1
         });
         await newClient.save();
