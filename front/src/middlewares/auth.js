@@ -24,8 +24,8 @@ export default (store) => (next) => async (action) => {
         const { auth: { email, password } } = store.getState();
 
         const response = await axiosInstance.post('/signin', {
-          email,
-          password,
+          email: email.value,
+          password: password.value,
         });
 
         if (response.status !== 200) {
