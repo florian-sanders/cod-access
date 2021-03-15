@@ -5,13 +5,11 @@ import { Draggable } from 'react-beautiful-dnd';
 import './styles.scss';
 
 const Answer = ({
-
   id,
   content,
-
-isCorrected,
-isRightAnswer,
-userCorrect,
+  isCorrected,
+  isRightAnswer,
+  userCorrect,
   userAnswers,
   index,
   isDragDisabled,
@@ -46,7 +44,6 @@ userCorrect,
             {...provided.dragHandleProps}
           >
             {content}
-            {console.log(isCorrected)}
             {
               isUserAnswer && (
                 <button type="button" onClick={handleClick}>

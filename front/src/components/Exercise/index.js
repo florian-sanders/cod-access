@@ -43,10 +43,28 @@ const Exercise = ({
             {
               currentQuestionIndex < questions.length - 1
                 ? (
-                  <button type="button" onClick={() => changeQuestion(currentQuestionIndex + 1)}>Question suivante</button>
+                  <button
+                    title={
+                      (questions[currentQuestionIndex].userAnswers === undefined) && 'Veuillez renseigner une réponse'
+                    }
+                    disabled={(questions[currentQuestionIndex].userAnswers === undefined)}
+                    type="button"
+                    onClick={
+                      () => changeQuestion(currentQuestionIndex + 1)
+                    }
+                  > Question suivante
+                  </button>
                 )
                 : (
-                  <button type="button" onClick={submitAnswers}>Valider mes réponses</button>
+                  <button
+                    title={
+                      (questions[currentQuestionIndex].userAnswers === undefined) && 'Veuillez renseigner une réponse'
+                    }
+                    type="button"
+                    disabled={(questions[currentQuestionIndex].userAnswers === undefined)}
+                    onClick={submitAnswers}
+                  >Valider mes réponses
+                  </button>
                 )
             }
           </section>
