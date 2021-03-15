@@ -62,5 +62,6 @@
     "react-router-dom": "^5.2.0",
     "react-router-navigation-prompt": "^1.8.13",
     "redux": "^4.0.5"
-  }
+  },
+  "version": "0.0.0"
 }
