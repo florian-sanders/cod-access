@@ -5,7 +5,7 @@ import './styles.scss';
 
 const ProgressBar = ({percentage}) => (
   <div className="progress-bar">
-    <div style={{ width: '60%' }} className="progress-bar__filler" />
+    <div style={{ width: percentage }} className="progress-bar__filler" />
   </div>
 );
 

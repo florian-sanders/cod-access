@@ -7,6 +7,7 @@ import {
   SET_INFO_USER,
   SET_SELECTED_FILE,
   SET_SIGN_IN_CONTROL_MESSAGE,
+  SET_PROGRESS_BY_THEME,
 } from 'src/actions/auth';
 
 const initialState = {
@@ -31,6 +32,7 @@ const initialState = {
     pseudo: '',
     role: '',
     picturePath: '',
+    progressByTheme: [],
   },
 };
 
@@ -86,11 +88,19 @@ const reducer = (state = initialState, action = {}) => {
           ...state.user,
           [action.name]: action.newInfo,
         },
-      };
+      }; 
     case SET_SELECTED_FILE:
       return {
         ...state,
         selectedFile: action.file,
+      };
+    case SET_PROGRESS_BY_THEME:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          progressByTheme: action.progress,
+        },
       };
     default:
       return state;

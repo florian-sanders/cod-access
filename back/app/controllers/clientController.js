@@ -8,14 +8,19 @@ module.exports = {
 
     getAllClients: async (req, res) => {
         try{
+            const page = Number(req.query.page) - 1 || 0;
+            const limit = Number(req.query.limit) || 30;
             const role = req.user.clientRole
             if(role !== 'admin'){
                 return res.status(400).json({
                     error: `access only by admin`
                 });
             }
-            const clients = await Client.findAll({
-                include:'responsibility'
+            const clients = await Client.findAndCountAll({
+                include:'responsibility',
+                distinct: true,
+                offset: page * limit,
+                limit: limit,
             });
             console.log('clients', clients);
             return res.status(200).json(
