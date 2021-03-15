@@ -24,7 +24,7 @@ const FieldGroup = ({
         value,
       });
     }
-    validateInput({email: value, message });
+    validateInput({ value, message });
   };
 
   return (
@@ -63,6 +63,7 @@ FieldGroup.propTypes = {
   name: Proptypes.string.isRequired,
   setControlMessage: Proptypes.func.isRequired,
   message: Proptypes.string.isRequired,
+  validateInput: Proptypes.func.isRequired,
 };
 
 FieldGroup.defaultProps = {

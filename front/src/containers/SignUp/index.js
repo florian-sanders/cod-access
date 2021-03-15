@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
   trySignUp: () => dispatch(trySignUp()),
   setControlMessage:
     ({ message, name, value }) => dispatch(setSignUpControlMessage({ message, name, value })),
-  validateEmail: ({ message, email }) => dispatch(validateSignUpEmail({ message, email })),
+  validateEmail: ({ message, value }) => dispatch(validateSignUpEmail({ message, email: value })),
   testPasswordStrength: ({ message, password }) => dispatch(
     testSignUpPasswordStrength({ message, password }),
   ),

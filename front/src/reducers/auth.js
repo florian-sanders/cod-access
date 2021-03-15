@@ -88,7 +88,7 @@ const reducer = (state = initialState, action = {}) => {
           ...state.user,
           [action.name]: action.newInfo,
         },
-      }; 
+      };
     case SET_SELECTED_FILE:
       return {
         ...state,

@@ -8,7 +8,7 @@ const Profile = ({ email, pseudo, picturePath, progressByTheme, fetchProgressByT
   useEffect(() => {
     fetchProgressByTheme();
   }, []);
-  console.log(progressByTheme);
+
   return (
     <div className="profile">
       <h1 className="profile__title">Mon Profil</h1>
@@ -22,7 +22,7 @@ const Profile = ({ email, pseudo, picturePath, progressByTheme, fetchProgressByT
       <div className="profile__progress">
         {
           progressByTheme.map((progress) => (
-            <div className="profile__progress__theme">
+            <div key={progress.theme} className="profile__progress__theme">
               <h2>{progress.theme}</h2>
               <ProgressBar percentage={`${progress.progress}%`} />
             </div>
@@ -30,13 +30,19 @@ const Profile = ({ email, pseudo, picturePath, progressByTheme, fetchProgressByT
         }
       </div>
     </div>
-  )
-}
+  );
+};
 
 Profile.propTypes = {
   email: PropTypes.string.isRequired,
   pseudo: PropTypes.string.isRequired,
   picturePath: PropTypes.string.isRequired,
+  progressByTheme: PropTypes.array,
+  fetchProgressByTheme: PropTypes.func.isRequired,
+};
+
+Profile.defaultProps = {
+  progressByTheme: [],
 };
 
 export default Profile;

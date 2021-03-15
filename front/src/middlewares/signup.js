@@ -15,12 +15,11 @@ export default (store) => (next) => async (action) => {
             email, pseudo, password, passwordConfirm,
           },
         } = store.getState();
-
         const response = await axiosInstance.post('/signup', {
-          email,
-          pseudo,
-          password,
-          passwordConfirm,
+          email: email.value,
+          pseudo: pseudo.value,
+          password: password.value,
+          passwordConfirm: passwordConfirm.value,
         });
         if (response.status !== 200) {
           throw new Error();
