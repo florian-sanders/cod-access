@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { Prompt } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import NavigationPrompt from 'react-router-navigation-prompt';
 
 import Question from 'src/containers/ExerciseManager/QuestionManager';
 import ThemeManager from 'src/containers/ExerciseManager/ThemeManager';
 import TextField from './TextField';
-import ThemeCheckbox from './ThemeCheckbox';
+import Checkbox from './Checkbox';
 import Modal from './Modal';
 import './styles.scss';
 
-const Exercise = ({
+const ExerciseManager = ({
   loading,
   updateLoading,
   error,
@@ -22,17 +23,20 @@ const Exercise = ({
   isSaved,
   createExercise,
   removeExercise,
-  isLeaving,
-  setIsLeaving,
+  getExercise,
+  createNew,
+  resetManagerStates,
 }) => {
   useEffect(() => {
-    createExercise();
-    if (!published) {
-      window.onbeforeunload = () => true;
+    if (createNew) {
+      createExercise();
     }
     else {
-      window.onbeforeunload = undefined;
+      getExercise();
     }
+    return () => {
+      resetManagerStates();
+    };
   }, []);
 
   if (loading) {
@@ -45,17 +49,15 @@ const Exercise = ({
 
   return (
     <section className="admin-exercise">
-      <Prompt
-        when={!published}
-        message={() => {
-          setIsLeaving(true);
-        }}
-      />
-      {
-        isLeaving && (
-          <Modal />
-        )
-      }
+      <NavigationPrompt when={!published}>
+        {({ onConfirm }, onCancel) => (
+          <Modal
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+            removeExercise={removeExercise}
+          />
+        )}
+      </NavigationPrompt>
       <h1 className="admin-exercise__heading-page">Créer un exercice</h1>
       <p>Statut de l'exercice : sauvegardé en brouillon</p>
       <form>
@@ -68,6 +70,17 @@ const Exercise = ({
             >
               Supprimer l'exercice
             </button>
+            <Checkbox
+              className="admin-exercise__question__general-info__field-group"
+              id="exercise-published"
+              label="Publié"
+              type="checkbox"
+              name="published"
+              value={published}
+              saveCheckboxChange={changeValue}
+              updateState={saveOnBlur}
+            />
+
             <TextField
               className="admin-exercise__general-info__field-group"
               id="exercise-title"
@@ -118,4 +131,27 @@ const Exercise = ({
   );
 };
 
-export default Exercise;
+ExerciseManager.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  updateLoading: PropTypes.bool.isRequired,
+  error: PropTypes.bool.isRequired,
+  changeValue: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  brief: PropTypes.string.isRequired,
+  questions: PropTypes.array.isRequired,
+  createQuestion: PropTypes.func.isRequired,
+  published: PropTypes.bool.isRequired,
+  saveOnBlur: PropTypes.func.isRequired,
+  isSaved: PropTypes.bool.isRequired,
+  createExercise: PropTypes.func.isRequired,
+  removeExercise: PropTypes.func.isRequired,
+  createNew: PropTypes.bool,
+  getExercise: PropTypes.func.isRequired,
+  resetManagerStates: PropTypes.func.isRequired,
+};
+
+ExerciseManager.defaultProps = {
+  createNew: false,
+};
+
+export default ExerciseManager;

@@ -96,3 +96,18 @@ export const SEND_ANSWERS = 'SEND_ANSWERS';
 export const sendAnswers = () => ({
   type: SEND_ANSWERS,
 });
+
+export const SET_RESULTS = 'SET_RESULTS';
+
+export const setResults = ({
+  explanations,
+  incorrectAnswers,
+  correctAnswers,
+  rightAnswers,
+}) => ({
+  type: SET_RESULTS,
+  explanations,
+  incorrectAnswers,
+  correctAnswers,
+  rightAnswers,
+});

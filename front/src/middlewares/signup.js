@@ -25,7 +25,7 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-        store.dispatch(signUp);
+        store.dispatch(signUp());
       }
       catch (err) {
         console.log('error', err);

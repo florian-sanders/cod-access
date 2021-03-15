@@ -12,17 +12,23 @@ const ForgetPage = ({ sendForEmail, onChangeText, email }) => {
 
   return (
     <>
-      <form action="" method="get" className="form-forget" onSubmit={handleSubmit}>
-        <input
-          value={email}
-          onChange={(e) => {
-            const text = e.target.value;
-            onChangeText(text);
-          }}
-          className="field-input"
-          placeholder="Veuillez renseigner votre e-mail"
-        />
-      </form>
+      <div className="container">
+        <p className="container__text">
+          Veuillez renseigner votre email pour recevoir le lien de réinitialisation.
+        </p>
+        <form action="" method="get" className="form-forget" onSubmit={handleSubmit}>
+          <input
+            className="form-forget__input-password"
+            value={email}
+            onChange={(e) => {
+              const text = e.target.value;
+              onChangeText(text);
+            }}
+            placeholder="Veuillez renseigner votre e-mail"
+          />
+          <button className="form-forget__btn-forget" type="submit">Valider</button>
+        </form>
+      </div>
     </>
   );
 };

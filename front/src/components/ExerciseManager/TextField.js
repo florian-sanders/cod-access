@@ -14,11 +14,13 @@ const TextField = ({
   name,
   saveOnBlur,
   isSaved,
-  updateLoading,
 }) => {
   const handleOnBlur = () => {
     if (!isSaved) {
-      saveOnBlur();
+      saveOnBlur({
+        name,
+        value,
+      });
     }
   };
 
@@ -37,7 +39,10 @@ const TextField = ({
               autoComplete={autocomplete}
               name={name}
               onChange={
-                (evt) => changeValue(evt.target.value, name)
+                (evt) => changeValue({
+                  value: evt.target.value,
+                  name,
+                })
               }
               onBlur={handleOnBlur}
             />
@@ -49,16 +54,14 @@ const TextField = ({
               autoComplete={autocomplete}
               name={name}
               onChange={
-                (evt) => changeValue(evt.target.value, name)
+                (evt) => changeValue({
+                  value: evt.target.value,
+                  name,
+                })
               }
               onBlur={handleOnBlur}
             />
           )
-      }
-      {
-        updateLoading && (
-          <p>Sauvegarde en cours</p>
-        )
       }
     </div>
   );
@@ -70,10 +73,17 @@ TextField.propTypes = {
   label: Proptypes.string.isRequired,
   changeValue: Proptypes.func.isRequired,
   type: Proptypes.string,
+  name: Proptypes.string.isRequired,
+  autocomplete: Proptypes.string,
+  className: Proptypes.string,
+  saveOnBlur: Proptypes.func.isRequired,
+  isSaved: Proptypes.bool.isRequired,
 };
 
 TextField.defaultProps = {
   type: 'text',
+  autocomplete: 'off',
+  className: '',
 };
 
 export default TextField;

@@ -5,16 +5,19 @@ import { Draggable } from 'react-beautiful-dnd';
 import './styles.scss';
 
 const Answer = ({
-  answer: {
-    id,
-    content,
-  },
+
+  id,
+  content,
+
+isCorrected,
+isRightAnswer,
+userCorrect,
+  userAnswers,
   index,
   isDragDisabled,
   isUserAnswer,
   removeAnswer,
   questionId,
-  userAnswers,
 }) => {
   const handleClick = () => {
     removeAnswer({
@@ -43,6 +46,7 @@ const Answer = ({
             {...provided.dragHandleProps}
           >
             {content}
+            {console.log(isCorrected)}
             {
               isUserAnswer && (
                 <button type="button" onClick={handleClick}>
@@ -50,6 +54,13 @@ const Answer = ({
                   x
                 </button>
               )
+            }
+            {
+              isCorrected && userCorrect && (<p>Bravo champion</p>)
+            }
+
+            {
+              isCorrected && isRightAnswer && (<p>C'était la bonne réponse !</p>)
             }
           </div>
           {snapshot.isDragging && (
@@ -69,6 +80,8 @@ Answer.propTypes = {
   answer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
+    isRightAnswer: PropTypes.bool,
+    userCorrect: PropTypes.bool,
   }).isRequired,
   index: PropTypes.number.isRequired,
   isDragDisabled: PropTypes.bool,

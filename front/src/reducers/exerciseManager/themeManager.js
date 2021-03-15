@@ -2,21 +2,37 @@ import {
   SET_THEME_MANAGER_LOADING,
   SET_THEME_MANAGER_UPDATE_LOADING,
   SET_THEME_MANAGER_ERROR,
-  TOGGLE_THEME_MANAGER,
+  SET_THEME_MANAGER_FIELD_VALUE,
   SET_THEME_MANAGER_IS_SAVED,
   SET_THEME_MANAGER_CHECKBOXES,
 } from 'src/actions/exerciseManager/themeManager';
+
+import {
+  SET_MANAGERS_FROM_DB,
+  RESET_MANAGERS,
+} from 'src/actions/exerciseManager';
 
 const initialState = {
   loading: true,
   updateLoading: false,
   error: false,
   themes: [],
-  isSaved: false,
+  isSaved: true,
 };
 
 const themeManager = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_MANAGERS_FROM_DB:
+      return {
+        ...state,
+        themes: state.themes.map((theme) => {
+          if (action.themes.includes(theme.id)) {
+            theme.checked = true;
+          }
+          return theme;
+        }),
+        loading: false,
+      };
     case SET_THEME_MANAGER_ERROR:
       return {
         ...state,
@@ -33,6 +49,7 @@ const themeManager = (state = initialState, action = {}) => {
         updateLoading: action.status,
       };
     case SET_THEME_MANAGER_CHECKBOXES:
+    case RESET_MANAGERS:
       return {
         ...state,
         themes: action.themes.map((theme) => ({
@@ -40,15 +57,14 @@ const themeManager = (state = initialState, action = {}) => {
           checked: false,
         })),
       };
-    case TOGGLE_THEME_MANAGER:
+    case SET_THEME_MANAGER_FIELD_VALUE:
       return {
         ...state,
-        isSaved: false,
         themes: state.themes.map((theme) => {
           const newTheme = { ...theme };
 
           if (theme.id === action.themeId) {
-            newTheme.checked = !theme.checked;
+            newTheme.checked = action.isChecked;
           }
 
           return newTheme;

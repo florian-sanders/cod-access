@@ -1,27 +1,28 @@
 import React from 'react';
 
-import ThemeCheckbox from './ThemeCheckbox';
+import Checkbox from './Checkbox';
 import './styles.scss';
 
 const ThemeManager = ({
-  saveOnBlur,
-  handleThemeCheckbox,
-  isSaved,
   themes,
+  patchThemeUpdate,
+  updateThemeState,
 }) => (
   <fieldset className="admin-exercise__general-info__themes">
     <legend>Thématiques</legend>
+    {console.log(themes)}
     {
       themes.map((theme) => (
-        <ThemeCheckbox
+        <Checkbox
           className="admin-exercise__general-info__field-group"
-          theme={theme}
+          id={`theme-${theme.id}`}
+          label={theme.name}
           type="checkbox"
-          name="theme"
-          handleCheckbox={handleThemeCheckbox}
-          saveOnBlur={saveOnBlur}
-          isSaved={isSaved}
-          key={theme.id}
+          name={theme.id.toString()}
+          key={`theme-${theme.id}`}
+          saveCheckboxChange={patchThemeUpdate}
+          updateState={updateThemeState}
+          value={theme.checked}
         />
       ))
     }

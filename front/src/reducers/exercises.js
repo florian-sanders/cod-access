@@ -10,6 +10,7 @@ import {
   SET_NEW_USER_ANSWER,
   REMOVE_USER_ANSWER,
   SHOW_QUESTION,
+  SET_RESULTS,
 } from 'src/actions/exercises';
 
 const initialState = {
@@ -24,10 +25,8 @@ const initialState = {
     brief: '',
     themes: [],
     questions: [],
-    userAnswers: [],
     currentQuestionIndex: 0,
   },
-  userAnswers: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -71,10 +70,10 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         themesIdToDisplay:
-        state.themesFilterCheckbox.filter((theme) => theme.checked)
-          .map((theme) => theme.id).length === 0
-          ? state.themesFilterCheckbox.map((theme) => theme.id)
-          : state.themesFilterCheckbox.filter((theme) => theme.checked).map((theme) => theme.id),
+          state.themesFilterCheckbox.filter((theme) => theme.checked)
+            .map((theme) => theme.id).length === 0
+            ? state.themesFilterCheckbox.map((theme) => theme.id)
+            : state.themesFilterCheckbox.filter((theme) => theme.checked).map((theme) => theme.id),
       };
     case SET_ALL_THEMES_ID_TO_DISPLAY:
       return {
@@ -134,6 +133,30 @@ const reducer = (state = initialState, action = {}) => {
         currentExercise: {
           ...state.currentExercise,
           currentQuestionIndex: action.questionIndex,
+        },
+      };
+    case SET_RESULTS:
+      return {
+        ...state,
+        currentExercise: {
+          ...state.currentExercise,
+          questions: state.currentExercise.questions.map(
+            (question) => {
+              const { explanation } = action.explanations.find(
+                (expl) => question.id === expl.id,
+              );
+              question.explanation = explanation;
+              question.possible_answers = question.possible_answers.map((answer) => {
+                answer.isRightAnswer = action.rightAnswers.includes(answer.id);
+                answer.userCorrect = action.rightAnswers.includes(answer.id)
+                  && question.userAnswers.includes(answer.id);
+                answer.isCorrected = true;
+                return answer;
+              });
+
+              return question;
+            },
+          ),
         },
       };
     default:

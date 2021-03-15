@@ -31,7 +31,7 @@ const DropAnswer = ({
         {
           userAnswers.map((answerId, index) => (
             <Answer
-              answer={possibleAnswers.find((answer) => (
+              {...possibleAnswers.find((answer) => (
                 answer.id === answerId
               ))}
               userAnswers={userAnswers}
@@ -39,7 +39,7 @@ const DropAnswer = ({
               questionId={questionId}
               index={index}
               isDragDisabled
-              key={answerId}
+              key={`drop-${answerId}`}
             />
           ))
         }

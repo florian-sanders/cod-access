@@ -6,7 +6,8 @@ import {
   SET_EXERCISE_MANAGER_ERROR,
   SET_EXERCISE_MANAGER_IS_SAVED,
   SET_EXERCISE_MANAGER_IS_LEAVING,
-  RESET_EXERCISE_MANAGER,
+  RESET_MANAGERS,
+  SET_MANAGERS_FROM_DB,
 } from 'src/actions/exerciseManager';
 
 const initialState = {
@@ -23,7 +24,13 @@ const initialState = {
 
 const exerciseManager = (state = initialState, action = {}) => {
   switch (action.type) {
-    case RESET_EXERCISE_MANAGER:
+    case SET_MANAGERS_FROM_DB:
+      return {
+        ...state,
+        ...action.exercise,
+        loading: false,
+      };
+    case RESET_MANAGERS:
       return {
         ...initialState,
       };
@@ -61,7 +68,7 @@ const exerciseManager = (state = initialState, action = {}) => {
     case SET_EXERCISE_MANAGER_IS_LEAVING:
       return {
         ...state,
-        isSaved: action.status,
+        isLeaving: action.status,
       };
     default:
       return state;

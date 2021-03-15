@@ -41,6 +41,9 @@ const SignInForm = ({ trySignIn }) => {
         <Link className="header-wrapper__connection__toggle-area__signup__link" to="/inscription">
           Inscription
         </Link>
+        <Link className="header-wrapper__connection__toggle-area__signup__link" to="/oublie">
+          Mot de passe oublié
+        </Link>
       </div>
     </>
   );

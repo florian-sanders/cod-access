@@ -2,17 +2,23 @@ import { connect } from 'react-redux';
 import ThemeManager from 'src/components/ExerciseManager/ThemeManager';
 
 import {
-  toggleThemeManager,
+  setThemeManagerFieldValue,
   updateThemeManager,
 } from 'src/actions/exerciseManager/themeManager';
 
-const mapStateToProps = ({ themeManager }) => ({
-  ...themeManager,
+const mapStateToProps = ({ themeManager: { themes } }) => ({
+  themes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleThemeCheckbox: (themeId) => dispatch(toggleThemeManager(themeId)),
-  saveOnBlur: (themeId) => dispatch(updateThemeManager(themeId)),
+  patchThemeUpdate: ({ name: themeId, value }) => dispatch(updateThemeManager({
+    themeId: Number(themeId),
+    isChecked: value,
+  })),
+  updateThemeState: ({ name: themeId, value }) => dispatch(setThemeManagerFieldValue({
+    themeId: Number(themeId),
+    isChecked: value,
+  })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ThemeManager);

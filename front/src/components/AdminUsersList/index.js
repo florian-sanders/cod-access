@@ -35,7 +35,6 @@ const AdminUsersList = ({
 
   return (
     <>
-      <AdminMenu />
       <div className="admin_users">
         <h1 className="title_h1">Liste des utilisateurs</h1>
         <table>
@@ -111,7 +110,7 @@ AdminUsersList.propTypes = {
       email: PropTypes.string.isRequired,
       pseudo: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,
-      updated_at: PropTypes.string.isRequired,
+      updated_at: PropTypes.string,
       responsibility: PropTypes.shape({
         entitled: PropTypes.string.isRequired,
       }),
