@@ -26,8 +26,8 @@ CREATE TABLE client (
     email text NOT NULL,
     pseudo text NOT NULL,
     "password" text NOT NULL,
-    responsibility_id int REFERENCES responsibility(id),
-    picture_id int REFERENCES picture(id),
+    responsibility_id int REFERENCES responsibility(id) NOT NULL,
+    picture_id int REFERENCES picture(id) ON DELETE SET DEFAULT,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
@@ -45,7 +45,7 @@ CREATE TABLE exercise (
     brief text,
     slug text,
     published boolean NOT NULL,
-    kind_id int REFERENCES kind(id) ON DELETE CASCADE,
+    kind_id int REFERENCES kind(id) ON DELETE SET NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
@@ -55,8 +55,8 @@ CREATE TABLE question (
     brief text,
     code text NOT NULL,
     explanation text NOT NULL,
-    exercise_id int REFERENCES exercise(id) ON DELETE CASCADE,
-    picture_id int REFERENCES picture(id) ON DELETE CASCADE,
+    exercise_id int REFERENCES exercise(id) ON DELETE SET NULL,
+    picture_id int REFERENCES picture(id) ON DELETE SET NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
@@ -68,7 +68,7 @@ CREATE TABLE doc (
     slug text NOT NULL,
     content text NOT NULL,
     published boolean NOT NULL,
-    picture_id int REFERENCES picture(id) ON DELETE CASCADE,
+    picture_id int REFERENCES picture(id) ON DELETE SET NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
@@ -85,7 +85,7 @@ CREATE TABLE possible_answer (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     content text NOT NULL,
     correct boolean NOT NULL,
-    question_id int REFERENCES question(id) ON DELETE CASCADE,
+    question_id int REFERENCES question(id) ON DELETE SET NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
