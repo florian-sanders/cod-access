@@ -35,7 +35,6 @@ export default (store) => (next) => async (action) => {
 
         localStorage.setItem('isSignedIn', true);
         store.dispatch(signIn(response.data));
-        console.log('middleware signin', response.data);
       }
       catch (err) {
         console.log('error', err);
@@ -79,6 +78,7 @@ export default (store) => (next) => async (action) => {
         if (statusProfile !== 200) {
           throw new Error();
         }
+
         store.dispatch(signIn(dataProfile));
       }
       catch (err) {
@@ -163,6 +163,7 @@ export default (store) => (next) => async (action) => {
         if (status !== 200) {
           throw new Error();
         }
+
         store.dispatch(setInfoUser('picturePath', pathPicture.substring(6)));
         store.dispatch(setSelectedFile(null));
       }

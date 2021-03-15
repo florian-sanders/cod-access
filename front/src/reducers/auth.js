@@ -29,6 +29,7 @@ const initialState = {
   isVisible: false,
   isLogged: false,
   user: {
+    id: null,
     email: '',
     pseudo: '',
     role: '',
@@ -71,6 +72,7 @@ const reducer = (state = initialState, action = {}) => {
         isLogged: true,
         user: {
           ...state.user,
+          id: action.id,
           email: action.email,
           pseudo: action.pseudo,
           role: action.role,

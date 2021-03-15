@@ -39,12 +39,14 @@ export const trySignIn = () => ({
 });
 
 export const signIn = ({
+  id,
   email,
   pseudo,
   client_picture: { path: picturePath },
   responsibility: { entitled: role },
 }) => ({
   type: SIGN_IN,
+  id,
   email,
   pseudo,
   picturePath,
