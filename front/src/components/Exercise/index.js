@@ -14,9 +14,13 @@ const Exercise = ({
   changeQuestion,
   submitAnswers,
   isCorrected,
+  resetCurrentExercise,
 }) => {
   useEffect(() => {
     getExercise();
+    return () => {
+      resetCurrentExercise();
+    };
   }, []);
 
   return (
@@ -70,7 +74,8 @@ const Exercise = ({
                   type="button"
                   disabled={!questions[currentQuestionIndex].userAnswers.length}
                   onClick={submitAnswers}
-                >Valider mes réponses
+                >
+                  Valider mes réponses
                 </button>
               )
             }
@@ -89,6 +94,8 @@ Exercise.propTypes = {
   getExercise: PropTypes.func.isRequired,
   changeQuestion: PropTypes.func.isRequired,
   submitAnswers: PropTypes.func.isRequired,
+  isCorrected: PropTypes.bool.isRequired,
+  resetCurrentExercise: PropTypes.func.isRequired,
 };
 
 Exercise.defaultProps = {

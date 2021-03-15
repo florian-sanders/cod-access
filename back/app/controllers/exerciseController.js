@@ -583,6 +583,7 @@ module.exports = {
                     console.log('first play', result)
                     return res.status(200).json({
                         message: `client finish with score: ${scoreResult}`,
+                        rightAnswers: correct_answers,
                         correct,
                         incorrect,
                         client,
@@ -612,6 +613,7 @@ module.exports = {
                         console.log('je ne fait rien')
                         return res.status(200).json({
                             message: `client finish with score: ${scoreResult}`,
+                            rightAnswers: correct_answers,
                             correct,
                             incorrect,
                             client,

@@ -11,6 +11,7 @@ import {
   REMOVE_USER_ANSWER,
   SHOW_QUESTION,
   SET_RESULTS,
+  RESET_CURRENT_EXERCISE,
 } from 'src/actions/exercises';
 
 const initialState = {
@@ -32,6 +33,11 @@ const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case RESET_CURRENT_EXERCISE:
+      return {
+        ...state,
+        currentExercise: { ...initialState.currentExercise },
+      };
     case SET_THEMES_EXERCISES:
       return {
         ...state,
