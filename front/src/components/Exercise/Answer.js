@@ -74,26 +74,27 @@ const Answer = ({
 };
 
 Answer.propTypes = {
-  answer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired,
-    isRightAnswer: PropTypes.bool,
-    userCorrect: PropTypes.bool,
-  }).isRequired,
+  id: PropTypes.number.isRequired,
+  content: PropTypes.string.isRequired,
+  isRightAnswer: PropTypes.bool,
+  userCorrect: PropTypes.bool,
   index: PropTypes.number.isRequired,
   isDragDisabled: PropTypes.bool,
   isUserAnswer: PropTypes.bool,
-  removeAnswer: PropTypes.func,
+  removeAnswer: PropTypes.func.isRequired,
   questionId: PropTypes.number,
   userAnswers: PropTypes.array,
+  isCorrected: PropTypes.bool,
 };
 
 Answer.defaultProps = {
   isDragDisabled: false,
   isUserAnswer: false,
-  removeAnswer: () => { },
   questionId: null,
   userAnswers: [],
+  isCorrected: false,
+  userCorrect: false,
+  isRightAnswer: false,
 };
 
 export default Answer;

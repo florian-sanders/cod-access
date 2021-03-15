@@ -51,13 +51,25 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
 
+        const questions = data.questions.map((question) => ({
+          id: question.id,
+          brief: question.brief,
+          slicedCode: question.code.split(/(?:\[\[|\]\])+/),
+          possibleAnswers: question.possible_answers,
+          userAnswers: [],
+          picture: {
+            path: question.question_picture.path,
+            alternative: question.question_picture.alternative,
+          },
+        }));
+
         const currentExercise = {
           loading: false,
           id: data.id,
           title: data.title,
           brief: data.brief,
           themes: data.themes,
-          questions: data.questions,
+          questions,
         };
 
         store.dispatch(setCurrentExercise(currentExercise));
@@ -88,7 +100,6 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
 
-        console.log(data);
         store.dispatch(setResults({
           explanations: data.explanation,
           correctAnswers: data.correct,
