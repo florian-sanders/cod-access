@@ -14,7 +14,7 @@ const Home = () => (
       <div className="home-wrapper__article__wrapper">
         <img className="home-wrapper__article__wrapper__img" src={diverImgPath} alt="" />
         <div className="home-wrapper__article__wrapper__text">
-          <h1 className="home-wrapper__article__wrapper__text__page-heading">Bienvenue Mousaillon !</h1>
+          <h1 className="home-wrapper__article__wrapper__text__page-heading">Bienvenue Moussaillon !</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor blandit integer aliquam mi nisi habitasse nunc sit mi.</p>
           <p>Vestibulum ullamcorper nibh sagittis etiam mattis adipiscing velit. Sagittis vivamus amet massa suspendisse nunc euismod.</p>
           <p>Tristique tincidunt vestibulum netus justo. Rhoncus leo massa sed quam. Volutpat gravida vitae faucibus sem nulla molestie consectetur.</p>
