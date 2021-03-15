@@ -6,12 +6,19 @@ import {
   SIGN_OUT,
   SET_INFO_USER,
   SET_SELECTED_FILE,
+  SET_SIGN_IN_CONTROL_MESSAGE,
   SET_PROGRESS_BY_THEME,
 } from 'src/actions/auth';
 
 const initialState = {
-  email: '',
-  password: '',
+  email: {
+    value: '',
+    controlMessage: '',
+  },
+  password: {
+    value: '',
+    controlMessage: '',
+  },
   selectedFile: null,
   newEmail: '',
   newPseudo: '',
@@ -31,6 +38,14 @@ const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_SIGN_IN_CONTROL_MESSAGE:
+      return {
+        ...state,
+        [action.name]: {
+          ...state[action.name],
+          controlMessage: action.message,
+        },
+      };
     case TOGGLE_CONNECTION_VISIBILITY:
       return {
         ...state,
@@ -39,7 +54,10 @@ const reducer = (state = initialState, action = {}) => {
     case SET_SIGN_IN_FIELD_VALUE:
       return {
         ...state,
-        [action.name]: action.value,
+        [action.name]: {
+          ...state[action.name],
+          value: action.value,
+        },
       };
     case SET_SETTINGS_FIELD_VALUE:
       return {
