@@ -14,10 +14,10 @@ body {
 #root {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 9rem;
+  padding-bottom: 5rem;
 
   @media screen and (max-width:60rem) {
-    padding-bottom: 23rem;
+    padding-bottom: 19rem;
   }
 }
 

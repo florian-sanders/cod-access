@@ -6,7 +6,7 @@ import {
 } from 'src/actions/adminExercisesList';
 
 const mapStateToProps = ({ adminExercisesList: { exercises, loadingExercisesList } }) => ({
-  totalPages: Math.ceil(exercises.count / 30),
+  totalPages: Math.ceil(exercises.count / 20),
   exercises: exercises.rows,
   loadingExercisesList,
 });
