@@ -18,6 +18,7 @@ export const FETCH_PROGRESS_BY_THEME = 'FETCH_PROGRESS_BY_THEME';
 export const SET_PROGRESS_BY_THEME = 'SET_PROGRESS_BY_THEME';
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const VALIDATE_SETTINGS_EMAIL = 'VALIDATE_SETTINGS_EMAIL';
+export const VALIDATE_SIGN_IN_EMAIL = 'VALIDATE_SIGN_IN_EMAIL';
 export const TEST_SETTINGS_NEW_PASSWORD_STRENGTH = 'TEST_SETTINGS_NEW_PASSWORD_STRENGTH';
 export const COMPARE_SETTINGS_PASSWORD_CONFIRM = 'COMPARE_SETTINGS_PASSWORD_CONFIRM';
 
@@ -121,6 +122,12 @@ export const deleteAccount = () => ({
 
 export const validateSettingsEmail = ({ message, email }) => ({
   type: VALIDATE_SETTINGS_EMAIL,
+  message,
+  email,
+});
+
+export const validateSignInEmail = ({ message, email }) => ({
+  type: VALIDATE_SIGN_IN_EMAIL,
   message,
   email,
 });

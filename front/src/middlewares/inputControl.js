@@ -3,6 +3,7 @@ import {
   VALIDATE_SETTINGS_EMAIL,
   TEST_SETTINGS_NEW_PASSWORD_STRENGTH,
   COMPARE_SETTINGS_PASSWORD_CONFIRM,
+  VALIDATE_SIGN_IN_EMAIL,
 } from 'src/actions/auth';
 import {
   SET_CONTACT_CONTROL_MESSAGE,
@@ -51,6 +52,7 @@ export default (store) => (next) => async (action) => {
 
       return next(action);
 
+    case VALIDATE_SIGN_IN_EMAIL:
     case VALIDATE_SETTINGS_EMAIL:
     case VALIDATE_SIGN_UP_EMAIL:
     case VALIDATE_CONTACT_EMAIL:
@@ -63,6 +65,7 @@ export default (store) => (next) => async (action) => {
         action.message = '';
       }
       return next(action);
+
     case TEST_SETTINGS_NEW_PASSWORD_STRENGTH:
     case TEST_SIGN_UP_PASSWORD_STRENGTH:
       if (action.password.length <= 6) {
@@ -72,6 +75,7 @@ export default (store) => (next) => async (action) => {
         action.message = '';
       }
       return next(action);
+
     case COMPARE_SETTINGS_PASSWORD_CONFIRM:
     case COMPARE_SIGN_UP_PASSWORD_CONFIRM:
       if (action.password !== action.passwordConfirm) {
