@@ -7,6 +7,8 @@ import {
   CONTACT,
   SET_CONTACT_CONTROL_MESSAGE,
   VALIDATE_CONTACT_EMAIL,
+  VALIDATE_LENGTH,
+  VALIDATE_CONTENT_LENGTH,
 } from 'src/actions/forget';
 
 const initialState = {
@@ -52,7 +54,7 @@ const forget = (state = initialState, action = {}) => {
           controlMessage: action.message,
         },
       };
-    case   CONTACT:
+    case CONTACT:
       return {
         ...initialState,
         isContactDone: true,
@@ -73,8 +75,24 @@ const forget = (state = initialState, action = {}) => {
     case VALIDATE_CONTACT_EMAIL:
       return {
         ...state,
-        email: {
-          ...state.email,
+        emailContact: {
+          ...state.emailContact,
+          controlMessage: action.message,
+        },
+      };
+    case VALIDATE_LENGTH:
+      return {
+        ...state,
+        name: {
+          ...state.name,
+          controlMessage: action.message,
+        },
+      };
+    case VALIDATE_CONTENT_LENGTH:
+      return {
+        ...state,
+        content: {
+          ...state.content,
           controlMessage: action.message,
         },
       };

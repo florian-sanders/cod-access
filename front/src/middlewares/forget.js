@@ -52,31 +52,31 @@ export default (store) => (next) => async (action) => {
       }
       return next(action);
 
-      case TRY_CONTACT:
-        try {
-          store.dispatch(setContactLoading(true));
-          const {
-            forget: {
-              name, emailContact, content,
-            },
-          } = store.getState();
-          const response = await axiosInstance.post('/contact', {
-            name: name.value,
-            email: emailContact.value,
-            content: content.value,
-          });
-          if (response.status !== 200) {
-            throw new Error();
-          }
-          store.dispatch(contact());
+    case TRY_CONTACT:
+      try {
+        store.dispatch(setContactLoading(true));
+        const {
+          forget: {
+            name, emailContact, content,
+          },
+        } = store.getState();
+        const response = await axiosInstance.post('/contact', {
+          name: name.value,
+          email: emailContact.value,
+          content: content.value,
+        });
+        if (response.status !== 200) {
+          throw new Error();
         }
-        catch (err) {
-          console.log('error', err);
-        }
-        finally {
-          store.dispatch(setContactLoading(false));
-        }
-        return next(action);
+        store.dispatch(contact());
+      }
+      catch (err) {
+        console.log('error', err);
+      }
+      finally {
+        store.dispatch(setContactLoading(false));
+      }
+      return next(action);
 
     default:
       return next(action);
