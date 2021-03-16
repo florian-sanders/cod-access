@@ -3,6 +3,10 @@ import {
   signUp,
   setSignUpLoading,
 } from 'src/actions/signup';
+import {
+  setMessage,
+} from 'src/actions/other';
+
 import axiosInstance from 'src/api';
 
 export default (store) => (next) => async (action) => {
@@ -21,13 +25,20 @@ export default (store) => (next) => async (action) => {
           password: password.value,
           passwordConfirm: passwordConfirm.value,
         });
+
         if (response.status !== 200) {
           throw new Error();
         }
         store.dispatch(signUp());
       }
-      catch (err) {
-        console.log('error', err);
+      catch ({ response }) {
+        if (response.data.message === 'email used') {
+          store.dispatch(setMessage({
+            type: 'error',
+            message: `L'adresse e-mail est déjà utilisée`,
+            componentToDisplayIn: 'SignUp',
+          }));
+        }
       }
       finally {
         store.dispatch(setSignUpLoading(false));

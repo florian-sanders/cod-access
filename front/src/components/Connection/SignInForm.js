@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
+import Message from 'src/containers/Message';
 import FieldGroup from 'src/containers/Connection/FieldGroup';
 
 import './styles.scss';
 
-const SignInForm = ({ trySignIn }) => {
+const SignInForm = ({ trySignIn, messageParams }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     trySignIn();
@@ -16,6 +17,13 @@ const SignInForm = ({ trySignIn }) => {
   return (
     <>
       <form className="header-wrapper__connection__toggle-area__form" onSubmit={handleSubmit}>
+        {
+          messageParams.isVisible
+          && messageParams.componentToDisplayIn === 'SignInForm'
+          && (
+            <Message {...messageParams} />
+          )
+        }
         <FieldGroup
           type="email"
           id="signin-email"

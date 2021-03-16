@@ -1,5 +1,7 @@
 import React from 'react';
 import Proptypes from 'prop-types';
+
+import Message from 'src/containers/Message';
 import FieldGroup from './FieldGroup';
 
 import './styles.scss';
@@ -17,6 +19,7 @@ const SignUp = ({
   validateEmail,
   testPasswordStrength,
   comparePasswordConfirm,
+  messageParams,
 }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -28,9 +31,15 @@ const SignUp = ({
       <h1 className="signup__title">Inscription</h1>
       <div className="signup__content">
         <div className="signup__content__illustration">
-          <p>{isSignedUp && 'Merci Votre inscription est presque terminée : vous allez recevoir un e-mail d’ici quelques minutes afin de valider votre adresse email.'}</p>
         </div>
         <form action="" method="get" className="signup__content__form" onSubmit={handleSubmit}>
+          {
+            messageParams.isVisible
+            && messageParams.componentToDisplayIn === 'SignUp'
+            && (
+              <Message {...messageParams} />
+            )
+          }
           <FieldGroup
             type="email"
             id="email"
