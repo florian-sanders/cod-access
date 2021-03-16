@@ -12,7 +12,7 @@ export default (store) => (next) => async (action) => {
       try {
         store.dispatch(setLoadingExercisesList(true));
 
-        const response = await axiosInstance.get(`/exercises?limit=30&page=${action.page}`);
+        const response = await axiosInstance.get(`/exercises?limit=20&page=${action.page}`);
         if (response.status !== 200) {
           throw new Error();
         }
