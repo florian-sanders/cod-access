@@ -3,7 +3,9 @@ import SignInForm from 'src/components/Connection/SignInForm';
 
 import { trySignIn } from 'src/actions/auth';
 
-const mapStateToProps = null;
+const mapStateToProps = ({ other: { messageParams }}) => ({
+  messageParams,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   trySignIn: () => dispatch(trySignIn()),

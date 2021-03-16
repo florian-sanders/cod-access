@@ -7,6 +7,8 @@ import {
   setAllUsersRole,
   setUsers,
 } from 'src/actions/users';
+import { setMessage } from 'src/actions/other';
+
 import axiosInstance from 'src/api';
 
 export default (store) => (next) => async (action) => {
@@ -38,9 +40,20 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
+
+        store.dispatch(setMessage({
+          type: 'confirm',
+          message: `L'utilisateur #${action.idUser} a bien été supprimé.`,
+          componentToDisplayIn: 'AdminUsersList',
+        }));
       }
       catch (err) {
         console.log('error', err);
+        store.dispatch(setMessage({
+          type: 'error',
+          message: 'Une erreur est survenue lors de la suppression de l\'utilisateur',
+          componentToDisplayIn: 'AdminUsersList',
+        }));
       }
       finally {
         //loader?
@@ -54,10 +67,21 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
+
+        store.dispatch(setMessage({
+          type: 'confirm',
+          message: `Le rôle de l'utilisateur #${action.idUser} a bien été modifié.`,
+          componentToDisplayIn: 'AdminUsersList',
+        }));
         store.dispatch(setUsers(action.idUser, responsibility));
       }
       catch (err) {
         console.log('error', err);
+        store.dispatch(setMessage({
+          type: 'error',
+          message: 'Une erreur est survenue lors de la modification de l\'utilisateur',
+          componentToDisplayIn: 'AdminUsersList',
+        }));
       }
       finally {
       }

@@ -29,6 +29,7 @@ const initialState = {
   messageParams: {
     type: '',
     message: '',
+    componentToDisplayIn: '',
     isVisible: false,
   },
 };

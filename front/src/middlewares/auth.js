@@ -16,6 +16,8 @@ import {
   setProgressByTheme,
 } from 'src/actions/auth';
 
+import { setMessage } from 'src/actions/other';
+
 import axiosInstance from 'src/api';
 
 export default (store) => (next) => async (action) => {
@@ -36,8 +38,14 @@ export default (store) => (next) => async (action) => {
         localStorage.setItem('isSignedIn', true);
         store.dispatch(signIn(response.data));
       }
-      catch (err) {
-        console.log('error', err);
+      catch ({ response }) {
+        if (response.data.message === 'miss client' || response.data.message === 'unauthorized') {
+          store.dispatch(setMessage({
+            type: 'error',
+            message: `L'adresse e-mail ou le mot de passe n'est pas valide.`,
+            componentToDisplayIn: 'SignInForm',
+          }));
+        }
       }
       finally {
         // loader later

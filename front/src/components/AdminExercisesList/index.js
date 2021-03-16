@@ -46,10 +46,6 @@ const AdminExercisesList = ({
           deleteExercise({
             exerciseId: exercise.id,
           });
-          displayMessage({
-            type: 'confirm',
-            message: `L'exercice "${exercise.title}" a bien été supprimé.`,
-          });
         },
         params: {
           exerciseId: exercise.id,
@@ -70,7 +66,9 @@ const AdminExercisesList = ({
       <div className="admin_users">
         <h1 className="title_h1">Liste des Challenges</h1>
         {
-          messageParams.isVisible && (
+          messageParams.isVisible
+          && messageParams.componentToDisplayIn === 'AdminExercisesList'
+          && (
             <Message {...messageParams} />
           )
         }
