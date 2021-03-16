@@ -19,10 +19,11 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
         const usersRole = {};
-        response.data.forEach((user) => {
+
+        response.data.rows.forEach((user) => {
           usersRole[user.id] = user.responsibility.entitled;
         });
-        store.dispatch(setAllUsers(response.data));
+        store.dispatch(setAllUsers(response.data.rows));
         store.dispatch(setAllUsersRole(usersRole));
       }
       catch (err) {
