@@ -23,14 +23,14 @@ const mapDispatchToProps = (dispatch) => ({
   setControlMessage: ({ message, name, value }) => dispatch(
     setContactControlMessage({ message, name, value }),
   ),
+  validateEmail: ({ message, value }) => {
+    dispatch(validateContactEmail({ message, emailContact: value }));
+  },
   validateLenght: ({ message, value }) => {
     dispatch(validateLenght({ message, name: value }));
   },
   validateContentLenght: ({ message, value }) => {
     dispatch(validateContentLenght({ message, content: value }));
-  },
-  validateEmail: ({ message, value }) => {
-    dispatch(validateContactEmail({ message, emailContact: value }));
   },
 });
 
