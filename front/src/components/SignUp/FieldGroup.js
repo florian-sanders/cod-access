@@ -16,15 +16,17 @@ const FieldGroup = ({
   message,
   validateInput,
 }) => {
-  const handleOnBlur = () => {
-    if (isMandatory) {
+  const handleOnBlur = (valueToTest) => {
+    if (!valueToTest && isMandatory) {
       setControlMessage({
         name,
         message,
         value,
       });
     }
-    validateInput({ value, message });
+    if (valueToTest) {
+      validateInput({ value, message });
+    }
   };
 
   return (
@@ -40,7 +42,7 @@ const FieldGroup = ({
         onChange={(evt) => onChange(evt.target.value, name)}
         className="signup__content__form__group__input"
         aria-required="true"
-        onBlur={handleOnBlur}
+        onBlur={(evt) => handleOnBlur(evt.target.value)}
         autoComplete={autocomplete}
       />
       {

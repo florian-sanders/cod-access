@@ -8,7 +8,7 @@ const Profile = ({ email, pseudo, picturePath, progressByTheme, fetchProgressByT
   useEffect(() => {
     fetchProgressByTheme();
   }, []);
-
+console.log(progressByTheme)
   return (
     <div className="profile">
       <h1 className="profile__title">Mon Profil</h1>
