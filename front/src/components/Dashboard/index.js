@@ -8,7 +8,6 @@ import AdminUsersList from 'src/containers/AdminUsersList';
 import ExerciseManager from 'src/containers/ExerciseManager';
 import AdminExercicesList from 'src/containers/AdminExercisesList';
 
-
 import './styles.scss';
 
 const Dashboard = () => (
