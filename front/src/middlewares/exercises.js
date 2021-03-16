@@ -57,10 +57,12 @@ export default (store) => (next) => async (action) => {
           slicedCode: question.code.split(/(?:\[\[|\]\])+/),
           possibleAnswers: question.possible_answers,
           userAnswers: [],
-          picture: {
-            path: question.question_picture.path,
-            alternative: question.question_picture.alternative,
-          },
+          picture: question.question_picture
+            ? {
+              path: question.question_picture.path,
+              alternative: question.question_picture.alternative,
+            }
+            : null,
         }));
 
         const currentExercise = {

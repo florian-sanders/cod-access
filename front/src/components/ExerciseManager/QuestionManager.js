@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 import AnswerManager from 'src/containers/ExerciseManager/AnswerManager';
 import { returnFileSize } from 'src/utils';
 import TextField from './TextField';
@@ -63,17 +66,34 @@ const QuestionManager = ({
         <span className="sr-only">Question {questionNumber}</span>
         </button>
         <div className="admin-exercise__question__general-info">
-          <TextField
-            className="admin-exercise__question__general-info__field-group"
-            id={`exercise-q${questionNumber}-brief`}
-            label="Brief"
-            type="textarea"
-            autocomplete="off"
-            name="brief"
-            value={brief}
-            changeValue={changeValue}
-            isSaved={isSaved}
-            saveOnBlur={saveOnBlur}
+          <label>Brief</label>
+          <CKEditor
+            editor={ClassicEditor}
+            data={brief}
+            onReady={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log('Editor is ready to use!', editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              console.log({ event, editor, data });
+              changeValue({
+                value: data,
+                name: 'brief',
+              });
+            }}
+            onBlur={(event, editor) => {
+              console.log('Blur.', editor);
+              if (!isSaved) {
+                saveOnBlur({
+                  name: 'brief',
+                  value: brief,
+                });
+              }
+            }}
+            onFocus={(event, editor) => {
+              console.log('Focus.', editor);
+            }}
           />
           {
             imagePath && (
@@ -173,17 +193,34 @@ const QuestionManager = ({
             Ajouter une réponse supplémentaire
         </button>
 
-          <TextField
-            className="admin-exercise__question__general-info__field-group"
-            id={`exercise-q${questionNumber}-explanation`}
-            label="Explication de la correction"
-            type="textarea"
-            autocomplete="off"
-            name="explanation"
-            value={explanation}
-            changeValue={changeValue}
-            isSaved={isSaved}
-            saveOnBlur={saveOnBlur}
+        <label>Explication de la correction</label>
+          <CKEditor
+            editor={ClassicEditor}
+            data={explanation}
+            onReady={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log('Editor is ready to use!', editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              console.log({ event, editor, data });
+              changeValue({
+                value: data,
+                name: 'explanation',
+              });
+            }}
+            onBlur={(event, editor) => {
+              console.log('Blur.', editor);
+              if (!isSaved) {
+                saveOnBlur({
+                  name: 'explanation',
+                  value: explanation,
+                });
+              }
+            }}
+            onFocus={(event, editor) => {
+              console.log('Focus.', editor);
+            }}
           />
         </fieldset>
       </fieldset>

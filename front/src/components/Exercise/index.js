@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import DOMPurify from 'dompurify';
+
 import Question from 'src/containers/Exercise/Question';
 import './styles.scss';
 
@@ -29,7 +31,13 @@ const Exercise = ({
       : (
         <section className="exercise-section">
           <h1 className="exercise-section__page-heading">{title}</h1>
-          <p className="exercise-section__brief">{brief}</p>
+          {console.log(brief)}
+          <article
+            className="exercise-section__brief"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(brief),
+            }}
+          />
           <section className="exercise-section__questions">
             {
               questions.map((question, index) => (
@@ -59,7 +67,8 @@ const Exercise = ({
                   onClick={
                     () => changeQuestion(currentQuestionIndex + 1)
                   }
-                > Question suivante
+                >
+                  Question suivante
                 </button>
               )
             }

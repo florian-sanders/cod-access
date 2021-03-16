@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import NavigationPrompt from 'react-router-navigation-prompt';
 
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 import Question from 'src/containers/ExerciseManager/QuestionManager';
 import ThemeManager from 'src/containers/ExerciseManager/ThemeManager';
 import TextField from './TextField';
@@ -81,6 +84,7 @@ const ExerciseManager = ({
               updateState={saveOnBlur}
             />
 
+
             <TextField
               className="admin-exercise__general-info__field-group"
               id="exercise-title"
@@ -95,18 +99,33 @@ const ExerciseManager = ({
               updateLoading={updateLoading}
             />
 
-            <TextField
-              className="admin-exercise__general-info__field-group"
-              id="exercise-intro"
-              label="Intro"
-              type="textarea"
-              autocomplete="off"
-              name="brief"
-              value={brief}
-              changeValue={changeValue}
-              isSaved={isSaved}
-              saveOnBlur={saveOnBlur}
-              updateLoading={updateLoading}
+            <label>Intro</label>
+            <CKEditor
+              editor={ClassicEditor}
+              data={brief}
+              onReady={(editor) => {
+                // You can store the "editor" and use when it is needed.
+                console.log('Editor is ready to use!', editor);
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                changeValue({
+                  value: data,
+                  name: 'brief',
+                });
+              }}
+              onBlur={(event, editor) => {
+                console.log('Blur.', editor);
+                if (!isSaved) {
+                  saveOnBlur({
+                    name: 'brief',
+                    value: brief,
+                  });
+                }
+              }}
+              onFocus={(event, editor) => {
+                console.log('Focus.', editor);
+              }}
             />
 
             <ThemeManager />
