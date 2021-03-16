@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import Message from 'src/containers/Message';
+import ModalConfirm from 'src/containers/ModalConfirm';
+
 import { returnFileSize } from 'src/utils';
 import FieldGroup from './FieldGroup';
 import './styles.scss';
@@ -19,7 +23,26 @@ const Settings = ({
   setSelectedFile,
   selectedFile,
   deleteAccount,
+  messageParams,
+  displayModalConfirm,
+  modalConfirmParams,
 }) => {
+  const handleDelAccountClick = () => {
+    displayModalConfirm({
+      heading: 'Suppression de compte',
+      message: `Souhaitez-vous réellement supprimer votre compte ? Cette action est irreversible.`,
+      confirmParams: {
+        onConfirm: deleteAccount,
+        label: 'Supprimer mon compte',
+      },
+      cancelParams: {
+        onCancel: () => { },
+        label: 'Annuler',
+      },
+      shouldDisplayHeading: true,
+      isVisible: true,
+    });
+  };
   const handleSubmitEmail = (evt) => {
     evt.preventDefault();
     onSubmitEmail();
@@ -43,6 +66,13 @@ const Settings = ({
   return (
     <section className="settings">
       <h1 className="title_h1">Paramètres</h1>
+      {
+        messageParams.isVisible
+        && messageParams.componentToDisplayIn === 'Settings'
+        && (
+          <Message {...messageParams} />
+        )
+      }
       <h2>Modifier la photo de profil</h2>
       <form
         className="settings__form__upload"
@@ -159,7 +189,12 @@ const Settings = ({
           </button>
         </div>
       </form>
-      <button className="button--blue" type="button" onClick={deleteAccount}>Supprimer mon compte</button>
+      <button className="button--blue" type="button" onClick={handleDelAccountClick}>Supprimer mon compte</button>
+      {
+        modalConfirmParams.isVisible && (
+          <ModalConfirm {...modalConfirmParams} />
+        )
+      }
     </section>
   );
 };

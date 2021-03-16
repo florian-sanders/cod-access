@@ -9,6 +9,7 @@ import {
   uploadFileProfile,
   deleteAccount,
 } from 'src/actions/auth';
+import { setModalConfirm } from 'src/actions/other';
 
 const mapStateToProps = (state) => ({
   newEmail: state.auth.newEmail,
@@ -18,6 +19,8 @@ const mapStateToProps = (state) => ({
   newPasswordConfirm: state.auth.newPasswordConfirm,
   user: state.auth.user,
   selectedFile: state.auth.selectedFile,
+  messageParams: state.other.messageParams,
+  modalConfirmParams: state.other.modalConfirmParams,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -28,6 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmitFile: () => dispatch(uploadFileProfile()),
   setSelectedFile: (file) => dispatch(setSelectedFile(file)),
   deleteAccount: () => dispatch(deleteAccount()),
+  displayModalConfirm: (modalConfirmParams) => dispatch(setModalConfirm(modalConfirmParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
