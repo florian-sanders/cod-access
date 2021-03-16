@@ -17,6 +17,9 @@ export const SET_SIGN_IN_CONTROL_MESSAGE = 'SET_SIGN_IN_CONTROL_MESSAGE';
 export const FETCH_PROGRESS_BY_THEME = 'FETCH_PROGRESS_BY_THEME';
 export const SET_PROGRESS_BY_THEME = 'SET_PROGRESS_BY_THEME';
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
+export const VALIDATE_SETTINGS_EMAIL = 'VALIDATE_SETTINGS_EMAIL';
+export const TEST_SETTINGS_NEW_PASSWORD_STRENGTH = 'TEST_SETTINGS_NEW_PASSWORD_STRENGTH';
+export const COMPARE_SETTINGS_PASSWORD_CONFIRM = 'COMPARE_SETTINGS_PASSWORD_CONFIRM';
 
 export const toggleConnectionVisibility = () => ({
   type: TOGGLE_CONNECTION_VISIBILITY,
@@ -114,4 +117,22 @@ export const setProgressByTheme = (progress) => ({
 
 export const deleteAccount = () => ({
   type: DELETE_ACCOUNT,
+});
+
+export const validateSettingsEmail = ({ message, email }) => ({
+  type: VALIDATE_SETTINGS_EMAIL,
+  message,
+  email,
+});
+
+export const testSettingsNewPasswordStrength = ({ message, password }) => ({
+  type: TEST_SETTINGS_NEW_PASSWORD_STRENGTH,
+  message,
+  password,
+});
+
+export const compareSettingsPasswordConfirm = (password, passwordConfirm) => ({
+  type: COMPARE_SETTINGS_PASSWORD_CONFIRM,
+  password,
+  passwordConfirm,
 });

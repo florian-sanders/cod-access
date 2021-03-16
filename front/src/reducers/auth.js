@@ -8,6 +8,9 @@ import {
   SET_SELECTED_FILE,
   SET_SIGN_IN_CONTROL_MESSAGE,
   SET_PROGRESS_BY_THEME,
+  VALIDATE_SETTINGS_EMAIL,
+  TEST_SETTINGS_NEW_PASSWORD_STRENGTH,
+  COMPARE_SETTINGS_PASSWORD_CONFIRM,
 } from 'src/actions/auth';
 
 const initialState = {
@@ -20,11 +23,26 @@ const initialState = {
     controlMessage: '',
   },
   selectedFile: null,
-  newEmail: '',
-  newPseudo: '',
-  currentPassword: '',
-  newPassword: '',
-  newPasswordConfirm: '',
+  newEmail: {
+    value: '',
+    controlMessage: '',
+  },
+  newPseudo: {
+    value: '',
+    controlMessage: '',
+  },
+  currentPassword: {
+    value: '',
+    controlMessage: '',
+  },
+  newPassword: {
+    value: '',
+    controlMessage: '',
+  },
+  newPasswordConfirm: {
+    value: '',
+    controlMessage: '',
+  },
   isVisible: false,
   isLogged: false,
   user: {
@@ -63,7 +81,10 @@ const reducer = (state = initialState, action = {}) => {
     case SET_SETTINGS_FIELD_VALUE:
       return {
         ...state,
-        [action.name]: action.value,
+        [action.name]: {
+          ...state[action.name],
+          value: action.value,
+        },
       };
     case SIGN_IN:
       return {
@@ -101,6 +122,30 @@ const reducer = (state = initialState, action = {}) => {
         user: {
           ...state.user,
           progressByTheme: action.progress,
+        },
+      };
+    case VALIDATE_SETTINGS_EMAIL:
+      return {
+        ...state,
+        newEmail: {
+          ...state.newEmail,
+          controlMessage: action.message,
+        },
+      };
+    case TEST_SETTINGS_NEW_PASSWORD_STRENGTH:
+      return {
+        ...state,
+        newPassword: {
+          ...state.newPassword,
+          controlMessage: action.message,
+        },
+      };
+    case COMPARE_SETTINGS_PASSWORD_CONFIRM:
+      return {
+        ...state,
+        newPasswordConfirm: {
+          ...state.newPasswordConfirm,
+          controlMessage: action.message,
         },
       };
     default:
