@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './styles.scss';
 
-const Message = ({ type, message }) => {
+const Message = ({ type, message, closeMessage }) => {
   let classname = '';
   switch (type) {
     case 'confirm':
@@ -15,11 +16,19 @@ const Message = ({ type, message }) => {
       classname = 'neutral';
   }
 
+
+
   return (
     <div role="alert" className={`message-box ${classname}`}>
       <p>{message}</p>
+      <button type="button" onClick={closeMessage}>x</button>
     </div>
   );
+};
+
+Message.propTypes = {
+  type: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
 };
 
 export default Message;

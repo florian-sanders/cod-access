@@ -1,0 +1,12 @@
+@import "src/styles/vars";
+
+.modal{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 2rem;
+  padding: 2rem;
+  background-color: $grey-color;
+}
+
