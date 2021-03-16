@@ -41,8 +41,9 @@ const reducer = (state = initialState, action = {}) => {
     case SET_USERS:
       return {
         ...state,
-        users:
-          state.users.map(
+        users:{
+          ...state.users,
+          rows: state.users.rows.map(
             (user) => (
               user.id === action.idUser
                 ? {
@@ -55,11 +56,15 @@ const reducer = (state = initialState, action = {}) => {
                 : user
             ),
           ),
+        }
       };
     case DELETE_USER:
       return {
         ...state,
-        users: state.users.filter((user) => user.id !== action.idUser),
+        users: {
+          ...state.users,
+          rows: state.users.rows.filter((user) => user.id !== action.idUser),
+        },
       };
     default:
       return state;
