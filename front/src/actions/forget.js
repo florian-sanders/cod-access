@@ -61,8 +61,24 @@ export const setContactControlMessage = ({ message, name, value }) => ({
 
 export const VALIDATE_CONTACT_EMAIL = 'VALIDATE_CONTACT_EMAIL';
 
-export const validateContactEmail = ({ message, email }) => ({
+export const validateContactEmail = ({ message, emailContact }) => ({
   type: VALIDATE_CONTACT_EMAIL,
   message,
-  email,
+  emailContact,
+});
+
+export const VALIDATE_LENGTH = 'VALIDATE_LENGTH';
+
+export const validateLenght = ({ message, name }) => ({
+  type: VALIDATE_LENGTH,
+  message,
+  name,
+});
+
+export const VALIDATE_CONTENT_LENGTH = 'VALIDATE_CONTENT_LENGTH';
+
+export const validateContentLenght = ({ message, content }) => ({
+  type: VALIDATE_CONTENT_LENGTH,
+  message,
+  content,
 });
