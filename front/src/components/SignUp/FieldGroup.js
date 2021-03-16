@@ -65,13 +65,14 @@ FieldGroup.propTypes = {
   name: Proptypes.string.isRequired,
   setControlMessage: Proptypes.func.isRequired,
   message: Proptypes.string.isRequired,
-  validateInput: Proptypes.func.isRequired,
+  validateInput: Proptypes.func,
 };
 
 FieldGroup.defaultProps = {
   type: 'text',
   isMandatory: false,
   autocomplete: 'off',
+  validateInput: () => {},
 };
 
 export default FieldGroup;
