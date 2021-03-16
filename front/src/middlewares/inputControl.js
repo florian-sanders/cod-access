@@ -4,6 +4,7 @@ import {
   TEST_SETTINGS_NEW_PASSWORD_STRENGTH,
   COMPARE_SETTINGS_PASSWORD_CONFIRM,
   VALIDATE_SIGN_IN_EMAIL,
+  CHECK_SETTINGS_EMPTY_FIELD,
 } from 'src/actions/auth';
 import {
   SET_CONTACT_CONTROL_MESSAGE,
@@ -20,6 +21,7 @@ import {
 
 export default (store) => (next) => async (action) => {
   switch (action.type) {
+    case CHECK_SETTINGS_EMPTY_FIELD:
     case SET_SIGN_IN_CONTROL_MESSAGE:
     case SET_SIGN_UP_CONTROL_MESSAGE:
     case SET_CONTACT_CONTROL_MESSAGE:

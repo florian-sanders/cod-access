@@ -11,6 +11,7 @@ import {
   validateSettingsEmail,
   testSettingsNewPasswordStrength,
   compareSettingsPasswordConfirm,
+  checkSettingsEmptyField,
 } from 'src/actions/auth';
 
 const mapStateToProps = (state) => ({
@@ -38,6 +39,8 @@ const mapDispatchToProps = (dispatch) => ({
   comparePasswordConfirm: ({ message, value }) => dispatch(
     compareSettingsPasswordConfirm({ message, password: value }),
   ),
+  checkEmptyField:
+  ({ message, name, value }) => dispatch(checkSettingsEmptyField({ message, name, value })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

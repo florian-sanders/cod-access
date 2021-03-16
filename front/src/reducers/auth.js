@@ -12,6 +12,7 @@ import {
   TEST_SETTINGS_NEW_PASSWORD_STRENGTH,
   COMPARE_SETTINGS_PASSWORD_CONFIRM,
   VALIDATE_SIGN_IN_EMAIL,
+  CHECK_SETTINGS_EMPTY_FIELD,
 } from 'src/actions/auth';
 
 const initialState = {
@@ -154,6 +155,14 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         newPasswordConfirm: {
           ...state.newPasswordConfirm,
+          controlMessage: action.message,
+        },
+      };
+    case CHECK_SETTINGS_EMPTY_FIELD:
+      return {
+        ...state,
+        [action.name]: {
+          ...state[action.name],
           controlMessage: action.message,
         },
       };
