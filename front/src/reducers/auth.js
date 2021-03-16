@@ -11,6 +11,7 @@ import {
   VALIDATE_SETTINGS_EMAIL,
   TEST_SETTINGS_NEW_PASSWORD_STRENGTH,
   COMPARE_SETTINGS_PASSWORD_CONFIRM,
+  VALIDATE_SIGN_IN_EMAIL,
 } from 'src/actions/auth';
 
 const initialState = {
@@ -129,6 +130,14 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         newEmail: {
           ...state.newEmail,
+          controlMessage: action.message,
+        },
+      };
+    case VALIDATE_SIGN_IN_EMAIL:
+      return {
+        ...state,
+        email: {
+          ...state.email,
           controlMessage: action.message,
         },
       };
