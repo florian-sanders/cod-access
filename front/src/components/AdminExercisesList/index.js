@@ -8,7 +8,7 @@ import Pagination from './Pagination';
 
 import './styles.scss';
 
-const AdminUsersList = ({
+const AdminExercisesList = ({
   fetchExercises,
   totalPages,
   exercises,
@@ -37,7 +37,7 @@ const AdminUsersList = ({
   return (
     <>
       <div className="admin_users">
-        <h1 className="title_h1">Liste des utilisateurs</h1>
+        <h1 className="title_h1">Liste des Challenges</h1>
         <table>
           <thead>
             <tr>
@@ -95,7 +95,7 @@ const AdminUsersList = ({
   );
 };
 
-AdminUsersList.propTypes = {
+AdminExercisesList.propTypes = {
   fetchExercises: PropTypes.func.isRequired,
   exercises: PropTypes.arrayOf(
     PropTypes.shape({
@@ -110,9 +110,9 @@ AdminUsersList.propTypes = {
   deleteExercise: PropTypes.func.isRequired,
 };
 
-AdminUsersList.defaultProps = {
+AdminExercisesList.defaultProps = {
   exercises: [],
   loadingExercisesList: false,
 };
 
-export default AdminUsersList;
+export default AdminExercisesList;
