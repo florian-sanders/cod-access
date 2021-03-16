@@ -25,7 +25,7 @@ const ExercisesPage = ({
       <p className="loader">Chargement</p>
     );
   }
-
+  console.log(allThemesExercises)
   return (
     <section className="exercises">
       <h1 className="exercises__title">Choisissez un challenge parmis les thèmes proposés</h1>
@@ -37,12 +37,16 @@ const ExercisesPage = ({
         validateFilter={validateFilter}
       />
       <div className="exercises__wrapper">
-        {allThemesExercises.filter((theme) => themesIdToDisplay.includes(theme.id)).map((theme) => (
-          <div className="exercises__wrapper__theme" key={theme.id}>
-            <h2 className="exercises__wrapper__theme__title">{theme.name}</h2>
-            <ExercisesList exercises={theme.exercises} />
-          </div>
-        ))}
+        {
+          allThemesExercises.filter(
+            (theme) => themesIdToDisplay.includes(theme.id)
+          ).map((theme) => (
+            <div className="exercises__wrapper__theme" key={theme.id}>
+              <h2 className="exercises__wrapper__theme__title">{theme.name}</h2>
+              <ExercisesList exercises={theme.exercises} />
+            </div>
+          ))
+        }
       </div>
     </section>
   );

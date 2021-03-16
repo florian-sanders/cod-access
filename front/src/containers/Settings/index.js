@@ -7,6 +7,7 @@ import {
   editPasswordUser,
   setSelectedFile,
   uploadFileProfile,
+  deleteAccount,
 } from 'src/actions/auth';
 
 const mapStateToProps = (state) => ({
@@ -26,6 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmitPassword: () => dispatch(editPasswordUser()),
   onSubmitFile: () => dispatch(uploadFileProfile()),
   setSelectedFile: (file) => dispatch(setSelectedFile(file)),
+  deleteAccount: () => dispatch(deleteAccount()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

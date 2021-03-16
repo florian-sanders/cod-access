@@ -5,13 +5,11 @@ import { Draggable } from 'react-beautiful-dnd';
 import './styles.scss';
 
 const Answer = ({
-
   id,
   content,
-
-isCorrected,
-isRightAnswer,
-userCorrect,
+  isCorrected,
+  isRightAnswer,
+  userCorrect,
   userAnswers,
   index,
   isDragDisabled,
@@ -46,7 +44,6 @@ userCorrect,
             {...provided.dragHandleProps}
           >
             {content}
-            {console.log(isCorrected)}
             {
               isUserAnswer && (
                 <button type="button" onClick={handleClick}>
@@ -77,26 +74,27 @@ userCorrect,
 };
 
 Answer.propTypes = {
-  answer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired,
-    isRightAnswer: PropTypes.bool,
-    userCorrect: PropTypes.bool,
-  }).isRequired,
+  id: PropTypes.number.isRequired,
+  content: PropTypes.string.isRequired,
+  isRightAnswer: PropTypes.bool,
+  userCorrect: PropTypes.bool,
   index: PropTypes.number.isRequired,
   isDragDisabled: PropTypes.bool,
   isUserAnswer: PropTypes.bool,
-  removeAnswer: PropTypes.func,
+  removeAnswer: PropTypes.func.isRequired,
   questionId: PropTypes.number,
   userAnswers: PropTypes.array,
+  isCorrected: PropTypes.bool,
 };
 
 Answer.defaultProps = {
   isDragDisabled: false,
   isUserAnswer: false,
-  removeAnswer: () => { },
   questionId: null,
   userAnswers: [],
+  isCorrected: false,
+  userCorrect: false,
+  isRightAnswer: false,
 };
 
 export default Answer;

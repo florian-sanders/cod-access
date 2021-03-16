@@ -8,6 +8,7 @@ import {
   SET_SELECTED_FILE,
   SET_SIGN_IN_CONTROL_MESSAGE,
   SET_PROGRESS_BY_THEME,
+  DELETE_ACCOUNT,
 } from 'src/actions/auth';
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   isVisible: false,
   isLogged: false,
   user: {
+    id: null,
     email: '',
     pseudo: '',
     role: '',
@@ -70,6 +72,7 @@ const reducer = (state = initialState, action = {}) => {
         isLogged: true,
         user: {
           ...state.user,
+          id: action.id,
           email: action.email,
           pseudo: action.pseudo,
           role: action.role,
@@ -78,8 +81,7 @@ const reducer = (state = initialState, action = {}) => {
       };
     case SIGN_OUT:
       return {
-        ...state,
-        isLogged: false,
+        ...initialState,
       };
     case SET_INFO_USER:
       return {
@@ -88,7 +90,7 @@ const reducer = (state = initialState, action = {}) => {
           ...state.user,
           [action.name]: action.newInfo,
         },
-      }; 
+      };
     case SET_SELECTED_FILE:
       return {
         ...state,

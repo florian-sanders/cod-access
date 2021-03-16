@@ -12,7 +12,6 @@ const FieldGroup = ({
   autocomplete,
   isMandatory,
   name,
-  displayMessage,
   setControlMessage,
   message,
 }) => (
@@ -32,11 +31,13 @@ const FieldGroup = ({
         })
       }
       onBlur={() => {
-        setControlMessage({
-          name,
-          message,
-          value,
-        });
+        if (isMandatory) {
+          setControlMessage({
+            name,
+            message,
+            value,
+          });
+        }
       }}
     />
     {
@@ -53,10 +54,17 @@ FieldGroup.propTypes = {
   label: Proptypes.string.isRequired,
   changeValue: Proptypes.func.isRequired,
   type: Proptypes.string,
+  autocomplete: Proptypes.string,
+  isMandatory: Proptypes.bool,
+  name: Proptypes.string.isRequired,
+  setControlMessage: Proptypes.func.isRequired,
+  message: Proptypes.string.isRequired,
 };
 
 FieldGroup.defaultProps = {
   type: 'text',
+  isMandatory: false,
+  autocomplete: 'off',
 };
 
 export default FieldGroup;

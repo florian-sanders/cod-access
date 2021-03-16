@@ -1,3 +1,5 @@
+@import "src/styles/vars";
+
 .modal{
   position: fixed;
   margin: 2rem;
@@ -8,6 +10,7 @@
 .pagination {
   display: flex;
   gap: 0.5rem;
+  margin-top: $gutter;
 
   &__link {
     border: solid 1px #000;

@@ -18,6 +18,7 @@ const Settings = ({
   onSubmitFile,
   setSelectedFile,
   selectedFile,
+  deleteAccount,
 }) => {
   const handleSubmitEmail = (evt) => {
     evt.preventDefault();
@@ -158,6 +159,7 @@ const Settings = ({
           </button>
         </div>
       </form>
+      <button className="button--blue" type="button" onClick={deleteAccount}>Supprimer mon compte</button>
     </section>
   );
 };
@@ -179,6 +181,7 @@ Settings.propTypes = {
   onSubmitFile: PropTypes.func.isRequired,
   setSelectedFile: PropTypes.func.isRequired,
   selectedFile: PropTypes.object,
+  deleteAccount: PropTypes.func.isRequired,
 };
 
 Settings.defaultProps = {

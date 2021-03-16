@@ -22,6 +22,12 @@
       margin: $gutter auto;
       max-width: 80%;
 
+      &__img {
+        max-width: 90%;
+        box-shadow: $shadow;
+        margin: $gutter auto;
+      }
+
       &--hidden {
         display: none;
       }

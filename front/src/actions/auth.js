@@ -16,6 +16,7 @@ export const CLEAN_SELECTED_FILE = 'CLEAN_SELECTED_FILE';
 export const SET_SIGN_IN_CONTROL_MESSAGE = 'SET_SIGN_IN_CONTROL_MESSAGE';
 export const FETCH_PROGRESS_BY_THEME = 'FETCH_PROGRESS_BY_THEME';
 export const SET_PROGRESS_BY_THEME = 'SET_PROGRESS_BY_THEME';
+export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 
 export const toggleConnectionVisibility = () => ({
   type: TOGGLE_CONNECTION_VISIBILITY,
@@ -38,12 +39,14 @@ export const trySignIn = () => ({
 });
 
 export const signIn = ({
+  id,
   email,
   pseudo,
   client_picture: { path: picturePath },
   responsibility: { entitled: role },
 }) => ({
   type: SIGN_IN,
+  id,
   email,
   pseudo,
   picturePath,
@@ -99,6 +102,7 @@ export const setSignInControlMessage = ({ message, name, value }) => ({
   name,
   value,
 });
+
 export const fetchProgressByTheme = () => ({
   type: FETCH_PROGRESS_BY_THEME,
 });
@@ -106,4 +110,8 @@ export const fetchProgressByTheme = () => ({
 export const setProgressByTheme = (progress) => ({
   type: SET_PROGRESS_BY_THEME,
   progress,
+});
+
+export const deleteAccount = () => ({
+  type: DELETE_ACCOUNT,
 });

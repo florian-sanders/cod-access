@@ -6,6 +6,7 @@ import {
   fetchExercise,
   showQuestion,
   sendAnswers,
+  resetCurrentExercise,
 } from 'src/actions/exercises';
 
 const mapStateToProps = ({ exercises: { currentExercise } }) => ({
@@ -16,6 +17,7 @@ const mapDispatchToProps = (dispatch, { match: { params: { exerciseId } } }) => 
   getExercise: () => dispatch(fetchExercise(exerciseId)),
   changeQuestion: (questionIndex) => dispatch(showQuestion(questionIndex)),
   submitAnswers: () => dispatch(sendAnswers()),
+  resetCurrentExercise: () => dispatch(resetCurrentExercise()),
 });
 
 export default withRouter(

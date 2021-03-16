@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import DOMPurify from 'dompurify';
+
 import Question from 'src/containers/Exercise/Question';
 import './styles.scss';
 
@@ -13,9 +15,14 @@ const Exercise = ({
   getExercise,
   changeQuestion,
   submitAnswers,
+  isCorrected,
+  resetCurrentExercise,
 }) => {
   useEffect(() => {
     getExercise();
+    return () => {
+      resetCurrentExercise();
+    };
   }, []);
 
   return (
@@ -24,7 +31,13 @@ const Exercise = ({
       : (
         <section className="exercise-section">
           <h1 className="exercise-section__page-heading">{title}</h1>
-          <p className="exercise-section__brief">{brief}</p>
+          {console.log(brief)}
+          <article
+            className="exercise-section__brief"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(brief),
+            }}
+          />
           <section className="exercise-section__questions">
             {
               questions.map((question, index) => (
@@ -40,14 +53,40 @@ const Exercise = ({
                 <button type="button" onClick={() => changeQuestion(currentQuestionIndex - 1)}>Question précédente</button>
               )
             }
-            {
+            {// move these tests to container later
               currentQuestionIndex < questions.length - 1
-                ? (
-                  <button type="button" onClick={() => changeQuestion(currentQuestionIndex + 1)}>Question suivante</button>
-                )
-                : (
-                  <button type="button" onClick={submitAnswers}>Valider mes réponses</button>
-                )
+              && (
+                <button
+                  title={
+                    !questions[currentQuestionIndex].userAnswers.length
+                      ? 'Veuillez renseigner une réponse'
+                      : ''
+                  }
+                  disabled={!questions[currentQuestionIndex].userAnswers.length}
+                  type="button"
+                  onClick={
+                    () => changeQuestion(currentQuestionIndex + 1)
+                  }
+                >
+                  Question suivante
+                </button>
+              )
+            }
+            {
+              !isCorrected && (currentQuestionIndex === questions.length - 1) && (
+                <button
+                  title={
+                    !questions[currentQuestionIndex].userAnswers.length
+                      ? 'Veuillez renseigner une réponse'
+                      : ''
+                  }
+                  type="button"
+                  disabled={!questions[currentQuestionIndex].userAnswers.length}
+                  onClick={submitAnswers}
+                >
+                  Valider mes réponses
+                </button>
+              )
             }
           </section>
         </section>
@@ -63,7 +102,9 @@ Exercise.propTypes = {
   currentQuestionIndex: PropTypes.number,
   getExercise: PropTypes.func.isRequired,
   changeQuestion: PropTypes.func.isRequired,
-  submitAnswers: PropTypes.func,
+  submitAnswers: PropTypes.func.isRequired,
+  isCorrected: PropTypes.bool.isRequired,
+  resetCurrentExercise: PropTypes.func.isRequired,
 };
 
 Exercise.defaultProps = {
@@ -71,7 +112,6 @@ Exercise.defaultProps = {
   questions: [],
   loading: true,
   currentQuestionIndex: 0,
-  submitAnswers: () => {},
 };
 
 export default Exercise;

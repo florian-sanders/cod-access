@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(sanitizer);
+// app.use(sanitizer);
 
 
 // express static used by react

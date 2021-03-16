@@ -8,6 +8,7 @@ import {
   UPLOAD_FILE_PROFILE,
   GET_CSRF_TOKEN,
   FETCH_PROGRESS_BY_THEME,
+  DELETE_ACCOUNT,
   signIn,
   signOut,
   setInfoUser,
@@ -77,6 +78,7 @@ export default (store) => (next) => async (action) => {
         if (statusProfile !== 200) {
           throw new Error();
         }
+
         store.dispatch(signIn(dataProfile));
       }
       catch (err) {
@@ -161,6 +163,7 @@ export default (store) => (next) => async (action) => {
         if (status !== 200) {
           throw new Error();
         }
+
         store.dispatch(setInfoUser('picturePath', pathPicture.substring(6)));
         store.dispatch(setSelectedFile(null));
       }
@@ -175,6 +178,18 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
         store.dispatch(setProgressByTheme(response.data));
+      }
+      catch (err) {
+        console.log(err);
+      }
+      return next(action);
+    case DELETE_ACCOUNT:
+      try {
+        // const response = await axiosInstance.get('');
+        // if (response.status !== 200) {
+        //   throw new Error();
+        // }
+        store.dispatch(signOut());
       }
       catch (err) {
         console.log(err);
