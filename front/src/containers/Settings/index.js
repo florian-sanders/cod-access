@@ -8,6 +8,9 @@ import {
   setSelectedFile,
   uploadFileProfile,
   deleteAccount,
+  validateSettingsEmail,
+  testSettingsNewPasswordStrength,
+  compareSettingsPasswordConfirm,
 } from 'src/actions/auth';
 
 const mapStateToProps = (state) => ({
@@ -28,6 +31,13 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmitFile: () => dispatch(uploadFileProfile()),
   setSelectedFile: (file) => dispatch(setSelectedFile(file)),
   deleteAccount: () => dispatch(deleteAccount()),
+  validateEmail: ({ message, value }) => dispatch(validateSettingsEmail({ message, email: value })),
+  testPasswordStrength: ({ message, value }) => dispatch(
+    testSettingsNewPasswordStrength({ message, password: value }),
+  ),
+  comparePasswordConfirm: ({ message, value }) => dispatch(
+    compareSettingsPasswordConfirm({ message, password: value }),
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
