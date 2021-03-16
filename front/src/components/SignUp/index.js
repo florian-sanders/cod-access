@@ -16,6 +16,7 @@ const SignUp = ({
   setControlMessage,
   validateEmail,
   testPasswordStrength,
+  comparePasswordConfirm,
 }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -75,6 +76,7 @@ const SignUp = ({
             isMandatory
             message={passwordConfirm.controlMessage}
             setControlMessage={setControlMessage}
+            validateInput={comparePasswordConfirm}
           />
           <div className="signup__content__form__group">
             <button
