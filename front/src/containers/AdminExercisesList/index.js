@@ -7,7 +7,7 @@ import {
 
 const mapStateToProps = ({ adminExercisesList: { exercises, loadingExercisesList } }) => ({
   totalPages: Math.ceil(exercises.count / 20),
-  exercises: exercises.rows,
+  exercisesList: exercises.rows,
   loadingExercisesList,
 });
 

@@ -185,7 +185,7 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case DELETE_ACCOUNT:
       try {
-        // const response = await axiosInstance.get('');
+        // const response = await axiosInstance.delete(`/clients/${parseInt(id, 10)}`);
         // if (response.status !== 200) {
         //   throw new Error();
         // }

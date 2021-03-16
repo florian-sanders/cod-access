@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 // import ModalRole from './ModalRole';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+import Pagination from './Pagination';
 
-import AdminMenu from 'src/components/AdminMenu';
 import './styles.scss';
 
 const AdminUsersList = ({
@@ -13,10 +14,14 @@ const AdminUsersList = ({
   usersRole,
   editUserRole,
   handleChangeSelect,
+  totalPages,
 }) => {
+  const query = new URLSearchParams(useLocation().search);
+  const page = Number(query.get('page')) || 1;
+
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    fetchUsers(page);
+  }, [page, users.length]);
 
   if (loadingUsersList) {
     return (
@@ -96,7 +101,10 @@ const AdminUsersList = ({
             }
           </tbody>
         </table>
-
+        <Pagination
+          totalPages={totalPages}
+          activePage={page}
+        />
       </div>
     </>
   );
@@ -121,6 +129,7 @@ AdminUsersList.propTypes = {
   usersRole: PropTypes.object,
   editUserRole: PropTypes.func.isRequired,
   handleChangeSelect: PropTypes.func.isRequired,
+  totalPages: PropTypes.number.isRequired,
 };
 
 AdminUsersList.defaultProps = {
