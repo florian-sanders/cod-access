@@ -94,12 +94,14 @@ export const setResults = ({
   incorrectAnswers,
   correctAnswers,
   rightAnswers,
+  userScore,
 }) => ({
   type: SET_RESULTS,
   explanations,
   incorrectAnswers,
   correctAnswers,
   rightAnswers,
+  userScore,
 });
 
 export const fetchProgressByTheme = () => ({

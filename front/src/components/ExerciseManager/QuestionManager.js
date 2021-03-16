@@ -171,7 +171,7 @@ const QuestionManager = ({
           <legend>
             <h3 className="admin-exercise__question__answers__heading">
               <span className="sr-only">Question {questionNumber} -</span> Réponses possibles
-          </h3>
+            </h3>
           </legend>
           {
             possibleAnswers.map((answer, index) => (
