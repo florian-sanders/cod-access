@@ -4,7 +4,7 @@
     align-items: center;
 
     &__site-logo {
-      width: 50px;
+      width: 200px;
       margin-right: 1rem;
     }
   
@@ -17,7 +17,7 @@
   @media screen and (max-width:60rem) {
     &__link {
       &__site-logo {
-        width: 30px;
+        width: 300px;
         margin-right: 0.5rem;
       }
 
