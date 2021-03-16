@@ -22,6 +22,7 @@ const Settings = ({
   validateEmail,
   testPasswordStrength,
   comparePasswordConfirm,
+  checkEmptyField,
 }) => {
   const handleSubmitEmail = (evt) => {
     evt.preventDefault();
@@ -88,6 +89,7 @@ const Settings = ({
         <FieldGroup
           type="email"
           id="newEmail"
+          isMandatory
           message={newEmail.controlMessage}
           value={newEmail.value}
           label="Adresse e-mail (nom@domaine.fr)"
@@ -95,6 +97,7 @@ const Settings = ({
           placeholder={user.email}
           onChange={changeField}
           validateInput={validateEmail}
+          checkEmptyField={checkEmptyField}
         />
         <div className="">
           <button
@@ -112,12 +115,14 @@ const Settings = ({
         <FieldGroup
           type="text"
           id="newPseudo"
+          isMandatory
           message={newPseudo.controlMessage}
           value={newPseudo.value}
           label="Pseudo"
           name="newPseudo"
           placeholder={user.pseudo}
           onChange={changeField}
+          checkEmptyField={checkEmptyField}
         />
         <div className="">
           <button
@@ -135,32 +140,38 @@ const Settings = ({
         <FieldGroup
           type="password"
           id="currentPassword"
+          isMandatory
           message={currentPassword.controlMessage}
           value={currentPassword.value}
           label="Mot de passe actuel"
           name="currentPassword"
           onChange={changeField}
           validateInput={validateEmail}
+          checkEmptyField={checkEmptyField}
         />
         <FieldGroup
           type="password"
           id="newPassword"
+          isMandatory
           message={newPassword.controlMessage}
           value={newPassword.value}
           label="Nouveau mot de passe"
           name="newPassword"
           onChange={changeField}
           validateInput={testPasswordStrength}
+          checkEmptyField={checkEmptyField}
         />
         <FieldGroup
           type="password"
           id="newPasswordConfirm"
+          isMandatory
           value={newPasswordConfirm.value}
           message={newPasswordConfirm.controlMessage}
           label="Confirmez votre nouveau mot de passe"
           name="newPasswordConfirm"
           onChange={changeField}
           validateInput={comparePasswordConfirm}
+          checkEmptyField={checkEmptyField}
         />
         <div className="">
           <button
@@ -210,6 +221,9 @@ Settings.propTypes = {
   selectedFile: PropTypes.object,
   deleteAccount: PropTypes.func.isRequired,
   validateEmail: PropTypes.func.isRequired,
+  testPasswordStrength: PropTypes.func.isRequired,
+  comparePasswordConfirm: PropTypes.func.isRequired,
+  checkEmptyField: PropTypes.func.isRequired,
 };
 
 Settings.defaultProps = {

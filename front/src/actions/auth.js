@@ -21,6 +21,7 @@ export const VALIDATE_SETTINGS_EMAIL = 'VALIDATE_SETTINGS_EMAIL';
 export const VALIDATE_SIGN_IN_EMAIL = 'VALIDATE_SIGN_IN_EMAIL';
 export const TEST_SETTINGS_NEW_PASSWORD_STRENGTH = 'TEST_SETTINGS_NEW_PASSWORD_STRENGTH';
 export const COMPARE_SETTINGS_PASSWORD_CONFIRM = 'COMPARE_SETTINGS_PASSWORD_CONFIRM';
+export const CHECK_SETTINGS_EMPTY_FIELD = 'CHECK_SETTINGS_EMPTY_FIELD';
 
 export const toggleConnectionVisibility = () => ({
   type: TOGGLE_CONNECTION_VISIBILITY,
@@ -142,4 +143,11 @@ export const compareSettingsPasswordConfirm = (password, passwordConfirm) => ({
   type: COMPARE_SETTINGS_PASSWORD_CONFIRM,
   password,
   passwordConfirm,
+});
+
+export const checkSettingsEmptyField = ({ message, name, value }) => ({
+  type: CHECK_SETTINGS_EMPTY_FIELD,
+  message,
+  name,
+  value,
 });

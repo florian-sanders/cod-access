@@ -13,15 +13,17 @@ const FieldGroup = ({
   placeholder,
   validateInput,
   message,
+  isMandatory,
+  checkEmptyField,
 }) => {
   const handleOnBlur = (valueToTest) => {
-    // if (!valueToTest && isMandatory) {
-    //   setControlMessage({
-    //     name,
-    //     message,
-    //     value,
-    //   });
-    // }
+    if (!valueToTest && isMandatory) {
+      checkEmptyField({
+        name,
+        message,
+        value,
+      });
+    }
     if (valueToTest) {
       validateInput({ value, message });
     }
@@ -61,10 +63,13 @@ FieldGroup.propTypes = {
   placeholder: Proptypes.string,
   validateInput: Proptypes.func,
   message: Proptypes.string.isRequired,
+  isMandatory: Proptypes.bool,
+  checkEmptyField: Proptypes.func.isRequired,
 };
 
 FieldGroup.defaultProps = {
   value: '',
+  isMandatory: false,
   onChange: () => { },
   placeholder: '',
   validateInput: () => { },
