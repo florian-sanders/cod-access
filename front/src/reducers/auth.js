@@ -8,7 +8,6 @@ import {
   SET_SELECTED_FILE,
   SET_SIGN_IN_CONTROL_MESSAGE,
   SET_PROGRESS_BY_THEME,
-  DELETE_ACCOUNT,
 } from 'src/actions/auth';
 
 const initialState = {

@@ -14,16 +14,15 @@ export default (store) => (next) => async (action) => {
     case FETCH_USERS:
       try {
         store.dispatch(setLoadingUsersList(true));
-        const response = await axiosInstance.get('/clients');
+        const response = await axiosInstance.get(`/clients?limit=10&page=${action.page}`);
         if (response.status !== 200) {
           throw new Error();
         }
         const usersRole = {};
-
         response.data.rows.forEach((user) => {
           usersRole[user.id] = user.responsibility.entitled;
         });
-        store.dispatch(setAllUsers(response.data.rows));
+        store.dispatch(setAllUsers(response.data));
         store.dispatch(setAllUsersRole(usersRole));
       }
       catch (err) {

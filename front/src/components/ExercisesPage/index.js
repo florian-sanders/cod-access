@@ -25,7 +25,6 @@ const ExercisesPage = ({
       <p className="loader">Chargement</p>
     );
   }
-  console.log(allThemesExercises)
   return (
     <section className="exercises">
       <h1 className="exercises__title">Choisissez un challenge parmis les thèmes proposés</h1>

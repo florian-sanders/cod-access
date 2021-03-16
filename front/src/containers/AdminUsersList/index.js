@@ -8,13 +8,14 @@ import {
 } from 'src/actions/users';
 
 const mapStateToProps = (state) => ({
-  users: state.users.users,
+  users: state.users.users.rows,
   usersRole: state.users.usersRole,
   loadingUsersList: state.users.loadingUsersList,
+  totalPages: Math.ceil(state.users.users.count / 10),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUsers: () => dispatch(fetchUsers()),
+  fetchUsers: (page) => dispatch(fetchUsers(page)),
   deleteUser: (idUser) => dispatch(deleteUser(idUser)),
   editUserRole: (idUser) => dispatch(editUserRole(idUser)),
   handleChangeSelect: (id, role) => dispatch(setUserRole(id, role)),

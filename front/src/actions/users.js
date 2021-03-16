@@ -7,8 +7,9 @@ export const SET_ALL_USERS_ROLE = 'SET_ALL_USERS_ROLE';
 export const SET_USER_ROLE = 'SET_USER_ROLE';
 export const SET_USERS = 'SET_USERS';
 
-export const fetchUsers = () => ({
+export const fetchUsers = (page) => ({
   type: FETCH_USERS,
+  page,
 });
 
 export const setAllUsers = (users) => ({
