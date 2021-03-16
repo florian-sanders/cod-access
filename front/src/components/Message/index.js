@@ -16,8 +16,6 @@ const Message = ({ type, message, closeMessage }) => {
       classname = 'neutral';
   }
 
-
-
   return (
     <div role="alert" className={`message-box ${classname}`}>
       <p>{message}</p>
@@ -29,6 +27,7 @@ const Message = ({ type, message, closeMessage }) => {
 Message.propTypes = {
   type: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
+  closeMessage: PropTypes.func.isRequired,
 };
 
 export default Message;

@@ -167,6 +167,12 @@ AdminUsersList.propTypes = {
   }).isRequired,
   shouldDisplayHeading: PropTypes.bool,
   isVisible: PropTypes.bool,
+  displayMessage: PropTypes.func.isRequired,
+  messageParams: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 AdminUsersList.defaultProps = {

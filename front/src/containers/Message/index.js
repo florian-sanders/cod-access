@@ -3,7 +3,7 @@ import Message from 'src/components/Message';
 
 import { unsetMessage } from 'src/actions/other';
 
-const mapStateToProps = ({ other: { messageParams } }) => ({});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
   closeMessage: () => dispatch(unsetMessage()),
