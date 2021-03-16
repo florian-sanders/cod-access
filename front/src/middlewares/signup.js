@@ -29,6 +29,11 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
+        store.dispatch(setMessage({
+          type: 'confirm',
+          message: `Votre compte a bien été créé avec l'adresse ${email.value}. Vous pouvez vous connecter dès à présent`,
+          componentToDisplayIn: 'SignUp',
+        }));
         store.dispatch(signUp());
       }
       catch ({ response }) {

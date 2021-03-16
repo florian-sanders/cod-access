@@ -47,9 +47,6 @@ const AdminExercisesList = ({
             exerciseId: exercise.id,
           });
         },
-        params: {
-          exerciseId: exercise.id,
-        },
         label: 'Supprimer l\'exercice',
       },
       cancelParams: {
