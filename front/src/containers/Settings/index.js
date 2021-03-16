@@ -8,6 +8,10 @@ import {
   setSelectedFile,
   uploadFileProfile,
   deleteAccount,
+  validateSettingsEmail,
+  testSettingsNewPasswordStrength,
+  compareSettingsPasswordConfirm,
+  checkSettingsEmptyField,
 } from 'src/actions/auth';
 import { setModalConfirm } from 'src/actions/other';
 
@@ -32,6 +36,15 @@ const mapDispatchToProps = (dispatch) => ({
   setSelectedFile: (file) => dispatch(setSelectedFile(file)),
   deleteAccount: () => dispatch(deleteAccount()),
   displayModalConfirm: (modalConfirmParams) => dispatch(setModalConfirm(modalConfirmParams)),
+  validateEmail: ({ message, value }) => dispatch(validateSettingsEmail({ message, email: value })),
+  testPasswordStrength: ({ message, value }) => dispatch(
+    testSettingsNewPasswordStrength({ message, password: value }),
+  ),
+  comparePasswordConfirm: ({ message, value }) => dispatch(
+    compareSettingsPasswordConfirm({ message, password: value }),
+  ),
+  checkEmptyField:
+  ({ message, name, value }) => dispatch(checkSettingsEmptyField({ message, name, value })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

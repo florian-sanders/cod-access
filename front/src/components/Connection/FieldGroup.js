@@ -13,6 +13,7 @@ const FieldGroup = ({
   isMandatory,
   name,
   setControlMessage,
+  validateEmail,
   message,
 }) => (
   <div className="header-wrapper__connection__toggle-area__form__group">
@@ -30,10 +31,16 @@ const FieldGroup = ({
           name,
         })
       }
-      onBlur={() => {
+      onBlur={(event) => {
         if (isMandatory) {
           setControlMessage({
             name,
+            message,
+            value,
+          });
+        }
+        if (event.target.value) {
+          validateEmail({
             message,
             value,
           });
@@ -59,6 +66,7 @@ FieldGroup.propTypes = {
   name: Proptypes.string.isRequired,
   setControlMessage: Proptypes.func.isRequired,
   message: Proptypes.string.isRequired,
+  validateEmail: Proptypes.func.isRequired,
 };
 
 FieldGroup.defaultProps = {

@@ -13,12 +13,14 @@ const Contact = ({
   isContactDone,
   setControlMessage,
   validateEmail,
-  }) => {
+  validateLenght,
+  validateContentLenght,
+}) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     tryContact();
   };
-  return(
+  return (
     <div className="contact">
       <h1 className="contact__title">Contact</h1>
       <div className="contact__content">
@@ -36,6 +38,7 @@ const Contact = ({
             isMandatory
             message={name.controlMessage}
             setControlMessage={setControlMessage}
+            validateInput={validateLenght}
           />
           <FieldGroup
             type="email"
@@ -50,7 +53,7 @@ const Contact = ({
             validateInput={validateEmail}
           />
           <FieldGroup
-            type="text"
+            type="textarea"
             id="content"
             value={content.value}
             label="Ecrivez votre message"
@@ -59,6 +62,7 @@ const Contact = ({
             isMandatory
             message={content.controlMessage}
             setControlMessage={setControlMessage}
+            validateInput={validateContentLenght}
           />
           <div className="contact__content__form__group">
             <button
@@ -71,7 +75,8 @@ const Contact = ({
         </form>
       </div>
     </div>
-);};
+  );
+};
 
 Contact.propTypes = {
   name: Proptypes.shape({
@@ -92,6 +97,8 @@ Contact.propTypes = {
   isContactDone: Proptypes.bool.isRequired,
   setControlMessage: Proptypes.func.isRequired,
   validateEmail: Proptypes.func.isRequired,
+  validateLenght: Proptypes.func.isRequired,
+  validateContentLenght: Proptypes.func.isRequired,
 };
 
 Contact.defaultProps = {

@@ -113,7 +113,7 @@ export default (store) => (next) => async (action) => {
       try {
         const { auth: { newPseudo } } = store.getState();
         const response = await axiosInstance.patch('/profile', {
-          pseudo: newPseudo,
+          pseudo: newPseudo.value,
         });
 
         if (response.status !== 200) {
@@ -141,7 +141,7 @@ export default (store) => (next) => async (action) => {
       try {
         const { auth: { newEmail } } = store.getState();
         const response = await axiosInstance.patch('/profile', {
-          email: newEmail,
+          email: newEmail.value,
         });
 
         if (response.status !== 200) {
@@ -168,9 +168,9 @@ export default (store) => (next) => async (action) => {
       try {
         const { auth: { currentPassword, newPassword, newPasswordConfirm } } = store.getState();
         const response = await axiosInstance.patch('/profile', {
-          password: currentPassword,
-          newPassword,
-          newPasswordConfirm,
+          password: currentPassword.value,
+          newPassword: newPassword.value,
+          newPasswordConfirm: newPasswordConfirm.value,
         });
         if (response.status !== 200) {
           throw new Error();
@@ -237,10 +237,10 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case DELETE_ACCOUNT:
       try {
-        // const response = await axiosInstance.delete(`/clients/${parseInt(id, 10)}`);
-        // if (response.status !== 200) {
-        //   throw new Error();
-        // }
+        const response = await axiosInstance.delete('/profile');
+        if (response.status !== 200) {
+          throw new Error();
+        }
         store.dispatch(signOut());
       }
       catch (err) {
