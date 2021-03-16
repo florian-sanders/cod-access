@@ -5,6 +5,7 @@ import {
   UNSET_MODAL_CONFIRM,
   SET_MESSAGE,
   UNSET_MESSAGE,
+  SET_APP_LOADING,
 } from 'src/actions/other';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
     loading: true,
     data: [],
   },
+  appLoading: false,
   modalConfirmParams: {
     heading: '',
     message: '',
@@ -77,6 +79,11 @@ const other = (state = initialState, action = {}) => {
       return {
         ...state,
         mobileMenuVisibility: !state.mobileMenuVisibility,
+      };
+    case SET_APP_LOADING:
+      return {
+        ...state,
+        appLoading: action.loading,
       };
     default:
       return state;

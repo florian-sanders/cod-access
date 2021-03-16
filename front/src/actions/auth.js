@@ -139,10 +139,10 @@ export const testSettingsNewPasswordStrength = ({ message, password }) => ({
   password,
 });
 
-export const compareSettingsPasswordConfirm = (password, passwordConfirm) => ({
+export const compareSettingsPasswordConfirm = ({ passwordConfirm, message }) => ({
   type: COMPARE_SETTINGS_PASSWORD_CONFIRM,
-  password,
   passwordConfirm,
+  message,
 });
 
 export const checkSettingsEmptyField = ({ message, name, value }) => ({

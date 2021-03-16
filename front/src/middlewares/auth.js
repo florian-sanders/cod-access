@@ -15,6 +15,9 @@ import {
   setSelectedFile,
   setProgressByTheme,
 } from 'src/actions/auth';
+import {
+  setAppLoading,
+} from 'src/actions/other';
 
 import axiosInstance from 'src/api';
 
@@ -22,6 +25,7 @@ export default (store) => (next) => async (action) => {
   switch (action.type) {
     case TRY_SIGN_IN:
       try {
+        store.dispatch(setAppLoading(true));
         const { auth: { email, password } } = store.getState();
 
         const response = await axiosInstance.post('/signin', {
@@ -40,7 +44,7 @@ export default (store) => (next) => async (action) => {
         console.log('error', err);
       }
       finally {
-        // loader later
+        store.dispatch(setAppLoading(false));
       }
       return next(action);
     case GET_CSRF_TOKEN:

@@ -15,6 +15,7 @@ const FieldGroup = ({
   message,
   isMandatory,
   checkEmptyField,
+  // comparePasswordConfirm,
 }) => {
   const handleOnBlur = (valueToTest) => {
     if (!valueToTest && isMandatory) {
@@ -25,7 +26,11 @@ const FieldGroup = ({
       });
     }
     if (valueToTest) {
-      validateInput({ value, message });
+      validateInput({
+        value,
+        message,
+      });
+      // comparePasswordConfirm({ message });
     }
   };
   return (

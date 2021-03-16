@@ -27,8 +27,8 @@ const mapDispatchToProps = (dispatch) => ({
   testPasswordStrength: ({ message, value }) => dispatch(
     testSignUpPasswordStrength({ message, password: value }),
   ),
-  comparePasswordConfirm: ({ message, value }) => dispatch(
-    compareSignUpPasswordConfirm({ message, password: value }),
+  comparePasswordConfirm: ({ message }) => dispatch(
+    compareSignUpPasswordConfirm({ message }),
   ),
 });
 

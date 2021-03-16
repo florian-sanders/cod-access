@@ -70,7 +70,7 @@ export default (store) => (next) => async (action) => {
 
     case TEST_SETTINGS_NEW_PASSWORD_STRENGTH:
     case TEST_SIGN_UP_PASSWORD_STRENGTH:
-      if (action.password.length <= 6) {
+      if (action.password.length < 6) {
         action.message = 'Votre mot de passe doit contenir au moins 6 caractères';
       }
       else {
@@ -79,13 +79,21 @@ export default (store) => (next) => async (action) => {
       return next(action);
 
     case COMPARE_SETTINGS_PASSWORD_CONFIRM:
-    case COMPARE_SIGN_UP_PASSWORD_CONFIRM:
-      if (action.password !== action.passwordConfirm) {
+      const { auth: { newPasswordConfirm, newPassword }} = store.getState();
+      if (newPassword.value !== newPasswordConfirm.value) {
         action.message = 'Vous avez saisi deux mots de passe différents';
       }
       else {
         action.message = '';
       }
+    // case COMPARE_SIGN_UP_PASSWORD_CONFIRM:
+    //   let { signup: { newPasswordConfirm, newPassword }} = store.getState();
+    //   if (newPassword.value !== newPasswordConfirm.value) {
+    //     action.message = 'Vous avez saisi deux mots de passe différents';
+    //   }
+    //   else {
+    //     action.message = '';
+    //   }
       return next(action);
     default:
       return next(action);
