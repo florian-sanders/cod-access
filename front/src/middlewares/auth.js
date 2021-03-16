@@ -19,6 +19,8 @@ import {
   setAppLoading,
 } from 'src/actions/other';
 
+import { setMessage } from 'src/actions/other';
+
 import axiosInstance from 'src/api';
 
 export default (store) => (next) => async (action) => {
@@ -40,8 +42,14 @@ export default (store) => (next) => async (action) => {
         localStorage.setItem('isSignedIn', true);
         store.dispatch(signIn(response.data));
       }
-      catch (err) {
-        console.log('error', err);
+      catch ({ response }) {
+        if (response.data.message === 'miss client' || response.data.message === 'unauthorized') {
+          store.dispatch(setMessage({
+            type: 'error',
+            message: 'L\'adresse e-mail ou le mot de passe n\'est pas valide.',
+            componentToDisplayIn: 'SignInForm',
+          }));
+        }
       }
       finally {
         store.dispatch(setAppLoading(false));
@@ -111,13 +119,26 @@ export default (store) => (next) => async (action) => {
         const response = await axiosInstance.patch('/profile', {
           pseudo: newPseudo.value,
         });
+
         if (response.status !== 200) {
           throw new Error();
         }
+
+        store.dispatch(setMessage({
+          type: 'confirm',
+          message: 'Votre pseudo a bien été modifié.',
+          componentToDisplayIn: 'Settings',
+        }));
+
         store.dispatch(setInfoUser('pseudo', response.data.pseudo));
       }
       catch (err) {
         console.log(err);
+        store.dispatch(setMessage({
+          type: 'error',
+          message: 'Une erreur est survenue lors de la modification de votre pseudo.',
+          componentToDisplayIn: 'Settings',
+        }));
       }
       return next(action);
     case EDIT_EMAIL_USER:
@@ -126,13 +147,25 @@ export default (store) => (next) => async (action) => {
         const response = await axiosInstance.patch('/profile', {
           email: newEmail.value,
         });
+
         if (response.status !== 200) {
           throw new Error();
         }
+
+        store.dispatch(setMessage({
+          type: 'confirm',
+          message: 'Votre adresse e-mail a bien été modifiée.',
+          componentToDisplayIn: 'Settings',
+        }));
         store.dispatch(setInfoUser('email', response.data.email));
       }
       catch (err) {
         console.log(err);
+        store.dispatch(setMessage({
+          type: 'error',
+          message: 'Une erreur est survenue lors de la modification de votre adresse e-mail.',
+          componentToDisplayIn: 'Settings',
+        }));
       }
       return next(action);
     case EDIT_PASSWORD_USER:
@@ -146,9 +179,19 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
+        store.dispatch(setMessage({
+          type: 'confirm',
+          message: 'Votre mot de passe a bien été modifié.',
+          componentToDisplayIn: 'Settings',
+        }));
       }
       catch (err) {
         console.log(err);
+        store.dispatch(setMessage({
+          type: 'error',
+          message: 'Une erreur est survenue lors de la modification de votre mot de passe.',
+          componentToDisplayIn: 'Settings',
+        }));
       }
       return next(action);
     case UPLOAD_FILE_PROFILE:
@@ -167,12 +210,21 @@ export default (store) => (next) => async (action) => {
         if (status !== 200) {
           throw new Error();
         }
-
+        store.dispatch(setMessage({
+          type: 'confirm',
+          message: 'Votre image a bien été modifiée.',
+          componentToDisplayIn: 'Settings',
+        }));
         store.dispatch(setInfoUser('picturePath', pathPicture.substring(6)));
         store.dispatch(setSelectedFile(null));
       }
       catch (err) {
         console.log(err);
+        store.dispatch(setMessage({
+          type: 'error',
+          message: 'Une erreur est survenue lors de la modification de votre image.',
+          componentToDisplayIn: 'Settings',
+        }));
       }
       return next(action);
     case FETCH_PROGRESS_BY_THEME:

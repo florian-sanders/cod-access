@@ -16,6 +16,7 @@ const mapStateToProps = (state) => ({
   passwordConfirm: state.signup.passwordConfirm,
   loading: state.signup.loading,
   isSignedUp: state.signup.isSignedUp,
+  messageParams: state.other.messageParams,
 });
 
 const mapDispatchToProps = (dispatch) => ({
