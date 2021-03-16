@@ -16,12 +16,12 @@ export default (store) => (next) => async (action) => {
         } = store.getState();
 
         const response = await axiosInstance.post('/forget', {
-          email,
+          email: email.value,
         });
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log('ok');
+        store.dispatch(contact());
       }
       catch (err) {
         console.log('error', err);
@@ -37,15 +37,15 @@ export default (store) => (next) => async (action) => {
 
         const response = await axiosInstance.patch('/forget',
           {
-            password,
-            passwordConfirm,
+            password: password.value,
+            passwordConfirm: passwordConfirm.value,
           }, {
             headers: { Authorization: `Bearer ${action.newToken}` },
           });
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log('ok');
+        store.dispatch(contact());
       }
       catch (err) {
         console.log('error', err);
