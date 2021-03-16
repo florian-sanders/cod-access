@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
 import classNames from 'classnames';
 import { nanoid } from 'nanoid';
+import DOMPurify from 'dompurify';
 
 import DropAnswer from './DropAnswer';
 import DragPossibleAnswers from './DragPossibleAnswers';
@@ -44,7 +45,13 @@ const Question = ({
       >
         <p>Question {questionIndex + 1}</p>
         {
-          brief && (<p>{brief}</p>)
+          brief && (
+            <article
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(brief),
+              }}
+            />
+          )
         }
         {
           picture && (<img className="exercise-section__questions__question__img" src={`${process.env.IMAGE}${picture.path}`} alt={picture.alternative} />)
@@ -78,9 +85,11 @@ const Question = ({
         />
         {
           explanation !== '' && (
-            <article>
-              <p>{explanation}</p>
-            </article>
+            <article
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(explanation),
+              }}
+            />
           )
         }
       </article>
