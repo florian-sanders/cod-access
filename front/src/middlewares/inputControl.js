@@ -88,7 +88,14 @@ export default (store) => (next) => async (action) => {
       return next(action);
 
     case COMPARE_SETTINGS_PASSWORD_CONFIRM:
-    case COMPARE_SIGN_UP_PASSWORD_CONFIRM:
+      const { auth: { newPasswordConfirm, newPassword }} = store.getState();
+      if (newPassword.value !== newPasswordConfirm.value) {
+         action.message = 'Vous avez saisi deux mots de passe différents';
+      }
+      else {
+        action.message = '';
+      }
+      
     case COMPARE_NEW_PASSWORD_CONFIRM:
       if (action.password !== action.passwordConfirm) {
         action.message = 'Vous avez saisi deux mots de passe différents';
@@ -96,6 +103,14 @@ export default (store) => (next) => async (action) => {
       else {
         action.message = '';
       }
+    // case COMPARE_SIGN_UP_PASSWORD_CONFIRM:
+    //   let { signup: { newPasswordConfirm, newPassword }} = store.getState();
+    //   if (newPassword.value !== newPasswordConfirm.value) {
+    //     action.message = 'Vous avez saisi deux mots de passe différents';
+    //   }
+    //   else {
+    //     action.message = '';
+    //   }
       return next(action);
     default:
       return next(action);

@@ -11,7 +11,7 @@ import Footer from 'src/components/Footer';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkAuth, getCSRFToken, loadThemes }) => {
+const App = ({ checkAuth, getCSRFToken, loadThemes, appLoading }) => {
   useEffect(() => {
     loadThemes();
     getCSRFToken();
@@ -19,6 +19,7 @@ const App = ({ checkAuth, getCSRFToken, loadThemes }) => {
       checkAuth();
     }
   }, []);
+  console.log('loader', appLoading);
   return (
     <>
       <a className="skip-link sr-only-focusable" href="#main-content">Contenu</a> {/* skipLink for a11y, keyboard users mainly */}
@@ -27,7 +28,9 @@ const App = ({ checkAuth, getCSRFToken, loadThemes }) => {
         <Menu />
         <Connection />
       </div>
-      <Page />
+      {
+        appLoading ? <p>Chargement</p> : <Page />
+      }
       <Footer />
     </>
   );

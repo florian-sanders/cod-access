@@ -4,8 +4,8 @@ import App from 'src/components/App';
 import { checkIsSignedIn, getCSRFToken } from 'src/actions/auth';
 import { fetchThemes } from 'src/actions/other'
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  appLoading: state.other.appLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

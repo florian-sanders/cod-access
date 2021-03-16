@@ -42,3 +42,10 @@ export const UNSET_MESSAGE = 'UNSET_MESSAGE';
 export const unsetMessage = () => ({
   type: UNSET_MESSAGE,
 });
+
+export const SET_APP_LOADING = 'SET_APP_LOADING';
+
+export const setAppLoading = (loading) => ({
+  type: SET_APP_LOADING,
+  loading,
+});

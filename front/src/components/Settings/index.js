@@ -199,8 +199,10 @@ const Settings = ({
           message={newPasswordConfirm.controlMessage}
           label="Confirmez votre nouveau mot de passe"
           name="newPasswordConfirm"
+          currentPassword={currentPassword.value}
           onChange={changeField}
           validateInput={comparePasswordConfirm}
+          // comparePasswordConfirm={comparePasswordConfirm}
           checkEmptyField={checkEmptyField}
         />
         <div className="">

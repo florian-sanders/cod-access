@@ -50,11 +50,9 @@ export const testSignUpPasswordStrength = ({ message, password }) => ({
   password,
 });
 
-
 export const COMPARE_SIGN_UP_PASSWORD_CONFIRM = 'COMPARE_SIGN_UP_PASSWORD_CONFIRM';
 
-export const compareSignUpPasswordConfirm = (password, passwordConfirm) => ({
+export const compareSignUpPasswordConfirm = (message) => ({
   type: COMPARE_SIGN_UP_PASSWORD_CONFIRM,
-  password,
-  passwordConfirm,
+  message,
 });
