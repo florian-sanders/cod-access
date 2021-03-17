@@ -13,6 +13,7 @@ import {
   COMPARE_SETTINGS_PASSWORD_CONFIRM,
   VALIDATE_SIGN_IN_EMAIL,
   CHECK_SETTINGS_EMPTY_FIELD,
+  SET_CONNECTION_VISIBILITY,
 } from 'src/actions/auth';
 
 const initialState = {
@@ -59,6 +60,11 @@ const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_CONNECTION_VISIBILITY:
+      return {
+        ...state,
+        isVisible: action.visibility,
+      };
     case SET_SIGN_IN_CONTROL_MESSAGE:
       return {
         ...state,
