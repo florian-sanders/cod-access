@@ -12,6 +12,7 @@ import ExercisesPage from 'src/containers/ExercisesPage';
 import Exercise from 'src/containers/Exercise';
 import Dashboard from 'src/components/Dashboard';
 import About from 'src/components/About';
+import Error from 'src/components/Error';
 import Contact from 'src/containers/Contact';
 
 import ForgetPage from 'src/containers/ForgetPage';
@@ -22,7 +23,7 @@ import PrivateUserRoute from 'src/components/PrivatesRoutes/PrivateUserRoute';
 import PrivateAdminRoute from 'src/components/PrivatesRoutes/PrivateAdminRoute';
 
 const Page = ({ isLogged, role }) => (
-  <main id="main-content" role="main" tabIndex="-1">
+  <main id="main-content" role="main" tabIndex="-1" className="main-content">
     <Switch>
       <Route exact path="/">
         <Home />
@@ -61,6 +62,8 @@ const Page = ({ isLogged, role }) => (
       <Route exact path="/contact">
         <Contact />
       </Route>
+
+      <Error />
     </Switch>
   </main>
 );
