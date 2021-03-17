@@ -9,7 +9,13 @@ const Menu = ({
   toggleMenu,
   mobileMenuVisibility,
 }) => (
-  <nav className="header-wrapper__menu" role="navigation" aria-label="principal">
+  <nav
+    role="navigation"
+    aria-label="principal"
+    className={classNames('header-wrapper__menu', {
+      'header-wrapper__menu--open': mobileMenuVisibility,
+    })}
+  >
     <button
       className="header-wrapper__menu__toggle-btn"
       type="button"
@@ -18,9 +24,14 @@ const Menu = ({
       onClick={toggleMenu}
     >
       <span className="sr-only">Menu</span>
-      <span className="header-wrapper__menu__toggle-btn__stripe" />
-      <span className="header-wrapper__menu__toggle-btn__stripe" />
-      <span className="header-wrapper__menu__toggle-btn__stripe" />
+      <div className={classNames('header-wrapper__menu__toggle-btn__stripes', {
+        'header-wrapper__menu__toggle-btn__stripes--cross': mobileMenuVisibility,
+      })}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </button>
     <ul
       id="menu-toggle-area"
@@ -54,7 +65,7 @@ const Menu = ({
         </NavLink>
       </li>
     </ul>
-  </nav>
+  </nav >
 );
 
 Menu.propTypes = {
