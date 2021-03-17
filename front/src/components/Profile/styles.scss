@@ -1,5 +1,9 @@
 @import 'src/styles/vars';
 
+.wrapper{
+  display:flex;
+  justify-content: space-between;
+}
 .profile{
   margin: auto;
   background-color: $ligth-color;
@@ -14,34 +18,43 @@
 
   &__content{
     display:flex;
-    background: $white-color;
+    width: 18%;
+    flex-direction: column;
     padding: $gutter;
-
+    justify-content: space-between;
+    background: $white-color;
     &__img{
       width: 150px;
       height: 150px;
       border-radius:50%;
-      margin-right: $gutter;
+      margin: auto;
+      margin-bottom:$gutter;
     }
-
     &__infos{
-      display:flex;
-      flex-direction: column;
-      justify-content: center;
       &__pseudo{
-        margin-bottom: $gutter;
+        margin-bottom:$gutter;
       }
     }
   }
 
   &__progress{
-    background-color: $white-color;
-    margin-top: $gutter;
+    background: $white-color;
+    width: 80%;
     display: flex;
     justify-content: space-around;
     &__theme{
       text-align: center;
-      padding: $gutter 0;
+      padding: $gutter*2 0 $gutter;
+      &__header{
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        height: 80px;
+        &__title{
+          margin-right: 1rem;
+          line-height: 50px;
+        }
+      }
       &__bar{
         margin:auto;
         height: 30px;
