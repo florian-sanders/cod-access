@@ -1,6 +1,6 @@
 import React from 'react';
 import Proptypes from 'prop-types';
-
+import picture from 'src/assets/img/contact-signup.svg';
 import Message from 'src/containers/Message';
 import FieldGroup from './FieldGroup';
 
@@ -28,10 +28,9 @@ const SignUp = ({
 
   return (
     <div className="signup">
-      <h1 className="signup__title">Inscription</h1>
+      <h1 className="title-h1">Inscription</h1>
       <div className="signup__content">
-        <div className="signup__content__illustration">
-        </div>
+      <img  className="contact__content__illustration" src={picture} alt="" />
         <form action="" method="get" className="signup__content__form" onSubmit={handleSubmit}>
           {
             messageParams.isVisible
@@ -89,7 +88,7 @@ const SignUp = ({
           />
           <div className="signup__content__form__group">
             <button
-              className="signup__content__form__submit"
+              className="button--primary"
               type="submit"
             >
               {loading ? 'chargement' : 'S\'enregistrer'}

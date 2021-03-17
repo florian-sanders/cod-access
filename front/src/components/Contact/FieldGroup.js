@@ -31,7 +31,7 @@ const FieldGroup = ({
 
   return (
     <div className="signup__content__form__group">
-      <label htmlFor={id} className="signup__content__form__group__label">
+      <label htmlFor={id} className="form-label">
         {label}
       </label>
       {
@@ -43,7 +43,7 @@ const FieldGroup = ({
               id={id}
               value={value}
               onChange={(evt) => onChange(evt.target.value, name)}
-              className="signup__content__form__group__input"
+              className="form-input"
               aria-required="true"
               onBlur={(evt) => handleOnBlur(evt.target.value)}
               autoComplete={autocomplete}
@@ -55,7 +55,7 @@ const FieldGroup = ({
               id={id}
               value={value}
               onChange={(evt) => onChange(evt.target.value, name)}
-              className="signup__content__form__group__input"
+              className="form-input textarea"
               aria-required="true"
               onBlur={(evt) => handleOnBlur(evt.target.value)}
             />
