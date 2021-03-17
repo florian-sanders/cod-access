@@ -1,6 +1,7 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 import FieldGroup from './FieldGroup';
+import picture from 'src/assets/img/contact-signup.svg';
 import './styles.scss';
 
 const Contact = ({
@@ -24,9 +25,10 @@ const Contact = ({
     <div className="contact">
       <h1 className="contact__title">Contact</h1>
       <div className="contact__content">
-        <div className="contact__content__illustration">
+      
+          <img  className="contact__content__illustration" src={picture} alt="" />
           <p>{isContactDone && 'Merci votre message a bien été envoyé : vous allez recevoir de confirmation.'}</p>
-        </div>
+      
         <form action="" method="get" className="contact__content__form" onSubmit={handleSubmit}>
           <FieldGroup
             type="text"
