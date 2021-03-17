@@ -10,9 +10,9 @@
     border-radius: $gutter;
     font-size: $font-size-title-h2;
     color: #566970;
-    background-color: #7ED8F7;
+    background-color: #E5EBED;
+    box-shadow:$shadow;
     font-family: $font-text;
-    
     font-weight: 400;
     
   }
@@ -22,7 +22,7 @@
     flex-direction: row; 
     justify-content: center;
     align-items: stretch;
-
+    
 
     &__team {
       display: flex;
@@ -30,19 +30,20 @@
       flex-wrap: wrap;
       width: 18%;
       margin: 1rem;
-      background: #7ED8F7;
+      background: #E5EBED;
       padding: 20px 10px;
       flex-direction: column;
       justify-content: flex-start;
       border-radius: $gutter;
       font-family: $font-title;
+      box-shadow:$shadow;
 
       &__name {
         color: #fff;
         text-align: center;
         margin: 1rem;
         font-family: 'Poppins', sans-serif;
-        text-shadow: black 0.1em 0.1em 0.2em
+        text-shadow: black 0.1em 0.1em 0.2em;
       }
 
       &__img {
@@ -53,8 +54,9 @@
         margin: 0 auto;
         border-radius: 50%;
         padding: 5px;
+        box-shadow:$shadow;
         position: relative;
-        cursor: pointer;
+        
       }
 
       &__profil {
