@@ -65,11 +65,11 @@ module.exports = {
       const id = Number(req.body.question_id)
       const myFile = req.file
       myFile.path = myFile.path.substring(6)
-
+      console.log(req.body.alternative);
       const picture = new Picture({
         name: myFile.filename,
         path: myFile.path,
-        alternative: null
+        alternative: req.body.alternative, // sanitize or test later
       })
 
       picture.save().then(result => {
@@ -77,11 +77,12 @@ module.exports = {
           include: 'question_picture'
         }).then(question => {
           question.update({ picture_id: result.id })
-          console.log('result.id', result.id)
+          console.log('result.id', result);
           return res.status(200).json(
             {
               pictureId: result.id,
               picturePath: result.path,
+              pictureAlt: result.alternative
             }
           );
         })
