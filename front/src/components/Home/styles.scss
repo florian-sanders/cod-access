@@ -32,7 +32,7 @@
       max-width: 800px;
       justify-content: space-between;
       align-items: center;
-      padding: 8rem 1rem;
+      padding: 3rem 1rem;
       line-height: 1.4rem;
 
       &__text {
@@ -81,7 +81,7 @@
     background-size: auto 5%;
     &__article {
       &:last-child {
-        padding-bottom: 5rem;
+        padding-bottom: 9rem;
       }
       &:nth-of-type(2n) {
         background-image: url("src/assets/img/waves-combined.svg");
