@@ -24,9 +24,9 @@ const UserMenu = ({ pseudo, signOut, role }) => (
         <NavLink to="/profil-edit" exact className="header-wrapper__connection__toggle-area__list__link" activeClassName="header-wrapper__connection__toggle-area__list__link--active">Paramètres</NavLink>
       </li>
       <li>
-        <Link onClick={signOut} className="header-wrapper__connection__toggle-area__list__link">
+        <button type="button" onClick={signOut} className="header-wrapper__connection__toggle-area__list__link">
           Déconnexion
-        </Link>
+        </button>
       </li>
     </ul>
   </>

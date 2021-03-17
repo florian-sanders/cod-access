@@ -77,7 +77,8 @@ const Page = ({
         <Route exact path="/contact">
           <Contact />
         </Route>
-         <Error />
+
+        <Error />
       </Switch>
     </main>
   );
