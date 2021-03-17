@@ -63,7 +63,7 @@ const FieldGroup = ({
       }
       {
         message && (
-          <p>{message}</p>
+          <p className="message">{message}</p>
         )
       }
     </div>

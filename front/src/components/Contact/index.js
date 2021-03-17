@@ -21,17 +21,13 @@ const Contact = ({
     evt.preventDefault();
     tryContact();
   };
+  const button = isContactDone ? "hidden" : "button--primary"
   return (
     <div className="contact">
       <h1 className="title-h1">Contactez-nous</h1>
       <div className="contact__content">
           <img  className="contact__content__illustration" src={picture} alt="" />
         <form action="" method="get" className="contact__content__form" onSubmit={handleSubmit}>
-        { 
-           isContactDone  && (
-            <p className="messsage-done"> Merci votre message a bien été envoyé : vous allez recevoir de confirmation. </p>
-            )
-          }
           <FieldGroup
             type="text"
             id="name"
@@ -68,9 +64,14 @@ const Contact = ({
             setControlMessage={setControlMessage}
             validateInput={validateContentLenght}
           />
+             { 
+           isContactDone  && (
+            <p className="messsage-done"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p>
+            )
+          }
           <div className="contact__content__form__group">
             <button
-              className="button--primary"
+              className={button}
               type="submit"
             >
               {loading ? 'chargement' : 'Envoyer'}

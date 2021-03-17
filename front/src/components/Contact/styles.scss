@@ -32,6 +32,17 @@
   padding-bottom: 4rem;
 }
 
+.message {
+  margin-bottom: $gutter;
+  font-size: 0.8em;
+}
+
 .messsage-done {
-  margin-bottom: 1rem;
+  background-color: $color-valid;
+  box-shadow: $shadow;
+  display: block;
+  margin-bottom: $gutter;
+  padding: 16px 8px;
+  border:solid 1px $dark-gray-color;
+  border-radius: 5px;
 }

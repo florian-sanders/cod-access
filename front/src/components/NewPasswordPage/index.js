@@ -41,61 +41,58 @@ const NewPassword = ({
       });
     }
   };
+  const button = isDone ? "hidden" : "button--primary"
   return (
     <>
       <div className="container">
-        {
-          isDone
-            ? (
-              <>
-                <p className="container__text">Votre mot de passe a bien été mit a jour vous allez recevoir un email de confirmation. Merci de cliquer sur ce lien pour être redirigé: </p>
-                <Link to="/" className="container__text">Accueil</Link>
-              </>
-            )
-            : (
-              <>
-                <p className="container__text">Vous êtes sur la page de réinitialisation de mot de passe. </p>
-                <p className="container__text"> Veuillez saisir un nouveau mot de passe ainsi que la confirmation.</p>
-              </>
-            )
-        }
-
         <form action="" method="get" className="form-new-password" onSubmit={handleSubmit}>
+        <label className="form-label">
+        Vous êtes sur la page de réinitialisation de mot de passe.Veuillez saisir un nouveau mot de passe ainsi que la confirmation.
+        </label>
           <input
-            type="text"
+            type="password"
             value={password.value}
             onChange={(e) => {
               const textPassword = e.target.value;
               onChangeTextPass(textPassword, passwordConfirm.value);
             }}
-            className="form-new-password__input-password"
+            className="form-input"
             placeholder="Veuillez saisir un mot de passe"
             aria-required="true"
             onBlur={(evt) => handleOnBlur(evt.target.value)}
           />
           <input
-            type="text"
+            type="password"
             value={passwordConfirm.value}
             onChange={(e) => {
               const textPasswordConfirm = e.target.value;
               onChangeTextPass(password.value, textPasswordConfirm);
             }}
-            className="form-new-password__input-password"
+            className="form-input"
             placeholder="Veuillez confirmer le mot de passe"
             aria-required="true"
             onBlur={(evt) => handleOnBlur(evt.target.value)}
           />
           {
         password.controlMessage && (
-          <p>{password.controlMessage}</p>
+          <p className="message">{password.controlMessage}</p>
         )
       }
           {
         passwordConfirm.controlMessage && (
-          <p>{passwordConfirm.controlMessage}</p>
+          <p className="message">{passwordConfirm.controlMessage}</p>
         )
       }
-          <button className="form-new-password__btn-password" type="submit">
+         {
+          isDone
+            && (
+              <>
+                <p className="messsage-done">Votre mot de passe a bien été mit a jour vous allez recevoir un email de confirmation. Merci de cliquer sur ce lien pour être redirigé: </p>
+                <Link to="/" className="link">Accueil</Link>
+              </>
+            )
+        }
+          <button className={button} type="submit">
             {loading ? 'chargement' : 'Valider'}
           </button>
         </form>
