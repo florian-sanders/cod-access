@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './styles.scss';
-import logoPath from 'src/assets/img/access.svg';
+import logoPath from 'src/assets/img/logo.svg';
 
 const Header = () => (
   <header className="header-wrapper__header" role="banner">
