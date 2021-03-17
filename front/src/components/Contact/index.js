@@ -23,7 +23,7 @@ const Contact = ({
   };
   return (
     <div className="contact">
-      <h1 className="contact__title">Contact</h1>
+      <h1 className="contact__title">Contactez-nous</h1>
       <div className="contact__content">
       
           <img  className="contact__content__illustration" src={picture} alt="" />
