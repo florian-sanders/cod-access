@@ -3,48 +3,47 @@
 .header-wrapper__connection {
   position: relative;
   &__toggle-btn {
-    background-color: $primary-color;
-    color: $white-color;
-    border: none;
-    padding: 0.7rem $gutter;
-    border-radius: 0.5rem;
-    font-weight: bold;
+    &--logged {
+    }
 
     &__icon {
       display: none;
+    }
+
+    &__profile-img {
+      width: 2rem;
+      height: 2rem;
     }
   }
 
   &__toggle-area {
     display: none;
     position: absolute;
-    right: 0;
-    background-color: $grey-color;
+    right: 1rem;
+    background-color: $white-color;
     padding: $gutter;
     border-radius: 0.5rem;
-    box-shadow: 2px 2px 13px 0px rgba(0, 0, 0, 0.75);
-    margin-top: 0.5rem;
+    box-shadow: $shadow;
+    margin-top: .1rem;
 
     &--visible {
       display: block;
     }
 
-    &__title{
+    &__title {
       margin-bottom: 1rem;
     }
 
     &__form {
+      &__link {
+        display: block;
+        font-size: 0.7rem;
+        text-decoration: underline;
+      }
+
       &__group {
         display: flex;
         flex-direction: column;
-        margin-bottom: $gutter;
-        gap: 0.5rem;
-
-        input {
-          padding: 0.5rem;
-          border-radius: 0.2rem;
-          border: solid 1px $dark-color;
-        }
       }
 
       &__submit {
@@ -58,14 +57,13 @@
         width: max-content;
         margin: 0 auto;
       }
-
     }
-    
-    &__list{
-      &__link{
-        display:block;
+
+    &__list {
+      &__link {
+        display: block;
         padding-bottom: 1rem;
-        &--active{
+        &--active {
           font-weight: bold;
         }
       }
@@ -74,9 +72,6 @@
     &__signup {
       text-align: center;
       text-decoration: underline;
-      & a {
-        display:block,
-      }
 
       &::before {
         content: "";

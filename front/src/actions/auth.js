@@ -22,9 +22,15 @@ export const VALIDATE_SIGN_IN_EMAIL = 'VALIDATE_SIGN_IN_EMAIL';
 export const TEST_SETTINGS_NEW_PASSWORD_STRENGTH = 'TEST_SETTINGS_NEW_PASSWORD_STRENGTH';
 export const COMPARE_SETTINGS_PASSWORD_CONFIRM = 'COMPARE_SETTINGS_PASSWORD_CONFIRM';
 export const CHECK_SETTINGS_EMPTY_FIELD = 'CHECK_SETTINGS_EMPTY_FIELD';
+export const SET_CONNECTION_VISIBILITY = 'SET_CONNECTION_VISIBILITY';
 
 export const toggleConnectionVisibility = () => ({
   type: TOGGLE_CONNECTION_VISIBILITY,
+});
+
+export const setConnectionVisibility = (visibility) => ({
+  type: SET_CONNECTION_VISIBILITY,
+  visibility,
 });
 
 export const setSignInFieldValue = ({ value, name }) => ({
