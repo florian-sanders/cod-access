@@ -1,8 +1,9 @@
 @import 'src/styles/vars';
 
 .profile{
-  max-width: 800px;
   margin: auto;
+  background-color: $ligth-color;
+  padding: 2*$gutter;
 
   &__title{
     font-size: $font-size-title-h1;
@@ -13,16 +14,48 @@
 
   &__content{
     display:flex;
+    background: $white-color;
+    padding: $gutter;
 
     &__img{
       width: 150px;
+      height: 150px;
+      border-radius:50%;
+      margin-right: $gutter;
     }
 
     &__infos{
-
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
       &__pseudo{
-        font-size: $font-size-title-h2;
         margin-bottom: $gutter;
+      }
+    }
+  }
+
+  &__progress{
+    background-color: $white-color;
+    margin-top: $gutter;
+    display: flex;
+    justify-content: space-around;
+    &__theme{
+      text-align: center;
+      padding: $gutter 0;
+      &__bar{
+        margin:auto;
+        height: 30px;
+        width: 350px;
+        border-radius: 50px;
+        border: solid 1px;
+      
+        &__filler{
+          color:$white-color;
+          text-align: center;
+          height: 100%;
+          line-height:30px;
+          border-radius: inherit;
+        }
       }
     }
   }

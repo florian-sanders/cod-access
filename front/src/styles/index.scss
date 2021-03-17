@@ -7,9 +7,9 @@ body {
   color: $dark-color;
 }
 
-main{
-  background-color: $ligth-color;
-}
+// main{
+//   background-color: $ligth-color;
+// }
 
 .hidden {
   display: none;
@@ -31,6 +31,13 @@ main{
 
 .title-h1{
   font-size: $font-size-title-h1;
+  font-family: $font-title;
+  font-weight: bold;
+  margin-bottom: $gutter;
+}
+
+.title-h2{
+  font-size: $font-size-title-h2;
   font-family: $font-title;
   font-weight: bold;
   margin-bottom: $gutter;
