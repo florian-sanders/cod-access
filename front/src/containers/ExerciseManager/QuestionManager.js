@@ -22,6 +22,7 @@ const mapStateToProps = ({
     isSaved,
   },
   answerManager: { possibleAnswers },
+  other: { messageParams },
 }, { id }) => {
   const thisQuestion = questions.find((question) => question.id === id);
 
@@ -38,6 +39,7 @@ const mapStateToProps = ({
     imagePath: thisQuestion.imagePath,
     possibleAnswers: possibleAnswers.filter((answer) => answer.questionId === thisQuestion.id),
     selectedFile: thisQuestion.selectedFile,
+    messageParams,
   };
 };
 

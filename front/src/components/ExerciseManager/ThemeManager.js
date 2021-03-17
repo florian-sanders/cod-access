@@ -10,7 +10,6 @@ const ThemeManager = ({
 }) => (
   <fieldset className="admin-exercise__general-info__themes">
     <legend>Thématiques</legend>
-    {console.log(themes)}
     {
       themes.map((theme) => (
         <Checkbox

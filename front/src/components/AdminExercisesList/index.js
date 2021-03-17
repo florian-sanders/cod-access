@@ -88,7 +88,7 @@ const AdminExercisesList = ({
                   <th>{exercise.id}</th>
                   <td>{exercise.title}</td>
                   <td>{exercise.themes.map((theme) => (
-                    <p>{theme.name}</p>
+                    <p key={`${exercise.id}${theme.id}`}>{theme.name}</p>
                   ))}
                   </td>
                   <td>
@@ -107,7 +107,7 @@ const AdminExercisesList = ({
                     >
                       Supprimer
                     </button>
-                    <Link to={`/admin/exercices/edit/${exercise.id}`}>
+                    <Link to={`/ admin / exercices / edit / ${exercise.id}`}>
                       Modifier
                     </Link>
                   </td>

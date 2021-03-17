@@ -77,10 +77,11 @@ export const setQuestionManagerFile = (file) => ({
 
 export const UPLOAD_QUESTION_MANAGER_IMAGE = 'UPLOAD_QUESTION_MANAGER_IMAGE';
 
-export const uploadQuestionManagerImage = ({ questionId, file }) => ({
+export const uploadQuestionManagerImage = ({ questionId, file, alternative }) => ({
   type: UPLOAD_QUESTION_MANAGER_IMAGE,
   questionId,
   file,
+  alternative,
 });
 
 export const SET_QUESTION_MANAGER_SELECTED_FILE = 'SET_QUESTION_MANAGER_SELECTED_FILE';
@@ -100,10 +101,12 @@ export const patchQuestionManagerImageAlt = (imageId) => ({
 
 export const SET_QUESTION_MANAGER_IMAGE_ID = 'SET_QUESTION_MANAGER_IMAGE_ID';
 
-export const setQuestionManagerImageId = ({ imageId, questionId }) => ({
+export const setQuestionManagerImageId = ({ imageId, questionId, imagePath, imageAlternative }) => ({
   type: SET_QUESTION_MANAGER_IMAGE_ID,
   imageId,
   questionId,
+  imageAlternative,
+  imagePath,
 });
 
 export const DELETE_QUESTION_MANAGER_IMAGE = 'DELETE_QUESTION_MANAGER_IMAGE';
