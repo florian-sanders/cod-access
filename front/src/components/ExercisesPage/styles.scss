@@ -4,6 +4,8 @@
   font-size: 5em;
   margin: 5rem;
 }
+
+
 .exercises{
   padding: $gutter;
 
@@ -14,79 +16,98 @@
     margin-bottom: $gutter;
   }
 
-  &__filter--btn{
-    margin-bottom: $gutter;
-    font-size: 1.2rem;
-    background-color: $white-color;
-    color : $dark-color;
-    border:none;
-    border: 1px, solid, $dark-grey-color;
-    border-radius: 5px;
-    padding: 1rem;
-    border-radius: 30px;
-
-    &:hover{
-      border-color: $dark-color;
-    }
-  }
-
-  &__filter{
-    position: absolute;
-    padding: $gutter;
-    background-color: $white-color;
-    border: 1px solid $dark-color;
-
-    &__legend{
-      display: none;
-    }
-
-    &__item{
-      margin-bottom: 1rem;
-    }
-  }
-
   &__wrapper{
-    display:flex;
-    justify-content: space-between;
+    padding: $gutter 2*$gutter;
+    background-color: $white-color;
 
-    &__theme{
-      margin-bottom: $gutter;
-      width: 30%;
+    &__filter{
+      position: absolute;
+      padding: $gutter;
+      background-color: $white-color;
+      box-shadow: $shadow;
 
-
-      &__title{
-        font-size: $font-size-title-h2;
-        font-weight: bold;
-        font-family: $font-title;
+      &__btn{
         margin-bottom: $gutter;
+        font-size: 1.2rem;
+        background-color: $white-color;
+        color : $dark-color;
+        border:none;
+        border: 1px, solid, $dark-gray-color;
+        border-radius: 5px;
+        padding: 1rem;
+        border-radius: 30px;
+        &--visible{
+          border: 2px, solid, $dark-color;
+        }
+        &:hover{
+          border-color: $dark-color;
+        }
       }
 
-      &__list{
-        &__exercise{
-          margin-bottom: 1rem;
-  
-  
-          &__link{
-            display: inline-block;
-            padding: 1rem;
-            width: 100%;
-            border: solid 1px $dark-grey-color;
-            border-radius: 15px;
-  
-            &:hover{
-              background-color: $primary-color;
-              color: white;
-            }
+      &__legend{
+        display: none;
+      }
 
-            &__score{
+      &__item{
+        margin-bottom: 1rem;
+        &__checkbox{
+          padding:1rem;
+          border: lightcoral;
+        }
+        &__label{
+          margin-left:1rem;
+        }
+      }
+    }
+
+    &__block-list{
+      display:flex;
+      justify-content: space-between;
+      &__theme{
+        margin-bottom: $gutter;
+        width: 30%;
+  
+        &__title{
+          font-size: $font-size-title-h2;
+          font-weight: bold;
+          font-family: $font-title;
+          margin-bottom: $gutter;
+        }
+  
+        &__list{
+          &__exercise{
+            margin-bottom: 1rem;
+            display:flex;
+    
+            &__color{
               display: inline-block;
-              font-weight: bold;
-              margin-left: 2rem;
+              width: 50px;
+              border-radius: 5px 0 0 5px;
+            }
+            &__link{
+              display: inline-block;
+              display:flex;
+              justify-content: space-between;
+              padding: 1rem;
+              width: 100%;
+              border: solid 1px $dark-gray-color;
+              border-radius: 0 5px 5px 0;
+    
+              &:hover{
+                background-color: $ligth-color;
+                border:solid 1px $ligth-color;
+              }
+  
+              &__score{
+                display: inline-block;
+                font-style: italic;
+                margin-left: 2rem;
+              }
             }
           }
         }
       }
     }
-
   }
-}
+ }
+

@@ -25,27 +25,31 @@ const ExercisesPage = ({
       <p className="loader">Chargement</p>
     );
   }
+
   return (
     <section className="exercises">
-      <h1 className="exercises__title">Choisissez un challenge parmis les thèmes proposés</h1>
-      <Filter
-        themes={themesFilterCheckbox}
-        visibility={themeFilterVisibility}
-        toggleFilter={toggleFilter}
-        handleCheckbox={handleCheckbox}
-        validateFilter={validateFilter}
-      />
+      <h1 className="title-h1">Challenges</h1>
       <div className="exercises__wrapper">
-        {
-          allThemesExercises.filter(
-            (theme) => themesIdToDisplay.includes(theme.id)
-          ).map((theme) => (
-            <div className="exercises__wrapper__theme" key={theme.id}>
-              <h2 className="exercises__wrapper__theme__title">{theme.name}</h2>
-              <ExercisesList exercises={theme.exercises} />
-            </div>
-          ))
-        }
+        <Filter
+          themes={themesFilterCheckbox}
+          visibility={themeFilterVisibility}
+          toggleFilter={toggleFilter}
+          handleCheckbox={handleCheckbox}
+          validateFilter={validateFilter}
+        />
+        <div className="exercises__wrapper__block-list">
+          {
+            allThemesExercises.filter(
+              (theme) => themesIdToDisplay.includes(theme.id)
+            ).map((theme) => (
+              <div className="exercises__wrapper__block-list__theme" key={theme.id}>
+                <h2 className="exercises__wrapper__block-list__theme__title">{theme.name}</h2>
+                <ExercisesList exercises={theme.exercises} color={theme.color} />
+              </div>
+            ))
+          }
+
+        </div>
       </div>
     </section>
   );
