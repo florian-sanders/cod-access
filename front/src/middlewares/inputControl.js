@@ -25,6 +25,7 @@ import {
 } from 'src/actions/signup';
 
 export default (store) => (next) => async (action) => {
+  const state = store.getState();
   switch (action.type) {
     case CHECK_SETTINGS_EMPTY_FIELD:
     case SET_SIGN_IN_CONTROL_MESSAGE:
@@ -86,16 +87,24 @@ export default (store) => (next) => async (action) => {
         action.message = '';
       }
       return next(action);
-
-    case COMPARE_SETTINGS_PASSWORD_CONFIRM:
-      const { auth: { newPasswordConfirm, newPassword }} = store.getState();
-      if (newPassword.value !== newPasswordConfirm.value) {
-         action.message = 'Vous avez saisi deux mots de passe différents';
+    case COMPARE_SIGN_UP_PASSWORD_CONFIRM:
+      if (state.signup.password.value !== state.signup.passwordConfirm.value) {
+        action.message = 'Vous avez saisi deux mots de passe différents';
       }
       else {
         action.message = '';
       }
-      
+      return next(action);
+
+    case COMPARE_SETTINGS_PASSWORD_CONFIRM:
+      if (state.auth.newPassword.value !== state.auth.newPasswordConfirm.value) {
+        action.message = 'Vous avez saisi deux mots de passe différents';
+      }
+      else {
+        action.message = '';
+      }
+      return next(action);
+
     case COMPARE_NEW_PASSWORD_CONFIRM:
       if (action.password !== action.passwordConfirm) {
         action.message = 'Vous avez saisi deux mots de passe différents';
@@ -103,14 +112,6 @@ export default (store) => (next) => async (action) => {
       else {
         action.message = '';
       }
-    // case COMPARE_SIGN_UP_PASSWORD_CONFIRM:
-    //   let { signup: { newPasswordConfirm, newPassword }} = store.getState();
-    //   if (newPassword.value !== newPasswordConfirm.value) {
-    //     action.message = 'Vous avez saisi deux mots de passe différents';
-    //   }
-    //   else {
-    //     action.message = '';
-    //   }
       return next(action);
     default:
       return next(action);

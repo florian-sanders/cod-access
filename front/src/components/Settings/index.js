@@ -202,7 +202,6 @@ const Settings = ({
           currentPassword={currentPassword.value}
           onChange={changeField}
           validateInput={comparePasswordConfirm}
-          // comparePasswordConfirm={comparePasswordConfirm}
           checkEmptyField={checkEmptyField}
         />
         <div className="">

@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 import SignInForm from 'src/components/Connection/SignInForm';
 
-import { trySignIn } from 'src/actions/auth';
+import { trySignIn,
+  setSignInControlMessage,
+  validateSignInEmail,
+} from 'src/actions/auth';
 
 const mapStateToProps = ({ other: { messageParams }}) => ({
   messageParams,
@@ -9,6 +12,9 @@ const mapStateToProps = ({ other: { messageParams }}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   trySignIn: () => dispatch(trySignIn()),
+  checkEmptyField:
+  (controlMessageInfo) => dispatch(setSignInControlMessage(controlMessageInfo)),
+  validateInput: ({ message, value }) => dispatch(validateSignInEmail({ message, email: value })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInForm);

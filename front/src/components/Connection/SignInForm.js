@@ -8,7 +8,12 @@ import FieldGroup from 'src/containers/Connection/FieldGroup';
 
 import './styles.scss';
 
-const SignInForm = ({ trySignIn, messageParams }) => {
+const SignInForm = ({
+  trySignIn,
+  messageParams,
+  checkEmptyField,
+  validateInput,
+}) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     trySignIn();
@@ -31,6 +36,8 @@ const SignInForm = ({ trySignIn, messageParams }) => {
           name="email"
           autocomplete="email"
           isMandatory
+          checkEmptyField={checkEmptyField}
+          validateInput={validateInput}
         />
         <FieldGroup
           type="password"
@@ -38,6 +45,7 @@ const SignInForm = ({ trySignIn, messageParams }) => {
           label="Mot de passe"
           name="password"
           autocomplete="current-password"
+          checkEmptyField={checkEmptyField}
         />
         <button
           className="header-wrapper__connection__toggle-area__form__submit"

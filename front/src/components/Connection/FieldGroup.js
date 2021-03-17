@@ -12,10 +12,27 @@ const FieldGroup = ({
   autocomplete,
   isMandatory,
   name,
-  setControlMessage,
-  validateEmail,
   message,
-}) => (
+  validateInput,
+  checkEmptyField,
+}) => {
+  const handleOnBlur = (valueToTest) => {
+    console.log('champ', name, valueToTest);
+    if (!valueToTest && isMandatory) {
+      checkEmptyField({
+        name,
+        message,
+        value: valueToTest,
+      });
+    }
+    if (valueToTest) {
+      validateInput({
+        value: valueToTest,
+        message,
+      });
+    }
+  };
+  return (
   <div className="header-wrapper__connection__toggle-area__form__group">
     <label htmlFor={id}>
       {label}
@@ -31,21 +48,7 @@ const FieldGroup = ({
           name,
         })
       }
-      onBlur={(event) => {
-        if (isMandatory) {
-          setControlMessage({
-            name,
-            message,
-            value,
-          });
-        }
-        if (event.target.value) {
-          validateEmail({
-            message,
-            value,
-          });
-        }
-      }}
+      onBlur={(event) => handleOnBlur(event.target.value)}
     />
     {
       message && (
@@ -53,7 +56,8 @@ const FieldGroup = ({
       )
     }
   </div>
-);
+  );
+};
 
 FieldGroup.propTypes = {
   id: Proptypes.string.isRequired,
@@ -64,15 +68,16 @@ FieldGroup.propTypes = {
   autocomplete: Proptypes.string,
   isMandatory: Proptypes.bool,
   name: Proptypes.string.isRequired,
-  setControlMessage: Proptypes.func.isRequired,
+  checkEmptyField: Proptypes.func.isRequired,
   message: Proptypes.string.isRequired,
-  validateEmail: Proptypes.func.isRequired,
+  validateInput: Proptypes.func,
 };
 
 FieldGroup.defaultProps = {
   type: 'text',
   isMandatory: false,
   autocomplete: 'off',
+  validateInput: () => {},
 };
 
 export default FieldGroup;
