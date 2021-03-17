@@ -50,10 +50,6 @@
 
       &__item{
         margin-bottom: 1rem;
-        &__checkbox{
-          padding:1rem;
-          border: lightcoral;
-        }
         &__label{
           margin-left:1rem;
         }
@@ -101,7 +97,6 @@
               &__score{
                 display: inline-block;
                 font-style: italic;
-                margin-left: 2rem;
               }
             }
           }
@@ -109,5 +104,45 @@
       }
     }
   }
- }
+
+
+  @media screen and (max-width: 80rem) {
+    &__wrapper{
+      padding:1rem;
+
+      &__block-list{
+        flex-wrap:wrap;
+        &__theme{
+          width:45%;
+
+          &__list__exercise__link{
+            flex-wrap:wrap;
+            &__score{
+              margin-top:1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 60rem) {
+    &__wrapper{
+      padding:1rem;
+
+      &__block-list{
+        flex-wrap:wrap;
+        &__theme{
+          width:100%;
+
+          &__list__exercise__link{
+            flex-wrap:wrap;
+            &__score{
+              margin-top:1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
