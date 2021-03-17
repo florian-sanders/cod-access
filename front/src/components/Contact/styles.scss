@@ -4,6 +4,7 @@
   padding: $gutter;
   margin-bottom: 2*$gutter;
   &__title{
+    text-align: center;
     font-size: $font-size-title-h1;
     font-family: $font-text;
     margin-bottom: $gutter;
@@ -14,7 +15,6 @@
 
     &__illustration{
       width: 50%;
-      background-color: aqua;
     }
     &__form{
       margin: auto;
