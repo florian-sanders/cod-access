@@ -5,6 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import AnswerManager from 'src/containers/ExerciseManager/AnswerManager';
+import Message from 'src/containers/Message';
 import { returnFileSize } from 'src/utils';
 import TextField from './TextField';
 import './styles.scss';
@@ -25,27 +26,24 @@ const QuestionManager = ({
   isSaved,
   sendImageFile,
   changeSelectedFile,
-  saveAltOnBlur,
   imageId,
   imagePath,
   deleteImage,
+  messageParams,
 }) => {
   const handleImageChange = (evt) => {
     evt.preventDefault();
     changeSelectedFile(evt.target.files[0]);
   };
 
-  const handleImageOnBlur = () => {
+  const handleSaveImage = () => {
     if (selectedFile && !isSaved) {
       sendImageFile({
         questionId: id,
         file: selectedFile,
+        alternative: imageAlternative,
       });
     }
-  };
-
-  const handleImageAltOnBlur = () => {
-    if (!isSaved) saveAltOnBlur(imageId);
   };
 
   const handleDeleteImage = () => {
@@ -96,63 +94,72 @@ const QuestionManager = ({
             }}
           />
           {
-            imagePath && (
-              <>
-                <p>Image actuelle :</p>
-                <img src={`${process.env.IMAGE}${imagePath}`} alt="" />
-                <button onClick={handleDeleteImage} type="button">Supprimer l'image</button>
-              </>
+            imagePath
+              ? (
+                <>
+                  <p>Image actuelle :</p>
+                  <img src={`${process.env.IMAGE}${imagePath}`} alt="" />
+                  <button onClick={handleDeleteImage} type="button">Supprimer l'image</button>
+                </>
+              )
+              : (
+                <>
+                  <label
+                    className="admin-exercise__question__general-info__upload__label"
+                    htmlFor={`exercise-q${questionNumber}-upload`}
+                  >
+                    Télécharger une image
+                  </label>
+                  <input
+                    className="admin-exercise__question__general-info__upload__input"
+                    id={`exercise-q${questionNumber}-upload`}
+                    type="file"
+                    onChange={handleImageChange}
+                    value=""
+                    accept="image/*"
+                  />
+
+                  <div className="admin-exercise__question__general-info__upload__preview">
+                    {
+                      !selectedFile
+                        ? (
+                          <p>Aucun fichier selectionné</p>
+                        )
+                        : (
+                          <>
+                            <p>Nom : {selectedFile.name}</p>
+                            <p>Taille : {returnFileSize(selectedFile.size)}</p>
+                            {
+                              selectedFile.type.substring(0, 5) === 'image'
+                                ? <p>Format : {selectedFile.type}, {selectedFile.type.substring(0, 5)}</p>
+                                : <p>Le document sélectionné n'est pas une image, veuillez réessayer.</p>
+                            }
+                            <img src={window.URL.createObjectURL(selectedFile)} alt="" />
+                            <TextField
+                              className="admin-exercise__question__general-info__field-group"
+                              id={`exercise-q${questionNumber}-alternative`}
+                              label="Alternative de l'image (attribut alt)"
+                              type="text"
+                              autocomplete="off"
+                              name="imageAlternative"
+                              value={imageAlternative}
+                              changeValue={changeValue}
+                            />
+                          </>
+                        )
+                    }
+                  </div>
+                  <button type="button" onClick={handleSaveImage}>Sauvegarder l'image</button>
+                </>
+              )
+          }
+          {
+            messageParams.isVisible
+            && messageParams.componentToDisplayIn === `QuestionManager-q${id}`
+            && (
+              <Message {...messageParams} />
             )
           }
-          <label
-            className="admin-exercise__question__general-info__upload__label"
-            htmlFor={`exercise-q${questionNumber}-upload`}
-          >
-            Télécharger une image
-          </label>
-          <input
-            className="admin-exercise__question__general-info__upload__input"
-            id={`exercise-q${questionNumber}-upload`}
-            type="file"
-            onChange={handleImageChange}
-            value=""
-            accept="image/*"
-            onBlur={handleImageOnBlur}
-          />
-
-          <div className="admin-exercise__question__general-info__upload__preview">
-            {
-              !selectedFile
-                ? (
-                  <p>Aucun fichier selectionné</p>
-                )
-                : (
-                  <>
-                    <p>Nom : {selectedFile.name}</p>
-                    <p>Taille : {returnFileSize(selectedFile.size)}</p>
-                    {
-                      selectedFile.type.substring(0, 5) === 'image'
-                        ? <p>Format : {selectedFile.type}, {selectedFile.type.substring(0, 5)}</p>
-                        : <p>Le document sélectionné n'est pas une image, veuillez réessayer.</p>
-                    }
-                    <img src={window.URL.createObjectURL(selectedFile)} alt="" />
-                    <TextField
-                      className="admin-exercise__question__general-info__field-group"
-                      id={`exercise-q${questionNumber}-alternative`}
-                      label="Alternative de l'image (attribut alt)"
-                      type="text"
-                      autocomplete="off"
-                      name="imageAlternative"
-                      value={imageAlternative}
-                      changeValue={changeValue}
-                      isSaved={isSaved}
-                      saveOnBlur={handleImageAltOnBlur}
-                    />
-                  </>
-                )
-            }
-          </div>
-
           <TextField
             className="admin-exercise__question__general-info__field-group"
             id={`exercise-q${questionNumber}-code`}
@@ -193,7 +200,7 @@ const QuestionManager = ({
             Ajouter une réponse supplémentaire
         </button>
 
-        <label>Explication de la correction</label>
+          <label>Explication de la correction</label>
           <CKEditor
             editor={ClassicEditor}
             data={explanation}

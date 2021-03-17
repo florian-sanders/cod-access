@@ -13,10 +13,10 @@ import {
   setQuestionManagerImageId,
   resetQuestionManagerImage,
 } from 'src/actions/exerciseManager/questionManager';
-
 import {
   unsetAnswerManager,
 } from 'src/actions/exerciseManager/answerManager';
+import { setMessage } from 'src/actions/other';
 
 import axiosInstance from 'src/api';
 
@@ -47,7 +47,7 @@ export default (store) => (next) => async (action) => {
           imageId: null,
           imagePath: '',
         }));
-        console.log(data);
+
         store.dispatch(setQuestionManagerIsSaved(true));
       }
       catch (err) {
@@ -132,6 +132,7 @@ export default (store) => (next) => async (action) => {
         const fileInfo = new FormData();
         fileInfo.append('profile', action.file);
         fileInfo.append('question_id', action.questionId);
+        fileInfo.append('alternative', action.alternative);
 
         if (!action.file) {
           return next(action);
@@ -142,16 +143,27 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-
+        console.log(response);
         store.dispatch(setQuestionManagerImageId({
           imageId: response.data.pictureId,
-          imageAlternative: response.data.picturePath,
+          imageAlternative: response.data.pictureAlt,
+          imagePath: response.data.picturePath,
           questionId: action.questionId,
+        }));
+        store.dispatch(setMessage({
+          type: 'confirm',
+          message: 'L\'image a bien été associée à cette question',
+          componentToDisplayIn: `QuestionManager-q${action.questionId}`,
         }));
         store.dispatch(setQuestionManagerIsSaved(true));
       }
       catch (err) {
         console.log(err);
+        store.dispatch(setMessage({
+          type: 'error',
+          message: 'L\'image n\'a pas pu être chargée sur le serveur',
+          componentToDisplayIn: `QuestionManager-q${action.questionId}`,
+        }));
       }
       finally {
         store.dispatch(setQuestionManagerUpdateLoading(false));

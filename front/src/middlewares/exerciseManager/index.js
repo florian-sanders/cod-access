@@ -127,10 +127,10 @@ export default (store) => (next) => async (action) => {
           imageId: question.picture_id,
           imageAlternative: question.question_picture
             ? question.question_picture.alternative
-            : null,
+            : '',
           imagePath: question.question_picture
             ? question.question_picture.path
-            : null,
+            : '',
           selectedFile: null,
         }));
 
