@@ -1,34 +1,32 @@
+@import 'src/styles/vars';
+
 .container {
   margin-top: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  &__text {
-    font-size: 1.2em;
-  }
 }
 
 .form-forget{
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 50%;
-  &__input-password {
-    width: 100%;
-    margin-top: 1rem;
-    border-radius: .5rem;
-    padding: .7rem 2rem;
-  }
-  &__btn-forget {
-    margin-top: 1rem;
-    display: block;
-    align-self: flex-end;
-    background-color: #07485e;
-    color: #fff;
-    border: none;
-    padding: .7rem 2rem;
-    border-radius: .5rem;
-    font-weight: 700;
-  }
-  
+}
+
+.form-input {
+  box-shadow: $shadow;
+}
+
+.message {
+  margin-bottom: $gutter;
+}
+
+.messsage-done {
+  background-color: $color-valid;
+  box-shadow: $shadow;
+  display: block;
+  margin-bottom: $gutter;
+  padding: 16px 8px;
+  border:solid 1px $dark-gray-color;
+  border-radius: 5px;
 }

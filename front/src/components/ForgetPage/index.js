@@ -31,17 +31,16 @@ const ForgetPage = ({
       });
     }
   };
-
+  const button = isDone ? "hidden" : "button--primary"
   return (
     <>
       <div className="container">
-        <p className="container__text">{isDone && 'Merci votre message a bien été envoyé : vous allez recevoir un lien de réinitialisation.'}</p>
-        <p className="container__text">{!isDone
-          && 'Veuillez renseigner votre email pour recevoir le lien de réinitialisation.'}
-        </p>
         <form action="" method="get" className="form-forget" onSubmit={handleSubmit}>
+        <label className="form-label">
+        Veuillez renseigner votre email pour recevoir le lien de réinitialisation.
+        </label>
           <input
-            className="form-forget__input-password"
+            className="form-input"
             value={email.value}
             onChange={(e) => {
               const text = e.target.value;
@@ -53,10 +52,18 @@ const ForgetPage = ({
           />
           {
         email.controlMessage && (
-          <p>{email.controlMessage}</p>
+          <p className="message">{email.controlMessage}</p>
         )
       }
-          <button className="form-forget__btn-forget" type="submit">
+           {
+          isDone
+            && (
+              <>
+                <p className="messsage-done">Merci, votre demande a été prise en compte, vous allez recevoir un lien de réinitialisation par email.</p>
+              </>
+            )
+        }
+          <button className={button} type="submit">
             {loading ? 'chargement' : 'Valider'}
           </button>
         </form>

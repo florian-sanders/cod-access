@@ -5,7 +5,7 @@ import './styles.scss';
 const Error = () => {
     return(
         <>
-            <img className="error" src={ErrorPage} alt="error-image" />
+            <img className="errorPage" src={ErrorPage} alt="error-image" />
         </>
     );
 };

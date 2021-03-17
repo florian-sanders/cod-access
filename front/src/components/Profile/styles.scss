@@ -1,8 +1,13 @@
 @import 'src/styles/vars';
 
+.wrapper{
+  display:flex;
+  justify-content: space-between;
+}
 .profile{
-  max-width: 800px;
   margin: auto;
+  background-color: $ligth-color;
+  padding: 2*$gutter;
 
   &__title{
     font-size: $font-size-title-h1;
@@ -13,16 +18,57 @@
 
   &__content{
     display:flex;
-
+    width: 18%;
+    flex-direction: column;
+    padding: $gutter;
+    justify-content: space-between;
+    background: $white-color;
     &__img{
       width: 150px;
+      height: 150px;
+      border-radius:50%;
+      margin: auto;
+      margin-bottom:$gutter;
     }
-
     &__infos{
-
       &__pseudo{
-        font-size: $font-size-title-h2;
-        margin-bottom: $gutter;
+        margin-bottom:$gutter;
+      }
+    }
+  }
+
+  &__progress{
+    background: $white-color;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    &__theme{
+      text-align: center;
+      padding: $gutter*2 0 $gutter;
+      &__header{
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        height: 80px;
+        &__title{
+          margin-right: 1rem;
+          line-height: 50px;
+        }
+      }
+      &__bar{
+        margin:auto;
+        height: 30px;
+        width: 350px;
+        border-radius: 50px;
+        border: solid 1px;
+      
+        &__filler{
+          color:$white-color;
+          text-align: center;
+          height: 100%;
+          line-height:30px;
+          border-radius: inherit;
+        }
       }
     }
   }
