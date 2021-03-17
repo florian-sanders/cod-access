@@ -34,17 +34,33 @@ const FieldGroup = ({
       <label htmlFor={id} className="signup__content__form__group__label">
         {label}
       </label>
-      <input
-        type={type}
-        name={name}
-        id={id}
-        value={value}
-        onChange={(evt) => onChange(evt.target.value, name)}
-        className="signup__content__form__group__input"
-        aria-required="true"
-        onBlur={(evt) => handleOnBlur(evt.target.value)}
-        autoComplete={autocomplete}
-      />
+      {
+        type !== 'textarea'
+          ? (
+            <input
+              type={type}
+              name={name}
+              id={id}
+              value={value}
+              onChange={(evt) => onChange(evt.target.value, name)}
+              className="signup__content__form__group__input"
+              aria-required="true"
+              onBlur={(evt) => handleOnBlur(evt.target.value)}
+              autoComplete={autocomplete}
+            />
+          )
+          : (
+            <textarea
+              name={name}
+              id={id}
+              value={value}
+              onChange={(evt) => onChange(evt.target.value, name)}
+              className="signup__content__form__group__input"
+              aria-required="true"
+              onBlur={(evt) => handleOnBlur(evt.target.value)}
+            />
+          )
+      }
       {
         message && (
           <p>{message}</p>
@@ -72,7 +88,7 @@ FieldGroup.defaultProps = {
   type: 'text',
   isMandatory: false,
   autocomplete: 'off',
-  validateInput: () => {},
+  validateInput: () => { },
 };
 
 export default FieldGroup;
