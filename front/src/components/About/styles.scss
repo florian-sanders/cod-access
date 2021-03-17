@@ -7,15 +7,19 @@
     padding: 3rem;
     margin: 2rem;
     justify-content: center;
-    border-radius: 15px;
-    font-size: 1.5rem;
-    background-color: #7ed9f78e;
+    border-radius: $gutter;
+    font-size: $font-size-title-h2;
+    color: #566970;
+    background-color: #7ED8F7;
+    font-family: $font-text;
+    
+    font-weight: 400;
+    
   }
 
   &__members {
     display: flex;
-    flex-direction: row;
-    
+    flex-direction: row; 
     justify-content: center;
     align-items: stretch;
 
@@ -25,18 +29,20 @@
       justify-content: center;
       flex-wrap: wrap;
       width: 18%;
-      margin: 0.5rem;
-      background: #7ed9f78e;
+      margin: 1rem;
+      background: #7ED8F7;
       padding: 20px 10px;
       flex-direction: column;
       justify-content: flex-start;
-      border-radius: 15px;
+      border-radius: $gutter;
+      font-family: $font-title;
 
       &__name {
-        
-        font-style: italic;
+        color: #fff;
         text-align: center;
         margin: 1rem;
+        font-family: 'Poppins', sans-serif;
+        text-shadow: black 0.1em 0.1em 0.2em
       }
 
       &__img {
@@ -52,7 +58,11 @@
       }
 
       &__profil {
-        font-size: 1.1rem;
+        font-family: $font-text;
+        font-weight: 400;
+        color: #566970;
+        font-size: $font-size-text;
+        
       }
     }
   }
