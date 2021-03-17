@@ -26,8 +26,12 @@ const Contact = ({
       <h1 className="title-h1">Contactez-nous</h1>
       <div className="contact__content">
           <img  className="contact__content__illustration" src={picture} alt="" />
-          <p>{isContactDone && 'Merci votre message a bien été envoyé : vous allez recevoir de confirmation.'}</p>
         <form action="" method="get" className="contact__content__form" onSubmit={handleSubmit}>
+        { 
+           isContactDone  && (
+            <p className="messsage-done"> Merci votre message a bien été envoyé : vous allez recevoir de confirmation. </p>
+            )
+          }
           <FieldGroup
             type="text"
             id="name"
