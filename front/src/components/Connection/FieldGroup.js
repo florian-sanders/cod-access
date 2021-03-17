@@ -34,7 +34,7 @@ const FieldGroup = ({
   };
   return (
   <div className="header-wrapper__connection__toggle-area__form__group">
-    <label htmlFor={id}>
+    <label htmlFor={id} className="form-label">
       {label}
     </label>
     <input
@@ -42,6 +42,7 @@ const FieldGroup = ({
       type={type}
       value={value}
       autoComplete={autocomplete}
+      className="form-input"
       onChange={
         (evt) => changeValue({
           value: evt.target.value,

@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
 import SignInForm from 'src/components/Connection/SignInForm';
 
-import { trySignIn,
+import {
+  trySignIn,
   setSignInControlMessage,
   validateSignInEmail,
+  toggleConnectionVisibility,
 } from 'src/actions/auth';
 
 const mapStateToProps = ({ other: { messageParams }}) => ({
