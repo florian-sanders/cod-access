@@ -49,7 +49,7 @@ const Connection = ({
           isLogged
             ? (
               <>
-                <img className="header-wrapper__connection__toggle-profile-img" src={`${process.env.IMAGE}${profileImage}`} alt="Profil" />
+                <img className="header-wrapper__connection__toggle-btn__profile-img" src={`${process.env.IMAGE}${profileImage}`} alt="Profil" />
               </>
             )
             : (

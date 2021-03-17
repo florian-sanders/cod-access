@@ -51,7 +51,7 @@ const SignInForm = ({
           Mot de passe oublié
         </Link>
         <button
-          className="button--secondary"
+          className="button--secondary header-wrapper__connection__toggle-area__form__submit"
           type="submit"
         >
           Se connecter

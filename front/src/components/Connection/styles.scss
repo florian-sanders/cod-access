@@ -4,15 +4,18 @@
   position: relative;
   &__toggle-btn {
     &--logged {
+      border: none;
+      background: none;
+    }
+
+    &__profile-img {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 100%;
     }
 
     &__icon {
       display: none;
-    }
-
-    &__profile-img {
-      width: 2rem;
-      height: 2rem;
     }
   }
 
@@ -21,10 +24,11 @@
     position: absolute;
     right: 1rem;
     background-color: $white-color;
-    padding: $gutter;
     border-radius: 0.5rem;
     box-shadow: $shadow;
-    margin-top: .1rem;
+    margin-top: 0.1rem;
+    min-width: 200px;
+    border: solid 0.3px #eee;
 
     &--visible {
       display: block;
@@ -35,6 +39,7 @@
     }
 
     &__form {
+      padding: $gutter $gutter 0 $gutter;
       &__link {
         display: block;
         font-size: 0.7rem;
@@ -47,29 +52,28 @@
       }
 
       &__submit {
-        background-color: $primary-color;
-        color: $white-color;
-        border: none;
-        padding: 0.7rem $gutter;
-        border-radius: 0.5rem;
-        font-weight: bold;
+        margin: $gutter auto;
         display: block;
-        width: max-content;
-        margin: 0 auto;
       }
     }
 
     &__list {
+      padding: $gutter 0;
       &__link {
         display: block;
-        padding-bottom: 1rem;
+        padding: 1rem 1rem;
         &--active {
           font-weight: bold;
+        }
+        &:hover {
+          background-color: $primary-color;
+          color: #fff;
         }
       }
     }
 
     &__signup {
+      padding: 0 $gutter $gutter $gutter;
       text-align: center;
       text-decoration: underline;
 
