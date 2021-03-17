@@ -6,18 +6,27 @@ import {
   editUserRole,
   setUserRole,
 } from 'src/actions/users';
+import {
+  setModalConfirm,
+  setMessage,
+} from 'src/actions/other';
 
 const mapStateToProps = (state) => ({
-  users: state.users.users,
+  users: state.users.users.rows,
   usersRole: state.users.usersRole,
   loadingUsersList: state.users.loadingUsersList,
+  totalPages: Math.ceil(state.users.users.count / 10),
+  messageParams: state.other.messageParams,
+  modalConfirmParams: state.other.modalConfirmParams,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUsers: () => dispatch(fetchUsers()),
-  deleteUser: (idUser) => dispatch(deleteUser(idUser)),
+  fetchUsers: (page) => dispatch(fetchUsers(page)),
+  deleteUser: ({ userId }) => dispatch(deleteUser(userId)),
   editUserRole: (idUser) => dispatch(editUserRole(idUser)),
   handleChangeSelect: (id, role) => dispatch(setUserRole(id, role)),
+  displayModalConfirm: (modalConfirmParams) => dispatch(setModalConfirm(modalConfirmParams)),
+  displayMessage: (messageParams) => dispatch(setMessage(messageParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminUsersList);

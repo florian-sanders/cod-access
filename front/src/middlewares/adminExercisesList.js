@@ -4,6 +4,8 @@ import {
   setLoadingExercisesList,
   setExercises,
 } from 'src/actions/adminExercisesList';
+import { setMessage } from 'src/actions/other';
+
 import axiosInstance from 'src/api';
 
 export default (store) => (next) => async (action) => {
@@ -32,9 +34,20 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
+
+        store.dispatch(setMessage({
+          type: 'confirm',
+          message: `L'exercice #${action.idExercise} a bien été supprimé.`,
+          componentToDisplayIn: 'AdminExercisesList',
+        }));
       }
       catch (err) {
         console.log('error', err);
+        store.dispatch(setMessage({
+          type: 'error',
+          message: 'Une erreur est survenue lors de la suppression.',
+          componentToDisplayIn: 'AdminExercisesList',
+        }));
       }
       finally {
         //loader?

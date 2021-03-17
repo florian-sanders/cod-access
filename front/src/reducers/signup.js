@@ -4,6 +4,8 @@ import {
   SIGN_UP,
   SET_SIGN_UP_CONTROL_MESSAGE,
   VALIDATE_SIGN_UP_EMAIL,
+  TEST_SIGN_UP_PASSWORD_STRENGTH,
+  COMPARE_SIGN_UP_PASSWORD_CONFIRM,
 } from 'src/actions/signup';
 
 const initialState = {
@@ -64,6 +66,22 @@ export default (state = initialState, action = {}) => {
         ...state,
         email: {
           ...state.email,
+          controlMessage: action.message,
+        },
+      };
+    case TEST_SIGN_UP_PASSWORD_STRENGTH:
+      return {
+        ...state,
+        password: {
+          ...state.password,
+          controlMessage: action.message,
+        },
+      };
+    case COMPARE_SIGN_UP_PASSWORD_CONFIRM:
+      return {
+        ...state,
+        passwordConfirm: {
+          ...state.passwordConfirm,
           controlMessage: action.message,
         },
       };

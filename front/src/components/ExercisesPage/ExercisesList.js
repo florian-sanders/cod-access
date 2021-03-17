@@ -8,7 +8,15 @@ const ExercisesList = ({ exercises }) => (
   <ul className="exercises__wrapper__theme__list">
     {exercises.map((exercise) => (
       <li className="exercises__wrapper__theme__list__exercise" key={exercise.id}>
-        <Link to={`/challenges/${exercise.id}`} className="exercises__wrapper__theme__list__exercise__link">{exercise.title} {exercise.clients.score}</Link>
+        <Link
+          to={`/challenges/${exercise.id}`}
+          className="exercises__wrapper__theme__list__exercise__link"
+        >
+          {exercise.title}
+          {
+          exercise.clients[0] && <span className="exercises__wrapper__theme__list__exercise__link__score">{exercise.clients[0].Client_exercise.score}</span>
+          }
+        </Link>
       </li>
     ))}
   </ul>

@@ -77,9 +77,14 @@
               background-color: $primary-color;
               color: white;
             }
+
+            &__score{
+              display: inline-block;
+              font-weight: bold;
+              margin-left: 2rem;
+            }
           }
         }
-
       }
     }
 

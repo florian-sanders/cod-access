@@ -76,14 +76,16 @@ TextField.propTypes = {
   name: Proptypes.string.isRequired,
   autocomplete: Proptypes.string,
   className: Proptypes.string,
-  saveOnBlur: Proptypes.func.isRequired,
-  isSaved: Proptypes.bool.isRequired,
+  saveOnBlur: Proptypes.func,
+  isSaved: Proptypes.bool,
 };
 
 TextField.defaultProps = {
   type: 'text',
   autocomplete: 'off',
   className: '',
+  isSaved: false,
+  saveOnBlur: () => { },
 };
 
 export default TextField;

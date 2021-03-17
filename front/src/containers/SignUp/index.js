@@ -6,6 +6,7 @@ import {
   setSignUpControlMessage,
   validateSignUpEmail,
   testSignUpPasswordStrength,
+  compareSignUpPasswordConfirm,
 } from 'src/actions/signup';
 
 const mapStateToProps = (state) => ({
@@ -15,6 +16,7 @@ const mapStateToProps = (state) => ({
   passwordConfirm: state.signup.passwordConfirm,
   loading: state.signup.loading,
   isSignedUp: state.signup.isSignedUp,
+  messageParams: state.other.messageParams,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -23,8 +25,11 @@ const mapDispatchToProps = (dispatch) => ({
   setControlMessage:
     ({ message, name, value }) => dispatch(setSignUpControlMessage({ message, name, value })),
   validateEmail: ({ message, value }) => dispatch(validateSignUpEmail({ message, email: value })),
-  testPasswordStrength: ({ message, password }) => dispatch(
-    testSignUpPasswordStrength({ message, password }),
+  testPasswordStrength: ({ message, value }) => dispatch(
+    testSignUpPasswordStrength({ message, password: value }),
+  ),
+  comparePasswordConfirm: ({ message }) => dispatch(
+    compareSignUpPasswordConfirm({ message }),
   ),
 });
 

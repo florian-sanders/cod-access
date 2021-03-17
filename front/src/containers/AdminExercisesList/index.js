@@ -4,16 +4,27 @@ import {
   fetchExercises,
   deleteExercise,
 } from 'src/actions/adminExercisesList';
+import {
+  setModalConfirm,
+  setMessage,
+} from 'src/actions/other';
 
-const mapStateToProps = ({ adminExercisesList: { exercises, loadingExercisesList } }) => ({
+const mapStateToProps = ({
+  adminExercisesList: { exercises, loadingExercisesList },
+  other: { modalConfirmParams, messageParams },
+}) => ({
   totalPages: Math.ceil(exercises.count / 20),
   exercises: exercises.rows,
   loadingExercisesList,
+  modalConfirmParams,
+  messageParams,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchExercises: (page) => dispatch(fetchExercises(page)),
-  deleteExercise: (idExercise) => dispatch(deleteExercise(idExercise)),
+  deleteExercise: ({ exerciseId }) => dispatch(deleteExercise(exerciseId)),
+  displayModalConfirm: (modalConfirmParams) => dispatch(setModalConfirm(modalConfirmParams)),
+  displayMessage: (messageParams) => dispatch(setMessage(messageParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminExercisesList);

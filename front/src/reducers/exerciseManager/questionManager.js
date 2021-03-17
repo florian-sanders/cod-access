@@ -34,11 +34,13 @@ const questionManager = (state = initialState, action = {}) => {
           if (question.id === action.questionId) {
             question.imageId = null;
             question.imagePath = '';
+            question.imageAlternative = '';
+            question.selectedFile = null;
           }
 
           return question;
-        })
-      }
+        }),
+      };
     case SET_MANAGERS_FROM_DB:
       return {
         ...state,
@@ -129,6 +131,8 @@ const questionManager = (state = initialState, action = {}) => {
         questions: state.questions.map((question) => {
           if (question.id === action.questionId) {
             question.imageId = action.imageId;
+            question.imagePath = action.imagePath;
+            question.imageAlternative = action.imageAlternative;
           }
 
           return question;

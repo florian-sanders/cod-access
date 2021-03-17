@@ -1,8 +1,12 @@
 import React, { useEffect } from 'react';
 // import ModalRole from './ModalRole';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
-import AdminMenu from 'src/components/AdminMenu';
+import ModalConfirm from 'src/containers/ModalConfirm';
+import Message from 'src/containers/Message';
+import Pagination from './Pagination';
+
 import './styles.scss';
 
 const AdminUsersList = ({
@@ -13,10 +17,18 @@ const AdminUsersList = ({
   usersRole,
   editUserRole,
   handleChangeSelect,
+  totalPages,
+  displayModalConfirm,
+  modalConfirmParams,
+  displayMessage,
+  messageParams,
 }) => {
+  const query = new URLSearchParams(useLocation().search);
+  const page = Number(query.get('page')) || 1;
+
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    fetchUsers(page);
+  }, [page, users.length]);
 
   if (loadingUsersList) {
     return (
@@ -24,8 +36,28 @@ const AdminUsersList = ({
     );
   }
 
-  const handleOnClickDelete = (idUser) => {
-    deleteUser(idUser);
+  const handleOnClickDelete = (user) => {
+    displayModalConfirm({
+      heading: 'Suppression utilisateur',
+      message: `Souhaitez-vous réellement supprimer l'utilisateur "${user.email}"`,
+      confirmParams: {
+        onConfirm: () => {
+          deleteUser({
+            userId: user.id,
+          });
+        },
+        params: {
+          userId: user.id,
+        },
+        label: 'Supprimer l\'utilisateur',
+      },
+      cancelParams: {
+        onCancel: () => { },
+        label: 'Annuler',
+      },
+      shouldDisplayHeading: true,
+      isVisible: true,
+    });
   };
 
   const handleSubmit = (idUser, event) => {
@@ -37,6 +69,13 @@ const AdminUsersList = ({
     <>
       <div className="admin_users">
         <h1 className="title_h1">Liste des utilisateurs</h1>
+        {
+          messageParams.isVisible
+          && messageParams.componentToDisplayIn === 'AdminUsersList'
+          && (
+            <Message {...messageParams} />
+          )
+        }
         <table>
           <thead>
             <tr>
@@ -81,14 +120,10 @@ const AdminUsersList = ({
                     <button
                       type="button"
                       onClick={() => {
-                        handleOnClickDelete(user.id);
+                        handleOnClickDelete(user);
                       }}
-                    >Supprimer
-                    </button>
-                    <button
-                      type="button"
-                      // onClick={}
-                    >Modifier les droits
+                    >
+                      Supprimer
                     </button>
                   </td>
                 </tr>
@@ -96,7 +131,17 @@ const AdminUsersList = ({
             }
           </tbody>
         </table>
-
+        <Pagination
+          totalPages={totalPages}
+          activePage={page}
+        />
+        {
+          modalConfirmParams.isVisible && (
+            <ModalConfirm
+              {...modalConfirmParams}
+            />
+          )
+        }
       </div>
     </>
   );
@@ -121,6 +166,7 @@ AdminUsersList.propTypes = {
   usersRole: PropTypes.object,
   editUserRole: PropTypes.func.isRequired,
   handleChangeSelect: PropTypes.func.isRequired,
+  totalPages: PropTypes.number.isRequired,
 };
 
 AdminUsersList.defaultProps = {

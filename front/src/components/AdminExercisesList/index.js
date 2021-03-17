@@ -4,16 +4,23 @@ import {
   Link,
   useLocation,
 } from 'react-router-dom';
+
+import Message from 'src/containers/Message';
+import Modal from 'src/containers/ModalConfirm';
 import Pagination from './Pagination';
 
 import './styles.scss';
 
-const AdminUsersList = ({
+const AdminExercisesList = ({
   fetchExercises,
   totalPages,
   exercises,
   loadingExercisesList,
   deleteExercise,
+  displayModalConfirm,
+  modalConfirmParams,
+  displayMessage,
+  messageParams,
 }) => {
   const query = new URLSearchParams(useLocation().search);
   const page = Number(query.get('page')) || 1;
@@ -30,14 +37,38 @@ const AdminUsersList = ({
     );
   }
 
-  const handleOnClickDelete = (idExercise) => {
-    deleteExercise(idExercise);
+  const handleOnClickDelete = (exercise) => {
+    displayModalConfirm({
+      heading: 'Suppression exercice',
+      message: `Souhaitez-vous réellement supprimer l'exercice "${exercise.title}"`,
+      confirmParams: {
+        onConfirm: () => {
+          deleteExercise({
+            exerciseId: exercise.id,
+          });
+        },
+        label: 'Supprimer l\'exercice',
+      },
+      cancelParams: {
+        onCancel: () => { },
+        label: 'Annuler',
+      },
+      shouldDisplayHeading: true,
+      isVisible: true,
+    });
   };
 
   return (
     <>
       <div className="admin_users">
-        <h1 className="title_h1">Liste des utilisateurs</h1>
+        <h1 className="title_h1">Liste des Challenges</h1>
+        {
+          messageParams.isVisible
+          && messageParams.componentToDisplayIn === 'AdminExercisesList'
+          && (
+            <Message {...messageParams} />
+          )
+        }
         <table>
           <thead>
             <tr>
@@ -57,7 +88,7 @@ const AdminUsersList = ({
                   <th>{exercise.id}</th>
                   <td>{exercise.title}</td>
                   <td>{exercise.themes.map((theme) => (
-                    <p>{theme.name}</p>
+                    <p key={`${exercise.id}${theme.id}`}>{theme.name}</p>
                   ))}
                   </td>
                   <td>
@@ -72,10 +103,9 @@ const AdminUsersList = ({
                   <td>
                     <button
                       type="button"
-                      onClick={() => {
-                        handleOnClickDelete(exercise.id);
-                      }}
-                    >Supprimer
+                      onClick={() => handleOnClickDelete(exercise)}
+                    >
+                      Supprimer
                     </button>
                     <Link to={`/admin/exercices/edit/${exercise.id}`}>
                       Modifier
@@ -91,11 +121,18 @@ const AdminUsersList = ({
           activePage={page}
         />
       </div>
+      {
+        modalConfirmParams.isVisible && (
+          <Modal
+            {...modalConfirmParams}
+          />
+        )
+      }
     </>
   );
 };
 
-AdminUsersList.propTypes = {
+AdminExercisesList.propTypes = {
   fetchExercises: PropTypes.func.isRequired,
   exercises: PropTypes.arrayOf(
     PropTypes.shape({
@@ -108,11 +145,37 @@ AdminUsersList.propTypes = {
   totalPages: PropTypes.number.isRequired,
   loadingExercisesList: PropTypes.bool,
   deleteExercise: PropTypes.func.isRequired,
+  displayModalConfirm: PropTypes.func.isRequired,
+  modalConfirmParams: PropTypes.shape({
+    heading: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    confirmParams: PropTypes.shape({
+      onConfirm: PropTypes.func.isRequired,
+      params: PropTypes.object,
+      label: PropTypes.string.isRequired,
+    }),
+    cancelParams: PropTypes.shape({
+      onCancel: PropTypes.func,
+      label: PropTypes.string.isRequired,
+    }),
+    isVisible: PropTypes.bool.isRequired,
+  }).isRequired,
+  shouldDisplayHeading: PropTypes.bool,
+  isVisible: PropTypes.bool,
+  displayMessage: PropTypes.func.isRequired,
+  messageParams: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
-AdminUsersList.defaultProps = {
+AdminExercisesList.defaultProps = {
   exercises: [],
   loadingExercisesList: false,
+  shouldDisplayHeading: true,
+  isVisible: false,
+
 };
 
-export default AdminUsersList;
+export default AdminExercisesList;

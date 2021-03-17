@@ -107,6 +107,7 @@ export default (store) => (next) => async (action) => {
           correctAnswers: data.correct,
           incorrectAnswers: data.incorrect,
           rightAnswers: data.rightAnswers,
+          userScore: data.scoreResult,
         }));
       }
       catch (err) {

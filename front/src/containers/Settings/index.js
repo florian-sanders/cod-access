@@ -8,7 +8,12 @@ import {
   setSelectedFile,
   uploadFileProfile,
   deleteAccount,
+  validateSettingsEmail,
+  testSettingsNewPasswordStrength,
+  compareSettingsPasswordConfirm,
+  checkSettingsEmptyField,
 } from 'src/actions/auth';
+import { setModalConfirm } from 'src/actions/other';
 
 const mapStateToProps = (state) => ({
   newEmail: state.auth.newEmail,
@@ -18,6 +23,8 @@ const mapStateToProps = (state) => ({
   newPasswordConfirm: state.auth.newPasswordConfirm,
   user: state.auth.user,
   selectedFile: state.auth.selectedFile,
+  messageParams: state.other.messageParams,
+  modalConfirmParams: state.other.modalConfirmParams,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -28,6 +35,16 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmitFile: () => dispatch(uploadFileProfile()),
   setSelectedFile: (file) => dispatch(setSelectedFile(file)),
   deleteAccount: () => dispatch(deleteAccount()),
+  displayModalConfirm: (modalConfirmParams) => dispatch(setModalConfirm(modalConfirmParams)),
+  validateEmail: ({ message, value }) => dispatch(validateSettingsEmail({ message, email: value })),
+  testPasswordStrength: ({ message, value }) => dispatch(
+    testSettingsNewPasswordStrength({ message, password: value }),
+  ),
+  comparePasswordConfirm: ({ value, message }) => dispatch(
+    compareSettingsPasswordConfirm({ passwordConfirm: value, message }),
+  ),
+  checkEmptyField:
+  ({ message, name, value }) => dispatch(checkSettingsEmptyField({ message, name, value })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
