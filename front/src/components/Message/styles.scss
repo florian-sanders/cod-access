@@ -1,15 +1,71 @@
+@import "src/styles/vars";
+
+.message-box {
+  padding: 1rem;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  color:$white-color;
+  padding: 16px 12px;
+  border-radius: 5px;
+  box-shadow: $shadow;
+  margin-bottom: $gutter;
+
+  &__cross{
+    font-size: 1.3rem;
+    color: $white-color;
+    background-color: none;
+    background-color: Transparent;
+    border:none;
+    transform: scale(1.3);
+    &:hover{
+      font-weight: bold;
+    }
+  }
+}
+
 .confirm {
-  border: solid 1px green;
+  background-color: $color-valid;
+  &__content{
+    &::before {
+      content: "\2713";
+      color: $color-valid;
+      text-align: center;
+      padding: 1px;
+      margin-right: 0.8rem;
+      display:inline-block;
+      line-height: 20px;
+      width: 20px;
+      height: 20px;
+      font-weight: bold;
+      background-color: $white-color;
+      border-radius: 50%;
+    }
+  }
 }
 
 .error {
-  border: solid 1px red;
+  background-color: $color-error;
+  &__content{
+    &::before {
+      content: "!";
+      color: $color-error;
+      text-align: center;
+      padding: 1px;
+      margin-right: 0.8rem;
+      display:inline-block;
+      line-height: 20px;
+      width: 20px;
+      height: 20px;
+      font-weight: bold;
+      background-color: $white-color;
+      border-radius: 50%;
+    }
+  }
 }
 
 .neutral {
   border: solid 1px grey;
 }
 
-.message-box {
-  padding: 1rem;
-}
+

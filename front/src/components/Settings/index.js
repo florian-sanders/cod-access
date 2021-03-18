@@ -34,7 +34,7 @@ const Settings = ({
   const handleDelAccountClick = () => {
     displayModalConfirm({
       heading: 'Suppression de compte',
-      message: `Souhaitez-vous réellement supprimer votre compte ? Cette action est irreversible.`,
+      message: 'Souhaitez-vous réellement supprimer votre compte ? Cette action est irreversible.',
       confirmParams: {
         onConfirm: deleteAccount,
         label: 'Supprimer mon compte',
@@ -260,6 +260,9 @@ Settings.propTypes = {
   testPasswordStrength: PropTypes.func.isRequired,
   comparePasswordConfirm: PropTypes.func.isRequired,
   checkEmptyField: PropTypes.func.isRequired,
+  messageParams: PropTypes.string.isRequired,
+  displayModalConfirm: PropTypes.func.isRequired,
+  modalConfirmParams: PropTypes.object.isRequired,
 };
 
 Settings.defaultProps = {
