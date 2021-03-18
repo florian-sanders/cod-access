@@ -1,1 +1,32 @@
 @import "src/styles/vars";
+
+.Sitemap {
+
+  padding: 6rem;
+  padding-top: 3rem;
+  justify-content: center;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    font-weight: bolder;
+    font-size: $font-size-title-h1;
+    padding-bottom: 4rem;
+  }
+
+  &__subTitle {
+    justify-content: start;
+    font-weight: bolder;
+    font-size: $font-size-title-h2;
+    padding-bottom: 1rem;
+  }
+
+  li {
+    list-style-type: circle;
+    margin: 0.6rem;
+  }
+
+  ul{
+    padding-bottom: 2rem;
+  }
+}
