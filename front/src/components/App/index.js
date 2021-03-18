@@ -8,6 +8,7 @@ import Menu from 'src/containers/Menu';
 import Connection from 'src/containers/Connection';
 import Page from 'src/containers/Page';
 import Footer from 'src/components/Footer';
+import CircleLoader from '../CircleLoader'
 import './styles.scss';
 
 // == Composant
@@ -29,7 +30,15 @@ const App = ({ checkAuth, getCSRFToken, loadThemes, appLoading }) => {
         <Connection />
       </div>
       {
-        appLoading ? <p>Chargement</p> : <Page />
+        appLoading ? 
+        <div className="loading">
+        <CircleLoader
+          colour={"#7ED8F7"}
+          radius={100}
+          duration={2}
+          strokeWidth={20} />
+        </div>
+        : <Page />
       }
       <Footer />
     </>

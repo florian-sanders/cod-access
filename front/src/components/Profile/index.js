@@ -15,7 +15,7 @@ const Profile = ({
 
   return (
     <div className="profile">
-      <h1 className="title-h1">Mon Profil</h1>
+      <h1 className="title-h1 center">Mon Profil</h1>
       <div className="wrapper">
         <div className="profile__content">
           <img className="profile__content__img" src={`${process.env.IMAGE}${picturePath}`} alt="" />

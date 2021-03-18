@@ -1,5 +1,11 @@
 @import "src/styles/vars";
 
+.loading{
+  margin-top: 2*$gutter;
+  text-align: center;
+  margin: auto;
+}
+
 // .modal{
 //   position: fixed;
 //   margin: 2rem;

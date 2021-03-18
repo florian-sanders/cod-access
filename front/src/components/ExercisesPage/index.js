@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ExercisesList from './ExercisesList';
 import Filter from './Filter';
+import CircleLoader from '../CircleLoader'
 
 import './styles.scss';
 
@@ -19,16 +20,21 @@ const ExercisesPage = ({
   useEffect(() => {
     fetchThemesExercises();
   }, []);
-
   if (loadingExercisesPage) {
     return (
-      <p className="loader">Chargement</p>
+      <div className="loading">
+      <CircleLoader
+        colour={"#7ED8F7"}
+        radius={100}
+        duration={2}
+        strokeWidth={20} />
+      </div>
     );
   }
 
   return (
     <section className="exercises">
-      <h1 className="title-h1">Challenges</h1>
+      <h1 className="title-h1 center">Challenges</h1>
       <div className="exercises__wrapper">
         <Filter
           themes={themesFilterCheckbox}

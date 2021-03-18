@@ -10,6 +10,7 @@ import ThemeManager from 'src/containers/ExerciseManager/ThemeManager';
 import TextField from './TextField';
 import Checkbox from './Checkbox';
 import Modal from './Modal';
+import CircleLoader from '../CircleLoader'
 import './styles.scss';
 
 const ExerciseManager = ({
@@ -43,7 +44,15 @@ const ExerciseManager = ({
   }, []);
 
   if (loading) {
-    return (<p>Chargement en cours</p>);
+    return (
+    <div className="loading">
+    <CircleLoader
+      colour={"#7ED8F7"}
+      radius={100}
+      duration={2}
+      strokeWidth={20} />
+    </div>
+    );
   }
 
   if (error) {

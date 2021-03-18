@@ -1,5 +1,10 @@
 @import "src/styles/vars";
 
+.loading{
+  margin-top: 2*$gutter;
+  text-align: center;
+}
+
 .exercise-section {
   max-width: 1100px;
   margin: 0 auto;
