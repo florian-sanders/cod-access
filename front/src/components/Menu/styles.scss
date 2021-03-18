@@ -12,7 +12,10 @@
 
   &__list {
     display: flex;
-    gap: $gutter;
+
+    & li {
+      padding: 1rem $gutter;
+    }
 
     &__link {
       padding: 0.3rem 0.5rem;
@@ -90,6 +93,10 @@
       transition: visibility 1s;
       margin-top: $gutter * 2;
       padding: 0 4rem 0 1.5rem;
+
+      & li {
+        padding: $gutter 0;
+      }
     }
 
     &--open {

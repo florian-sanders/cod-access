@@ -65,7 +65,7 @@ const Menu = ({
         </NavLink>
       </li>
     </ul>
-  </nav >
+  </nav>
 );
 
 Menu.propTypes = {
