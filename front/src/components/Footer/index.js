@@ -10,12 +10,12 @@ const Footer = () => (
         Copyright 2021
       </li>
       <li>
-        <Link className="footer__list__link" to="#">
+        <Link className="footer__list__link" to="/mentions-legales">
           Mentions légales
         </Link>
       </li>
       <li>
-        <Link className="footer__list__link" to="#">
+        <Link className="footer__list__link" to="/plan-du-site">
           Plan du site
         </Link>
       </li>

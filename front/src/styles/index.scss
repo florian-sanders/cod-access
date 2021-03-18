@@ -59,9 +59,13 @@ body {
   border-radius: 5px;
   &:hover {
     border: solid 1px $dark-color;
+
   }
   &:focus {
-    border: solid 2px $primary-color;
+    border: solid 10px $primary-color;
+    border-top-style: none;
+    border-left-style: none;
+    border-bottom-style: none;
   }
 }
 
