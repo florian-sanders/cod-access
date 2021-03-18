@@ -8,6 +8,8 @@
   margin: 2rem;
   padding: 2rem;
 
+  border-radius: 15px;
+  // background-color:$gray-color !important;
   background-color: $white-color;
   box-shadow: $shadow;
 
@@ -24,14 +26,8 @@
   &__buttons{
     text-align: right;
   }
-
- // border-radius: 15px;
- // background-color:$gray-color !important;
-//  box-shadow: $shadow;
-//}
-
-//.to--right {
-//  float: right;
-
 }
 
+.to--right {
+  float: right;
+}
