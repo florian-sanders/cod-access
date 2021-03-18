@@ -84,6 +84,7 @@
         white-space: -pre-wrap; /* Opera 4-6 */
         white-space: -o-pre-wrap; /* Opera 7 */
         word-wrap: break-word; /* Internet Explorer 5.5+ */
+        font-family: $font-code;
 
         & span:not(.exercise-section__questions__question__code__drop-area) {
           display: block;
@@ -127,6 +128,9 @@
           padding: 2rem 1rem 2rem 4rem;
           border-radius: 1rem;
           position: relative;
+          font-family: $font-code;
+          display: flex;
+          align-items: center;
 
           &:hover {
             cursor: alias; /* fallback if grab cursor is unsupported */
@@ -146,6 +150,10 @@
             &:hover {
               cursor: auto;
             }
+          }
+
+          &--user-correct {
+            border: dashed 1px $color-valid;
           }
 
           &__icon {

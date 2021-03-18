@@ -48,6 +48,7 @@ const Answer = ({
                 {
                   'exercise-section__questions__question__answers__answer--user-answer': isUserAnswer,
                   'exercise-section__questions__question__answers__answer--no-drag': isDragDisabled && !isUserAnswer,
+                  'exercise-section__questions__question__answers__answer--user-correct': isUserAnswer && userCorrect,
                 },
               )
             }
@@ -64,7 +65,9 @@ const Answer = ({
             }
             {content}
             {
-              isUserAnswer && (
+              isUserAnswer
+              && !isCorrected
+              && (
                 <button type="button" onClick={handleClick} className="exercise-section__questions__question__answers__answer__remove" aria-label={`Supprimer l'attribut ${content}`}>
                   <FontAwesomeIcon role="presentation" icon={faEraser} size="2x" />
                 </button>
