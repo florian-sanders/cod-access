@@ -21,25 +21,29 @@ const ModalConfirm = ({
   };
 
   return (
-    <div className="modal" role="dialog" aria-modal="true" tabIndex="-1" aria-label={heading}>
-      <button type="button" onClick={closeModal}>Fermer</button>
+    <div className="modal-confirm" role="dialog" aria-modal="true" tabIndex="-1" aria-label={heading}>
+      {/* <button type="button" onClick={closeModal}>Fermer</button> */}
       {
-        shouldDisplayHeading && (<h1>{heading}</h1>)
+        shouldDisplayHeading && (<h1 className="modal-confirm__heading">{heading}</h1>)
       }
-      <p>{message}</p>
-      <button
-        type="button"
-        onClick={handleConfirm}
-      >
-        {confirmParams.label}
-      </button>
+      <p className="modal-confirm__message">{message}</p>
+      <div className="modal-confirm__buttons">
+        <button
+          type="button"
+          className="button--primary"
+          onClick={handleConfirm}
+        >
+          {confirmParams.label}
+        </button>
 
-      <button
-        type="button"
-        onClick={handleCancel}
-      >
-        {cancelParams.label}
-      </button>
+        <button
+          type="button"
+          className="button--secondary"
+          onClick={handleCancel}
+        >
+          {cancelParams.label}
+        </button>
+      </div>
     </div>
   );
 };
