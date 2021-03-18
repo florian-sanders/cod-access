@@ -24,7 +24,7 @@ const Contact = ({
   const button = isContactDone ? "hidden" : "button--primary"
   return (
     <div className="contact">
-      <h1 className="title-h1">Contactez-nous</h1>
+      <h1 className="title-h1 center">Contactez-nous</h1>
       <div className="contact__content">
           <img  className="contact__content__illustration" src={picture} alt="" />
         <form action="" method="get" className="contact__content__form" onSubmit={handleSubmit}>
