@@ -1,1 +1,30 @@
 @import "src/styles/vars";
+
+.LegalNotice {
+  padding: 4rem;
+  justify-content: center;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    font-weight: bolder;
+    font-size: $font-size-title-h1;
+    padding-bottom: 4rem;
+  }
+
+  &__subTitle {
+    justify-content: start;
+    font-size: $font-size-title-h2;
+    font-weight: bolder;
+
+    padding-bottom: 1rem;
+  }
+
+  &__description {
+
+    padding-bottom: 2rem;
+    font-size: $font-size-title-h2;
+    color: #566970;
+    font-family: $font-text;
+  }
+}
