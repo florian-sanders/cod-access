@@ -75,12 +75,12 @@ const NewPassword = ({
           />
           {
         password.controlMessage && (
-          <p className="message">{password.controlMessage}</p>
+          <p className="message--warning">{password.controlMessage}</p>
         )
       }
           {
         passwordConfirm.controlMessage && (
-          <p className="message">{passwordConfirm.controlMessage}</p>
+          <p className="message--warning">{passwordConfirm.controlMessage}</p>
         )
       }
          {

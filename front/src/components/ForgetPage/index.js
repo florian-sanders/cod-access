@@ -52,7 +52,7 @@ const ForgetPage = ({
           />
           {
         email.controlMessage && (
-          <p className="message">{email.controlMessage}</p>
+          <p className="message--warning">{email.controlMessage}</p>
         )
       }
            {
