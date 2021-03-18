@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
 import Question from 'src/containers/Exercise/Question';
+import CircleLoader from '../CircleLoader'
 import './styles.scss';
 
 const Exercise = ({
@@ -28,7 +29,15 @@ const Exercise = ({
   }, []);
 
   if (loading) {
-    return (<p> Chargement en cours</p>);
+    return (
+      <div className="loading">
+      <CircleLoader
+        colour={"#7ED8F7"}
+        radius={100}
+        duration={2}
+        strokeWidth={20} />
+      </div>
+      );
   }
 
   return (

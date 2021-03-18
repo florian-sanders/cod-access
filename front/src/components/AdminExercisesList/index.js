@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import Message from 'src/containers/Message';
+import CircleLoader from 'src/components/CircleLoader';
 import Modal from 'src/containers/ModalConfirm';
 import Pagination from './Pagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -35,7 +36,13 @@ const AdminExercisesList = ({
 
   if (loadingExercisesList) {
     return (
-      <p className="loader">Chargement</p>
+      <div className="loading">
+      <CircleLoader
+        colour={"#7ED8F7"}
+        radius={100}
+        duration={2}
+        strokeWidth={20} />
+      </div>
     );
   }
 
@@ -63,7 +70,7 @@ const AdminExercisesList = ({
   return (
     <>
       <div className="admin__users">
-        <h1 className="title_h1">Liste des Challenges</h1>
+        <h1 className="title-h2">Liste des Challenges</h1>
         {
           messageParams.isVisible
           && messageParams.componentToDisplayIn === 'AdminExercisesList'

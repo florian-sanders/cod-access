@@ -1,10 +1,10 @@
 @import 'src/styles/vars';
 
-.loader{
-  font-size: 5em;
-  margin: 5rem;
+.loading{
+  margin-top: 2*$gutter;
+  text-align: center;
+  
 }
-
 
 .exercises{
   padding: $gutter;

@@ -1,5 +1,10 @@
 @import "src/styles/vars";
 
+.loading{
+  margin-top: 2*$gutter;
+  text-align: center;
+}
+
 .header-wrapper {
   padding: 1rem 5rem;
   display: flex;

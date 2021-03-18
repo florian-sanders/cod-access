@@ -7,6 +7,7 @@ import { faTrash, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import ModalConfirm from 'src/containers/ModalConfirm';
 import Message from 'src/containers/Message';
+import CircleLoader from 'src/components/CircleLoader';
 import Pagination from './Pagination';
 
 import './styles.scss';
@@ -34,7 +35,13 @@ const AdminUsersList = ({
 
   if (loadingUsersList) {
     return (
-      <p className="loader">Chargement</p>
+      <div className="loading">
+      <CircleLoader
+        colour={"#7ED8F7"}
+        radius={100}
+        duration={2}
+        strokeWidth={20} />
+      </div>
     );
   }
 
