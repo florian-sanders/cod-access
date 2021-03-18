@@ -7,6 +7,12 @@
   transform: translate(-50%, -50%);
   margin: 2rem;
   padding: 2rem;
-  background-color: $white-color;
+  border-radius: 15px;
+  background-color:$gray-color !important;
+  box-shadow: $shadow;
+}
+
+.to--right {
+  float: right;
 }
 

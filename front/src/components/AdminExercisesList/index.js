@@ -8,6 +8,8 @@ import {
 import Message from 'src/containers/Message';
 import Modal from 'src/containers/ModalConfirm';
 import Pagination from './Pagination';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import './styles.scss';
 
@@ -60,7 +62,7 @@ const AdminExercisesList = ({
 
   return (
     <>
-      <div className="admin_users">
+      <div className="admin__users">
         <h1 className="title_h1">Liste des Challenges</h1>
         {
           messageParams.isVisible
@@ -69,7 +71,7 @@ const AdminExercisesList = ({
             <Message {...messageParams} />
           )
         }
-        <table>
+        <table className="admin__users__table">
           <thead>
             <tr>
               <th>id</th>
@@ -102,13 +104,14 @@ const AdminExercisesList = ({
                   <td>{exercise.updated_at}</td>
                   <td>
                     <button
+                        className="button--actions"
                       type="button"
                       onClick={() => handleOnClickDelete(exercise)}
                     >
-                      Supprimer
+                      <FontAwesomeIcon icon={faTrash} />
                     </button>
                     <Link to={`/admin/exercices/edit/${exercise.id}`}>
-                      Modifier
+                      <FontAwesomeIcon icon={faEdit} />
                     </Link>
                   </td>
                 </tr>
