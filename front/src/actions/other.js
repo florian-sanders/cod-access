@@ -49,3 +49,10 @@ export const setAppLoading = (loading) => ({
   type: SET_APP_LOADING,
   loading,
 });
+
+export const SET_MOBILE_MENU_VISIBILITY = 'SET_MOBILE_MENU_VISIBILITY';
+
+export const setMobileMenuVisibility = (visibility) => ({
+  type: SET_MOBILE_MENU_VISIBILITY,
+  visibility,
+});

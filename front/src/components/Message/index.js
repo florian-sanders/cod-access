@@ -18,8 +18,8 @@ const Message = ({ type, message, closeMessage }) => {
 
   return (
     <div role="alert" className={`message-box ${classname}`}>
-      <p>{message}</p>
-      <button type="button" onClick={closeMessage}>x</button>
+      <p className={`message-box__content ${classname}__content`}>{message}</p>
+      <button className={`message-box__cross ${classname}__cross`} type="button" onClick={closeMessage}>x</button>
     </div>
   );
 };

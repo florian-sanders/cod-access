@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="508mm"
+   height="32.106304mm"
+   viewBox="0 0 508 32.106304"
+   version="1.1"
+   id="svg1446"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="wave-light-reversed.svg">
+  <defs
+     id="defs1440">
+    <mask
+       id="SvgjsMask1001">
+      <rect
+         id="rect2168"
+         height="150"
+         width="1920"
+         x="0"
+         y="0"
+         style="fill:#ffffff" />
+    </mask>
+    <mask
+       id="SvgjsMask1001-7">
+      <rect
+         id="rect2312"
+         height="150"
+         width="1920"
+         x="0"
+         y="0"
+         style="fill:#ffffff" />
+    </mask>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="1005.7143"
+     inkscape:cy="75.632354"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1848"
+     inkscape:window-height="1016"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata1443">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(298.22321,-136.73809)">
+    <g
+       id="g2310"
+       mask="url(#SvgjsMask1001-7)"
+       transform="matrix(-0.26458333,0,0,-0.26458333,209.77678,176.42559)"
+       style="fill:#d4e8ee;stroke:none">
+      <path
+         id="path2308"
+         d="M 0,144 C 76.8,121.6 230.4,37.8 384,32 c 153.6,-5.8 230.4,83.6 384,83 153.6,-0.6 230.4,-80.6 384,-86 153.6,-5.4 230.4,54 384,59 153.6,5 307.2,-27.2 384,-34 v 96 H 0 Z"
+         inkscape:connector-curvature="0"
+         style="fill:rgba(5, 106, 147, 0.32);stroke:none" />
+    </g>
+  </g>
+</svg>
