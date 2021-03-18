@@ -27,12 +27,17 @@ const Page = ({
   isLogged,
   role,
   connectionMenuVisibility,
+  mobileMenuVisibility,
   closeConnectionMenu,
+  closeMobileMenu,
 }) => {
   const location = useLocation();
   useEffect(() => {
     if (connectionMenuVisibility) {
       closeConnectionMenu();
+    }
+    if(mobileMenuVisibility) {
+      closeMobileMenu();
     }
   }, [location]);
 

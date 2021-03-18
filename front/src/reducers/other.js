@@ -7,6 +7,7 @@ import {
   UNSET_MESSAGE,
   SET_APP_LOADING,
 } from 'src/actions/other';
+import { SET_MOBILE_MENU_VISIBILITY } from '../actions/other';
 
 const initialState = {
   mobileMenuVisibility: false,
@@ -38,6 +39,11 @@ const initialState = {
 
 const other = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_MOBILE_MENU_VISIBILITY:
+      return {
+        ...state,
+        mobileMenuVisibility: action.visibility,
+      };
     case SET_MESSAGE:
       return {
         ...state,
