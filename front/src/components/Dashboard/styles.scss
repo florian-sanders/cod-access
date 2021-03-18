@@ -2,9 +2,10 @@
 
 .admin{
   display:flex;
+  background-color: $primary-color;
 
   &__menu{
-    width:30%;
+    width:100%;
 
     &__link{
       display: block;
