@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+
 import DOMPurify from 'dompurify';
 
 import Question from 'src/containers/Exercise/Question';
@@ -33,7 +36,11 @@ const Exercise = ({
 
   return (
     <section className="exercise-section">
-      <h1 className="exercise-section__page-heading">{title}</h1>
+      <h1 className="title-h1">{title}</h1>
+      <Link to="/challenges" className="exercise-section__quit">
+        Quitter
+        <FontAwesomeIcon className="exercise-section__quit__icon" role="presentation" icon={faSignOutAlt} size="1x" />
+      </Link>
       {
         resultMessage && (
           <div className="exercise-section__results">
@@ -57,9 +64,17 @@ const Exercise = ({
             />
           ))
         }
+      </section>
+      <nav role="navigation" className="exercise-section__navigation" aria-label="questions">
         {
           currentQuestionIndex > 0 && (
-            <button type="button" onClick={() => changeQuestion(currentQuestionIndex - 1)}>Question précédente</button>
+            <button
+              className="button--secondary"
+              type="button"
+              onClick={() => changeQuestion(currentQuestionIndex - 1)}
+            >
+              Question précédente
+            </button>
           )
         }
         {// move these tests to container later
@@ -72,6 +87,7 @@ const Exercise = ({
                   : ''
               }
               disabled={!questions[currentQuestionIndex].userAnswers.length}
+              className="button--primary"
               type="button"
               onClick={
                 () => changeQuestion(currentQuestionIndex + 1)
@@ -89,6 +105,7 @@ const Exercise = ({
                   ? 'Veuillez renseigner une réponse'
                   : ''
               }
+              className="button--primary"
               type="button"
               disabled={!questions[currentQuestionIndex].userAnswers.length}
               onClick={submitAnswers}
@@ -104,7 +121,7 @@ const Exercise = ({
             </Link>
           )
         }
-      </section>
+      </nav>
     </section>
   );
 };
@@ -119,6 +136,7 @@ Exercise.propTypes = {
   changeQuestion: PropTypes.func.isRequired,
   submitAnswers: PropTypes.func.isRequired,
   resetCurrentExercise: PropTypes.func.isRequired,
+  resultMessage: PropTypes.string,
 };
 
 Exercise.defaultProps = {
@@ -126,6 +144,7 @@ Exercise.defaultProps = {
   questions: [],
   loading: true,
   currentQuestionIndex: 0,
+  resultMessage: '',
 };
 
 export default Exercise;

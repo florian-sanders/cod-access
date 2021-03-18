@@ -14,10 +14,10 @@ const mapStateToProps = ({ exercises: { currentExercise } }) => {
   if (currentExercise.userScore === 100) {
     resultMessage = `Bravo, c'est vraiment toi le meilleur. Tu as obtenu ${currentExercise.userScore}.`;
   }
-  else if (currentExercise.userScore > 50) {
+  else if (currentExercise.userScore >= 50) {
     resultMessage = `Pas mal moussaillon. Il y a encore du boulot mais tu as obtenu ${currentExercise.userScore}`;
   }
-  else {
+  else if (currentExercise.userScore < 50 && currentExercise.userScore !== null) {
     resultMessage = `C'est la cata moussaillon. tu n'as obtenu que ${currentExercise.userScore}`;
   }
 

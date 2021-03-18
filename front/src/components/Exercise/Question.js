@@ -47,6 +47,7 @@ const Question = ({
         {
           brief && (
             <article
+              className="exercise-section__questions__question__brief"
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(brief),
               }}
@@ -56,7 +57,7 @@ const Question = ({
         {
           picture && (<img className="exercise-section__questions__question__img" src={`${process.env.IMAGE}${picture.path}`} alt={picture.alternative} />)
         }
-        <pre>
+        <pre className="exercise-section__questions__question__code">
           <code>
             {
               slicedCode.map((codeSlice) => {
