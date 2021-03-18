@@ -28,7 +28,7 @@ const SignUp = ({
 
   return (
     <div className="signup">
-      <h1 className="title-h1">Inscription</h1>
+      <h1 className="title-h1 center">Inscription</h1>
       <div className="signup__content">
       <img  className="contact__content__illustration" src={picture} alt="" />
         <form action="" method="get" className="signup__content__form" onSubmit={handleSubmit}>

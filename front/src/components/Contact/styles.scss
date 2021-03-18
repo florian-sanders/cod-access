@@ -17,15 +17,24 @@
         text-align: left;
       }
     }
+    @media screen and (max-width: 60rem) {
+      /*
+      * Mobile, articles are below each other with no shift.
+      * Images are displayed above each article
+      */
+      &__illustration{
+        display:none;
+      }
+      &__form{
+        margin: auto;
+        width: 100%;
+      }
+    }
   }
 }
 
-.title-h1{
+.center{
   text-align: center;
-}
-
-.form-input {
-  box-shadow: $shadow;
 }
 
 .textarea {

@@ -5,17 +5,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: $gutter;
 }
 
 .form-forget{
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 70%;
+}
+@media screen and (max-width: 60rem) {
+  /*
+  * Mobile, articles are below each other with no shift.
+  * Images are displayed above each article
+  */
+  .form-forget{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
 }
 
-.form-input {
-  box-shadow: $shadow;
-}
 
 .message {
   margin-bottom: $gutter;
