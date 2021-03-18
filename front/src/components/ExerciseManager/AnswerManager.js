@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import TextField from './TextField';
 import Checkbox from './Checkbox';
 import './styles.scss';
@@ -15,15 +16,17 @@ const AnswerManager = ({
   saveOnBlur,
   isSaved,
 }) => (
-  <div className="admin-exercise__question__answers__answer">
+  <div className="admin-exercise__form__question__answers__answer">
     <fieldset>
-      <legend>Réponse {answerNumber}</legend>
-      <button type="button" onClick={removeAnswer}>
-        Supprimer
-          <span className="sr-only">Question {questionNumber}</span>
-      </button>
+      <div className="admin-exercise__form__question__answers__answer__header">
+        <legend>Réponse {answerNumber}</legend>
+        <button type="button" className="button--delete" onClick={removeAnswer}>
+          Supprimer
+            <span className="sr-only">Question {questionNumber}</span>
+        </button>
+      </div>
       <TextField
-        className="admin-exercise__question__general-info__field-group"
+        className="admin-exercise__form__question__general-info__field-group"
         id={`exercise-q${questionNumber}-r${answerNumber}-content`}
         label="Contenu"
         type="text"
@@ -36,7 +39,7 @@ const AnswerManager = ({
       />
 
       <Checkbox
-        className="admin-exercise__question__general-info__field-group"
+        className="admin-exercise__form__question__general-info__field-group"
         id={`exercise-q${questionNumber}-r${answerNumber}-correct`}
         label="Bonne réponse"
         type="checkbox"

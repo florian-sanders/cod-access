@@ -8,23 +8,25 @@ const ThemeManager = ({
   patchThemeUpdate,
   updateThemeState,
 }) => (
-  <fieldset className="admin-exercise__general-info__themes">
+  <fieldset className="admin-exercise__form__general-info__themes">
     <legend>Thématiques</legend>
-    {
-      themes.map((theme) => (
-        <Checkbox
-          className="admin-exercise__general-info__field-group"
-          id={`theme-${theme.id}`}
-          label={theme.name}
-          type="checkbox"
-          name={theme.id.toString()}
-          key={`theme-${theme.id}`}
-          saveCheckboxChange={patchThemeUpdate}
-          updateState={updateThemeState}
-          value={theme.checked}
-        />
-      ))
-    }
+    <div className="admin-exercise__form__general-info__themes__checkbox">
+      {
+        themes.map((theme) => (
+          <Checkbox
+            className="admin-exercise__form__general-info__themes__checkbox__field-group"
+            id={`theme-${theme.id}`}
+            label={theme.name}
+            type="checkbox"
+            name={theme.id.toString()}
+            key={`theme-${theme.id}`}
+            saveCheckboxChange={patchThemeUpdate}
+            updateState={updateThemeState}
+            value={theme.checked}
+          />
+        ))
+      }
+    </div>
   </fieldset>
 );
 
