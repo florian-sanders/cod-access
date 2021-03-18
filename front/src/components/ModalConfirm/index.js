@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import './styles.scss';
 
@@ -21,8 +23,15 @@ const ModalConfirm = ({
   };
 
   return (
+
     <div className="modal-confirm" role="dialog" aria-modal="true" tabIndex="-1" aria-label={heading}>
       {/* <button type="button" onClick={closeModal}>Fermer</button> */}
+
+     {/* <div className="modal" role="dialog" aria-modal="true" tabIndex="-1" aria-label={heading}>
+     <button className="button--actions to--right" type="button" onClick={closeModal}>
+     <FontAwesomeIcon icon={faWindowClose} size="2x" />
+     </button>*/}
+
       {
         shouldDisplayHeading && (<h1 className="modal-confirm__heading">{heading}</h1>)
       }

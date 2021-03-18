@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 // import ModalRole from './ModalRole';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import ModalConfirm from 'src/containers/ModalConfirm';
 import Message from 'src/containers/Message';
@@ -67,8 +69,8 @@ const AdminUsersList = ({
 
   return (
     <>
-      <div className="admin_users">
-        <h1 className="title_h1">Liste des utilisateurs</h1>
+      <div className="admin__users">
+        <h1 className="title-h2">Liste des utilisateurs</h1>
         {
           messageParams.isVisible
           && messageParams.componentToDisplayIn === 'AdminUsersList'
@@ -76,7 +78,7 @@ const AdminUsersList = ({
             <Message {...messageParams} />
           )
         }
-        <table>
+        <table className="admin__users__table">
           <thead>
             <tr>
               <th>id</th>
@@ -96,16 +98,19 @@ const AdminUsersList = ({
                   <td>{user.email}</td>
                   <td>{user.pseudo}</td>
                   <td>
-                    {user.responsibility.entitled}
+                    {/* {user.responsibility.entitled} */}
                     <form onSubmit={() => handleSubmit(user.id, event)}>
                       <select
+                       className="form-responsibility"
                         value={usersRole[user.id]}
                         onChange={(event) => handleChangeSelect(user.id, event.target.value)}
                       >
-                        <option value="admin">Admin</option>
-                        <option value="utilisateur">Utilisateur</option>
+                        <option className="option" value="admin">Admin</option>
+                        <option className="option" value="utilisateur">Utilisateur</option>
                       </select>
-                      <button type="submit">Valider les modifications</button>
+                      {/* <button className="button--actions" type="submit">
+                      <FontAwesomeIcon icon={faCheckCircle} />
+                        </button> */}
                     </form>
                     {/* <ModalRole
                       handleChangeSelect={handleChangeSelect}
@@ -117,13 +122,24 @@ const AdminUsersList = ({
                   <td>{user.created_at}</td>
                   <td>{user.updated_at}</td>
                   <td>
+                  
                     <button
+                      className="button--actions"
                       type="button"
                       onClick={() => {
                         handleOnClickDelete(user);
                       }}
                     >
-                      Supprimer
+                     <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                    <button
+                     className="button--actions"
+                     type="button"
+                     onClick={() => {
+                      handleSubmit(user.id, event);
+                    }}
+                  >
+                      <FontAwesomeIcon icon={faCheckCircle} />
                     </button>
                   </td>
                 </tr>
