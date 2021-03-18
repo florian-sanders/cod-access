@@ -26,7 +26,7 @@ const TextField = ({
 
   return (
     <div className={className}>
-      <label htmlFor={id}>
+      <label htmlFor={id} className="form-label">
         {label}
       </label>
       {
@@ -34,6 +34,7 @@ const TextField = ({
           ? (
             <input
               id={id}
+              className="form-input"
               type={type}
               value={value}
               autoComplete={autocomplete}

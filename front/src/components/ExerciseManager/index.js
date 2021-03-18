@@ -70,20 +70,20 @@ const ExerciseManager = ({
           />
         )}
       </NavigationPrompt>
-      <h1 className="admin-exercise__heading-page">Créer un exercice</h1>
+      <h1 className="title-h1">Créer un exercice</h1>
       <p>Statut de l'exercice : sauvegardé en brouillon</p>
-      <form>
+      <form className="admin-exercise__form">
         <section>
-          <article className="admin-exercise__general-info">
+          <article className="admin-exercise__form__general-info">
             <button
-              className="admin-exercise__btn-remove"
+              className="admin-exercise__form__general-info__button button--delete"
               type="button"
               onClick={removeExercise}
             >
               Supprimer l'exercice
             </button>
             <Checkbox
-              className="admin-exercise__question__general-info__field-group"
+              className="admin-exercise__form__general-info__field-group"
               id="exercise-published"
               label="Publié"
               type="checkbox"
@@ -92,10 +92,8 @@ const ExerciseManager = ({
               saveCheckboxChange={changeValue}
               updateState={saveOnBlur}
             />
-
-
             <TextField
-              className="admin-exercise__general-info__field-group"
+              className="admin-exercise__form__general-info__field-group"
               id="exercise-title"
               label="Titre"
               type="text"
@@ -107,36 +105,36 @@ const ExerciseManager = ({
               saveOnBlur={saveOnBlur}
               updateLoading={updateLoading}
             />
-
-            <label>Intro</label>
-            <CKEditor
-              editor={ClassicEditor}
-              data={brief}
-              onReady={(editor) => {
-                // You can store the "editor" and use when it is needed.
-                console.log('Editor is ready to use!', editor);
-              }}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                changeValue({
-                  value: data,
-                  name: 'brief',
-                });
-              }}
-              onBlur={(event, editor) => {
-                console.log('Blur.', editor);
-                if (!isSaved) {
-                  saveOnBlur({
+            <label className="form-label">Intro</label>
+            <div className="admin-exercise__form__general-info__editor">
+              <CKEditor
+                editor={ClassicEditor}
+                data={brief}
+                onReady={(editor) => {
+                  // You can store the "editor" and use when it is needed.
+                  console.log('Editor is ready to use!', editor);
+                }}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  changeValue({
+                    value: data,
                     name: 'brief',
-                    value: brief,
                   });
-                }
-              }}
-              onFocus={(event, editor) => {
-                console.log('Focus.', editor);
-              }}
-            />
-
+                }}
+                onBlur={(event, editor) => {
+                  console.log('Blur.', editor);
+                  if (!isSaved) {
+                    saveOnBlur({
+                      name: 'brief',
+                      value: brief,
+                    });
+                  }
+                }}
+                onFocus={(event, editor) => {
+                  console.log('Focus.', editor);
+                }}
+              />
+            </div>
             <ThemeManager />
           </article>
 
@@ -147,11 +145,11 @@ const ExerciseManager = ({
           }
 
           <button
-            className="admin-exercise__btn-add"
+            className="admin-exercise__form__btn-add button--secondary"
             type="button"
             onClick={createQuestion}
           >
-            Ajouter une question supplémentaire
+            Ajouter une question
           </button>
         </section>
       </form>

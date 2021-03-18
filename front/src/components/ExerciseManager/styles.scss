@@ -14,73 +14,118 @@
 }
 
 .admin-exercise {
-  margin: 0 auto;
+  // margin: 0 auto;
   padding: $gutter;
-  box-shadow: $shadow;
+  // box-shadow: $shadow;
+  width: 100%;
+  background-color: $white-color;
 
-  &__heading-page {
-    font-size: $font-size-title-h1;
-    font-weight: bold;
-  }
-
-  &__general-info {
-    margin-bottom: $gutter;
-    padding: 1rem;
-
-    &__themes {
-      margin-top: $gutter;
-    }
-  }
-
-  &__question {
-    padding: $gutter;
-    margin-top: $gutter;
-    box-shadow: $shadow;
-    border-radius: 0.4rem;
-
-    &__heading {
-      font-size: $font-size-title-h2;
-      font-weight: 600;
-    }
-
+  &__form{
+    margin: auto;
+    max-width: 900px;
+  
     &__general-info {
+      margin-bottom: $gutter;
+
+      &__editor{
+        margin-bottom: $gutter;
+      }
+  
+      &__themes {
+        legend{
+          margin-bottom: $gutter;
+        }
+        &__checkbox{
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+
+          &__field-group{
+            width: 30%;
+          }
+        }
+      }
     }
-
-    &__answers {
+  
+    &__question {
+      padding: $gutter;
       margin-top: $gutter;
-      padding-left: 1rem;
-
-      &__heading {
-        font-size: $font-size-text;
+      box-shadow: $shadow;
+      border-radius: 0.4rem;
+      
+      &__header{
+        display:flex;
+        justify-content: space-between;
       }
 
-      &__answer {
-        margin-top: 1rem;
-        &::after {
-          content: "";
+      &__general-info{
+        &__editor{
+          margin-bottom: $gutter;
+        }
+        &__upload__label{
           display: block;
-          width: 50%;
-          background-color: $dark-color;
-          height: 1px;
-          margin: $gutter / 2 auto;
+          padding: 1rem;
+          border: 1px solid grey;
+        }
+        &__upload__input{
+          opacity:0;
+        }
+        &__upload__preview{
+          img{
+            width: 200px;
+          }
         }
       }
 
-      &__btn-add {
-        margin-top: 1rem;
+      &__answers {
+        margin-top: $gutter;
+        padding: 1rem;
+        border: solid 1px $primary-color;
+  
+        &__heading {
+          font-size: $font-size-text;
+        }
+  
+        &__answer {
+          margin-top: 1rem;
+          &::after {
+            content: "";
+            display: block;
+            width: 80%;
+            background-color: $dark-color;
+            height: 1px;
+            margin: $gutter / 2 auto;
+          }
+
+          &__header{
+            display:flex;
+            justify-content: space-between;
+          }
+        }
+  
+        &__btn-add {
+          margin-top: 1rem;
+        }
+
+        &__correction {
+          background: $ligth-color;
+          margin: $gutter 0;
+          padding: 1rem;
+          &__editor{
+            margin:auto;
+            width:95%;
+          }
+        }
       }
     }
-
-    &__explanation {
+  
+    &__btn-add {
       margin-top: $gutter;
     }
-  }
+  
+    &__submit-publish {
+      margin-top: $gutter;
+    }
 
-  &__btn-add {
-    margin-top: $gutter;
-  }
-
-  &__submit-publish {
-    margin-top: $gutter;
   }
 }

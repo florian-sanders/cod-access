@@ -54,45 +54,49 @@ const QuestionManager = ({
   };
 
   return (
-    <article className="admin-exercise__question">
+    <article className="admin-exercise__form__question">
       <fieldset>
-        <legend>
-          <h2 className="admin-exercise__question__heading">Question {questionNumber}</h2>
-        </legend>
-        <button type="button" onClick={removeQuestion}>
-          Supprimer
-        <span className="sr-only">Question {questionNumber}</span>
-        </button>
-        <div className="admin-exercise__question__general-info">
-          <label>Brief</label>
-          <CKEditor
-            editor={ClassicEditor}
-            data={brief}
-            onReady={(editor) => {
-              // You can store the "editor" and use when it is needed.
-              console.log('Editor is ready to use!', editor);
-            }}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              console.log({ event, editor, data });
-              changeValue({
-                value: data,
-                name: 'brief',
-              });
-            }}
-            onBlur={(event, editor) => {
-              console.log('Blur.', editor);
-              if (!isSaved) {
-                saveOnBlur({
+        <div className="admin-exercise__form__question__header">
+          <legend>
+            <h2 className="admin-exercise__form__question__header__title title-h2">Question {questionNumber}</h2>
+          </legend>
+          <button type="button" onClick={removeQuestion} className="button--delete">
+            Supprimer
+          <span className="sr-only">Question {questionNumber}</span>
+          </button>
+        </div>
+        <div className="admin-exercise__form__question__general-info">
+          <label className="form-label">Brief</label>
+          <div className="admin-exercise__form__question__general-info__editor">
+            <CKEditor
+              editor={ClassicEditor}
+              data={brief}
+              onReady={(editor) => {
+                // You can store the "editor" and use when it is needed.
+                console.log('Editor is ready to use!', editor);
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                console.log({ event, editor, data });
+                changeValue({
+                  value: data,
                   name: 'brief',
-                  value: brief,
                 });
-              }
-            }}
-            onFocus={(event, editor) => {
-              console.log('Focus.', editor);
-            }}
-          />
+              }}
+              onBlur={(event, editor) => {
+                console.log('Blur.', editor);
+                if (!isSaved) {
+                  saveOnBlur({
+                    name: 'brief',
+                    value: brief,
+                  });
+                }
+              }}
+              onFocus={(event, editor) => {
+                console.log('Focus.', editor);
+              }}
+            />
+          </div>
           {
             imagePath
               ? (
@@ -105,13 +109,13 @@ const QuestionManager = ({
               : (
                 <>
                   <label
-                    className="admin-exercise__question__general-info__upload__label"
+                    className="admin-exercise__form__question__general-info__upload__label"
                     htmlFor={`exercise-q${questionNumber}-upload`}
                   >
                     Télécharger une image
                   </label>
                   <input
-                    className="admin-exercise__question__general-info__upload__input"
+                    className="admin-exercise__form__question__general-info__upload__input"
                     id={`exercise-q${questionNumber}-upload`}
                     type="file"
                     onChange={handleImageChange}
@@ -119,7 +123,7 @@ const QuestionManager = ({
                     accept="image/*"
                   />
 
-                  <div className="admin-exercise__question__general-info__upload__preview">
+                  <div className="admin-exercise__form__question__general-info__upload__preview">
                     {
                       !selectedFile
                         ? (
@@ -136,7 +140,7 @@ const QuestionManager = ({
                             }
                             <img src={window.URL.createObjectURL(selectedFile)} alt="" />
                             <TextField
-                              className="admin-exercise__question__general-info__field-group"
+                              className="admin-exercise__form__question__general-info__field-group"
                               id={`exercise-q${questionNumber}-alternative`}
                               label="Alternative de l'image (attribut alt)"
                               type="text"
@@ -161,7 +165,7 @@ const QuestionManager = ({
             )
           }
           <TextField
-            className="admin-exercise__question__general-info__field-group"
+            className="admin-exercise__form__question__general-info__field-group"
             id={`exercise-q${questionNumber}-code`}
             label="Code"
             type="textarea"
@@ -174,9 +178,9 @@ const QuestionManager = ({
           />
         </div>
 
-        <fieldset className="admin-exercise__question__answers">
+        <fieldset className="admin-exercise__form__question__answers">
           <legend>
-            <h3 className="admin-exercise__question__answers__heading">
+            <h3 className="admin-exercise__form__question__answers__heading">
               <span className="sr-only">Question {questionNumber} -</span> Réponses possibles
             </h3>
           </legend>
@@ -193,42 +197,49 @@ const QuestionManager = ({
           }
 
           <button
-            className="admin-exercise__question__answers__btn-add"
+            className="admin-exercise__form__question__answers__btn-add button--secondary"
             type="button"
             onClick={createAnswer}
           >
-            Ajouter une réponse supplémentaire
-        </button>
-
-          <label>Explication de la correction</label>
-          <CKEditor
-            editor={ClassicEditor}
-            data={explanation}
-            onReady={(editor) => {
-              // You can store the "editor" and use when it is needed.
-              console.log('Editor is ready to use!', editor);
-            }}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              console.log({ event, editor, data });
-              changeValue({
-                value: data,
-                name: 'explanation',
-              });
-            }}
-            onBlur={(event, editor) => {
-              console.log('Blur.', editor);
-              if (!isSaved) {
-                saveOnBlur({
-                  name: 'explanation',
-                  value: explanation,
-                });
-              }
-            }}
-            onFocus={(event, editor) => {
-              console.log('Focus.', editor);
-            }}
-          />
+            Ajouter une réponse
+          </button>
+          {
+            possibleAnswers.length > 0 && (
+            <div className="admin-exercise__form__question__answers__correction">
+              <label className="form-label">Explication de la correction</label>
+              <div className="admin-exercise__form__question__answers__correction__editor">
+                <CKEditor
+                  editor={ClassicEditor}
+                  data={explanation}
+                  onReady={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    console.log('Editor is ready to use!', editor);
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    console.log({ event, editor, data });
+                    changeValue({
+                      value: data,
+                      name: 'explanation',
+                    });
+                  }}
+                  onBlur={(event, editor) => {
+                    console.log('Blur.', editor);
+                    if (!isSaved) {
+                      saveOnBlur({
+                        name: 'explanation',
+                        value: explanation,
+                      });
+                    }
+                  }}
+                  onFocus={(event, editor) => {
+                    console.log('Focus.', editor);
+                  }}
+                />
+              </div>
+            </div>
+            )
+          }
         </fieldset>
       </fieldset>
     </article>
