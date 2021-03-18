@@ -28,6 +28,7 @@ body {
 
 .message--warning{
   color: $color-error;
+  font-size: 0.8em;
   &::before {
     content: "!";
     text-align: center;
@@ -35,12 +36,13 @@ body {
     padding: 1px;
     margin-right: 0.5rem;
     display:inline-block;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     font-weight: bold;
     background-color: $color-error;
     border-radius: 50%;
     border: 1px $color-error solid;
+    margin-bottom: $gutter;
   }
 }
 

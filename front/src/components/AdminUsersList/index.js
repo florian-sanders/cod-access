@@ -99,9 +99,9 @@ const AdminUsersList = ({
                   <td>{user.pseudo}</td>
                   <td>
                     {/* {user.responsibility.entitled} */}
-                    <form onSubmit={() => handleSubmit(user.id, event)}>
+                    <form class="form-responsibility" onSubmit={() => handleSubmit(user.id, event)}>
                       <select
-                       className="form-responsibility"
+                       className="form-responsibility__select"
                         value={usersRole[user.id]}
                         onChange={(event) => handleChangeSelect(user.id, event.target.value)}
                       >
@@ -111,7 +111,17 @@ const AdminUsersList = ({
                       {/* <button className="button--actions" type="submit">
                       <FontAwesomeIcon icon={faCheckCircle} />
                         </button> */}
+                              <button
+                     className="button--actions valid"
+                     type="button"
+                     onClick={() => {
+                      handleSubmit(user.id, event);
+                    }}
+                  >
+                      <FontAwesomeIcon icon={faCheckCircle} />
+                    </button>
                     </form>
+              
                     {/* <ModalRole
                       handleChangeSelect={handleChangeSelect}
                       idUser={user.id}
@@ -130,17 +140,9 @@ const AdminUsersList = ({
                         handleOnClickDelete(user);
                       }}
                     >
-                     <FontAwesomeIcon icon={faTrash} />
+                     <FontAwesomeIcon icon={faTrash}  className=" trash" />
                     </button>
-                    <button
-                     className="button--actions"
-                     type="button"
-                     onClick={() => {
-                      handleSubmit(user.id, event);
-                    }}
-                  >
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                    </button>
+                  
                   </td>
                 </tr>
               ))

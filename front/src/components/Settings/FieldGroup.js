@@ -33,7 +33,7 @@ const FieldGroup = ({
   };
   return (
     <div className="">
-      <label htmlFor={id} className="label">
+      <label htmlFor={id} className="form-label">
         {label}
       </label>
       <input
@@ -43,7 +43,7 @@ const FieldGroup = ({
         value={value}
         placeholder={placeholder}
         onChange={(evt) => onChange(evt.target.value, name)}
-        className="input"
+        className="form-input full"
         onBlur={(evt) => handleOnBlur(evt.target.value)}
         aria-required="true"
       />

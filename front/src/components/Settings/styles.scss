@@ -7,7 +7,14 @@
   }
 }
 
+.full {
+  width: 100%;
+}
+
 .settings{
+  margin-top: $gutter;
+  display: flex;
+  flex-direction: column;
   &__form__upload{
     margin: 2rem auto;
     width: 40%;
@@ -15,7 +22,17 @@
     &__label{
       display: block;
       padding: 1rem;
-      border: 1px solid grey;
+        // display: block;
+      // margin-bottom: $gutter;
+      // padding: 16px 8px;
+      border: solid 1px $dark-gray-color;
+      border-radius: 5px;
+      &:hover {
+        border: solid 1px $dark-color;
+      }
+      &:focus {
+        border: solid 2px $primary-color;
+      }
     }
 
     &__input{
@@ -27,6 +44,10 @@
         width: 200px;
       }
     }
+  }
 
+  .to-right {
+    align-self: flex-end;
+    margin: 0 4rem $gutter 0;
   }
 }

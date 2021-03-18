@@ -10,21 +10,21 @@ const AdminMenu = ({ }) => (
     <ul className="admin__menu">
       <p className="title-h2 admin__menu hidden-mobile" >Dashboard</p>
       <li>
-        <NavLink className="admin__menu__link" to="/admin/utilisateurs" exact activeClassName="admin__menu__link--active">
+        <NavLink className="admin__menu__link__flex" to="/admin/utilisateurs" exact activeClassName="admin__menu__link--active">
          <FontAwesomeIcon icon={faUserCircle} size="2x" /> 
-         <p className="hidden-mobile">Utilisateurs</p>
+         <p className="dashboard-text hidden-mobile">Utilisateurs</p>
         </NavLink>
       </li>
       <li>
-        <NavLink className="admin__menu__link" to="/admin/exercices" exact activeClassName="admin__menu__link--active">
+        <NavLink className="admin__menu__link__flex" to="/admin/exercices" exact activeClassName="admin__menu__link--active">
          <FontAwesomeIcon icon={faFileAlt} size="2x" />
-         <p className="hidden-mobile">Exercices</p>
+         <p className="dashboard-text hidden-mobile">Exercices</p>
         </NavLink>
       </li>
       <li>
-        <NavLink className="admin__menu__link" to="/admin/creer-exercice" exact activeClassName="admin__menu__link--active">
+        <NavLink className="admin__menu__link__flex" to="/admin/creer-exercice" exact activeClassName="admin__menu__link--active">
          <FontAwesomeIcon icon={faTools} size="2x" />
-         <p className="hidden-mobile">Créer un exercice</p>
+         <p className="dashboard-text hidden-mobile">Créer un exercice</p>
         </NavLink>
       </li>
     </ul>
