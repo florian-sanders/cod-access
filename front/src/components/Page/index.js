@@ -15,11 +15,11 @@ import Dashboard from 'src/components/Dashboard';
 import About from 'src/components/About';
 import Error from 'src/components/Error';
 import Contact from 'src/containers/Contact';
-
+import LegalNotice from 'src/components/LegalNotice';
 import ForgetPage from 'src/containers/ForgetPage';
 import NewPasswordPage from 'src/containers/NewPasswordPage';
-
 import Settings from 'src/containers/Settings';
+import Sitemap from 'src/components/Sitemap';
 import PrivateUserRoute from 'src/components/PrivatesRoutes/PrivateUserRoute';
 import PrivateAdminRoute from 'src/components/PrivatesRoutes/PrivateAdminRoute';
 
@@ -69,13 +69,20 @@ const Page = ({
           <NewPasswordPage />
         </Route>
 
-
         <Route exact path="/a-propos">
           <About />
         </Route>
 
         <Route exact path="/contact">
           <Contact />
+        </Route>
+
+        <Route exact path="/mentions-legales">
+          <LegalNotice />
+        </Route>
+
+        <Route exact path="/plan-du-site">
+          <Sitemap />
         </Route>
 
         <Error />
