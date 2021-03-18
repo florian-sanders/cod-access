@@ -8,14 +8,16 @@ import divingSuitImgPath from 'src/assets/img/diving-suit.svg';
 const About = () => (
   <>
     <section className="about">
-      <h1 className="about__description">Id adipisicing Lorem id sunt consectetur in exercitation excepteur eiusmod magna pariatur dolore et. Eiusmod mollit et labore cupidatat nulla pariatur nulla. Velit reprehenderit dolor fugiat exercitation do reprehenderit. Enim veniam exercitation culpa consectetur aliquip sint quis id qui laboris officia aliqua ullamco.</h1>
+    <h1 className="about__title">À propos</h1>
 
+      <p className="about__description">Id adipisicing Lorem id sunt consectetur in exercitation excepteur eiusmod magna pariatur dolore et. Eiusmod mollit et labore cupidatat nulla pariatur nulla. Velit reprehenderit dolor fugiat exercitation do reprehenderit. Enim veniam exercitation culpa consectetur aliquip sint quis id qui laboris officia aliqua ullamco.</p>
+      
       <div className="about__members">
         <article className="about__members__team">
           
             <img className="about__members__team__img" src={diverImgPath} alt="photo visage membre1" />
           
-          <h2 class="about__members__team__name">Member 1</h2>
+          <p class="about__members__team__name">Member 1</p>
           <p class="about__members__team__profil">Ullamco esse enim ex id incididunt aliqua sunt minim magna Lorem reprehenderit Lorem sunt.Sit dolore officia esse nisi.Elit cillum nisi eiusmod eu.</p>
         </article>
 
@@ -34,7 +36,7 @@ const About = () => (
         <article className="about__members__team">
           <img className="about__members__team__img" src={divingSuitImgPath} alt="photo visage membre4" />
           <h2 class="about__members__team__name">Member 4</h2>
-          <p class="about__members__team__profil">Nisi anim culpa commodo exercitation laborum dolor aliquip esse exercitation nulla mollit consequat non. Exercitation qui dolore fugiat consectetur dolore nostrud eu. Minim aliquip adipisicing est incididunt nostrud ut. Duis anim ut irure consectetur exercitation minim consectetur irure eiusmod officia non nostrud ad. </p>
+          <p class="about__members__team__profil">Nisi anim culpa commodo exercitation laborum dolor aliquip esse exercitation nulla mollit consequat non. Exercitation qui dolore fugiat consectetur dolore nostrud eu. Minim aliquip adipisicing est incididunt nostrud ut. </p>
         </article>
       </div>
     </section>
