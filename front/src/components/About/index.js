@@ -4,19 +4,18 @@ import diverImgPath from 'src/assets/img/diver.svg';
 import radarImgPath from 'src/assets/img/radar.svg';
 import fred from 'src/assets/img/fred.jpg';
 import jerem from 'src/assets/img/jerem.jpg';
+import annekim from 'src/assets/img/anne-kim.jpg';
 
 const About = () => (
   <>
     <section className="about">
-    <h1 className="title-h1 center">À propos</h1>
-
+      <h1 className="title-h1 center">À propos</h1>
       <p className="about__description">Toi aussi tu te demande qui à pu réalisé ce super site à l'aide de Réact, NodeJS, express... en seulement 1 mois et bien voici une petite présentation de l'équipage: </p>
-      
       <div className="about__members">
 
         <article className="about__members__team">
           <div className="about__members__team__imageLeft">
-            <img className="about__members__team__img" src={diverImgPath} alt="photo visage membre1" />
+            <img className="about__members__team__img" src={annekim} alt="photo visage membre1" />
             </div>
             <div className="about__members__team__texte">  
           <p className="about__members__team__name">Anne-Kim<br></br>BANCHEREAU</p>
