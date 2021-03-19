@@ -43,7 +43,7 @@ const Question = ({
         })
       }
       >
-        <p>Question {questionIndex + 1}</p>
+        <h2 className="title-h2 exercise-section__questions__question__heading">Question {questionIndex + 1}</h2>
         {
           brief && (
             <article
