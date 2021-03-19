@@ -29,7 +29,7 @@
         }
         &__filter{
           position: absolute;
-          padding: $gutter;
+          padding: $gutter $gutter $gutter $gutter/2;
           background-color: $white-color;
           box-shadow: $shadow;
     
@@ -42,7 +42,7 @@
             border-radius: 5px;
             padding: 0.8rem;
             border-radius: 30px;
-            margin-bottom: $gutter;
+            margin-bottom: 1rem;
     
             &__icon{
               margin-right: 1rem;
@@ -77,11 +77,13 @@
 
     &__block-list{
       display:flex;
+      flex-wrap: wrap;
       justify-content: space-between;
+
       &__theme{
         margin-bottom: $gutter;
         width: 30%;
-  
+
         &__title{
           font-size: $font-size-title-h2;
           font-weight: bold;
@@ -93,7 +95,7 @@
           &__exercise{
             margin-bottom: 1rem;
             display:flex;
-    
+
             &__color{
               width: 20%;
               border-radius: 5px 0 0 5px;
