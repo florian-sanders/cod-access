@@ -20,7 +20,6 @@ const App = ({ checkAuth, getCSRFToken, loadThemes, appLoading }) => {
       checkAuth();
     }
   }, []);
-  console.log('loader', appLoading);
   return (
     <>
       <a className="skip-link sr-only-focusable" href="#main-content">Contenu</a> {/* skipLink for a11y, keyboard users mainly */}
@@ -30,15 +29,18 @@ const App = ({ checkAuth, getCSRFToken, loadThemes, appLoading }) => {
         <Connection />
       </div>
       {
-        appLoading ? 
-        <div className="loading">
-        <CircleLoader
-          colour={"#7ED8F7"}
-          radius={100}
-          duration={2}
-          strokeWidth={20} />
-        </div>
-        : <Page />
+        appLoading
+          ? (
+            <div className="loading">
+              <CircleLoader
+                colour="#7ED8F7"
+                radius={100}
+                duration={2}
+                strokeWidth={20}
+              />
+            </div>
+          )
+          : <Page />
       }
       <Footer />
     </>
@@ -49,6 +51,11 @@ App.propTypes = {
   checkAuth: PropTypes.func.isRequired,
   getCSRFToken: PropTypes.func.isRequired,
   loadThemes: PropTypes.func.isRequired,
+  appLoading: PropTypes.bool,
+};
+
+App.defaultProps = {
+  appLoading: false,
 };
 
 // == Export

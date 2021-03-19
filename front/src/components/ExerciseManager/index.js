@@ -45,13 +45,14 @@ const ExerciseManager = ({
 
   if (loading) {
     return (
-    <div className="loading">
-    <CircleLoader
-      colour={"#7ED8F7"}
-      radius={100}
-      duration={2}
-      strokeWidth={20} />
-    </div>
+      <div className="loading">
+        <CircleLoader
+          colour="#7ED8F7"
+          radius={100}
+          duration={2}
+          strokeWidth={20}
+        />
+      </div>
     );
   }
 
@@ -72,19 +73,19 @@ const ExerciseManager = ({
       </NavigationPrompt>
       <h1 className="title-h1">Créer un exercice</h1>
       <form className="admin-exercise__form grey">
-      <div className="flex-space">
-      <p className="title-h2__without-magin">Statut de l'exercice : sauvegardé en brouillon</p>
-      <button
-              className="admin-exercise__form__general-info__button button--delete"
-              type="button"
-              onClick={removeExercise}
-            >
-              Supprimer l'exercice
-      </button>
-      </div>
+        <div className="flex-space">
+          <p className="title-h2__without-magin">Statut de l'exercice : sauvegardé en brouillon</p>
+          <button
+            className="admin-exercise__form__general-info__button button--delete"
+            type="button"
+            onClick={removeExercise}
+          >
+            Supprimer l'exercice
+          </button>
+        </div>
         <section>
           <article className="admin-exercise__form__general-info">
-         
+
             <Checkbox
               className="admin-exercise__form__general-info__field-group"
               id="exercise-published"
@@ -114,10 +115,6 @@ const ExerciseManager = ({
                 className="form-input textarea"
                 editor={ClassicEditor}
                 data={brief}
-                onReady={(editor) => {
-                  // You can store the "editor" and use when it is needed.
-                  console.log('Editor is ready to use!', editor);
-                }}
                 onChange={(event, editor) => {
                   const data = editor.getData();
                   changeValue({
@@ -125,17 +122,13 @@ const ExerciseManager = ({
                     name: 'brief',
                   });
                 }}
-                onBlur={(event, editor) => {
-                  console.log('Blur.', editor);
+                onBlur={() => {
                   if (!isSaved) {
                     saveOnBlur({
                       name: 'brief',
                       value: brief,
                     });
                   }
-                }}
-                onFocus={(event, editor) => {
-                  console.log('Focus.', editor);
                 }}
               />
             </div>
@@ -155,7 +148,7 @@ const ExerciseManager = ({
           >
             Ajouter une question
           </button>
-        
+
         </section>
       </form>
     </section>

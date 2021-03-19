@@ -7,9 +7,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AnswerManager from 'src/containers/ExerciseManager/AnswerManager';
 import Message from 'src/containers/Message';
 import { returnFileSize } from 'src/utils';
-import TextField from './TextField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons';
+import TextField from './TextField';
 import './styles.scss';
 
 const QuestionManager = ({
@@ -64,7 +64,7 @@ const QuestionManager = ({
           </legend>
           <button type="button" onClick={removeQuestion} className="button--delete">
             Supprimer
-          <span className="sr-only">Question {questionNumber}</span>
+            <span className="sr-only">Question {questionNumber}</span>
           </button>
         </div>
         <div className="admin-exercise__form__question__general-info">
@@ -73,29 +73,20 @@ const QuestionManager = ({
             <CKEditor
               editor={ClassicEditor}
               data={brief}
-              onReady={(editor) => {
-                // You can store the "editor" and use when it is needed.
-                console.log('Editor is ready to use!', editor);
-              }}
               onChange={(event, editor) => {
                 const data = editor.getData();
-                console.log({ event, editor, data });
                 changeValue({
                   value: data,
                   name: 'brief',
                 });
               }}
-              onBlur={(event, editor) => {
-                console.log('Blur.', editor);
+              onBlur={() => {
                 if (!isSaved) {
                   saveOnBlur({
                     name: 'brief',
                     value: brief,
                   });
                 }
-              }}
-              onFocus={(event, editor) => {
-                console.log('Focus.', editor);
               }}
             />
           </div>
@@ -119,10 +110,10 @@ const QuestionManager = ({
                     Télécharger une image
                   </label> */}
                   <div className="flex large">
-                    <label className="settings__form__upload__label"  htmlFor={`exercise-q${questionNumber}-upload`}>
+                    <label className="settings__form__upload__label" htmlFor={`exercise-q${questionNumber}-upload`}>
                       Télécharger une image
                     </label>
-                    <label className="title-h1 center-margin"  htmlFor={`exercise-q${questionNumber}-upload`}>
+                    <label className="title-h1 center-margin" htmlFor={`exercise-q${questionNumber}-upload`}>
                       <FontAwesomeIcon icon={faCloudDownloadAlt} />
                     </label>
                   </div>
@@ -166,7 +157,7 @@ const QuestionManager = ({
                     }
                   </div>
                   <div className="large">
-                  <button className="button--secondary" type="button" onClick={handleSaveImage}>Sauvegarder l'image</button>
+                    <button className="button--secondary" type="button" onClick={handleSaveImage}>Sauvegarder l'image</button>
                   </div>
                 </>
               )
@@ -176,7 +167,7 @@ const QuestionManager = ({
             && messageParams.componentToDisplayIn === `QuestionManager-q${id}`
             && (
               <div className="large">
-              <Message {...messageParams} />
+                <Message {...messageParams} />
               </div>
             )
           }
@@ -221,39 +212,30 @@ const QuestionManager = ({
           </button>
           {
             possibleAnswers.length > 0 && (
-            <div className="admin-exercise__form__question__answers__correction">
-              <label className="title-h3">Explication de la correction</label>
-              <div className="admin-exercise__form__question__answers__correction__editor">
-                <CKEditor
-                  editor={ClassicEditor}
-                  data={explanation}
-                  onReady={(editor) => {
-                    // You can store the "editor" and use when it is needed.
-                    console.log('Editor is ready to use!', editor);
-                  }}
-                  onChange={(event, editor) => {
-                    const data = editor.getData();
-                    console.log({ event, editor, data });
-                    changeValue({
-                      value: data,
-                      name: 'explanation',
-                    });
-                  }}
-                  onBlur={(event, editor) => {
-                    console.log('Blur.', editor);
-                    if (!isSaved) {
-                      saveOnBlur({
+              <div className="admin-exercise__form__question__answers__correction">
+                <label className="title-h3">Explication de la correction</label>
+                <div className="admin-exercise__form__question__answers__correction__editor">
+                  <CKEditor
+                    editor={ClassicEditor}
+                    data={explanation}
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      changeValue({
+                        value: data,
                         name: 'explanation',
-                        value: explanation,
                       });
-                    }
-                  }}
-                  onFocus={(event, editor) => {
-                    console.log('Focus.', editor);
-                  }}
-                />
+                    }}
+                    onBlur={() => {
+                      if (!isSaved) {
+                        saveOnBlur({
+                          name: 'explanation',
+                          value: explanation,
+                        });
+                      }
+                    }}
+                  />
+                </div>
               </div>
-            </div>
             )
           }
         </fieldset>
@@ -267,7 +249,6 @@ QuestionManager.propTypes = {
   brief: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
   explanation: PropTypes.string.isRequired,
-  // picturePath: PropTypes.string.isRequired,
   possibleAnswers: PropTypes.array.isRequired,
   questionNumber: PropTypes.number.isRequired,
   changeValue: PropTypes.func.isRequired,
@@ -275,6 +256,23 @@ QuestionManager.propTypes = {
   createAnswer: PropTypes.func.isRequired,
   saveOnBlur: PropTypes.func.isRequired,
   isSaved: PropTypes.bool.isRequired,
+  messageParams: PropTypes.shape({
+    isVisible: PropTypes.bool.isRequired,
+    componentToDisplayIn: PropTypes.string.isRequired,
+  }).isRequired,
+  selectedFile: PropTypes.object.isRequired,
+  imageAlternative: PropTypes.string,
+  sendImageFile: PropTypes.func.isRequired,
+  changeSelectedFile: PropTypes.func.isRequired,
+  imageId: PropTypes.number,
+  imagePath: PropTypes.string,
+  deleteImage: PropTypes.func.isRequired,
+};
+
+QuestionManager.defaultProps = {
+  imageAlternative: '',
+  imageId: null,
+  imagePath: '',
 };
 
 export default QuestionManager;

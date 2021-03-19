@@ -38,7 +38,7 @@ const Exercise = ({
     return (
       <div className="loading">
         <CircleLoader
-          colour={"#7ED8F7"}
+          colour="#7ED8F7"
           radius={100}
           duration={2}
           strokeWidth={20}
@@ -154,7 +154,12 @@ Exercise.propTypes = {
   changeQuestion: PropTypes.func.isRequired,
   submitAnswers: PropTypes.func.isRequired,
   resetCurrentExercise: PropTypes.func.isRequired,
-  resultMessage: PropTypes.string,
+  userScore: PropTypes.number,
+  messageParams: PropTypes.shape({
+    isVisible: PropTypes.bool.isRequired,
+    componentToDisplayIn: PropTypes.string.isRequired,
+  }).isRequired,
+  closeMessage: PropTypes.func.isRequired,
 };
 
 Exercise.defaultProps = {
@@ -162,7 +167,7 @@ Exercise.defaultProps = {
   questions: [],
   loading: true,
   currentQuestionIndex: 0,
-  resultMessage: '',
+  userScore: null,
 };
 
 export default Exercise;

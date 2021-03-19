@@ -18,7 +18,7 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log(response.data);
+
         store.dispatch(setExercises(response.data));
       }
       catch (err) {

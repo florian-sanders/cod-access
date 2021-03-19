@@ -17,7 +17,6 @@ const FieldGroup = ({
   checkEmptyField,
 }) => {
   const handleOnBlur = (valueToTest) => {
-    console.log('champ', name, valueToTest);
     if (!valueToTest && isMandatory) {
       checkEmptyField({
         name,
@@ -32,31 +31,32 @@ const FieldGroup = ({
       });
     }
   };
+
   return (
-  <div className="header-wrapper__connection__toggle-area__form__group">
-    <label htmlFor={id} className="form-label">
-      {label}
-    </label>
-    <input
-      id={id}
-      type={type}
-      value={value}
-      autoComplete={autocomplete}
-      className="form-input"
-      onChange={
-        (evt) => changeValue({
-          value: evt.target.value,
-          name,
-        })
+    <div className="header-wrapper__connection__toggle-area__form__group">
+      <label htmlFor={id} className="form-label">
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        value={value}
+        autoComplete={autocomplete}
+        className="form-input"
+        onChange={
+          (evt) => changeValue({
+            value: evt.target.value,
+            name,
+          })
+        }
+        onBlur={(event) => handleOnBlur(event.target.value)}
+      />
+      {
+        message && (
+          <p>{message}</p>
+        )
       }
-      onBlur={(event) => handleOnBlur(event.target.value)}
-    />
-    {
-      message && (
-        <p>{message}</p>
-      )
-    }
-  </div>
+    </div>
   );
 };
 
@@ -78,7 +78,7 @@ FieldGroup.defaultProps = {
   type: 'text',
   isMandatory: false,
   autocomplete: 'off',
-  validateInput: () => {},
+  validateInput: () => { },
 };
 
 export default FieldGroup;

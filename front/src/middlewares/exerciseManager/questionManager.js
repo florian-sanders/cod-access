@@ -126,7 +126,6 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case UPLOAD_QUESTION_MANAGER_IMAGE:
       try {
-        console.log('upload');
         store.dispatch(setQuestionManagerUpdateLoading(true));
 
         const fileInfo = new FormData();
@@ -143,7 +142,7 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log(response);
+
         store.dispatch(setQuestionManagerImageId({
           imageId: response.data.pictureId,
           imageAlternative: response.data.pictureAlt,

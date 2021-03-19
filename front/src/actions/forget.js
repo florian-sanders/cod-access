@@ -121,13 +121,9 @@ export const validatePassword = ({ message, password }) => ({
 
 export const COMPARE_NEW_PASSWORD_CONFIRM = 'COMPARE_NEW_PASSWORD_CONFIRM';
 
-export const compareNewPasswordConfirm = ({ message, password, passwordConfirm }) => {
-  console.log('password', password);
-  console.log('passwordConfirm', passwordConfirm);
-  return ({
-    type: COMPARE_NEW_PASSWORD_CONFIRM,
-    message,
-    password,
-    passwordConfirm,
-  });
-};
+export const compareNewPasswordConfirm = ({ message, password, passwordConfirm }) => ({
+  type: COMPARE_NEW_PASSWORD_CONFIRM,
+  message,
+  password,
+  passwordConfirm,
+});
