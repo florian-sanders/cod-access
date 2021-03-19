@@ -178,4 +178,51 @@
     }
 
   }
+
+  @media screen and (max-width: 60rem) {
+    /*
+    * Mobile, articles are below each other with no shift.
+    * Images are displayed above each article
+    */
+    .full {
+      width: 95%;
+    }
+
+    .ck.ck-editor {
+      width: 95%
+    }
+
+    .admin-exercise {
+      padding: 0.5rem;
+      width: 80%;
+      background-color: #fff;
+      font-size: 0.7em;
+
+      &__form {
+        padding: 0.5rem
+      }
+    }
+
+    .admin-exercise__form__question {
+      padding: 0.5rem;
+    
+      &__answers {
+        padding: 0.5rem;
+
+      }
+    }
+
+    .admin-exercise__form__question__answers{
+      width: 95%;
+      &__heading {
+        opacity: 1;
+        background-color: #fff;
+        padding: 0.5rem;
+        border-radius: .5rem;
+        margin: 2rem 0;
+        border: 1px solid #e9eef0;
+      }
+    }
+  }
+
 }

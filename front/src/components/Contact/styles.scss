@@ -2,14 +2,14 @@
 
 .contact{
   padding: $gutter;
-  margin-bottom: 2*$gutter;
   &__content{
     display: flex;
     &__illustration{
       width: 50%;
+      margin-bottom: 5rem;
     }
     &__form{
-      margin: auto;
+      margin: 1rem auto;
       width: 40%;
       &__group{
         display:flex;

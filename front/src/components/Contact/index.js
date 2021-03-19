@@ -23,7 +23,7 @@ const Contact = ({
   };
   const button = isContactDone ? "hidden" : "button--primary"
   return (
-    <div className="contact">
+    <div className="contact wave-double-bottom">
       <h1 className="title-h1 center">Contactez-nous</h1>
       <div className="contact__content">
           <img  className="contact__content__illustration" src={picture} alt="" />
