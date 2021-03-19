@@ -23,7 +23,6 @@ const initialState = {
 const answerManager = (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_MANAGERS_FROM_DB:
-      console.log(action.possibleAnswers);
       return {
         ...state,
         isSaved: true,

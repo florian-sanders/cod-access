@@ -104,7 +104,6 @@ export default (store) => (next) => async (action) => {
         }
 
         let resultMessage = '';
-        console.log(data.scoreResult);
         if (data.scoreResult === 100) {
           resultMessage = `Bravo, tu as réussi à totalement réparer l'interface. Tu peux consulter le détail et les explications de la correction en passant sur chaque question comme tu l'as fait auparavant.
           Dès que tu tu seras prêt, retourne sur la liste des réparations à effectuer car il te reste du pain sur la planche et je suis impatient de pouvoir à nouveau sillonner les mers !`;

@@ -30,7 +30,6 @@ export default (store) => (next) => async (action) => {
 
     case NEW_PASSWORD:
       try {
-        console.log('action.newToken', action.newToken);
         const {
           forget: { password, passwordConfirm },
         } = store.getState();
