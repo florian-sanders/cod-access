@@ -70,7 +70,7 @@ const Settings = ({
   };
 
   return (
-    <section className="settings">
+    <section className="settings wave-double-bottom">
       <h1 className="title-h1 center">Paramètres</h1>
       <div className="container-message-box">
       {
