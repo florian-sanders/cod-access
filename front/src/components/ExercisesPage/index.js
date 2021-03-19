@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import submarineImgPath from 'src/assets/img/submarine.svg';
 import ExercisesList from './ExercisesList';
 import Filter from './Filter';
-import CircleLoader from '../CircleLoader'
+import CircleLoader from '../CircleLoader';
 
 import './styles.scss';
 
@@ -23,11 +24,12 @@ const ExercisesPage = ({
   if (loadingExercisesPage) {
     return (
       <div className="loading">
-      <CircleLoader
-        colour={"#7ED8F7"}
-        radius={100}
-        duration={2}
-        strokeWidth={20} />
+        <CircleLoader
+          colour="#7ED8F7"
+          radius={100}
+          duration={2}
+          strokeWidth={20}
+        />
       </div>
     );
   }
@@ -36,13 +38,19 @@ const ExercisesPage = ({
     <section className="exercises">
       <h1 className="title-h1 center">Challenges</h1>
       <div className="exercises__wrapper">
-        <Filter
-          themes={themesFilterCheckbox}
-          visibility={themeFilterVisibility}
-          toggleFilter={toggleFilter}
-          handleCheckbox={handleCheckbox}
-          validateFilter={validateFilter}
-        />
+        <div className="exercises__wrapper__header">
+          <div className="exercises__wrapper__header__intro">
+            <p className="exercises__wrapper__header__intro__title">Choisis un élément du Nautilus que tu souhaites réparer !</p>
+            <Filter
+              themes={themesFilterCheckbox}
+              visibility={themeFilterVisibility}
+              toggleFilter={toggleFilter}
+              handleCheckbox={handleCheckbox}
+              validateFilter={validateFilter}
+            />
+          </div>
+          <img className="exercises__wrapper__header__img" src={submarineImgPath} alt="" />
+        </div>
         <div className="exercises__wrapper__block-list">
           {
             allThemesExercises.filter(

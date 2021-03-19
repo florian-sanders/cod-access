@@ -71,17 +71,20 @@ const ExerciseManager = ({
         )}
       </NavigationPrompt>
       <h1 className="title-h1">Créer un exercice</h1>
-      <p>Statut de l'exercice : sauvegardé en brouillon</p>
-      <form className="admin-exercise__form">
-        <section>
-          <article className="admin-exercise__form__general-info">
-            <button
+      <form className="admin-exercise__form grey">
+      <div className="flex-space">
+      <p className="title-h2__without-magin">Statut de l'exercice : sauvegardé en brouillon</p>
+      <button
               className="admin-exercise__form__general-info__button button--delete"
               type="button"
               onClick={removeExercise}
             >
               Supprimer l'exercice
-            </button>
+      </button>
+      </div>
+        <section>
+          <article className="admin-exercise__form__general-info">
+         
             <Checkbox
               className="admin-exercise__form__general-info__field-group"
               id="exercise-published"
@@ -108,6 +111,7 @@ const ExerciseManager = ({
             <label className="form-label">Intro</label>
             <div className="admin-exercise__form__general-info__editor">
               <CKEditor
+                className="form-input textarea"
                 editor={ClassicEditor}
                 data={brief}
                 onReady={(editor) => {
@@ -145,12 +149,13 @@ const ExerciseManager = ({
           }
 
           <button
-            className="admin-exercise__form__btn-add button--secondary"
+            className="admin-exercise__form__btn-add button--primary"
             type="button"
             onClick={createQuestion}
           >
             Ajouter une question
           </button>
+        
         </section>
       </form>
     </section>

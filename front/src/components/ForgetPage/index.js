@@ -58,9 +58,9 @@ const ForgetPage = ({
            {
           isDone
             && (
-              <>
-                <p className="messsage-done">Merci, votre demande a été prise en compte, vous allez recevoir un lien de réinitialisation par email.</p>
-              </>
+              <div role="alert" className="message-box confirm">
+                <p className="messsage-box__content confirm__content">Merci, votre demande a été prise en compte, vous allez recevoir un lien de réinitialisation par email.</p>
+              </div>
             )
         }
           <button className={button} type="submit">

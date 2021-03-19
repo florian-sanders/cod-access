@@ -27,7 +27,7 @@ const SignUp = ({
   };
 
   return (
-    <div className="signup">
+    <div className="signup wave-double-bottom">
       <h1 className="title-h1 center">Inscription</h1>
       <div className="signup__content">
       <img  className="contact__content__illustration" src={picture} alt="" />

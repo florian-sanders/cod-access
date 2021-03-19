@@ -87,7 +87,9 @@ const NewPassword = ({
           isDone
             && (
               <>
-                <p className="messsage-done">Votre mot de passe a bien été mit a jour vous allez recevoir un email de confirmation. Merci de cliquer sur ce lien pour être redirigé: </p>
+                <div role="alert" className="message-box confirm">
+                  <p className="messsage-box__content confirm__content">Votre mot de passe a bien été mit a jour vous allez recevoir un email de confirmation. Merci de cliquer sur ce lien pour être redirigé: </p>
+                </div>
                 <Link to="/" className="link">Accueil</Link>
               </>
             )

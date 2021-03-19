@@ -7,9 +7,10 @@ const Modal = ({
   onConfirm: leave,
   removeExercise,
 }) => (
-  <div className="modal" role="dialog" aria-modal="true" tabIndex="-1" aria-label="Conserver ou supprimer le brouillon">
-    <h1>Souhaitez-vous conserver ce brouillon ?</h1>
+  <div className="modal-confirm" role="dialog" aria-modal="true" tabIndex="-1" aria-label="Conserver ou supprimer le brouillon">
+    <h1 className="title-h2">Souhaitez-vous conserver ce brouillon ?</h1>
     <button
+      className="button--primary"
       type="button"
       onClick={() => {
         leave();
@@ -18,6 +19,7 @@ const Modal = ({
       Oui - j'y reviendrai plus tard
     </button>
     <button
+      className="button--delete"
       type="button"
       onClick={() => {
         leave();

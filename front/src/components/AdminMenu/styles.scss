@@ -2,7 +2,8 @@
 
 .nav__menu {
     margin: $gutter 1rem;
-    width:15%
+    width:15%;
+    min-height: 70vh;
 }
 
 .admin__menu {

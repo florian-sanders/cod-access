@@ -8,6 +8,8 @@ import AnswerManager from 'src/containers/ExerciseManager/AnswerManager';
 import Message from 'src/containers/Message';
 import { returnFileSize } from 'src/utils';
 import TextField from './TextField';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons';
 import './styles.scss';
 
 const QuestionManager = ({
@@ -57,7 +59,7 @@ const QuestionManager = ({
     <article className="admin-exercise__form__question">
       <fieldset>
         <div className="admin-exercise__form__question__header">
-          <legend>
+          <legend className="title-h2__without-magin">
             <h2 className="admin-exercise__form__question__header__title title-h2">Question {questionNumber}</h2>
           </legend>
           <button type="button" onClick={removeQuestion} className="button--delete">
@@ -101,19 +103,29 @@ const QuestionManager = ({
             imagePath
               ? (
                 <>
-                  <p>Image actuelle :</p>
-                  <img src={`${process.env.IMAGE}${imagePath}`} alt="" />
-                  <button onClick={handleDeleteImage} type="button">Supprimer l'image</button>
+                  <div className="flex-space">
+                    <p>Image actuelle :</p>
+                    <button className="button--delete" onClick={handleDeleteImage} type="button">Supprimer l'image</button>
+                  </div>
+                  <img className="preview" src={`${process.env.IMAGE}${imagePath}`} alt="" />
                 </>
               )
               : (
                 <>
-                  <label
+                  {/* <label
                     className="admin-exercise__form__question__general-info__upload__label"
                     htmlFor={`exercise-q${questionNumber}-upload`}
                   >
                     Télécharger une image
-                  </label>
+                  </label> */}
+                  <div className="flex large">
+                    <label className="settings__form__upload__label"  htmlFor={`exercise-q${questionNumber}-upload`}>
+                      Télécharger une image
+                    </label>
+                    <label className="title-h1 center-margin"  htmlFor={`exercise-q${questionNumber}-upload`}>
+                      <FontAwesomeIcon icon={faCloudDownloadAlt} />
+                    </label>
+                  </div>
                   <input
                     className="admin-exercise__form__question__general-info__upload__input"
                     id={`exercise-q${questionNumber}-upload`}
@@ -153,7 +165,9 @@ const QuestionManager = ({
                         )
                     }
                   </div>
-                  <button type="button" onClick={handleSaveImage}>Sauvegarder l'image</button>
+                  <div className="large">
+                  <button className="button--secondary" type="button" onClick={handleSaveImage}>Sauvegarder l'image</button>
+                  </div>
                 </>
               )
           }
@@ -161,11 +175,13 @@ const QuestionManager = ({
             messageParams.isVisible
             && messageParams.componentToDisplayIn === `QuestionManager-q${id}`
             && (
+              <div className="large">
               <Message {...messageParams} />
+              </div>
             )
           }
           <TextField
-            className="admin-exercise__form__question__general-info__field-group"
+            // className="admin-exercise__form__question__general-info__field-group"
             id={`exercise-q${questionNumber}-code`}
             label="Code"
             type="textarea"
@@ -180,9 +196,9 @@ const QuestionManager = ({
 
         <fieldset className="admin-exercise__form__question__answers">
           <legend>
-            <h3 className="admin-exercise__form__question__answers__heading">
+            <h2 className="admin-exercise__form__question__answers__heading title-h2">
               <span className="sr-only">Question {questionNumber} -</span> Réponses possibles
-            </h3>
+            </h2>
           </legend>
           {
             possibleAnswers.map((answer, index) => (
@@ -197,7 +213,7 @@ const QuestionManager = ({
           }
 
           <button
-            className="admin-exercise__form__question__answers__btn-add button--secondary"
+            className="admin-exercise__form__question__answers__btn-add button--primary"
             type="button"
             onClick={createAnswer}
           >
@@ -206,7 +222,7 @@ const QuestionManager = ({
           {
             possibleAnswers.length > 0 && (
             <div className="admin-exercise__form__question__answers__correction">
-              <label className="form-label">Explication de la correction</label>
+              <label className="title-h3">Explication de la correction</label>
               <div className="admin-exercise__form__question__answers__correction__editor">
                 <CKEditor
                   editor={ClassicEditor}

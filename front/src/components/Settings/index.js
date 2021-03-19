@@ -6,6 +6,8 @@ import ModalConfirm from 'src/containers/ModalConfirm';
 
 import { returnFileSize } from 'src/utils';
 import FieldGroup from './FieldGroup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons';
 import './styles.scss';
 
 const Settings = ({
@@ -68,8 +70,9 @@ const Settings = ({
   };
 
   return (
-    <section className="settings">
+    <section className="settings wave-double-bottom">
       <h1 className="title-h1 center">Paramètres</h1>
+      <div className="container-message-box">
       {
         messageParams.isVisible
         && messageParams.componentToDisplayIn === 'Settings'
@@ -77,13 +80,21 @@ const Settings = ({
           <Message {...messageParams} />
         )
       }
-      <h2 className="title-h2 center">Modifier la photo de profil</h2>
+      </div>
       <form
         className="settings__form__upload"
         onSubmit={handleSubmitFile}
       >
-        <label className="settings__form__upload__label" htmlFor="upload">Télécharger une image</label>
-        <input className="settings__form__upload__input full" id="upload" type="file" onChange={onChangeFile} accept="image/*" />
+      <h2 className="form-label">Modifier la photo de profil</h2>
+        <div className="flex">
+          <label className="settings__form__upload__label" htmlFor="upload">
+            Télécharger une image
+            </label>
+          <label className="title-h1 center-margin" htmlFor="upload">
+          <FontAwesomeIcon icon={faCloudDownloadAlt} />
+            </label>
+        </div>
+          <input className="settings__form__upload__input full" id="upload" type="file" onChange={onChangeFile} accept="image/*" />
         <div className="settings__form__upload__preview">
           {
             selectedFile === null
@@ -105,12 +116,14 @@ const Settings = ({
               )
           }
         </div>
-        <button
-          className="button--primary"
-          type="submit"
-        >
-          Valider la modification
-        </button>
+        <div className="">
+          <button
+           className="button--primary"
+            type="submit"
+          >
+            Valider la modification
+          </button>
+        </div>
       </form>
       <form
         className="settings__form"

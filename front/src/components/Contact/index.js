@@ -23,7 +23,7 @@ const Contact = ({
   };
   const button = isContactDone ? "hidden" : "button--primary"
   return (
-    <div className="contact">
+    <div className="contact wave-double-bottom">
       <h1 className="title-h1 center">Contactez-nous</h1>
       <div className="contact__content">
           <img  className="contact__content__illustration" src={picture} alt="" />
@@ -66,7 +66,12 @@ const Contact = ({
           />
              { 
            isContactDone  && (
-            <p className="messsage-done"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p>
+             <>
+            {/* <p className="messsage-done"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p> */}
+            <div role="alert" className="message-box confirm">
+            <p className="messsage-box__content confirm__content"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p>
+          </div>
+          </>
             )
           }
           <div className="contact__content__form__group">

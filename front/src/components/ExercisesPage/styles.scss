@@ -3,7 +3,6 @@
 .loading{
   margin-top: 2*$gutter;
   text-align: center;
-  
 }
 
 .exercises{
@@ -20,49 +19,71 @@
     padding: $gutter 2*$gutter;
     background-color: $white-color;
 
-    &__filter{
-      position: absolute;
-      padding: $gutter;
-      background-color: $white-color;
-      box-shadow: $shadow;
-
-      &__btn{
-        margin-bottom: $gutter;
-        font-size: 1.2rem;
-        background-color: $white-color;
-        color : $dark-color;
-        border:none;
-        border: 1px, solid, $dark-gray-color;
-        border-radius: 5px;
-        padding: 1rem;
-        border-radius: 30px;
-        &--visible{
-          border: 2px, solid, $dark-color;
+    &__header{
+      display:flex;
+      justify-content: space-between;
+      &__intro{
+        &__title{
+          margin-bottom: $gutter;
+          font-size: 1.3rem;
         }
-        &:hover{
-          border-color: $dark-color;
+        &__filter{
+          position: absolute;
+          padding: $gutter $gutter $gutter $gutter/2;
+          background-color: $white-color;
+          box-shadow: $shadow;
+    
+          &__btn{
+            font-size: 1rem;
+            background-color: $white-color;
+            color : $dark-color;
+            border:none;
+            border: 1px, solid, $dark-gray-color;
+            border-radius: 5px;
+            padding: 0.8rem;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+    
+            &__icon{
+              margin-right: 1rem;
+            }
+            &--visible{
+              border: 2px, solid, $dark-color;
+            }
+            &:hover{
+              border-color: $dark-color;
+            }
+          }
+    
+          &__legend{
+            display: none;
+          }
+    
+          &__item{
+            margin-bottom: 1rem;
+            &__label{
+              margin-left:1rem;
+            }
+          }
         }
       }
 
-      &__legend{
-        display: none;
-      }
-
-      &__item{
-        margin-bottom: 1rem;
-        &__label{
-          margin-left:1rem;
-        }
+      &__img{
+        max-height: 7rem;
+        transform: scaleX(-1);
       }
     }
 
+
     &__block-list{
       display:flex;
+      flex-wrap: wrap;
       justify-content: space-between;
+
       &__theme{
         margin-bottom: $gutter;
         width: 30%;
-  
+
         &__title{
           font-size: $font-size-title-h2;
           font-weight: bold;
@@ -74,11 +95,23 @@
           &__exercise{
             margin-bottom: 1rem;
             display:flex;
-    
+
             &__color{
-              display: inline-block;
-              width: 50px;
+              width: 20%;
               border-radius: 5px 0 0 5px;
+              display: inline-flex;
+              align-items: center;
+
+              &__score{
+                width: 100%;
+                display: inline-block;
+                text-align: center;
+                padding: 0.5rem;
+                color: $white-color;
+                align-items: center;
+                line-height: 30px;
+              }
+
             }
             &__link{
               display: inline-block;
@@ -88,15 +121,19 @@
               width: 100%;
               border: solid 1px $dark-gray-color;
               border-radius: 0 5px 5px 0;
-    
+              align-items: center;
+              
               &:hover{
                 background-color: $ligth-color;
                 border:solid 1px $ligth-color;
               }
-  
-              &__score{
-                display: inline-block;
-                font-style: italic;
+
+              &__text{
+                text-align: center;
+                width: 75%;
+              }
+              &__icon--tools{
+                width: 15%;
               }
             }
           }
@@ -128,16 +165,35 @@
   @media screen and (max-width: 60rem) {
     &__wrapper{
       padding:1rem;
+      &__header{
+        flex-wrap:wrap;
+        &__intro{
+          order: 1;
+        }
+        &__img{
+          order: 0;
+          margin: 0 auto 1rem;
+        }
+      }
 
       &__block-list{
         flex-wrap:wrap;
         &__theme{
           width:100%;
-
-          &__list__exercise__link{
-            flex-wrap:wrap;
-            &__score{
-              margin-top:1rem;
+          &__list__exercise{
+            &__color{
+              width:30%;
+            }
+            &__link{
+              flex-wrap:wrap;
+              &__text{
+                width: 100%;
+                margin-bottom: 1rem;
+              }
+              &__icon--tools{
+                width:100%;
+                margin:auto;
+              }
             }
           }
         }
