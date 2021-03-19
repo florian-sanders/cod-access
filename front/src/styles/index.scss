@@ -70,6 +70,13 @@ body {
   margin-bottom: $gutter;
 }
 
+.title-h3{
+  font-size: $font-size-title-h3;
+  font-family: $font-title;
+  font-weight: bold;
+  margin-bottom: $gutter;
+}
+
 .form-label{
   display: block;
   margin-bottom: 1rem;

@@ -19,7 +19,9 @@ const AnswerManager = ({
   <div className="admin-exercise__form__question__answers__answer">
     <fieldset>
       <div className="admin-exercise__form__question__answers__answer__header">
-        <legend>Réponse {answerNumber}</legend>
+        <legend  className="title-h2__without-magin">
+          <h2 className="admin-exercise__form__question__header__title title-h3"> Réponse {answerNumber}</h2>
+        </legend>
         <button type="button" className="button--delete" onClick={removeAnswer}>
           Supprimer
             <span className="sr-only">Question {questionNumber}</span>
