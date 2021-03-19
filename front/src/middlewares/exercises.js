@@ -9,6 +9,7 @@ import {
   setCurrentExercise,
   setResults,
 } from 'src/actions/exercises';
+import { setMessage } from 'src/actions/other';
 import axiosInstance from 'src/api';
 
 export default (store) => (next) => async (action) => {
@@ -102,12 +103,38 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
 
+        let resultMessage = '';
+        console.log(data.scoreResult);
+        if (data.scoreResult === 100) {
+          resultMessage = `Bravo, tu as réussi à totalement réparer l'interface. Tu peux consulter le détail et les explications de la correction en passant sur chaque question comme tu l'as fait auparavant.
+          Dès que tu tu seras prêt, retourne sur la liste des réparations à effectuer car il te reste du pain sur la planche et je suis impatient de pouvoir à nouveau sillonner les mers !`;
+        }
+        else if (data.scoreResult === 0) {
+          resultMessage = `Eh bien moussaillon, je te remercie pour ton aide mais rien ne fonctionne. Je te conseille de réviser le sujet et de regarder attentivement la correction.
+          Dès que tu tu seras prêt, retourne sur la liste des réparations à effectuer car il te reste du pain sur la planche et je suis impatient de pouvoir à nouveau sillonner les mers !`;
+        }
+        else if (data.scoreResult >= 50) {
+          resultMessage = `Pas mal moussaillon. Il y a encore du boulot mais tu as réparé ${data.scoreResult}% de l'interface.  Tu peux consulter le détail et les explications de la correction en passant sur chaque question comme tu l'as fait auparavant.
+          Dès que tu tu seras prêt, retourne sur la liste des réparations à effectuer car il te reste du pain sur la planche et je suis impatient de pouvoir à nouveau sillonner les mers !`;
+        }
+        else if (data.scoreResult < 50 && data.scoreResult !== null) {
+          resultMessage = `Merci pour ton aide moussaillon. Il semble que l'interface soit réparée à ${data.scoreResult}% mais il y a des éléments que tu sembles avoir raté.
+          Tu peux consulter le détail et les explications de la correction en passant sur chaque question comme tu l'as fait auparavant.
+          Dès que tu tu seras prêt, retourne sur la liste des réparations à effectuer car il te reste du pain sur la planche et je suis impatient de pouvoir à nouveau sillonner les mers !`;
+        }
+
         store.dispatch(setResults({
           explanations: data.explanation,
           correctAnswers: data.correct,
           incorrectAnswers: data.incorrect,
           rightAnswers: data.rightAnswers,
           userScore: data.scoreResult,
+        }));
+
+        store.dispatch(setMessage({
+          type: data.scoreResult >= 50 ? 'confirm' : 'error',
+          message: resultMessage,
+          componentToDisplayIn: 'Exercise',
         }));
       }
       catch (err) {

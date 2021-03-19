@@ -4,7 +4,9 @@ import { Draggable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGripLines, faEraser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faGripLines, faEraser, faCheck, faThumbsUp, faThumbsDown,
+} from '@fortawesome/free-solid-svg-icons';
 
 import './styles.scss';
 
@@ -37,7 +39,8 @@ const Answer = ({
           : id.toString()
       }
       index={index}
-      isDragDisabled={isDragDisabled}
+      isDragDisabled={isDragDisabled || isCorrected}
+      shouldRespectForcePress
     >
       {(provided, snapshot) => (
         <>
@@ -49,6 +52,10 @@ const Answer = ({
                   'exercise-section__questions__question__answers__answer--user-answer': isUserAnswer,
                   'exercise-section__questions__question__answers__answer--no-drag': isDragDisabled && !isUserAnswer,
                   'exercise-section__questions__question__answers__answer--user-correct': isUserAnswer && userCorrect,
+                  'exercise-section__questions__question__answers__answer--user-incorrect': isUserAnswer && isCorrected && !userCorrect,
+                  'exercise-section__questions__question__answers__answer--is-corrected': !isUserAnswer && isCorrected,
+                  'exercise-section__questions__question__answers__answer--dropping': snapshot.isDragging && snapshot.isDropAnimating,
+                  'exercise-section__questions__question__answers__answer--right-answer': isRightAnswer,
                 },
               )
             }
@@ -57,7 +64,8 @@ const Answer = ({
             {...provided.dragHandleProps}
           >
             {
-              !isUserAnswer
+              !isCorrected
+              && !isUserAnswer
               && !isDragDisabled
               && (
                 <FontAwesomeIcon className="exercise-section__questions__question__answers__answer__icon" role="presentation" icon={faGripLines} size="2x" />
@@ -74,11 +82,23 @@ const Answer = ({
               )
             }
             {
-              isCorrected && userCorrect && (<p>Bravo champion</p>)
+              isCorrected
+              && userCorrect
+              && isUserAnswer
+              && (
+                <FontAwesomeIcon role="presentation" icon={faThumbsUp} size="2x" />
+              )
             }
-
             {
-              isCorrected && isRightAnswer && (<p>C'était la bonne réponse !</p>)
+              isUserAnswer
+              && isCorrected
+              && !userCorrect
+              && (<FontAwesomeIcon role="presentation" icon={faThumbsDown} size="2x" />)
+            }
+            {
+              isRightAnswer
+              && !isUserAnswer
+              && (<FontAwesomeIcon role="presentation" icon={faCheck} size="2x" />)
             }
           </div>
           {snapshot.isDragging && (

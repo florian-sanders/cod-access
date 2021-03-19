@@ -7,8 +7,9 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import DOMPurify from 'dompurify';
 
+import Message from 'src/containers/Message';
 import Question from 'src/containers/Exercise/Question';
-import CircleLoader from '../CircleLoader'
+import CircleLoader from 'src/components/CircleLoader';
 import './styles.scss';
 
 const Exercise = ({
@@ -22,7 +23,7 @@ const Exercise = ({
   submitAnswers,
   resetCurrentExercise,
   userScore,
-  resultMessage,
+  messageParams,
 }) => {
   useEffect(() => {
     getExercise();
@@ -34,13 +35,14 @@ const Exercise = ({
   if (loading) {
     return (
       <div className="loading">
-      <CircleLoader
-        colour={"#7ED8F7"}
-        radius={100}
-        duration={2}
-        strokeWidth={20} />
+        <CircleLoader
+          colour={"#7ED8F7"}
+          radius={100}
+          duration={2}
+          strokeWidth={20}
+        />
       </div>
-      );
+    );
   }
 
   return (
@@ -52,18 +54,21 @@ const Exercise = ({
           <FontAwesomeIcon className="exercise-section__quit__icon" role="presentation" icon={faSignOutAlt} size="1x" />
         </Link>
         {
-          resultMessage && (
-            <div className="exercise-section__results">
-              <p>{resultMessage}</p>
-            </div>
+          currentQuestionIndex === 0 && (
+            messageParams.isVisible && messageParams.componentToDisplayIn === 'Exercise'
+              ? (
+                <Message {...messageParams} />
+              )
+              : (
+                <article
+                  className="exercise-section__brief rte-output"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(brief),
+                  }}
+                />
+              )
           )
         }
-        <article
-          className="exercise-section__brief"
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(brief),
-          }}
-        />
         <section className="exercise-section__questions">
           {
             questions.map((question, index) => (
@@ -126,8 +131,8 @@ const Exercise = ({
           }
           {
             userScore && (currentQuestionIndex === questions.length - 1) && (
-              <Link to="/challenges">
-                Retourner à l'accueil
+              <Link to="/challenges" className="button--primary">
+                Retourner à la liste des challenges
               </Link>
             )
           }

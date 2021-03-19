@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -23,31 +23,44 @@ const Question = ({
   questionIndex,
   explanation,
 }) => {
-  const handleDragEnd = (result) => {
-    newUserAnswer({
-      questionId: id,
-      answerId: Number(result.draggableId),
-      previousAnswers: userAnswers,
-    });
-  };
+  const questionContainer = useRef('');
+  const initialMount = useRef(true);
 
-  // move this to container / middleware later
-  /*   const regex = /(?:\[\[|\]\])+/;
-    const test = code.split(regex); */
+  useEffect(() => {
+    if (!isHidden && !initialMount.current) {
+      questionContainer.current.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    if (initialMount.current) {
+      initialMount.current = false;
+    }
+  }, [isHidden]);
+
+  const handleDragEnd = (result) => {
+    if (result.destination && result.destination.droppableId === 'user-answers') {
+      newUserAnswer({
+        questionId: id,
+        answerId: Number(result.draggableId),
+        previousAnswers: userAnswers,
+      });
+    }
+  };
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <article className={
-        classNames('exercise-section__questions__question', {
-          'exercise-section__questions__question--hidden': isHidden,
-        })
-      }
+      <article
+        className={
+          classNames('exercise-section__questions__question', {
+            'exercise-section__questions__question--hidden': isHidden,
+          })
+        }
+        ref={questionContainer}
       >
         <h2 className="title-h2 exercise-section__questions__question__heading">Question {questionIndex + 1}</h2>
         {
           brief && (
             <article
-              className="exercise-section__questions__question__brief"
+              className="exercise-section__questions__question__brief rte-output"
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(brief),
               }}
@@ -86,11 +99,15 @@ const Question = ({
         />
         {
           explanation !== '' && (
-            <article
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(explanation),
-              }}
-            />
+            <article className="exercise-section__questions__question__explanation">
+              <h3 className="title-h3">Explications</h3>
+              <div
+                className="rte-output"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(explanation),
+                }}
+              />
+            </article>
           )
         }
       </article>
