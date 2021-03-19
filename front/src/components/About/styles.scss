@@ -2,30 +2,20 @@
 
 .about {
   margin-top: $gutter;
-
-  &__description {
-    padding: 3rem;
-    padding-bottom: 4rem;
-    border-radius: $gutter;
-    font-size: $font-size-title-h2;
-    color: #566970;
-    font-family: $font-text;
-  }
+  padding: 2*$gutter;
 
   &__members {
     display: flex;
-    flex-direction: row;
     justify-content: space-evenly;
     align-items: stretch;
     padding-bottom: 2rem;
-    margin: 0 6rem;
 
 
     &__team {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      width: 17%;
+      width: 250px;
       background: #E5EBED;
       padding: 20px 10px;
       flex-direction: column;
@@ -34,6 +24,7 @@
       font-family: $font-title;
       box-shadow: $shadow;
       text-align: center;
+      min-height: 55vh;
 
       &__name {
         color: #566970;
@@ -64,25 +55,27 @@
     }
   }
 
-  @media screen and (max-width: 60rem) {
+  @media screen and (max-width: 75rem) {
     &__title-h1 {
       padding-bottom: 0 ;
     }
     &__description {
-      padding: 2rem 4rem;
+      padding: 1rem;
     }
     &__members {
       flex-direction: column;
       justify-content: center;
       align-items: center;
       margin-bottom: 1rem;
+      width: 100%;
+      margin: 0;
 
       &__team {
         width: 90%;
         display: inline;
-        margin-bottom: 2rem;
+        margin: 1rem 0;
         padding-bottom: 0;
-
+        min-height: 0;
 
         &__imageLeft {
           float: left;
@@ -102,14 +95,73 @@
         }
 
         &__name {
-          font-size: 1.5rem;
+          font-size: 1.8em;
         }
-
+  
         &__profil {
-          font-size: 1.8rem;
+          font-size: 1.2em;
         }
 
       }
     }
+
   }
+}
+
+@media screen and (max-width: 45rem) {
+  .about {
+    padding: 0.5rem;
+
+    &__members {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+      width: 100%;
+      margin: 0;
+  
+      &__team {
+        width: 90%;
+        display: block;
+        margin: 1rem 0;
+        padding-bottom: 2rem;
+        min-height: 0;
+  
+        &__imageLeft {
+          float: none;
+          padding: 0;
+        }
+  
+        &__imageRight {
+          float: none;
+          padding: 0;
+        }
+  
+        &__texte {
+          padding-top: 1rem;
+          text-align: center;
+        }
+  
+        &__name {
+          font-size: 1.8em;
+        }
+  
+        &__profil {
+          font-size: 1.2em;
+        }
+  
+      }
+    }
+  }
+
+  .title-h1 {
+    padding-bottom: 0 ;
+  }
+
+  .title-h3 {
+    font-size: 1em
+  }
+
+ 
+
 }
