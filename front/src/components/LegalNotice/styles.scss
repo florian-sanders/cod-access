@@ -4,24 +4,7 @@
 
    margin: 3rem 10rem;
 
-  &__title {
-    display: flex;
-    justify-content: center;
-    font-weight: bolder;
-    font-size: $font-size-title-h1;
-    padding-bottom: 4rem;
-  }
-
-  &__subTitle {
-    justify-content: start;
-    font-size: $font-size-title-h2;
-    font-weight: bolder;
-    padding-bottom: 1rem;
-  }
-
   &__description {
     padding-bottom: 2rem;
-    color: #566970;
-    font-family: $font-text;
   }
 }

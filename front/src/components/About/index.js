@@ -8,9 +8,9 @@ import annekim from 'src/assets/img/anne-kim.jpg';
 
 const About = () => (
   <>
-    <section className="about">
+    <section className="about wave-double-bottom">
       <h1 className="title-h1 center">À propos</h1>
-      <p className="about__description">Toi aussi tu te demande qui à pu réalisé ce super site à l'aide de Réact, NodeJS, express... en seulement 1 mois et bien voici une petite présentation de l'équipage: </p>
+      <p className="title-h3 center">Toi aussi tu te demande qui à pu réalisé ce super site à l'aide de Réact, NodeJS, express... en seulement 1 mois et bien voici une petite présentation de l'équipage: </p>
       <div className="about__members">
 
         <article className="about__members__team">
