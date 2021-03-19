@@ -1,8 +1,8 @@
 @import "src/styles/vars";
 
 .LegalNotice {
-  padding: 4rem;
-  justify-content: center;
+
+   margin: 3rem 10rem;
 
   &__title {
     display: flex;
@@ -20,9 +20,7 @@
   }
 
   &__description {
-
     padding-bottom: 2rem;
-    font-size: $font-size-title-h2;
     color: #566970;
     font-family: $font-text;
   }
