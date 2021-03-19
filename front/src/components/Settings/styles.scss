@@ -11,22 +11,35 @@
   width: 100%;
 }
 
+.container-message-box {
+  width:40%;
+  align-self: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.center-margin {
+  margin: auto;
+}
+
 .settings{
   margin-top: $gutter;
   display: flex;
   flex-direction: column;
   &__form__upload{
+    display: flex;
+    flex-direction: column;
     margin: 2rem auto;
     width: 40%;
 
     &__label{
       display: block;
       padding: 1rem;
-        // display: block;
-      // margin-bottom: $gutter;
-      // padding: 16px 8px;
       border: solid 1px $dark-gray-color;
       border-radius: 5px;
+      width: 60%;
       &:hover {
         border: solid 1px $dark-color;
       }
