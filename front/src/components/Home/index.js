@@ -11,7 +11,7 @@ import sailorImgPath from 'src/assets/img/sailor.svg';
 import './styles.scss';
 
 const Home = () => (
-  <section className="home-wrapper">
+  <section className="home-wrapper wave-double-bottom">
     <article className="home-wrapper__article">
       <div className="home-wrapper__article__wrapper">
         <img className="home-wrapper__article__wrapper__img" src={sailorImgPath} alt="" />

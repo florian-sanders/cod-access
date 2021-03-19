@@ -59,6 +59,11 @@
       list-style-type: disc;
       padding-left: $gutter;
     }
+    
+    a {
+      text-decoration: underline;
+      color: $primary-color;
+    }
   }
 
   &__questions {
