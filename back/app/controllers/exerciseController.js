@@ -587,7 +587,8 @@ module.exports = {
                         correct,
                         incorrect,
                         client,
-                        explanation
+                        explanation,
+                        scoreResult
                     });
 
                 } else {
@@ -617,7 +618,8 @@ module.exports = {
                             correct,
                             incorrect,
                             client,
-                            explanation
+                            explanation,
+                            scoreResult,
                         });
                     }
                 }
