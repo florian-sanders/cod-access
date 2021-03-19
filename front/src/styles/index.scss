@@ -37,6 +37,7 @@ body {
 .message--warning{
   color: $color-error;
   font-size: 0.8em;
+  margin-bottom: $gutter;
   &::before {
     content: "!";
     text-align: center;
@@ -50,7 +51,7 @@ body {
     background-color: $color-error;
     border-radius: 50%;
     border: 1px $color-error solid;
-    margin-bottom: $gutter;
+
   }
 }
 
@@ -144,16 +145,18 @@ body {
   text-transform: uppercase;
   background-color: $color-error;
   color: $white-color;
-  border: solid 1px $dark-gray-color;
-  padding: 8px 16px;
+  border:none;
+  padding: 8px 20px;
   border-radius: 30px;
-  border: 1px solid $primary-color;
-    &:hover{
-      background-color: $gray-color;
-    } 
-    &:active{
+  box-shadow: 0px 1px 5px 0px rgba(7, 72, 94, 0.5);
+  opacity: 0.9;
+    &:hover {
+      opacity: 1;
+      box-shadow: 0px 4px 10px 0px rgba(7, 72, 94, 0.5);
+    }
+    &:active {
       opacity: 0.7;
-      background-color: $ligth-color;
+      box-shadow: 0px 8px 10px 0px rgba(7, 72, 94, 0.5);
     }
 }
 

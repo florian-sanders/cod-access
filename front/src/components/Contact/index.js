@@ -66,7 +66,12 @@ const Contact = ({
           />
              { 
            isContactDone  && (
-            <p className="messsage-done"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p>
+             <>
+            {/* <p className="messsage-done"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p> */}
+            <div role="alert" className="message-box confirm">
+            <p className="messsage-box__content confirm__content"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p>
+          </div>
+          </>
             )
           }
           <div className="contact__content__form__group">
