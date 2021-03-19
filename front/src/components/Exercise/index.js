@@ -24,11 +24,13 @@ const Exercise = ({
   resetCurrentExercise,
   userScore,
   messageParams,
+  closeMessage,
 }) => {
   useEffect(() => {
     getExercise();
     return () => {
       resetCurrentExercise();
+      closeMessage();
     };
   }, []);
 
