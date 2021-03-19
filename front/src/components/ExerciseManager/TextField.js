@@ -34,7 +34,7 @@ const TextField = ({
           ? (
             <input
               id={id}
-              className="form-input"
+              className="form-input large"
               type={type}
               value={value}
               autoComplete={autocomplete}
@@ -50,6 +50,7 @@ const TextField = ({
           )
           : (
             <textarea
+              className="full textarea"
               id={id}
               value={value}
               autoComplete={autocomplete}

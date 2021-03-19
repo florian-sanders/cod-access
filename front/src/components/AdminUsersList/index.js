@@ -106,7 +106,7 @@ const AdminUsersList = ({
                   <td>{user.pseudo}</td>
                   <td>
                     {/* {user.responsibility.entitled} */}
-                    <form class="form-responsibility" onSubmit={() => handleSubmit(user.id, event)}>
+                    <form className="form-responsibility" onSubmit={() => handleSubmit(user.id, event)}>
                       <select
                        className="form-responsibility__select"
                         value={usersRole[user.id]}
