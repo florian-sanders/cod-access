@@ -8,6 +8,7 @@ import {
   sendAnswers,
   resetCurrentExercise,
 } from 'src/actions/exercises';
+import { unsetMessage } from 'src/actions/other';
 
 const mapStateToProps = ({
   exercises: { currentExercise },
@@ -22,6 +23,7 @@ const mapDispatchToProps = (dispatch, { match: { params: { exerciseId } } }) => 
   changeQuestion: (questionIndex) => dispatch(showQuestion(questionIndex)),
   submitAnswers: () => dispatch(sendAnswers()),
   resetCurrentExercise: () => dispatch(resetCurrentExercise()),
+  closeMessage: () => dispatch(unsetMessage()),
 });
 
 export default withRouter(
