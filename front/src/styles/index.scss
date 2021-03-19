@@ -21,6 +21,14 @@ body {
   }
 }
 
+.wave-double-bottom {
+  background-image: url("src/assets/img/wave.svg");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% auto;
+  padding-bottom: 20rem;
+}
+
 .link {
   text-decoration: underline;
   color: $primary-color;

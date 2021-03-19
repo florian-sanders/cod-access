@@ -8,10 +8,17 @@
 .exercise-section {
   max-width: 1100px;
   margin: 0 auto;
+  padding-top: $gutter * 2;
+  position: relative;
 
-  &__page-heading {
-    font-size: $font-size-title-h1;
-    margin-bottom: $gutter;
+  &__quit {
+    position: absolute;
+    top: $gutter * 2;
+    right: 1rem;
+
+    &__icon {
+      margin-left: 0.5rem;
+    }
   }
 
   &__brief {
@@ -20,31 +27,103 @@
     border-radius: 0.5rem;
     max-width: 80%;
     margin: 0 auto;
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    blockquote {
+      background: #f9f9f9;
+      border-left: 10px solid #ccc;
+      margin: 1.5em 10px;
+      padding: 0.5em 10px;
+      quotes: "\201C""\201D""\2018""\2019";
+    }
+    blockquote:before {
+      color: #ccc;
+      content: open-quote;
+      font-size: 4em;
+      line-height: 0.1em;
+      margin-right: 0.25em;
+      vertical-align: -0.4em;
+    }
+    blockquote p {
+      display: inline;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: $gutter;
+    }
+    
+    a {
+      text-decoration: underline;
+      color: $primary-color;
+    }
   }
 
   &__questions {
     &__question {
       margin: $gutter auto;
-      max-width: 80%;
+
+      &__brief {
+        background-color: $white-color;
+        padding: $gutter;
+        border-radius: 0.5rem;
+        max-width: 80%;
+        margin: 0 auto;
+      }
+
+      &__code {
+        box-shadow: $shadow;
+        background-color: #333;
+        border-radius: 0.5rem;
+        color: $gray-color;
+        padding: $gutter * 2 3rem;
+        white-space: pre-wrap; /* Since CSS 2.1 */
+        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+        font-family: $font-code;
+
+        & span:not(.exercise-section__questions__question__code__drop-area) {
+          display: block;
+          width: max-content;
+          padding: 0;
+        }
+
+        &__drop-area {
+          min-width: 17rem;
+          padding: 2rem;
+          border-radius: 1rem;
+          display: block;
+          box-shadow: inset 0 0 10px #000000;
+
+          &--hovered {
+            border: dotted 2px $color-valid;
+          }
+        }
+      }
 
       &__img {
         max-width: 90%;
         box-shadow: $shadow;
-        margin: $gutter auto;
+        margin: $gutter * 2 auto;
+        display: block;
       }
 
       &--hidden {
         display: none;
-      }
-
-      &__drop-area {
-        display: inline-block;
-        padding: 0.5rem 2rem;
-        border: solid 1px #000;
-
-        &--hovered {
-          background-color: blue;
-        }
       }
 
       &__answers {
@@ -55,11 +134,64 @@
 
         &__answer {
           flex: 1 1 40%;
-          border: solid 1px #000;
-          text-align: center;
-          padding: 1rem;
+          border: dotted 3px $gray-color;
+          padding: 2rem 1rem 2rem 4rem;
+          border-radius: 1rem;
+          position: relative;
+          font-family: $font-code;
+          display: flex;
+          align-items: center;
+
+          &:hover {
+            cursor: alias; /* fallback if grab cursor is unsupported */
+          }
+
+          &--no-drag {
+            opacity: 0.2;
+            padding: 2rem;
+          }
+
+          &--user-answer {
+            background-color: #333;
+            color: $gray-color;
+            border: none;
+            padding: $gutter 0.8rem;
+            transition: all ease-in-out 1s;
+            &:hover {
+              cursor: auto;
+            }
+          }
+
+          &--user-correct {
+            border: dashed 1px $color-valid;
+          }
+
+          &__icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 1rem;
+            color: $primary-color;
+          }
+
+          &__remove {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+            color: $gray-color;
+            background: none;
+            border: none;
+            padding: 0;
+          }
         }
       }
     }
+  }
+
+  &__navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
   }
 }

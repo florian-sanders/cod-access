@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
+import classNames from 'classnames';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGripLines, faEraser } from '@fortawesome/free-solid-svg-icons';
 
 import './styles.scss';
 
@@ -38,17 +42,34 @@ const Answer = ({
       {(provided, snapshot) => (
         <>
           <div
-            className="exercise-section__questions__question__answers__answer"
+            className={
+              classNames(
+                'exercise-section__questions__question__answers__answer',
+                {
+                  'exercise-section__questions__question__answers__answer--user-answer': isUserAnswer,
+                  'exercise-section__questions__question__answers__answer--no-drag': isDragDisabled && !isUserAnswer,
+                  'exercise-section__questions__question__answers__answer--user-correct': isUserAnswer && userCorrect,
+                },
+              )
+            }
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
+            {
+              !isUserAnswer
+              && !isDragDisabled
+              && (
+                <FontAwesomeIcon className="exercise-section__questions__question__answers__answer__icon" role="presentation" icon={faGripLines} size="2x" />
+              )
+            }
             {content}
             {
-              isUserAnswer && (
-                <button type="button" onClick={handleClick}>
-                  <span className="sr-only">Supprimer l'attribut {content}</span>
-                  x
+              isUserAnswer
+              && !isCorrected
+              && (
+                <button type="button" onClick={handleClick} className="exercise-section__questions__question__answers__answer__remove" aria-label={`Supprimer l'attribut ${content}`}>
+                  <FontAwesomeIcon role="presentation" icon={faEraser} size="2x" />
                 </button>
               )
             }

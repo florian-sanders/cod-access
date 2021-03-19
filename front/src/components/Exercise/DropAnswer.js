@@ -17,16 +17,15 @@ const DropAnswer = ({
       <span
         className={
           classNames(
-            'exercise-section__questions__question__drop-area',
+            'exercise-section__questions__question__code__drop-area',
             {
-              'exercise-section__questions__question__drop-area--hovered': snapshot.isDraggingOver,
+              'exercise-section__questions__question__code__drop-area--hovered': snapshot.isDraggingOver,
             },
           )
         }
         ref={provided.innerRef}
         {...provided.droppableProps}
       >
-        Drop me here
         {provided.placeholder}
         {
           userAnswers.map((answerId, index) => (
