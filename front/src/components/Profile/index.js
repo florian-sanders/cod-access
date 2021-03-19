@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faAward } from '@fortawesome/free-solid-svg-icons';
 import ProgressBar from './ProgressBar';
 
 import './styles.scss';
@@ -14,7 +15,7 @@ const Profile = ({
   }, []);
 
   return (
-    <div className="profile">
+    <section className="profile">
       <h1 className="title-h1 center">Mon Profil</h1>
       <div className="wrapper">
         <div className="profile__content">
@@ -25,22 +26,27 @@ const Profile = ({
           </div>
         </div>
         <div className="profile__progress">
-          {
-            progressByTheme.map((progress) => (
-              <div key={progress.theme} className="profile__progress__theme">
-                <div className="profile__progress__theme__header">
-                  <h2 className="profile__progress__theme__header__title">{progress.theme}</h2>
+          <h2 className="profile__progress__title  title-h2">Mes réparations validées</h2>
+          <div className="profile__progress__scores">
+            {
+              progressByTheme.map((progress) => (
+                <div key={progress.theme} className="profile__progress__scores__theme">
                   {
-                    progress.progress === 100 && <FontAwesomeIcon icon={faTrophy} size="2x" />
+                    progress.progress === 100
+                      ? <FontAwesomeIcon icon={faAward} className="profile__progress__scores__theme__icon" size="3x" color={progress.color} />
+                      : <FontAwesomeIcon icon={faAward} color="#E5EBED" className="profile__progress__scores__theme__icon" size="3x" />
                   }
+                  <div className="profile__progress__scores__theme__score">
+                    <h3 className="profile__progress__scores__theme__score__title">{progress.theme}</h3>
+                    <ProgressBar color={progress.color} percentage={`${progress.progress}%`} />
+                  </div>
                 </div>
-                <ProgressBar color={progress.color} percentage={`${progress.progress}%`} />
-              </div>
-            ))
-          }
+              ))
+            }
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
