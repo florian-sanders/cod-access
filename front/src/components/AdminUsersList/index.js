@@ -103,7 +103,6 @@ const AdminUsersList = ({
                   <td>{user.email}</td>
                   <td>{user.pseudo}</td>
                   <td>
-                    {/* {user.responsibility.entitled} */}
                     <form className="form-responsibility" onSubmit={() => handleSubmit(user.id, event)}>
                       <select
                         className="form-responsibility__select"
@@ -113,9 +112,6 @@ const AdminUsersList = ({
                         <option className="option" value="admin">Admin</option>
                         <option className="option" value="utilisateur">Utilisateur</option>
                       </select>
-                      {/* <button className="button--actions" type="submit">
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                        </button> */}
                       <button
                         className="button--actions valid"
                         type="button"
@@ -133,11 +129,14 @@ const AdminUsersList = ({
                       role={usersRole[user.id]}
                       isVisible={modalVisible}
                     /> */}
+
+                        <FontAwesomeIcon size="lg" icon={faCheckCircle} />
+                      </button>
+                    </form>
                   </td>
                   <td>{user.created_at}</td>
                   <td>{user.updated_at}</td>
                   <td>
-
                     <button
                       className="button--actions"
                       type="button"
@@ -145,9 +144,8 @@ const AdminUsersList = ({
                         handleOnClickDelete(user);
                       }}
                     >
-                      <FontAwesomeIcon icon={faTrash} className=" trash" />
+                      <FontAwesomeIcon icon={faTrash} size="lg" className=" trash" />
                     </button>
-
                   </td>
                 </tr>
               ))

@@ -226,17 +226,52 @@
 
   }
 
-  @media screen and (max-width: 60rem) {
+  
+}
+@media screen and (max-width: 60rem) {
     /*
     * Mobile, articles are below each other with no shift.
     * Images are displayed above each article
     */
+    .title-h1 {
+      font-size: 1.5em
+    }
+
+    .title-h2 {
+      font-size: 1em
+    }
+
+    .title-h2__without-magin {
+      font-size: 1em
+    }
+
+    .title-h3 {
+      font-size: 0.8em;
+      margin-bottom: 0;
+    }
+
     .full {
-      width: 95%;
+      width: 80%;
+    }
+
+    .large {
+      width:85%
+    }
+
+    .flex-space {
+      display: block;
     }
 
     .ck.ck-editor {
-      width: 95%
+      width: 75%
+    }
+
+    .textarea {
+      margin-left: 0.2rem;
+    }
+
+    .code {
+      width: 80%
     }
 
     .admin-exercise {
@@ -259,17 +294,24 @@
       }
     }
 
-    .admin-exercise__form__question__answers{
-      width: 95%;
+    .admin-exercise__form__question{
+      &__header {
+        display: block; 
+      }
+      &__answers{
+      width: 85%;
+      &__answer__header{
+        display: block;
+      }
       &__heading {
         opacity: 1;
         background-color: #fff;
         padding: 0.5rem;
         border-radius: .5rem;
-        margin: 2rem 0;
+        margin: 0;
         border: 1px solid #e9eef0;
       }
+      }
     }
-  }
-
+  
 }

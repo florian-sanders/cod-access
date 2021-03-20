@@ -20,6 +20,11 @@
     &__link {
       padding: 0.3rem 0.5rem;
 
+      &:hover{
+        color: $primary-color;
+        border-bottom: solid 3px $primary-color;
+      }
+
       &--active {
         border-bottom: solid 3px $primary-color;
       }

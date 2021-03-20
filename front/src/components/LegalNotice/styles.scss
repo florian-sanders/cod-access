@@ -1,10 +1,17 @@
 @import "src/styles/vars";
 
-.LegalNotice {
+.legal-notice {
 
    margin: 3rem 10rem;
 
-  &__description {
+  &__text {
     padding-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 60rem) {
+  .legal-notice{
+    padding: 3rem 1.5rem ;
+    margin: 0;
   }
 }

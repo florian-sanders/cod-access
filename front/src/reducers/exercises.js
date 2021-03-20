@@ -153,13 +153,13 @@ const reducer = (state = initialState, action = {}) => {
           isCorrected: true,
           questions: state.currentExercise.questions.map(
             (question) => {
-              const { explanation } = action.explanations.find(
-                (expl) => question.id === expl.id,
+              const thisCorrectedQuestion = action.corrections.find(
+                (correctedQuestion) => question.id === correctedQuestion.id,
               );
-              question.explanation = explanation;
+              question.explanation = thisCorrectedQuestion.explanation;
               question.possibleAnswers = question.possibleAnswers.map((answer) => {
-                answer.isRightAnswer = action.rightAnswers.includes(answer.id);
-                answer.userCorrect = action.rightAnswers.includes(answer.id)
+                answer.isRightAnswer = thisCorrectedQuestion.rightAnswers.includes(answer.id);
+                answer.userCorrect = thisCorrectedQuestion.rightAnswers.includes(answer.id)
                   && question.userAnswers.includes(answer.id);
                 answer.isCorrected = true;
                 return answer;

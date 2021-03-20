@@ -7,6 +7,17 @@ body {
   color: $dark-color;
 }
 
+p{
+  line-height: 1.4rem;
+}
+
+th{
+  font-weight: bold;
+}
+tbody tr:nth-child(odd){
+  background-color: $ligth-color;
+}
+
 .hidden {
   display: none;
 }
@@ -170,6 +181,81 @@ body {
       opacity: 0.7;
       box-shadow: 0px 8px 10px 0px rgba(7, 72, 94, 0.5);
     }
+}
+
+@media screen and (max-width: 45rem) {
+
+  .button--primary {
+    margin: 0.5rem;
+    height: fit-content;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $white-color;
+    background-color: $primary-color;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 30px;
+    box-shadow: 0px 1px 5px 0px rgba(7, 72, 94, 0.5);
+    opacity: 0.9;
+    &:hover {
+      opacity: 1;
+      box-shadow: 0px 4px 10px 0px rgba(7, 72, 94, 0.5);
+    }
+    &:active {
+      opacity: 0.7;
+      box-shadow: 0px 8px 10px 0px rgba(7, 72, 94, 0.5);
+    }
+  }
+  
+
+  .button--secondary {
+    margin: 0.5rem;
+    height: fit-content;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: $white-color;
+    color: $primary-color;
+    border: solid 1px $dark-gray-color;
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 1px solid $primary-color;
+    box-shadow: 0px 1px 5px 0px rgba(86, 105, 112, 0.5);
+    &:hover {
+      background-color: $gray-color;
+      // box-shadow:  0px 6px 10px 0px rgba(86, 105, 112,0.5);
+    }
+    &:active {
+      opacity: 0.7;
+      background-color: $ligth-color;
+      // box-shadow:  0px 10px 10px 0px rgba(86, 105, 112,0.5);
+    }
+  }
+
+  .button--delete {
+    margin: 0.5rem;
+    height: fit-content;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: $color-error;
+    color: $white-color;
+    border:none;
+    padding: 8px 20px;
+    border-radius: 30px;
+    box-shadow: 0px 1px 5px 0px rgba(7, 72, 94, 0.5);
+    opacity: 0.9;
+      &:hover {
+        opacity: 1;
+        box-shadow: 0px 4px 10px 0px rgba(7, 72, 94, 0.5);
+      }
+      &:active {
+        opacity: 0.7;
+        box-shadow: 0px 8px 10px 0px rgba(7, 72, 94, 0.5);
+      }
+  }
+
 }
 
 [type="checkbox"]:not(:checked),

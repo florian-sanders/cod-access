@@ -7,6 +7,8 @@ import {
 
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
+
+import Modal from 'src/containers/ModalConfirm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Pagination from './Pagination';
@@ -20,6 +22,7 @@ const AdminExercisesList = ({
   loadingExercisesList,
   deleteExercise,
   displayModalConfirm,
+  modalConfirmParams,
   messageParams,
 }) => {
   const query = new URLSearchParams(useLocation().search);
@@ -68,7 +71,7 @@ const AdminExercisesList = ({
   return (
     <>
       <div className="admin__users">
-        <h1 className="title-h2">Liste des Challenges</h1>
+        <h1 className="title-h2">Liste des Exercices</h1>
         {
           messageParams.isVisible
           && messageParams.componentToDisplayIn === 'AdminExercisesList'
@@ -113,10 +116,10 @@ const AdminExercisesList = ({
                       type="button"
                       onClick={() => handleOnClickDelete(exercise)}
                     >
-                      <FontAwesomeIcon icon={faTrash} className="trash" />
+                      <FontAwesomeIcon icon={faTrash} size="lg" className="trash" />
                     </button>
                     <Link to={`/admin/exercices/edit/${exercise.id}`}>
-                      <FontAwesomeIcon icon={faEdit} className="valid" />
+                      <FontAwesomeIcon icon={faEdit} size="lg" className="valid" />
                     </Link>
                   </td>
                 </tr>
