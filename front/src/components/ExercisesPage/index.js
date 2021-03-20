@@ -35,7 +35,7 @@ const ExercisesPage = ({
   }
 
   return (
-    <section className="exercises">
+    <section className="exercises wave-double-bottom">
       <h1 className="title-h1 center">Challenges</h1>
       <div className="exercises__wrapper">
         <div className="exercises__wrapper__header">

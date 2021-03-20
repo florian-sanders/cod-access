@@ -32,7 +32,7 @@ const AdminUsersList = ({
 
   if (loadingUsersList) {
     return (
-      <div className="loading">
+      <div className="loading-centered">
         <CircleLoader
           colour="#7ED8F7"
           radius={100}
@@ -141,10 +141,14 @@ const AdminUsersList = ({
             }
           </tbody>
         </table>
-        <Pagination
-          totalPages={totalPages}
-          activePage={page}
-        />
+        {
+          totalPages > 1 && (
+            <Pagination
+              totalPages={totalPages}
+              activePage={page}
+            />
+          )
+        }
       </div>
     </>
   );
