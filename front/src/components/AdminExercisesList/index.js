@@ -7,6 +7,7 @@ import {
 
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
+
 import Modal from 'src/containers/ModalConfirm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -131,13 +132,6 @@ const AdminExercisesList = ({
           activePage={page}
         />
       </div>
-      {
-        modalConfirmParams.isVisible && (
-          <Modal
-            {...modalConfirmParams}
-          />
-        )
-      }
     </>
   );
 };
@@ -156,26 +150,13 @@ AdminExercisesList.propTypes = {
   loadingExercisesList: PropTypes.bool,
   deleteExercise: PropTypes.func.isRequired,
   displayModalConfirm: PropTypes.func.isRequired,
-  modalConfirmParams: PropTypes.shape({
-    heading: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    confirmParams: PropTypes.shape({
-      onConfirm: PropTypes.func.isRequired,
-      params: PropTypes.object,
-      label: PropTypes.string.isRequired,
-    }),
-    cancelParams: PropTypes.shape({
-      onCancel: PropTypes.func,
-      label: PropTypes.string.isRequired,
-    }),
-    isVisible: PropTypes.bool.isRequired,
-  }).isRequired,
   shouldDisplayHeading: PropTypes.bool,
   isVisible: PropTypes.bool,
   displayMessage: PropTypes.func.isRequired,
   messageParams: PropTypes.shape({
     type: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
+    componentToDisplayIn: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,
   }).isRequired,
 };

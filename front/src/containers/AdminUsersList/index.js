@@ -17,7 +17,6 @@ const mapStateToProps = (state) => ({
   loadingUsersList: state.users.loadingUsersList,
   totalPages: Math.ceil(state.users.users.count / 10),
   messageParams: state.other.messageParams,
-  modalConfirmParams: state.other.modalConfirmParams,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,9 +1,11 @@
 import {
   UPDATE_THEME_MANAGER,
-  setThemeManagerIsSaved,
-  setThemeManagerUpdateLoading,
-  setThemeManagerError,
 } from 'src/actions/exerciseManager/themeManager';
+import {
+  setExerciseManagerUpdateLoading,
+  setExerciseManagerError,
+  setExerciseManagerIsSaved,
+} from 'src/actions/exerciseManager';
 
 import axiosInstance from 'src/api';
 
@@ -11,7 +13,8 @@ export default (store) => (next) => async (action) => {
   switch (action.type) {
     case UPDATE_THEME_MANAGER:
       try {
-        store.dispatch(setThemeManagerUpdateLoading(true));
+        store.dispatch(setExerciseManagerIsSaved(false));
+        store.dispatch(setExerciseManagerUpdateLoading(true));
 
         const {
           exerciseManager: {
@@ -39,14 +42,14 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
 
-        store.dispatch(setThemeManagerIsSaved(true));
+        store.dispatch(setExerciseManagerIsSaved(true));
       }
       catch (err) {
         console.log(err);
-        store.dispatch(setThemeManagerError(true));
+        store.dispatch(setExerciseManagerError(true));
       }
       finally {
-        store.dispatch(setThemeManagerUpdateLoading(false));
+        store.dispatch(setExerciseManagerUpdateLoading(false));
       }
       return next(action);
     default:

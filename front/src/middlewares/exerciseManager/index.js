@@ -3,6 +3,7 @@ import {
   PATCH_EXERCISE_MANAGER,
   DELETE_EXERCISE_MANAGER,
   FETCH_EXERCISE_MANAGER,
+  SET_EXERCISE_MANAGER_STATUS,
   setExerciseManagerIsSaved,
   setExerciseManagerLoading,
   setExerciseManagerUpdateLoading,
@@ -11,9 +12,6 @@ import {
   resetManagers,
   setManagersFromDB,
 } from 'src/actions/exerciseManager';
-import { resetQuestionManager } from 'src/actions/exerciseManager/questionManager';
-import { resetAnswerManager } from 'src/actions/exerciseManager/answerManager';
-import { setThemeManagerCheckboxes } from 'src/actions/exerciseManager/themeManager';
 
 import axiosInstance from 'src/api';
 
@@ -50,6 +48,7 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case PATCH_EXERCISE_MANAGER:
       try {
+        store.dispatch(setExerciseManagerIsSaved(false));
         store.dispatch(setExerciseManagerUpdateLoading(true));
         const {
           exerciseManager,
@@ -70,7 +69,7 @@ export default (store) => (next) => async (action) => {
       }
       catch (err) {
         console.log(err);
-        //store.dispatch(setExerciseManagerError(true));
+        store.dispatch(setExerciseManagerError(true));
       }
       finally {
         store.dispatch(setExerciseManagerUpdateLoading(false));
@@ -94,7 +93,7 @@ export default (store) => (next) => async (action) => {
       }
       catch (err) {
         console.log(err);
-        //store.dispatch(setExerciseManagerError(true));
+        store.dispatch(setExerciseManagerError(true));
       }
       finally {
         store.dispatch(setExerciseManagerUpdateLoading(false));
@@ -147,7 +146,7 @@ export default (store) => (next) => async (action) => {
       }
       catch (err) {
         console.log(err);
-        //store.dispatch(setExerciseManagerError(true));
+        store.dispatch(setExerciseManagerError(true));
       }
       finally {
         store.dispatch(setExerciseManagerUpdateLoading(false));

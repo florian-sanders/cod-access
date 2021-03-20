@@ -108,11 +108,6 @@ const questionManager = (state = initialState, action = {}) => {
         ...state,
         isSaved: action.status,
       };
-    case SET_QUESTION_MANAGER_FILE:
-      return {
-        ...state,
-        selectedFile: action.file,
-      };
     case SET_QUESTION_MANAGER_SELECTED_FILE:
       return {
         ...state,

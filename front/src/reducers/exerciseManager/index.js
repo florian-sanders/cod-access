@@ -9,6 +9,13 @@ import {
   RESET_MANAGERS,
   SET_MANAGERS_FROM_DB,
 } from 'src/actions/exerciseManager';
+import {
+  SET_QUESTION_MANAGER_SELECTED_FILE,
+  SET_QUESTION_MANAGER_FIELD_VALUE,
+} from 'src/actions/exerciseManager/questionManager';
+import {
+  SET_ANSWER_MANAGER_FIELD_VALUE,
+} from 'src/actions/exerciseManager/answerManager';
 
 const initialState = {
   loading: true,
@@ -24,11 +31,28 @@ const initialState = {
 
 const exerciseManager = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_EXERCISE_MANAGER_IS_LEAVING:
+      return {
+        ...state,
+        isLeaving: action.status,
+      };
+    case SET_QUESTION_MANAGER_FIELD_VALUE:
+    case SET_ANSWER_MANAGER_FIELD_VALUE:
+      return {
+        ...state,
+        isSaved: false,
+      };
+    case SET_QUESTION_MANAGER_SELECTED_FILE:
+      return {
+        ...state,
+        isSaved: false,
+      };
     case SET_MANAGERS_FROM_DB:
       return {
         ...state,
         ...action.exercise,
         loading: false,
+        isSaved: true,
       };
     case RESET_MANAGERS:
       return {

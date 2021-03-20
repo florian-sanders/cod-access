@@ -73,28 +73,28 @@ const Settings = ({
     <section className="settings wave-double-bottom">
       <h1 className="title-h1 center">Paramètres</h1>
       <div className="container-message-box">
-      {
-        messageParams.isVisible
-        && messageParams.componentToDisplayIn === 'Settings'
-        && (
-          <Message {...messageParams} />
-        )
-      }
+        {
+          messageParams.isVisible
+          && messageParams.componentToDisplayIn === 'Settings'
+          && (
+            <Message {...messageParams} />
+          )
+        }
       </div>
       <form
         className="settings__form__upload"
         onSubmit={handleSubmitFile}
       >
-      <h2 className="form-label">Modifier la photo de profil</h2>
+        <h2 className="form-label">Modifier la photo de profil</h2>
         <div className="flex">
           <label className="settings__form__upload__label" htmlFor="upload">
             Télécharger une image
             </label>
           <label className="title-h1 center-margin" htmlFor="upload">
-          <FontAwesomeIcon icon={faCloudDownloadAlt} />
-            </label>
+            <FontAwesomeIcon icon={faCloudDownloadAlt} />
+          </label>
         </div>
-          <input className="settings__form__upload__input full" id="upload" type="file" onChange={onChangeFile} accept="image/*" />
+        <input className="settings__form__upload__input full" id="upload" type="file" onChange={onChangeFile} accept="image/*" />
         <div className="settings__form__upload__preview">
           {
             selectedFile === null
@@ -118,7 +118,7 @@ const Settings = ({
         </div>
         <div className="">
           <button
-           className="button--primary"
+            className="button--primary"
             type="submit"
           >
             Valider la modification
@@ -144,7 +144,7 @@ const Settings = ({
         />
         <div className="">
           <button
-           className="button--primary"
+            className="button--primary"
             type="submit"
           >
             Valider la modification
@@ -169,7 +169,7 @@ const Settings = ({
         />
         <div className="">
           <button
-           className="button--primary"
+            className="button--primary"
             type="submit"
           >
             Valider la modification
@@ -227,13 +227,10 @@ const Settings = ({
         </div>
       </form>
       <div className=" to-right">
-      <button  className="button--delete" type="button" onClick={handleDelAccountClick}>Supprimer mon compte</button>
+        <button className="button--delete" type="button" onClick={handleDelAccountClick}>
+          Supprimer mon compte
+        </button>
       </div>
-      {
-        modalConfirmParams.isVisible && (
-          <ModalConfirm {...modalConfirmParams} />
-        )
-      }
     </section>
   );
 };

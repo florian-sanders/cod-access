@@ -5,18 +5,16 @@ import NavigationPrompt from 'react-router-navigation-prompt';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-import Question from 'src/containers/ExerciseManager/QuestionManager';
+import StatusManager from 'src/containers/ExerciseManager/StatusManager';
+import QuestionManager from 'src/containers/ExerciseManager/QuestionManager';
 import ThemeManager from 'src/containers/ExerciseManager/ThemeManager';
 import TextField from './TextField';
-import Checkbox from './Checkbox';
 import Modal from './Modal';
-import CircleLoader from '../CircleLoader'
+import CircleLoader from '../CircleLoader';
 import './styles.scss';
 
 const ExerciseManager = ({
   loading,
-  updateLoading,
-  error,
   changeValue,
   title,
   brief,
@@ -30,6 +28,7 @@ const ExerciseManager = ({
   getExercise,
   createNew,
   resetManagerStates,
+  isLeaving,
 }) => {
   useEffect(() => {
     if (createNew) {
@@ -52,17 +51,14 @@ const ExerciseManager = ({
           duration={2}
           strokeWidth={20}
         />
+        <p>Création d'un brouillon d'exercice en cours</p>
       </div>
     );
   }
 
-  if (error) {
-    return (<p>Il y a eu un problème</p>);
-  }
-
   return (
     <section className="admin-exercise">
-      <NavigationPrompt when={!published}>
+      <NavigationPrompt when={!isLeaving}>
         {({ onConfirm }, onCancel) => (
           <Modal
             onConfirm={onConfirm}
@@ -72,30 +68,10 @@ const ExerciseManager = ({
         )}
       </NavigationPrompt>
       <h1 className="title-h1">Créer un exercice</h1>
+      <StatusManager />
       <form className="admin-exercise__form grey">
-        <div className="flex-space">
-          <p className="title-h2__without-magin">Statut de l'exercice : sauvegardé en brouillon</p>
-          <button
-            className="admin-exercise__form__general-info__button button--delete"
-            type="button"
-            onClick={removeExercise}
-          >
-            Supprimer l'exercice
-          </button>
-        </div>
         <section>
           <article className="admin-exercise__form__general-info">
-
-            <Checkbox
-              className="admin-exercise__form__general-info__field-group"
-              id="exercise-published"
-              label="Publié"
-              type="checkbox"
-              name="published"
-              value={published}
-              saveCheckboxChange={changeValue}
-              updateState={saveOnBlur}
-            />
             <TextField
               className="admin-exercise__form__general-info__field-group"
               id="exercise-title"
@@ -107,7 +83,6 @@ const ExerciseManager = ({
               changeValue={changeValue}
               isSaved={isSaved}
               saveOnBlur={saveOnBlur}
-              updateLoading={updateLoading}
             />
             <label className="form-label">Intro</label>
             <div className="admin-exercise__form__general-info__editor">
@@ -137,7 +112,7 @@ const ExerciseManager = ({
 
           {
             questions.map((question, index) => (
-              <Question id={question.id} questionNumber={index + 1} key={question.id} />
+              <QuestionManager id={question.id} questionNumber={index + 1} key={question.id} />
             ))
           }
 
@@ -157,8 +132,6 @@ const ExerciseManager = ({
 
 ExerciseManager.propTypes = {
   loading: PropTypes.bool.isRequired,
-  updateLoading: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
   changeValue: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   brief: PropTypes.string.isRequired,
@@ -172,10 +145,12 @@ ExerciseManager.propTypes = {
   createNew: PropTypes.bool,
   getExercise: PropTypes.func.isRequired,
   resetManagerStates: PropTypes.func.isRequired,
+  isLeaving: PropTypes.bool,
 };
 
 ExerciseManager.defaultProps = {
   createNew: false,
+  isLeaving: false,
 };
 
 export default ExerciseManager;

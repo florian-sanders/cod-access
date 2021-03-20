@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
-import ModalConfirm from 'src/containers/ModalConfirm';
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
 import Pagination from './Pagination';
@@ -22,8 +21,6 @@ const AdminUsersList = ({
   handleChangeSelect,
   totalPages,
   displayModalConfirm,
-  modalConfirmParams,
-  displayMessage,
   messageParams,
 }) => {
   const query = new URLSearchParams(useLocation().search);
@@ -36,11 +33,12 @@ const AdminUsersList = ({
   if (loadingUsersList) {
     return (
       <div className="loading">
-      <CircleLoader
-        colour={"#7ED8F7"}
-        radius={100}
-        duration={2}
-        strokeWidth={20} />
+        <CircleLoader
+          colour="#7ED8F7"
+          radius={100}
+          duration={2}
+          strokeWidth={20}
+        />
       </div>
     );
   }
@@ -121,6 +119,17 @@ const AdminUsersList = ({
                           handleSubmit(user.id, event);
                         }}
                       >
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </button>
+                    </form>
+
+                    {/* <ModalRole
+                      handleChangeSelect={handleChangeSelect}
+                      idUser={user.id}
+                      role={usersRole[user.id]}
+                      isVisible={modalVisible}
+                    /> */}
+
                         <FontAwesomeIcon size="lg" icon={faCheckCircle} />
                       </button>
                     </form>
@@ -147,13 +156,6 @@ const AdminUsersList = ({
           totalPages={totalPages}
           activePage={page}
         />
-        {
-          modalConfirmParams.isVisible && (
-            <ModalConfirm
-              {...modalConfirmParams}
-            />
-          )
-        }
       </div>
     </>
   );
@@ -179,6 +181,14 @@ AdminUsersList.propTypes = {
   editUserRole: PropTypes.func.isRequired,
   handleChangeSelect: PropTypes.func.isRequired,
   totalPages: PropTypes.number.isRequired,
+  messageParams: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    componentToDisplayIn: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+  }).isRequired,
+  displayModalConfirm: PropTypes.func.isRequired,
+  displayMessage: PropTypes.func.isRequired,
 };
 
 AdminUsersList.defaultProps = {
