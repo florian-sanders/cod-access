@@ -1,6 +1,5 @@
 import React from 'react';
 import './styles.scss';
-import diverImgPath from 'src/assets/img/diver.svg';
 import radarImgPath from 'src/assets/img/radar.svg';
 import fred from 'src/assets/img/fred.jpg';
 import jerem from 'src/assets/img/jerem.jpg';
@@ -10,7 +9,12 @@ const About = () => (
   <>
     <section className="about wave-double-bottom">
       <h1 className="title-h1 center">À propos</h1>
-      <p className="title-h3 center">Toi aussi tu te demande qui à pu réalisé ce super site à l'aide de Réact, NodeJS, express... en seulement 1 mois et bien voici une petite présentation de l'équipage: </p>
+      <div className="about__text">
+        <p className="title-h3 center about__text__detail">Mais au bout du compte, comment ce site a t'il vu le jour ?!</p>
+        <p className="center about__text__detail">Prenez une marmite du nom de O'clock, 400g de travail intensif, 500g de bonnes volonté, 1kg de fatigue, une pincée de sel, et avec un peu de magie vous obtiendrez cette superbe équipe, quatre développeurs en parfaite harmonie qui ont un but en commun, le partage et l'envie d'en apprendre toujours plus.</p>
+        <p className="center about__text__detail">Nous avons donné le meilleur de nous-même pour parfaire ce projet via des technologies de pointe : React, Redux, Sass, Node, Express, Sequelize, Sql...</p>
+        <p className="title-h3 center">Qui sommes-nous réellement ??</p>
+      </div>
       <div className="about__members">
 
         <article className="about__members__team">
@@ -39,7 +43,7 @@ const About = () => (
           </div>
           <div className="about__members__team__texte"> 
           <h2 className="about__members__team__name">Frédéric<br></br>BOURIGEAUD</h2>
-          <p className="about__members__team__profil">Lead Dev Back</p>
+          <p className="about__members__team__profil">Lead Dev Back,<br></br>Développeur Front</p>
           </div>
         </article>
 
