@@ -1,12 +1,18 @@
 @import 'src/styles/vars';
 
 .loading{
-  margin-top: 2*$gutter;
-  text-align: center;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 12rem);
 }
 
 .exercises{
   padding: $gutter;
+  padding-bottom: 15rem;
 
   &__title{
     font-size: $font-size-title-h1;
@@ -17,7 +23,6 @@
 
   &__wrapper{
     padding: $gutter 2*$gutter;
-    background-color: $white-color;
 
     &__header{
       display:flex;

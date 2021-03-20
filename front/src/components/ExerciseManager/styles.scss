@@ -1,8 +1,17 @@
 @import "src/styles/vars";
 
-.loading {
-  margin-top: 2 * $gutter;
-  text-align: center;
+.loading-centered {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.loading-text-big {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .grey {
@@ -39,7 +48,6 @@
   padding: $gutter;
   // box-shadow: $shadow;
   width: 100%;
-  background-color: $white-color;
   position: relative;
   padding-right: 24rem;
 
@@ -273,7 +281,6 @@
   .admin-exercise {
     padding: 0.5rem;
     width: 80%;
-    background-color: #fff;
     font-size: 0.7em;
 
     &__form {

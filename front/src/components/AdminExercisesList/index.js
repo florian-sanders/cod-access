@@ -22,7 +22,6 @@ const AdminExercisesList = ({
   loadingExercisesList,
   deleteExercise,
   displayModalConfirm,
-  modalConfirmParams,
   messageParams,
 }) => {
   const query = new URLSearchParams(useLocation().search);
@@ -36,7 +35,7 @@ const AdminExercisesList = ({
 
   if (loadingExercisesList) {
     return (
-      <div className="loading">
+      <div className="loading-centered">
         <CircleLoader
           colour="#7ED8F7"
           radius={100}
@@ -127,10 +126,14 @@ const AdminExercisesList = ({
             }
           </tbody>
         </table>
-        <Pagination
-          totalPages={totalPages}
-          activePage={page}
-        />
+        {
+          totalPages > 1 && (
+            <Pagination
+              totalPages={totalPages}
+              activePage={page}
+            />
+          )
+        }
       </div>
     </>
   );

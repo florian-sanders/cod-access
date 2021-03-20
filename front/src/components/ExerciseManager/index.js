@@ -44,21 +44,21 @@ const ExerciseManager = ({
 
   if (loading) {
     return (
-      <div className="loading">
+      <div className="loading-centered">
         <CircleLoader
           colour="#7ED8F7"
           radius={100}
           duration={2}
           strokeWidth={20}
         />
-        <p>Création d'un brouillon d'exercice en cours</p>
+        <p className="loading-text-big">Création d'un brouillon d'exercice en cours</p>
       </div>
     );
   }
 
   return (
     <section className="admin-exercise">
-      <NavigationPrompt when={!isLeaving}>
+      <NavigationPrompt when={!published && !isLeaving}>
         {({ onConfirm }, onCancel) => (
           <Modal
             onConfirm={onConfirm}
