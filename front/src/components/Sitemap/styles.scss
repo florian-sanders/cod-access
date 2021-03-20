@@ -1,6 +1,6 @@
 @import "src/styles/vars";
 
-.Sitemap {
+.site-map {
 
   padding: 6rem;
   padding-top: 3rem;
@@ -28,5 +28,10 @@
 
   ul{
     padding-bottom: 2rem;
+  }
+}
+@media screen and (max-width: 60rem) {
+  .site-map{
+    padding: 3rem 1.5rem ;
   }
 }

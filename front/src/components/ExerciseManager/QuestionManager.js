@@ -172,7 +172,7 @@ const QuestionManager = ({
             )
           }
           <TextField
-            // className="admin-exercise__form__question__general-info__field-group"
+            className="code"
             id={`exercise-q${questionNumber}-code`}
             label="Code"
             type="textarea"
