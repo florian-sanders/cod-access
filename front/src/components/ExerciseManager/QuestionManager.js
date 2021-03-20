@@ -103,12 +103,6 @@ const QuestionManager = ({
               )
               : (
                 <>
-                  {/* <label
-                    className="admin-exercise__form__question__general-info__upload__label"
-                    htmlFor={`exercise-q${questionNumber}-upload`}
-                  >
-                    Télécharger une image
-                  </label> */}
                   <div className="flex large">
                     <label className="settings__form__upload__label" htmlFor={`exercise-q${questionNumber}-upload`}>
                       Télécharger une image
@@ -260,7 +254,7 @@ QuestionManager.propTypes = {
     isVisible: PropTypes.bool.isRequired,
     componentToDisplayIn: PropTypes.string.isRequired,
   }).isRequired,
-  selectedFile: PropTypes.object.isRequired,
+  selectedFile: PropTypes.object,
   imageAlternative: PropTypes.string,
   sendImageFile: PropTypes.func.isRequired,
   changeSelectedFile: PropTypes.func.isRequired,
@@ -273,6 +267,7 @@ QuestionManager.defaultProps = {
   imageAlternative: '',
   imageId: null,
   imagePath: '',
+  selectedFile: null,
 };
 
 export default QuestionManager;

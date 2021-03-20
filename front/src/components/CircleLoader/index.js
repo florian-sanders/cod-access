@@ -21,7 +21,7 @@ const CircleLoader = ({ duration, colour, radius, strokeWidth }) => {
   return <svg width={size * 2} height={size * 2}>
     <circle
       style={{
-        animation: `${animationName} ${duration}s linear`,
+        animation: `${animationName} ${duration}s infinite`,
         animationFillMode: 'forwards'
       }}
       cx={0}

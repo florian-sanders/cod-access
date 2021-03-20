@@ -5,21 +5,16 @@ import NavigationPrompt from 'react-router-navigation-prompt';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTimes, faPen } from '@fortawesome/free-solid-svg-icons';
-
-import Question from 'src/containers/ExerciseManager/QuestionManager';
+import StatusManager from 'src/containers/ExerciseManager/StatusManager';
+import QuestionManager from 'src/containers/ExerciseManager/QuestionManager';
 import ThemeManager from 'src/containers/ExerciseManager/ThemeManager';
 import TextField from './TextField';
-import Checkbox from './Checkbox';
 import Modal from './Modal';
-import CircleLoader from '../CircleLoader'
+import CircleLoader from '../CircleLoader';
 import './styles.scss';
 
 const ExerciseManager = ({
   loading,
-  updateLoading,
-  error,
   changeValue,
   title,
   brief,
@@ -33,6 +28,7 @@ const ExerciseManager = ({
   getExercise,
   createNew,
   resetManagerStates,
+  isLeaving,
 }) => {
   useEffect(() => {
     if (createNew) {
@@ -62,7 +58,7 @@ const ExerciseManager = ({
 
   return (
     <section className="admin-exercise">
-      <NavigationPrompt when={!published}>
+      <NavigationPrompt when={!isLeaving}>
         {({ onConfirm }, onCancel) => (
           <Modal
             onConfirm={onConfirm}
@@ -72,76 +68,7 @@ const ExerciseManager = ({
         )}
       </NavigationPrompt>
       <h1 className="title-h1">Créer un exercice</h1>
-      <div className="admin-exercise__status-controls grey">
-        <h2 className="title-h2 admin-exercise__status-controls__heading">Statut</h2>
-        <p className="admin-exercise__status-controls__visibility">
-          <span className="admin-exercise__status-controls__visibility__label">Visibilité&nbsp;: </span>
-          {
-            published
-              ? 'Publié'
-              : 'Brouillon'
-          }
-        </p>
-        <Checkbox
-          className="admin-exercise__form__general-info__field-group"
-          id="exercise-published"
-          label="Publié"
-          type="checkbox"
-          name="published"
-          value={published}
-          saveCheckboxChange={changeValue}
-          updateState={saveOnBlur}
-        />
-        <div className="admin-exercise__status-controls__status">
-          {
-            updateLoading && (
-              <div className="loading">
-                <CircleLoader
-                  colour="#7ED8F7"
-                  radius={20}
-                  duration={2}
-                  strokeWidth={5}
-                />
-                <p className="admin-exercise__status-controls__status__message">Sauvegarde en cours</p>
-              </div>
-            )
-          }
-          {
-            isSaved && (
-              <>
-                <FontAwesomeIcon className="admin-exercise__status-controls__status__is-saved" role="presentation" icon={faCheck} size="2x" />
-                <p className="admin-exercise__status-controls__status__message">Sauvegardé</p>
-              </>
-            )
-          }
-          {
-            error && (
-              <>
-                <FontAwesomeIcon className="admin-exercise__status-controls__status__error" role="presentation" icon={faTimes} size="2x" />
-                <p className="admin-exercise__status-controls__status__message">Erreur</p>
-              </>
-            )
-          }
-          {
-            !isSaved
-            && !error
-            && !updateLoading
-            && (
-              <>
-                <FontAwesomeIcon className="admin-exercise__status-controls__status__edit" role="presentation" icon={faPen} size="2x" />
-                <p className="admin-exercise__status-controls__status__message">Edition en cours</p>
-              </>
-            )
-          }
-        </div>
-        <button
-          className="admin-exercise__form__general-info__button admin-exercise__form__general-info__button--remove-exercise button--delete"
-          type="button"
-          onClick={removeExercise}
-        >
-          Supprimer l'exercice
-        </button>
-      </div>
+      <StatusManager />
       <form className="admin-exercise__form grey">
         <section>
           <article className="admin-exercise__form__general-info">
@@ -156,7 +83,6 @@ const ExerciseManager = ({
               changeValue={changeValue}
               isSaved={isSaved}
               saveOnBlur={saveOnBlur}
-              updateLoading={updateLoading}
             />
             <label className="form-label">Intro</label>
             <div className="admin-exercise__form__general-info__editor">
@@ -186,7 +112,7 @@ const ExerciseManager = ({
 
           {
             questions.map((question, index) => (
-              <Question id={question.id} questionNumber={index + 1} key={question.id} />
+              <QuestionManager id={question.id} questionNumber={index + 1} key={question.id} />
             ))
           }
 
@@ -200,14 +126,12 @@ const ExerciseManager = ({
 
         </section>
       </form>
-    </section >
+    </section>
   );
 };
 
 ExerciseManager.propTypes = {
   loading: PropTypes.bool.isRequired,
-  updateLoading: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
   changeValue: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   brief: PropTypes.string.isRequired,
@@ -221,10 +145,12 @@ ExerciseManager.propTypes = {
   createNew: PropTypes.bool,
   getExercise: PropTypes.func.isRequired,
   resetManagerStates: PropTypes.func.isRequired,
+  isLeaving: PropTypes.bool,
 };
 
 ExerciseManager.defaultProps = {
   createNew: false,
+  isLeaving: false,
 };
 
 export default ExerciseManager;

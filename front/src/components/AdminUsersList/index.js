@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
-import ModalConfirm from 'src/containers/ModalConfirm';
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
 import Pagination from './Pagination';
@@ -22,8 +21,6 @@ const AdminUsersList = ({
   handleChangeSelect,
   totalPages,
   displayModalConfirm,
-  modalConfirmParams,
-  displayMessage,
   messageParams,
 }) => {
   const query = new URLSearchParams(useLocation().search);
@@ -36,11 +33,12 @@ const AdminUsersList = ({
   if (loadingUsersList) {
     return (
       <div className="loading">
-      <CircleLoader
-        colour={"#7ED8F7"}
-        radius={100}
-        duration={2}
-        strokeWidth={20} />
+        <CircleLoader
+          colour="#7ED8F7"
+          radius={100}
+          duration={2}
+          strokeWidth={20}
+        />
       </div>
     );
   }
@@ -108,7 +106,7 @@ const AdminUsersList = ({
                     {/* {user.responsibility.entitled} */}
                     <form className="form-responsibility" onSubmit={() => handleSubmit(user.id, event)}>
                       <select
-                       className="form-responsibility__select"
+                        className="form-responsibility__select"
                         value={usersRole[user.id]}
                         onChange={(event) => handleChangeSelect(user.id, event.target.value)}
                       >
@@ -118,17 +116,17 @@ const AdminUsersList = ({
                       {/* <button className="button--actions" type="submit">
                       <FontAwesomeIcon icon={faCheckCircle} />
                         </button> */}
-                              <button
-                     className="button--actions valid"
-                     type="button"
-                     onClick={() => {
-                      handleSubmit(user.id, event);
-                    }}
-                  >
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                    </button>
+                      <button
+                        className="button--actions valid"
+                        type="button"
+                        onClick={() => {
+                          handleSubmit(user.id, event);
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </button>
                     </form>
-              
+
                     {/* <ModalRole
                       handleChangeSelect={handleChangeSelect}
                       idUser={user.id}
@@ -139,7 +137,7 @@ const AdminUsersList = ({
                   <td>{user.created_at}</td>
                   <td>{user.updated_at}</td>
                   <td>
-                  
+
                     <button
                       className="button--actions"
                       type="button"
@@ -147,9 +145,9 @@ const AdminUsersList = ({
                         handleOnClickDelete(user);
                       }}
                     >
-                     <FontAwesomeIcon icon={faTrash}  className=" trash" />
+                      <FontAwesomeIcon icon={faTrash} className=" trash" />
                     </button>
-                  
+
                   </td>
                 </tr>
               ))
@@ -160,13 +158,6 @@ const AdminUsersList = ({
           totalPages={totalPages}
           activePage={page}
         />
-        {
-          modalConfirmParams.isVisible && (
-            <ModalConfirm
-              {...modalConfirmParams}
-            />
-          )
-        }
       </div>
     </>
   );
@@ -192,6 +183,14 @@ AdminUsersList.propTypes = {
   editUserRole: PropTypes.func.isRequired,
   handleChangeSelect: PropTypes.func.isRequired,
   totalPages: PropTypes.number.isRequired,
+  messageParams: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    componentToDisplayIn: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+  }).isRequired,
+  displayModalConfirm: PropTypes.func.isRequired,
+  displayMessage: PropTypes.func.isRequired,
 };
 
 AdminUsersList.defaultProps = {

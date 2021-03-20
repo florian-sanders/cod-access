@@ -3,12 +3,7 @@ import {
   PATCH_QUESTION_MANAGER,
   DELETE_QUESTION_MANAGER,
   UPLOAD_QUESTION_MANAGER_IMAGE,
-  PATCH_QUESTION_MANAGER_IMAGE_ALT,
   DELETE_QUESTION_MANAGER_IMAGE,
-  setQuestionManagerIsSaved,
-  setQuestionManagerLoading,
-  setQuestionManagerUpdateLoading,
-  setQuestionManagerError,
   setQuestionManager,
   setQuestionManagerImageId,
   resetQuestionManagerImage,
@@ -16,6 +11,11 @@ import {
 import {
   unsetAnswerManager,
 } from 'src/actions/exerciseManager/answerManager';
+import {
+  setExerciseManagerUpdateLoading,
+  setExerciseManagerError,
+  setExerciseManagerIsSaved,
+} from 'src/actions/exerciseManager';
 import { setMessage } from 'src/actions/other';
 
 import axiosInstance from 'src/api';
@@ -24,6 +24,8 @@ export default (store) => (next) => async (action) => {
   switch (action.type) {
     case POST_QUESTION_MANAGER:
       try {
+        store.dispatch(setExerciseManagerIsSaved(false));
+        store.dispatch(setExerciseManagerUpdateLoading(true));
         const {
           exerciseManager: { id },
         } = store.getState();
@@ -48,19 +50,20 @@ export default (store) => (next) => async (action) => {
           imagePath: '',
         }));
 
-        store.dispatch(setQuestionManagerIsSaved(true));
+        store.dispatch(setExerciseManagerIsSaved(true));
       }
       catch (err) {
         console.log(err);
-        store.dispatch(setQuestionManagerError(true));
+        store.dispatch(setExerciseManagerError(true));
       }
       finally {
-        store.dispatch(setQuestionManagerLoading(false));
+        store.dispatch(setExerciseManagerUpdateLoading(false));
       }
       return next(action);
     case PATCH_QUESTION_MANAGER:
       try {
-        store.dispatch(setQuestionManagerUpdateLoading(true));
+        store.dispatch(setExerciseManagerIsSaved(false));
+        store.dispatch(setExerciseManagerUpdateLoading(true));
         const {
           questionManager: {
             questions,
@@ -81,19 +84,20 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
 
-        store.dispatch(setQuestionManagerIsSaved(true));
+        store.dispatch(setExerciseManagerIsSaved(true));
       }
       catch (err) {
         console.log(err);
-        //store.dispatch(setQuestionManagerError(true));
+        store.dispatch(setExerciseManagerError(true));
       }
       finally {
-        store.dispatch(setQuestionManagerUpdateLoading(false));
+        store.dispatch(setExerciseManagerUpdateLoading(false));
       }
       return next(action);
     case DELETE_QUESTION_MANAGER:
       try {
-        store.dispatch(setQuestionManagerUpdateLoading(true));
+        store.dispatch(setExerciseManagerIsSaved(false));
+        store.dispatch(setExerciseManagerUpdateLoading(true));
         const {
           answerManager: {
             possibleAnswers,
@@ -114,19 +118,20 @@ export default (store) => (next) => async (action) => {
           throw new Error('question delete fail');
         }
 
-        store.dispatch(setQuestionManagerIsSaved(true));
+        store.dispatch(setExerciseManagerIsSaved(true));
       }
       catch (err) {
         console.log(err);
-        //store.dispatch(setQuestionManagerError(true));
+        store.dispatch(setExerciseManagerError(true));
       }
       finally {
-        store.dispatch(setQuestionManagerUpdateLoading(false));
+        store.dispatch(setExerciseManagerUpdateLoading(false));
       }
       return next(action);
     case UPLOAD_QUESTION_MANAGER_IMAGE:
       try {
-        store.dispatch(setQuestionManagerUpdateLoading(true));
+        store.dispatch(setExerciseManagerIsSaved(false));
+        store.dispatch(setExerciseManagerUpdateLoading(true));
 
         const fileInfo = new FormData();
         fileInfo.append('profile', action.file);
@@ -154,7 +159,7 @@ export default (store) => (next) => async (action) => {
           message: 'L\'image a bien été associée à cette question',
           componentToDisplayIn: `QuestionManager-q${action.questionId}`,
         }));
-        store.dispatch(setQuestionManagerIsSaved(true));
+        store.dispatch(setExerciseManagerIsSaved(true));
       }
       catch (err) {
         console.log(err);
@@ -165,32 +170,13 @@ export default (store) => (next) => async (action) => {
         }));
       }
       finally {
-        store.dispatch(setQuestionManagerUpdateLoading(false));
-      }
-      return next(action);
-    case PATCH_QUESTION_MANAGER_IMAGE_ALT:
-      try {
-        store.dispatch(setQuestionManagerUpdateLoading(true));
-
-        const response = await axiosInstance.patch(`/images/${action.imageId}`);
-
-        if (response.status !== 200) {
-          throw new Error('alt update fail');
-        }
-
-        store.dispatch(setQuestionManagerIsSaved(true));
-      }
-      catch (err) {
-        console.log(err);
-      }
-      finally {
-        store.dispatch(setQuestionManagerUpdateLoading(false));
+        store.dispatch(setExerciseManagerUpdateLoading(false));
       }
       return next(action);
     case DELETE_QUESTION_MANAGER_IMAGE:
       try {
-        store.dispatch(setQuestionManagerUpdateLoading(true));
-        console.log(action);
+        store.dispatch(setExerciseManagerIsSaved(false));
+        store.dispatch(setExerciseManagerUpdateLoading(true));
 
         const response = await axiosInstance.delete(`/admin/image/${action.imageId}`);
 
@@ -202,9 +188,10 @@ export default (store) => (next) => async (action) => {
       }
       catch (err) {
         console.log(err);
+        store.dispatch(setExerciseManagerError(true));
       }
       finally {
-        store.dispatch(setQuestionManagerUpdateLoading(false));
+        store.dispatch(setExerciseManagerUpdateLoading(false));
       }
       return next(action);
     default:

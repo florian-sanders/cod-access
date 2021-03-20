@@ -33,10 +33,11 @@ const Page = ({
 }) => {
   const location = useLocation();
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (connectionMenuVisibility) {
       closeConnectionMenu();
     }
-    if(mobileMenuVisibility) {
+    if (mobileMenuVisibility) {
       closeMobileMenu();
     }
   }, [location]);
@@ -101,6 +102,8 @@ Page.propTypes = {
   role: PropTypes.string.isRequired,
   closeConnectionMenu: PropTypes.func.isRequired,
   connectionMenuVisibility: PropTypes.bool.isRequired,
+  mobileMenuVisibility: PropTypes.bool.isRequired,
+  closeMobileMenu: PropTypes.func.isRequired,
 };
 
 export default Page;

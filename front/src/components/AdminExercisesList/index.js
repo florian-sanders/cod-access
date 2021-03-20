@@ -7,10 +7,9 @@ import {
 
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
-import Modal from 'src/containers/ModalConfirm';
-import Pagination from './Pagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import Pagination from './Pagination';
 
 import './styles.scss';
 
@@ -21,8 +20,6 @@ const AdminExercisesList = ({
   loadingExercisesList,
   deleteExercise,
   displayModalConfirm,
-  modalConfirmParams,
-  displayMessage,
   messageParams,
 }) => {
   const query = new URLSearchParams(useLocation().search);
@@ -37,11 +34,12 @@ const AdminExercisesList = ({
   if (loadingExercisesList) {
     return (
       <div className="loading">
-      <CircleLoader
-        colour={"#7ED8F7"}
-        radius={100}
-        duration={2}
-        strokeWidth={20} />
+        <CircleLoader
+          colour="#7ED8F7"
+          radius={100}
+          duration={2}
+          strokeWidth={20}
+        />
       </div>
     );
   }
@@ -111,7 +109,7 @@ const AdminExercisesList = ({
                   <td>{exercise.updated_at}</td>
                   <td>
                     <button
-                        className="button--actions"
+                      className="button--actions"
                       type="button"
                       onClick={() => handleOnClickDelete(exercise)}
                     >
@@ -131,13 +129,6 @@ const AdminExercisesList = ({
           activePage={page}
         />
       </div>
-      {
-        modalConfirmParams.isVisible && (
-          <Modal
-            {...modalConfirmParams}
-          />
-        )
-      }
     </>
   );
 };
@@ -156,26 +147,13 @@ AdminExercisesList.propTypes = {
   loadingExercisesList: PropTypes.bool,
   deleteExercise: PropTypes.func.isRequired,
   displayModalConfirm: PropTypes.func.isRequired,
-  modalConfirmParams: PropTypes.shape({
-    heading: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    confirmParams: PropTypes.shape({
-      onConfirm: PropTypes.func.isRequired,
-      params: PropTypes.object,
-      label: PropTypes.string.isRequired,
-    }),
-    cancelParams: PropTypes.shape({
-      onCancel: PropTypes.func,
-      label: PropTypes.string.isRequired,
-    }),
-    isVisible: PropTypes.bool.isRequired,
-  }).isRequired,
   shouldDisplayHeading: PropTypes.bool,
   isVisible: PropTypes.bool,
   displayMessage: PropTypes.func.isRequired,
   messageParams: PropTypes.shape({
     type: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
+    componentToDisplayIn: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,
   }).isRequired,
 };

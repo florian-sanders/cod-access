@@ -2,13 +2,16 @@ import {
   POST_ANSWER_MANAGER,
   PATCH_ANSWER_MANAGER,
   DELETE_ANSWER_MANAGER,
-  setAnswerManagerIsSaved,
   setAnswerManagerLoading,
-  setAnswerManagerUpdateLoading,
   setAnswerManagerError,
   setAnswerManager,
   unsetAnswerManager,
 } from 'src/actions/exerciseManager/answerManager';
+import {
+  setExerciseManagerUpdateLoading,
+  setExerciseManagerError,
+  setExerciseManagerIsSaved,
+} from 'src/actions/exerciseManager';
 
 import axiosInstance from 'src/api';
 
@@ -16,6 +19,8 @@ export default (store) => (next) => async (action) => {
   switch (action.type) {
     case POST_ANSWER_MANAGER:
       try {
+        store.dispatch(setExerciseManagerIsSaved(false));
+        store.dispatch(setExerciseManagerUpdateLoading(true));
         const { status, data } = await axiosInstance.post(`/admin/exercises/new_answer/${action.questionId}`, {
           content: '',
           correct: false,
@@ -32,19 +37,20 @@ export default (store) => (next) => async (action) => {
           correct: data.correct,
         }));
 
-        store.dispatch(setAnswerManagerIsSaved(true));
+        store.dispatch(setExerciseManagerIsSaved(true));
       }
       catch (err) {
         console.log(err);
-        store.dispatch(setAnswerManagerError(true));
+        store.dispatch(setExerciseManagerError(true));
       }
       finally {
-        store.dispatch(setAnswerManagerLoading(false));
+        store.dispatch(setExerciseManagerUpdateLoading(false));
       }
       return next(action);
     case PATCH_ANSWER_MANAGER:
       try {
-        store.dispatch(setAnswerManagerUpdateLoading(true));
+        store.dispatch(setExerciseManagerIsSaved(false));
+        store.dispatch(setExerciseManagerUpdateLoading(true));
         const {
           answerManager: {
             possibleAnswers,
@@ -62,18 +68,21 @@ export default (store) => (next) => async (action) => {
           throw new Error();
         }
 
-        store.dispatch(setAnswerManagerIsSaved(true));
+        store.dispatch(setExerciseManagerIsSaved(true));
       }
       catch (err) {
         console.log(err);
-        //store.dispatch(setAnswerManagerError(true));
+        store.dispatch(setAnswerManagerError(true));
       }
       finally {
-        store.dispatch(setAnswerManagerUpdateLoading(false));
+        store.dispatch(setExerciseManagerUpdateLoading(false));
       }
       return next(action);
     case DELETE_ANSWER_MANAGER:
       try {
+        store.dispatch(setExerciseManagerIsSaved(false));
+        store.dispatch(setExerciseManagerUpdateLoading(true));
+
         const { status } = await axiosInstance.delete(`/admin/exercises/new_answer/${action.answerId}`);
 
         if (status !== 200) {
@@ -81,14 +90,14 @@ export default (store) => (next) => async (action) => {
         }
 
         store.dispatch(unsetAnswerManager(action.answerId));
-        store.dispatch(setAnswerManagerIsSaved(true));
+        store.dispatch(setExerciseManagerIsSaved(true));
       }
       catch (err) {
         console.log(err);
         store.dispatch(setAnswerManagerError(true));
       }
       finally {
-        store.dispatch(setAnswerManagerLoading(false));
+        store.dispatch(setExerciseManagerUpdateLoading(false));
       }
       return next(action);
     default:

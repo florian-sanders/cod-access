@@ -11,12 +11,11 @@ import {
 
 const mapStateToProps = ({
   adminExercisesList: { exercises, loadingExercisesList },
-  other: { modalConfirmParams, messageParams },
+  other: { messageParams },
 }) => ({
   totalPages: Math.ceil(exercises.count / 20),
   exercises: exercises.rows,
   loadingExercisesList,
-  modalConfirmParams,
   messageParams,
 });
 
