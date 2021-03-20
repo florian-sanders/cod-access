@@ -6,15 +6,6 @@
   margin: auto;
 }
 
-// .modal{
-//   position: fixed;
-//   margin: 2rem;
-//   padding: 2rem;
-//   border-radius: 15px;
-//   background-color:$dark-gray-color !important;
-//   box-shadow: $shadow;
-// }
-
 .admin__users {
   padding: $gutter;
   background-color: $white-color;
@@ -38,19 +29,17 @@
     background-color: $white-color;
     color: $primary-color;
     border: solid 1px $dark-gray-color;
-    margin: 0 0.8rem;
+    margin: 0 0.8rem 0 0;
     padding: 0.2rem;
     border-radius: 30px;
     border: 1px solid $primary-color;
-    // box-shadow:  0px 2px 10px 0px rgba(86, 105, 112,0.5);
       &:hover{
         background-color: $gray-color;
-        // box-shadow:  0px 6px 10px 0px rgba(86, 105, 112,0.5);
+        cursor: pointer;
       } 
       &:active{
         opacity: 0.7;
         background-color: $ligth-color;
-        // box-shadow:  0px 10px 10px 0px rgba(86, 105, 112,0.5);
       }
   }
  
@@ -62,8 +51,14 @@
 
 .trash {
   color: $color-error;
+  &:hover{
+    opacity: 0.7;
+  }
 }
 
 .valid {
   color: $color-valid;
+  &:hover{
+    opacity: 0.7;
+  }
 }
