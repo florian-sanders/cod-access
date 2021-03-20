@@ -22,9 +22,9 @@ const Exercise = ({
   changeQuestion,
   submitAnswers,
   resetCurrentExercise,
-  userScore,
   messageParams,
   closeMessage,
+  isCorrected,
 }) => {
   useEffect(() => {
     getExercise();
@@ -115,7 +115,8 @@ const Exercise = ({
             )
           }
           {
-            !userScore && (currentQuestionIndex === questions.length - 1) && (
+            !isCorrected
+            && (currentQuestionIndex === questions.length - 1) && (
               <button
                 title={
                   !questions[currentQuestionIndex].userAnswers.length
@@ -132,7 +133,8 @@ const Exercise = ({
             )
           }
           {
-            userScore && (currentQuestionIndex === questions.length - 1) && (
+            isCorrected
+            && (currentQuestionIndex === questions.length - 1) && (
               <Link to="/challenges" className="button--primary">
                 Retourner à la liste des challenges
               </Link>
@@ -154,12 +156,12 @@ Exercise.propTypes = {
   changeQuestion: PropTypes.func.isRequired,
   submitAnswers: PropTypes.func.isRequired,
   resetCurrentExercise: PropTypes.func.isRequired,
-  userScore: PropTypes.number,
   messageParams: PropTypes.shape({
     isVisible: PropTypes.bool.isRequired,
     componentToDisplayIn: PropTypes.string.isRequired,
   }).isRequired,
   closeMessage: PropTypes.func.isRequired,
+  isCorrected: PropTypes.bool.isRequired,
 };
 
 Exercise.defaultProps = {
@@ -167,7 +169,6 @@ Exercise.defaultProps = {
   questions: [],
   loading: true,
   currentQuestionIndex: 0,
-  userScore: null,
 };
 
 export default Exercise;
