@@ -8,9 +8,9 @@ import {
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
 import Modal from 'src/containers/ModalConfirm';
-import Pagination from './Pagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import Pagination from './Pagination';
 
 import './styles.scss';
 
@@ -22,7 +22,6 @@ const AdminExercisesList = ({
   deleteExercise,
   displayModalConfirm,
   modalConfirmParams,
-  displayMessage,
   messageParams,
 }) => {
   const query = new URLSearchParams(useLocation().search);
@@ -37,11 +36,12 @@ const AdminExercisesList = ({
   if (loadingExercisesList) {
     return (
       <div className="loading">
-      <CircleLoader
-        colour={"#7ED8F7"}
-        radius={100}
-        duration={2}
-        strokeWidth={20} />
+        <CircleLoader
+          colour="#7ED8F7"
+          radius={100}
+          duration={2}
+          strokeWidth={20}
+        />
       </div>
     );
   }
@@ -70,7 +70,7 @@ const AdminExercisesList = ({
   return (
     <>
       <div className="admin__users">
-        <h1 className="title-h2">Liste des Challenges</h1>
+        <h1 className="title-h2">Liste des Exercices</h1>
         {
           messageParams.isVisible
           && messageParams.componentToDisplayIn === 'AdminExercisesList'
@@ -111,7 +111,7 @@ const AdminExercisesList = ({
                   <td>{exercise.updated_at}</td>
                   <td>
                     <button
-                        className="button--actions"
+                      className="button--actions"
                       type="button"
                       onClick={() => handleOnClickDelete(exercise)}
                     >

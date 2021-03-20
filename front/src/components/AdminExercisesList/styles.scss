@@ -6,13 +6,6 @@
   margin: auto;
 }
 
-// .modal{
-//   position: fixed;
-//   margin: 2rem;
-//   padding: 2rem;
-//   background-color: aqua;
-// }
-
 th {
   text-align: left;
 }
@@ -25,6 +18,7 @@ th {
   &__link {
     border: 1px solid $primary-color;
     transition: 0.5s;
+    margin-right: 1rem;
       &:hover{
         background-color: $gray-color;
       } 

@@ -105,41 +105,29 @@ const AdminUsersList = ({
                   <td>{user.email}</td>
                   <td>{user.pseudo}</td>
                   <td>
-                    {/* {user.responsibility.entitled} */}
                     <form className="form-responsibility" onSubmit={() => handleSubmit(user.id, event)}>
                       <select
-                       className="form-responsibility__select"
+                        className="form-responsibility__select"
                         value={usersRole[user.id]}
                         onChange={(event) => handleChangeSelect(user.id, event.target.value)}
                       >
                         <option className="option" value="admin">Admin</option>
                         <option className="option" value="utilisateur">Utilisateur</option>
                       </select>
-                      {/* <button className="button--actions" type="submit">
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                        </button> */}
-                              <button
-                     className="button--actions valid"
-                     type="button"
-                     onClick={() => {
-                      handleSubmit(user.id, event);
-                    }}
-                  >
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                    </button>
+                      <button
+                        className="button--actions valid"
+                        type="button"
+                        onClick={() => {
+                          handleSubmit(user.id, event);
+                        }}
+                      >
+                        <FontAwesomeIcon size="lg" icon={faCheckCircle} />
+                      </button>
                     </form>
-              
-                    {/* <ModalRole
-                      handleChangeSelect={handleChangeSelect}
-                      idUser={user.id}
-                      role={usersRole[user.id]}
-                      isVisible={modalVisible}
-                    /> */}
                   </td>
                   <td>{user.created_at}</td>
                   <td>{user.updated_at}</td>
                   <td>
-                  
                     <button
                       className="button--actions"
                       type="button"
@@ -147,9 +135,8 @@ const AdminUsersList = ({
                         handleOnClickDelete(user);
                       }}
                     >
-                     <FontAwesomeIcon icon={faTrash}  className=" trash" />
+                      <FontAwesomeIcon icon={faTrash} size="lg" className=" trash" />
                     </button>
-                  
                   </td>
                 </tr>
               ))
