@@ -16,9 +16,10 @@
     display:flex;
     margin-bottom: 1rem;
     padding: 1rem 0;
-    position: relative;
     align-items: center;
     &--active {
+      font-weight: bold;
+      position: relative;
       &::after {
         content: '';
         position: absolute;
