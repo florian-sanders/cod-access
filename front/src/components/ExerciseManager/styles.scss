@@ -34,23 +34,66 @@
   margin-bottom: $gutter;
 }
 
-.modal {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #f0f;
-}
-
 .admin-exercise {
   // margin: 0 auto;
   padding: $gutter;
   // box-shadow: $shadow;
   width: 100%;
   background-color: $white-color;
+  position: relative;
+  padding-right: 24rem;
+  
+  &__status-controls {
+    position: fixed;
+    right: 2rem;
+    padding: 2rem 2rem;
+    box-shadow: $shadow;
+    border-radius: 0.5rem 0 0 0.5rem;
+    max-width: 22rem;
+    display: flex;
+    flex-direction: column;
+
+    &__heading {
+      text-align: center;
+    }
+
+    &__visibility {
+      margin-bottom: 1rem;
+
+      &__label {
+        font-weight: bold;
+      }
+    }
+
+    &__status {
+      display: flex;
+      align-items: center;
+      margin-bottom: $gutter;
+
+      &__is-saved {
+        color: $color-valid;
+        max-width: 1.5rem;
+      }
+
+      &__error {
+        color: $color-error;
+        max-width: 1.5rem;
+      }
+
+      &__edit {
+        color: $primary-color;
+        max-width: 1.5rem;
+      }
+
+      &__message {
+        margin-left: 1rem;
+      }
+    }
+
+  }
 
   &__form{
-    margin: auto;
+    margin: 0 auto;
     max-width: 900px;
     border: solid 1px $ligth-color;
     padding: 2rem;
@@ -59,6 +102,10 @@
   
     &__general-info {
       margin-bottom: $gutter;
+
+      &__button--remove-exercise {
+        font-size: 0.9rem;
+      }
 
       &__editor{
         margin-bottom: $gutter;
