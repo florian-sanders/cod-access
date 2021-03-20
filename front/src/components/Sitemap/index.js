@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './styles.scss';
 
 const Sitemap = () => (
-  <section className="Sitemap">
+  <section className="site-map">
 
     <h1 className="title-h1 center">Plan du site</h1>
 
