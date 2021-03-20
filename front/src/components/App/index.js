@@ -1,6 +1,7 @@
 // == Import npm
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 // == Import
 import Header from 'src/components/Header';
@@ -37,26 +38,31 @@ const App = ({
           />
         )
       }
-      <div className="header-wrapper">
-        <Header />
-        <Menu />
-        <Connection />
+      <div className={classNames('no-blur', {
+        'is-blurred': modalConfirmParams.isVisible,
+      })}
+      >
+        <div className="header-wrapper">
+          <Header />
+          <Menu />
+          <Connection />
+        </div>
+        {
+          appLoading
+            ? (
+              <div className="loading">
+                <CircleLoader
+                  colour="#7ED8F7"
+                  radius={100}
+                  duration={2}
+                  strokeWidth={20}
+                />
+              </div>
+            )
+            : <Page />
+        }
+        <Footer />
       </div>
-      {
-        appLoading
-          ? (
-            <div className="loading">
-              <CircleLoader
-                colour="#7ED8F7"
-                radius={100}
-                duration={2}
-                strokeWidth={20}
-              />
-            </div>
-          )
-          : <Page />
-      }
-      <Footer />
     </>
   );
 };
