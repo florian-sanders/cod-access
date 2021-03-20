@@ -1,7 +1,7 @@
 @import "src/styles/vars";
 
-.loading{
-  margin-top: 2*$gutter;
+.loading {
+  margin-top: 2 * $gutter;
   text-align: center;
 }
 
@@ -26,7 +26,7 @@
 }
 
 .large {
-  width: 60%
+  width: 60%;
 }
 
 .preview {
@@ -42,7 +42,7 @@
   background-color: $white-color;
   position: relative;
   padding-right: 24rem;
-  
+
   &__status-controls {
     position: fixed;
     right: 5rem;
@@ -89,17 +89,16 @@
         margin-left: 1rem;
       }
     }
-
   }
 
-  &__form{
+  &__form {
     margin: 0 auto;
     max-width: 900px;
     border: solid 1px $ligth-color;
     padding: 2rem;
     border-radius: 15px;
     box-shadow: $shadow;
-  
+
     &__general-info {
       margin-bottom: $gutter;
 
@@ -107,59 +106,59 @@
         font-size: 0.9rem;
       }
 
-      &__editor{
+      &__editor {
         margin-bottom: $gutter;
       }
-      
+
       &__field-group {
         margin-bottom: 1rem;
       }
 
       &__themes {
-        legend{
+        legend {
           margin-bottom: $gutter;
         }
-        &__checkbox{
+        &__checkbox {
           display: flex;
           justify-content: space-between;
           flex-wrap: wrap;
 
-          &__field-group{
+          &__field-group {
             width: 45%;
           }
         }
       }
     }
-  
+
     &__question {
       padding: $gutter;
       margin-top: $gutter;
       box-shadow: $shadow;
       border-radius: 0.5rem;
       background-color: $white-color;
-      
-      &__header{
-        display:flex;
+
+      &__header {
+        display: flex;
         justify-content: space-between;
         &__title {
           margin-top: 1.1rem;
         }
       }
 
-      &__general-info{
-        &__editor{
+      &__general-info {
+        &__editor {
           margin-bottom: $gutter;
         }
-        &__upload__label{
+        &__upload__label {
           display: block;
           padding: 1rem;
           border: 1px solid grey;
         }
-        &__upload__input{
-          opacity:0;
+        &__upload__input {
+          opacity: 0;
         }
-        &__upload__preview{
-          img{
+        &__upload__preview {
+          img {
             width: 200px;
           }
         }
@@ -172,7 +171,7 @@
         border-radius: 15px;
         box-shadow: $shadow;
         background-color: $ligth-color;
-  
+
         &__heading {
           opacity: 1;
           background-color: $white-color;
@@ -181,7 +180,7 @@
           margin: $gutter 0;
           border: solid 1px #e9eef0;
         }
-  
+
         &__answer {
           margin-top: 1rem;
           &::after {
@@ -193,125 +192,125 @@
             margin: $gutter / 2 auto;
           }
 
-          &__header{
-            display:flex;
+          &__header {
+            display: flex;
             justify-content: space-between;
           }
         }
-  
+
         &__btn-add {
           margin-top: 1rem;
         }
 
         &__correction {
           background: $ligth-color;
-          margin: 2*$gutter 0 $gutter 0;
+          margin: 2 * $gutter 0 $gutter 0;
           padding: 1rem;
 
           &__editor {
             margin: $gutter auto 0 auto;
-            width:95%;
+            width: 95%;
           }
         }
       }
     }
-  
+
     &__btn-add {
       margin-top: $gutter;
     }
-  
+
     &__submit-publish {
       margin-top: $gutter;
     }
-
   }
-
-  
 }
 @media screen and (max-width: 60rem) {
-    /*
+  /*
     * Mobile, articles are below each other with no shift.
     * Images are displayed above each article
     */
-    .title-h1 {
-      font-size: 1.5em
+  .title-h1 {
+    font-size: 1.5em;
+  }
+
+  .title-h2 {
+    font-size: 1em;
+  }
+
+  .title-h2__without-magin {
+    font-size: 1em;
+  }
+
+  .title-h3 {
+    font-size: 0.8em;
+    margin-bottom: 0;
+  }
+
+  .full {
+    width: 80%;
+  }
+
+  .large {
+    width: 85%;
+  }
+
+  .flex-space {
+    display: block;
+  }
+
+  .ck.ck-editor {
+    width: 75%;
+  }
+
+  .textarea {
+    margin-left: 0.2rem;
+  }
+
+  .code {
+    width: 80%;
+  }
+
+  .admin-exercise {
+    padding: 0.5rem;
+    width: 80%;
+    background-color: #fff;
+    font-size: 0.7em;
+
+    &__form {
+      padding: 0.5rem;
     }
 
-    .title-h2 {
-      font-size: 1em
+    &__status-controls {
+      position: static;
+      margin-bottom: $gutter;
     }
+  }
 
-    .title-h2__without-magin {
-      font-size: 1em
+  .admin-exercise__form__question {
+    padding: 0.5rem;
+
+    &__answers {
+      padding: 0.5rem;
     }
+  }
 
-    .title-h3 {
-      font-size: 0.8em;
-      margin-bottom: 0;
-    }
-
-    .full {
-      width: 80%;
-    }
-
-    .large {
-      width:85%
-    }
-
-    .flex-space {
+  .admin-exercise__form__question {
+    &__header {
       display: block;
     }
-
-    .ck.ck-editor {
-      width: 75%
-    }
-
-    .textarea {
-      margin-left: 0.2rem;
-    }
-
-    .code {
-      width: 80%
-    }
-
-    .admin-exercise {
-      padding: 0.5rem;
-      width: 80%;
-      background-color: #fff;
-      font-size: 0.7em;
-
-      &__form {
-        padding: 0.5rem
-      }
-    }
-
-    .admin-exercise__form__question {
-      padding: 0.5rem;
-    
-      &__answers {
-        padding: 0.5rem;
-
-      }
-    }
-
-    .admin-exercise__form__question{
-      &__header {
-        display: block; 
-      }
-      &__answers{
+    &__answers {
       width: 85%;
-      &__answer__header{
+      &__answer__header {
         display: block;
       }
       &__heading {
         opacity: 1;
         background-color: #fff;
         padding: 0.5rem;
-        border-radius: .5rem;
+        border-radius: 0.5rem;
         margin: 0;
         border: 1px solid #e9eef0;
       }
-      }
     }
-  
+  }
 }

@@ -11,10 +11,12 @@
   align-items: center;
   flex-direction: row;
   box-shadow: $shadow;
+  min-height: 7rem;
 
   @media screen and (max-width:60rem){
     padding: .7rem 1rem;
     justify-content: space-between;
+    min-height: 5rem;
   }
 }
 
