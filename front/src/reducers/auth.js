@@ -14,6 +14,7 @@ import {
   VALIDATE_SIGN_IN_EMAIL,
   CHECK_SETTINGS_EMPTY_FIELD,
   SET_CONNECTION_VISIBILITY,
+  SET_AUTH_LOADING,
 } from 'src/actions/auth';
 
 const initialState = {
@@ -48,6 +49,7 @@ const initialState = {
   },
   isVisible: false,
   isLogged: false,
+  loading: false,
   user: {
     id: null,
     email: '',
@@ -60,6 +62,11 @@ const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_AUTH_LOADING:
+      return {
+        ...state,
+        loading: action.status,
+      }
     case SET_CONNECTION_VISIBILITY:
       return {
         ...state,

@@ -5,11 +5,11 @@ import {
   trySignIn,
   setSignInControlMessage,
   validateSignInEmail,
-  toggleConnectionVisibility,
 } from 'src/actions/auth';
 
-const mapStateToProps = ({ other: { messageParams }}) => ({
+const mapStateToProps = ({ other: { messageParams }, auth: { loading }}) => ({
   messageParams,
+  loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
