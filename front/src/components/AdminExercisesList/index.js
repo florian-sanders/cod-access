@@ -115,10 +115,10 @@ const AdminExercisesList = ({
                       type="button"
                       onClick={() => handleOnClickDelete(exercise)}
                     >
-                      <FontAwesomeIcon icon={faTrash} className="trash" />
+                      <FontAwesomeIcon icon={faTrash} size="lg" className="trash" />
                     </button>
                     <Link to={`/admin/exercices/edit/${exercise.id}`}>
-                      <FontAwesomeIcon icon={faEdit} className="valid" />
+                      <FontAwesomeIcon icon={faEdit} size="lg" className="valid" />
                     </Link>
                   </td>
                 </tr>
