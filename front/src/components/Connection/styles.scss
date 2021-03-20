@@ -70,17 +70,17 @@
         width: 100%;
         text-align: left;
         padding: 1rem 1rem;
-        
+
         &--active {
           font-weight: bold;
           position: relative;
-          
+
           &::after {
-            content: '';
+            content: "";
             position: absolute;
             right: 1rem;
-            width: .5rem;
-            height: .5rem;
+            width: 0.5rem;
+            height: 0.5rem;
             top: 50%;
             transform: translateY(-50%);
             background-color: $primary-color;
@@ -116,8 +116,12 @@
   @media screen and (max-width: 60rem) {
     position: static;
     &__toggle-btn {
-      width: 3.5rem;
-      height: 3.5rem;
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       margin: 0;
       &__text {
         display: none;
@@ -126,7 +130,10 @@
       &__profile-img {
         width: 3rem;
         height: 3rem;
-        border-radius: 100%;
+        border-radius: 50%;
+        margin: auto;
+        margin-bottom: $gutter;
+        object-fit: cover;
       }
 
       &__icon {

@@ -7,14 +7,14 @@ body {
   color: $dark-color;
 }
 
-p{
+p {
   line-height: 1.4rem;
 }
 
-th{
+th {
   font-weight: bold;
 }
-tbody tr:nth-child(odd){
+tbody tr:nth-child(odd) {
   background-color: $ligth-color;
 }
 
@@ -38,6 +38,10 @@ tbody tr:nth-child(odd){
   background-position: bottom;
   background-size: 100% auto;
   padding-bottom: 20rem;
+
+  @media screen and (max-width: 55rem) {
+    background: none;
+  }
 
   @media screen and (max-width: 60rem) {
     padding-bottom: 7rem;
@@ -66,7 +70,6 @@ tbody tr:nth-child(odd){
     background-color: $color-error;
     border-radius: 50%;
     border: 1px $color-error solid;
-
   }
 }
 
@@ -84,16 +87,14 @@ tbody tr:nth-child(odd){
   margin-bottom: $gutter;
 }
 
-
-.title-h3{
+.title-h3 {
   font-size: $font-size-title-h3;
   font-family: $font-title;
   font-weight: bold;
   margin-bottom: $gutter;
 }
 
-
-.form-label{
+.form-label {
   display: block;
   margin-bottom: 1rem;
 }
@@ -168,23 +169,22 @@ tbody tr:nth-child(odd){
   text-transform: uppercase;
   background-color: $color-error;
   color: $white-color;
-  border:none;
+  border: none;
   padding: 8px 20px;
   border-radius: 30px;
   box-shadow: 0px 1px 5px 0px rgba(7, 72, 94, 0.5);
   opacity: 0.9;
-    &:hover {
-      opacity: 1;
-      box-shadow: 0px 4px 10px 0px rgba(7, 72, 94, 0.5);
-    }
-    &:active {
-      opacity: 0.7;
-      box-shadow: 0px 8px 10px 0px rgba(7, 72, 94, 0.5);
-    }
+  &:hover {
+    opacity: 1;
+    box-shadow: 0px 4px 10px 0px rgba(7, 72, 94, 0.5);
+  }
+  &:active {
+    opacity: 0.7;
+    box-shadow: 0px 8px 10px 0px rgba(7, 72, 94, 0.5);
+  }
 }
 
 @media screen and (max-width: 45rem) {
-
   .button--primary {
     margin: 0.5rem;
     height: fit-content;
@@ -207,7 +207,6 @@ tbody tr:nth-child(odd){
       box-shadow: 0px 8px 10px 0px rgba(7, 72, 94, 0.5);
     }
   }
-  
 
   .button--secondary {
     margin: 0.5rem;
@@ -241,21 +240,20 @@ tbody tr:nth-child(odd){
     text-transform: uppercase;
     background-color: $color-error;
     color: $white-color;
-    border:none;
+    border: none;
     padding: 8px 20px;
     border-radius: 30px;
     box-shadow: 0px 1px 5px 0px rgba(7, 72, 94, 0.5);
     opacity: 0.9;
-      &:hover {
-        opacity: 1;
-        box-shadow: 0px 4px 10px 0px rgba(7, 72, 94, 0.5);
-      }
-      &:active {
-        opacity: 0.7;
-        box-shadow: 0px 8px 10px 0px rgba(7, 72, 94, 0.5);
-      }
+    &:hover {
+      opacity: 1;
+      box-shadow: 0px 4px 10px 0px rgba(7, 72, 94, 0.5);
+    }
+    &:active {
+      opacity: 0.7;
+      box-shadow: 0px 8px 10px 0px rgba(7, 72, 94, 0.5);
+    }
   }
-
 }
 
 [type="checkbox"]:not(:checked),
