@@ -34,7 +34,7 @@ const ForgetPage = ({
   const button = isDone ? "hidden" : "button--primary"
   return (
     <>
-      <div className="container">
+      <div className="container wave-double-bottom">
         <form action="" method="get" className="form-forget" onSubmit={handleSubmit}>
         <label className="form-label">
         Veuillez renseigner votre email pour recevoir le lien de réinitialisation.

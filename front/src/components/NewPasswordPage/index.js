@@ -44,7 +44,7 @@ const NewPassword = ({
   const button = isDone ? "hidden" : "button--primary"
   return (
     <>
-      <div className="container">
+      <div className="container wave-double-bottom">
         <form action="" method="get" className="form-new-password" onSubmit={handleSubmit}>
         <label className="form-label">
         Vous êtes sur la page de réinitialisation de mot de passe.Veuillez saisir un nouveau mot de passe ainsi que la confirmation.
