@@ -119,17 +119,6 @@ const AdminUsersList = ({
                           handleSubmit(user.id, event);
                         }}
                       >
-                        <FontAwesomeIcon icon={faCheckCircle} />
-                      </button>
-                    </form>
-
-                    {/* <ModalRole
-                      handleChangeSelect={handleChangeSelect}
-                      idUser={user.id}
-                      role={usersRole[user.id]}
-                      isVisible={modalVisible}
-                    /> */}
-
                         <FontAwesomeIcon size="lg" icon={faCheckCircle} />
                       </button>
                     </form>
