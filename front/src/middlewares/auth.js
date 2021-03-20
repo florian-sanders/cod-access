@@ -14,12 +14,12 @@ import {
   setInfoUser,
   setSelectedFile,
   setProgressByTheme,
+  setAuthLoading,
 } from 'src/actions/auth';
-import {
-  setAppLoading,
-} from 'src/actions/other';
 
-import { setMessage } from 'src/actions/other';
+import {
+  setMessage,
+} from 'src/actions/other';
 
 import axiosInstance from 'src/api';
 
@@ -27,7 +27,7 @@ export default (store) => (next) => async (action) => {
   switch (action.type) {
     case TRY_SIGN_IN:
       try {
-        store.dispatch(setAppLoading(true));
+        store.dispatch(setAuthLoading(true));
         const { auth: { email, password } } = store.getState();
 
         const response = await axiosInstance.post('/signin', {
@@ -52,7 +52,7 @@ export default (store) => (next) => async (action) => {
         }
       }
       finally {
-        store.dispatch(setAppLoading(false));
+        store.dispatch(setAuthLoading(false));
       }
       return next(action);
     case GET_CSRF_TOKEN:
