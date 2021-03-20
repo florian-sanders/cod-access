@@ -28,6 +28,7 @@ const initialState = {
     questions: [],
     currentQuestionIndex: 0,
     userScore: null,
+    isCorrected: false,
   },
 };
 
@@ -149,6 +150,7 @@ const reducer = (state = initialState, action = {}) => {
           ...state.currentExercise,
           currentQuestionIndex: 0,
           userScore: action.userScore,
+          isCorrected: true,
           questions: state.currentExercise.questions.map(
             (question) => {
               const { explanation } = action.explanations.find(
