@@ -24,7 +24,7 @@ module.exports = {
                     'themes',
                     {
                         association: 'clients',
-                        where: { 
+                        where: {
                             id: myClient,
                         },
                         required: false,
@@ -481,7 +481,6 @@ module.exports = {
 
     delete_exercise_theme: async (req, res, next) => {
         try {
-            console.log('YOUHOUUUUUUUUUUUUU', req.body);
             const role = req.user.clientRole
             if (role !== 'admin') {
                 return res.status(400).json({
@@ -532,15 +531,48 @@ module.exports = {
                     'clients',
                     {
                         association: 'questions',
-                        include: ['possible_answers'],
+                        include: [{
+                            association: 'possible_answers',
+                            attributes: { exclude: ['content', 'correct'] },
+                            where: {
+                                correct: true,
+                            }
+                        }],
                     },
                 ]
-            })
-            let correct_answers = [];
+            });
+
+            const correction = exercise.questions.map((question) => ({
+                id: question.id,
+                rightAnswers: question.possible_answers.map((answer) => answer.id),
+                explanation: question.explanation,
+            }));
+
+            const reducer = (accumulator, currentValue) => accumulator + currentValue;
+            const successfulQuestions = [];
+
+            for (question of correction) {
+                const userAnswers = req.body.find((userData) => userData.questionId === question.id).answers;
+                const countUserAnswers = userAnswers.reduce(reducer);
+                const countRightAnswers = question.rightAnswers.reduce(reducer);
+                console.log('countUA', countUserAnswers);
+                console.log('countRA', countRightAnswers);
+                if (countUserAnswers === countRightAnswers) {
+                    successfulQuestions.push(question.id);
+                }
+            }
+            const rightAnswers = correction.map((question) => question.rightAnswers).flat();
+            console.log('all right answers', rightAnswers);
+
+            console.log('success', successfulQuestions);
+            /* let correct_answers = [];
             let wrong_answers = [];
-            let explanation = []
+            let explanation = [];
             for (const questions of exercise.questions) {
                 explanation.push({ id: questions.id, explanation: questions.explanation })
+                let correction = {
+                    questionId: id,
+                }
                 for (const answers of questions.possible_answers) {
                     console.log(questions.possible_answers);
                     if (answers.correct === true) {
@@ -550,6 +582,7 @@ module.exports = {
                     }
                 }
             }
+
             let correct = []
             let incorrect = []
             for (const question of req.body) {
@@ -559,12 +592,12 @@ module.exports = {
                 } else {
                     incorrect.push(question)
                 }
-            }
+            } *//* 
             console.log('correct', correct)
-            console.log('incorrect', incorrect)
+            console.log('incorrect', incorrect) */
 
-            const scoreResult = Math.round((correct.length / exercise.questions.length) * 100)
-
+            const scoreResult = Math.round((successfulQuestions.length / exercise.questions.length) * 100)
+            console.log('score', scoreResult);
             if (req.user) {
                 const id_client = req.user.clientId
                 const client = await Client.findByPk(id_client, {
@@ -583,11 +616,7 @@ module.exports = {
                     console.log('first play', result)
                     return res.status(200).json({
                         message: `client finish with score: ${scoreResult}`,
-                        rightAnswers: correct_answers,
-                        correct,
-                        incorrect,
-                        client,
-                        explanation,
+                        correction,
                         scoreResult
                     });
 
@@ -602,11 +631,8 @@ module.exports = {
                         console.log('deja joué mais j\'update car score meilleure', oldScore, updateScore)
                         return res.status(200).json({
                             message: `client finish with score: ${scoreResult}`,
-                            rightAnswers: correct_answers,
-                            correct,
-                            incorrect,
-                            scoreResult,
-                            explanation
+                            correction,
+                            explanation,
                         });
 
                     } else {
@@ -614,11 +640,7 @@ module.exports = {
                         console.log('je ne fait rien')
                         return res.status(200).json({
                             message: `client finish with score: ${scoreResult}`,
-                            rightAnswers: correct_answers,
-                            correct,
-                            incorrect,
-                            client,
-                            explanation,
+                            correction,
                             scoreResult,
                         });
                     }
@@ -628,10 +650,7 @@ module.exports = {
             console.log('score du user sans co', scoreResult);
             return res.status(200).json({
                 message: `client finish with score: ${scoreResult}`,
-                rightAnswers: correct_answers,
-                correct,
-                incorrect,
-                explanation,
+                correction,
                 scoreResult,
             });
 

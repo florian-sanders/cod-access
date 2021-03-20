@@ -90,17 +90,11 @@ export const sendAnswers = () => ({
 export const SET_RESULTS = 'SET_RESULTS';
 
 export const setResults = ({
-  explanations,
-  incorrectAnswers,
-  correctAnswers,
-  rightAnswers,
+  corrections,
   userScore,
 }) => ({
   type: SET_RESULTS,
-  explanations,
-  incorrectAnswers,
-  correctAnswers,
-  rightAnswers,
+  corrections,
   userScore,
 });
 

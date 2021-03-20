@@ -123,10 +123,7 @@ export default (store) => (next) => async (action) => {
         }
 
         store.dispatch(setResults({
-          explanations: data.explanation,
-          correctAnswers: data.correct,
-          incorrectAnswers: data.incorrect,
-          rightAnswers: data.rightAnswers,
+          corrections: data.correction,
           userScore: data.scoreResult,
         }));
 
