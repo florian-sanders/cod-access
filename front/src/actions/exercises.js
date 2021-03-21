@@ -13,6 +13,12 @@ export const SET_NEW_USER_ANSWER = 'SET_NEW_USER_ANSWER';
 export const REMOVE_USER_ANSWER = 'REMOVE_USER_ANSWER';
 export const SHOW_QUESTION = 'SHOW_QUESTION';
 export const FETCH_PROGRESS_BY_THEME = 'FETCH_PROGRESS_BY_THEME';
+export const SET_EXERCISE_RESULTS_LOADING = 'SET_EXERCISE_RESULTS_LOADING';
+
+export const setExerciseResultsLoading = (status) => ({
+  type: SET_EXERCISE_RESULTS_LOADING,
+  status,
+});
 
 export const fetchThemesExercises = () => ({
   type: FETCH_THEMES_EXERCISES,

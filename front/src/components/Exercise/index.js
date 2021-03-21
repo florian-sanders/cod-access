@@ -25,6 +25,7 @@ const Exercise = ({
   messageParams,
   closeMessage,
   isCorrected,
+  resultsLoading,
 }) => {
   useEffect(() => {
     getExercise();
@@ -89,6 +90,7 @@ const Exercise = ({
                 className="button--secondary"
                 type="button"
                 onClick={() => changeQuestion(currentQuestionIndex - 1)}
+                disabled={resultsLoading}
               >
                 Question précédente
               </button>
@@ -104,7 +106,7 @@ const Exercise = ({
                     : ''
                 }
                 disabled={!questions[currentQuestionIndex].userAnswers.length}
-                className="button--primary"
+                className="exercise-section__navigation__submit button--primary"
                 type="button"
                 onClick={
                   () => changeQuestion(currentQuestionIndex + 1)
@@ -125,10 +127,24 @@ const Exercise = ({
                 }
                 className="button--primary"
                 type="button"
-                disabled={!questions[currentQuestionIndex].userAnswers.length}
+                disabled={!questions[currentQuestionIndex].userAnswers.length || resultsLoading}
                 onClick={submitAnswers}
               >
-                Valider mes réponses
+                {
+                  resultsLoading
+                    ? (
+                      <>
+                        Calcul du score en cours
+                        <CircleLoader
+                          colour="#7ED8F7"
+                          radius={8}
+                          duration={2}
+                          strokeWidth={3}
+                        />
+                      </>
+                    )
+                    : 'Valider mes réponses'
+                }
               </button>
             )
           }
@@ -162,6 +178,7 @@ Exercise.propTypes = {
   }).isRequired,
   closeMessage: PropTypes.func.isRequired,
   isCorrected: PropTypes.bool.isRequired,
+  resultsLoading: PropTypes.bool.isRequired
 };
 
 Exercise.defaultProps = {

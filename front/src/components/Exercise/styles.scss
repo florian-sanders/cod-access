@@ -283,7 +283,9 @@
     justify-content: space-evenly;
 
     & .button--primary {
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 

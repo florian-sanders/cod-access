@@ -12,6 +12,7 @@ import {
   SHOW_QUESTION,
   SET_RESULTS,
   RESET_CURRENT_EXERCISE,
+  SET_EXERCISE_RESULTS_LOADING,
 } from 'src/actions/exercises';
 
 const initialState = {
@@ -29,11 +30,20 @@ const initialState = {
     currentQuestionIndex: 0,
     userScore: null,
     isCorrected: false,
+    resultsLoading: false,
   },
 };
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_EXERCISE_RESULTS_LOADING:
+      return {
+        ...state,
+        currentExercise: {
+          ...state.currentExercise,
+          resultsLoading: action.status,
+        },
+      };
     case RESET_CURRENT_EXERCISE:
       return {
         ...state,
