@@ -29,7 +29,7 @@
     */
     &:nth-of-type(2n + 1) {
       div.home-wrapper__article__wrapper {
-        margin: 0 auto 0 24%;
+        margin: 0 auto 0 20%;
       }
 
       div.home-wrapper__article__wrapper__text {
@@ -43,7 +43,7 @@
 
     &__wrapper {
       display: flex;
-      margin: 0 24% 0 auto;
+      margin: 0 20% 0 auto;
       max-width: 980px;
       justify-content: space-around;
       align-items: center;
@@ -87,7 +87,7 @@
         background-repeat: no-repeat;
         background-position: bottom;
         background-size: 100% auto;
-        padding: 2rem 0 13rem 0;
+        padding: 2rem 0 6rem 0;
       }
       &:nth-of-type(2n) {
         padding: 2rem 0;
@@ -96,7 +96,7 @@
         background-repeat: no-repeat;
         background-position: top;
         background-size: 100% auto;
-        padding-top: 13rem;
+        padding-top: 4rem;
       }
       &:nth-of-type(2n + 1) {
         div.home-wrapper__article__wrapper {
