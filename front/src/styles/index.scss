@@ -32,6 +32,14 @@ tbody tr:nth-child(odd) {
   }
 }
 
+strong {
+  font-weight: bold;
+}
+
+p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
 .wave-double-bottom {
   background-image: url("src/assets/img/wave.svg");
   background-repeat: no-repeat;
