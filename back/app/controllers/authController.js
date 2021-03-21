@@ -211,8 +211,8 @@ module.exports = {
       const mailOptionsToClient = {
         from: mailPath,
         to: req.body.email,
-        subject: `Confirmation d'envois de message`,
-        text: `Merci Mr ${req.body.name} pour l'intérêt que vous portez à notre site. Nous avons bien reçu votre message et traiterons votre demande dans les plis brefs délais. Cordialement.`
+        subject: `Confirmation d'envoi de message`,
+        text: `Merci Mr ${req.body.name} pour l'intérêt que vous portez à notre site. Nous avons bien reçu votre message et traiterons votre demande dans les plus brefs délais. Cordialement.`
       };
       transporter.sendMail(mailOptionsToClient, function (error, info) {
         if (error) {
