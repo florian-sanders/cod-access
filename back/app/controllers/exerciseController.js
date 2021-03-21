@@ -517,7 +517,7 @@ module.exports = {
 
     submitExercise: async (req, res, next) => {
         try {
-            console.log('req.body', req.body)
+            // console.log('req.body', req.body)
             const id_exercise = Number(req.params.id);
             if (isNaN(id_exercise)) {
                 console.log('not id')
@@ -555,49 +555,14 @@ module.exports = {
                 const userAnswers = req.body.find((userData) => userData.questionId === question.id).answers;
                 const countUserAnswers = userAnswers.reduce(reducer);
                 const countRightAnswers = question.rightAnswers.reduce(reducer);
-                console.log('countUA', countUserAnswers);
-                console.log('countRA', countRightAnswers);
+                // console.log('countUA', countUserAnswers);
+                // console.log('countRA', countRightAnswers);
                 if (countUserAnswers === countRightAnswers) {
                     successfulQuestions.push(question.id);
                 }
             }
             const rightAnswers = correction.map((question) => question.rightAnswers).flat();
-            console.log('all right answers', rightAnswers);
-
-            console.log('success', successfulQuestions);
-            /* let correct_answers = [];
-            let wrong_answers = [];
-            let explanation = [];
-            for (const questions of exercise.questions) {
-                explanation.push({ id: questions.id, explanation: questions.explanation })
-                let correction = {
-                    questionId: id,
-                }
-                for (const answers of questions.possible_answers) {
-                    console.log(questions.possible_answers);
-                    if (answers.correct === true) {
-                        correct_answers.push(answers.id)
-                    } else {
-                        wrong_answers.push(answers.id)
-                    }
-                }
-            }
-
-            let correct = []
-            let incorrect = []
-            for (const question of req.body) {
-                const iscorrect = correct_answers.find(e => e === question.answers[0])
-                if (iscorrect) {
-                    correct.push(question)
-                } else {
-                    incorrect.push(question)
-                }
-            } *//* 
-            console.log('correct', correct)
-            console.log('incorrect', incorrect) */
-
             const scoreResult = Math.round((successfulQuestions.length / exercise.questions.length) * 100)
-            console.log('score', scoreResult);
             if (req.user) {
                 const id_client = req.user.clientId
                 const client = await Client.findByPk(id_client, {
@@ -605,8 +570,8 @@ module.exports = {
                 })
 
                 if (!client.exercises[0]) {
-                    // never played i have to save
-                    await client.addExercise(exercise);
+                    console.log('never played i have to save');
+                    // await client.addExercise(exercise);
                     const result = new Client_exercise({
                         score: scoreResult,
                         client_id: id_client,
@@ -621,7 +586,7 @@ module.exports = {
                     });
 
                 } else {
-                    // played already i have to update
+                    console.log('played already i have to update');
                     const oldScore = client.exercises[0].Client_exercise.score
                     if (oldScore === null || oldScore < scoreResult) {
                         const updateScore = await Client_exercise.findOne({
@@ -636,8 +601,7 @@ module.exports = {
                         });
 
                     } else {
-                        // older score was better i'm doing nothing
-                        console.log('i do nothing')
+                        console.log('older score was better im doing nothing')
                         return res.status(200).json({
                             message: `client finish with score: ${scoreResult}`,
                             correction,

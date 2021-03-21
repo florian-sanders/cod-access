@@ -28,9 +28,21 @@
       display:flex;
       justify-content: space-between;
       &__intro{
+        width: 87%;
         &__title{
           margin-bottom: $gutter;
           font-size: 1.3rem;
+        }
+        &__text{
+          padding:1rem;
+          border-radius: 10px;
+          font-style: italic;
+          margin-bottom: $gutter;
+          box-shadow: $shadow_bis;
+          &__paraph{
+            margin-bottom: 1rem;
+          }
+
         }
         &__filter{
           position: absolute;
@@ -175,6 +187,7 @@
         flex-wrap:wrap;
         &__intro{
           order: 1;
+          width: 100%;
         }
         &__img{
           order: 0;

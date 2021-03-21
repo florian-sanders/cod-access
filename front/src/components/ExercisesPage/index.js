@@ -40,7 +40,12 @@ const ExercisesPage = ({
       <div className="exercises__wrapper">
         <div className="exercises__wrapper__header">
           <div className="exercises__wrapper__header__intro">
-            <p className="exercises__wrapper__header__intro__title">Choisis un élément du Nautilus que tu souhaites réparer !</p>
+            <div className="exercises__wrapper__header__intro__text">
+              <p>"Laisse moi me présenter, je suis le capitaine Némo et je suis à la recherche de <strong>développeuses et développeurs</strong> experts en accessibilité web.</p>
+              <p className="exercises__wrapper__header__intro__text__paraph">J'ai commandé un sous-marin Nautilus tout neuf dernier cri et dans le cahier des charges j'avais stipulé qu'il fallait que <strong>l'interface et la documentation de ce Nautilus soient totalement accessibles</strong>. En effet, plusieurs membres de mon équipage sont en situation de handicap et c'était donc un critère indispensable.</p>
+              <p className="exercises__wrapper__header__intro__text__paraph">Mais malheureusement le résultat livré semble contenir de nombreux problèmes, je cherche donc des experts pour m'aider à <strong>réparer les interfaces</strong> à travers les challenges ci-dessous. Ceux-ci sont triés par thématiques correspondent aux thématiques du <a className="link" href="https://www.numerique.gouv.fr/publications/rgaa-accessibilite/">Référentiel Général d'Amélioration d'Accessibilité</a> français.</p>
+              <p>Tu peux effectuer les réparations dans <strong>l'ordre que tu le souhaites</strong> et si tu te trompes, n'hésite pas à retenter ta chance !"</p>
+            </div>
             <Filter
               themes={themesFilterCheckbox}
               visibility={themeFilterVisibility}

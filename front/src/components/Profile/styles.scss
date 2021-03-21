@@ -28,9 +28,10 @@
     display:flex;
     flex-direction: column;
     padding: $gutter;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border-radius: 15px;
     box-shadow: $shadow-bis;
+    width: 20%;
 
     &__img{
       width: 4rem;
@@ -41,6 +42,7 @@
       object-fit: cover;
     }
     &__infos{
+      word-break: break-word;
       &__pseudo{
         margin-bottom:$gutter;
       }
@@ -48,7 +50,7 @@
   }
 
   &__progress{
-    width: 80%;
+    width: 75%;
     padding: $gutter;
     border-radius: 15px;
     box-shadow: $shadow-bis;
@@ -99,17 +101,35 @@
   }
 }
 
-@media screen and (max-width: 100rem) {
+@media screen and (max-width: 80rem) {
   .profile{
     &__content{
+      width: 30%;
+    }
+    &__progress{
+      width: 65%;
+      &__scores__theme{
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 60rem) {
+  .profile{
+    &__content{
+      width: 60%;
       margin: 0 auto $gutter;
     }
     &__progress{
       width: 100%;
+      &__scores__theme{
+        width: 45%;
+      }
     }
   }
 }
-@media screen and (max-width: 60rem) {
+@media screen and (max-width: 45rem) {
   .profile{
     padding:$gutter;
     &__content{
