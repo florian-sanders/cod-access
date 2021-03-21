@@ -38,31 +38,26 @@ const App = ({
           />
         )
       }
-      <div className={classNames('no-blur', {
-        'is-blurred': modalConfirmParams.isVisible,
-      })}
-      >
-        <div className="header-wrapper">
-          <Header />
-          <Menu />
-          <Connection />
-        </div>
-        {
-          appLoading
-            ? (
-              <div className="loading">
-                <CircleLoader
-                  colour="#7ED8F7"
-                  radius={100}
-                  duration={2}
-                  strokeWidth={20}
-                />
-              </div>
-            )
-            : <Page />
-        }
-        <Footer />
+      <div className="header-wrapper">
+        <Header />
+        <Menu />
+        <Connection />
       </div>
+      {
+        appLoading
+          ? (
+            <div className="loading">
+              <CircleLoader
+                colour="#7ED8F7"
+                radius={100}
+                duration={2}
+                strokeWidth={20}
+              />
+            </div>
+          )
+          : <Page />
+      }
+      <Footer />
     </>
   );
 };
