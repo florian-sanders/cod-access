@@ -211,7 +211,7 @@ module.exports = {
       const mailOptionsToClient = {
         from: mailPath,
         to: req.body.email,
-        subject: 'Confirmation d\envois de message',
+        subject: `Confirmation d'envois de message`,
         text: `Merci Mr ${req.body.name} pour l'intérêt que vous portez à notre site. Nous avons bien reçu votre message et traiterons votre demande dans les plis brefs délais. Cordialement.`
       };
       transporter.sendMail(mailOptionsToClient, function (error, info) {
@@ -226,7 +226,7 @@ module.exports = {
       const mailOptionsToUs = {
         from: mailPath,
         to: mailPath,
-        subject: 'New message from' + ' ' + req.body.name,
+        subject: 'Nouveau méssage de' + ' ' + req.body.name,
         text: req.body.content
       };
       transporter.sendMail(mailOptionsToUs, function (error, info) {
@@ -361,7 +361,7 @@ module.exports = {
         from: mailPath,
         to: req.user.clientEmail,
         subject: 'Modification de votre mot de passe',
-        text: `Votre mot de passe a bien été mis à jour si vous n'êtes pas l'autheur de cette action contactez notre service au plus vite.`
+        text: `Votre mot de passe a bien été mis à jour si vous n'êtes pas l'auteur de cette action contactez notre service au plus vite.`
       };
       transporter.sendMail(mailOptionsToClient, function (error, info) {
         if (error) {

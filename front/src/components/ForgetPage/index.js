@@ -35,6 +35,7 @@ const ForgetPage = ({
   return (
     <>
       <div className="container wave-double-bottom">
+       <h1 className="title-h1 center">Mot de passe oublié</h1>
         <form action="" method="get" className="form-forget" onSubmit={handleSubmit}>
         <label className="form-label">
         Veuillez renseigner votre email pour recevoir le lien de réinitialisation.

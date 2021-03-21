@@ -7,7 +7,7 @@ import {
 const mapStateToProps = (state) => ({
   email: state.forget.email,
   loading: state.forget.loading,
-  isDone: state.forget.isContactDone,
+  isDone: state.forget.isForgetDone,
 });
 
 const mapDispatchToProps = (dispatch) => ({

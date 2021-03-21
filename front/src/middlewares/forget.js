@@ -3,6 +3,8 @@ import {
   NEW_PASSWORD,
   TRY_CONTACT,
   contact,
+  forget,
+  newPass,
   setContactLoading,
 } from 'src/actions/forget';
 import axiosInstance from 'src/api';
@@ -21,7 +23,7 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-        store.dispatch(contact());
+        store.dispatch(forget());
       }
       catch (err) {
         console.log('error', err);
@@ -44,7 +46,7 @@ export default (store) => (next) => async (action) => {
         if (response.status !== 200) {
           throw new Error();
         }
-        store.dispatch(contact());
+        store.dispatch(newPass());
       }
       catch (err) {
         console.log('error', err);

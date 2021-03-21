@@ -50,6 +50,18 @@ export const contact = () => ({
   type: CONTACT,
 });
 
+export const FORGET = 'FORGET';
+
+export const forget = () => ({
+  type: FORGET,
+});
+
+export const NEWPASS = 'NEWPASS';
+
+export const newPass = () => ({
+  type: NEWPASS,
+});
+
 export const SET_CONTACT_CONTROL_MESSAGE = 'SET_CONTACT_CONTROL_MESSAGE';
 
 export const setContactControlMessage = ({ message, name, value }) => ({
@@ -64,7 +76,7 @@ export const VALIDATE_CONTACT_EMAIL = 'VALIDATE_CONTACT_EMAIL';
 export const validateContactEmail = ({ message, emailContact }) => ({
   type: VALIDATE_CONTACT_EMAIL,
   message,
-  emailContact,
+  email: emailContact,
 });
 
 export const VALIDATE_LENGTH = 'VALIDATE_LENGTH';

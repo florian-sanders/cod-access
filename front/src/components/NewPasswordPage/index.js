@@ -45,6 +45,7 @@ const NewPassword = ({
   return (
     <>
       <div className="container wave-double-bottom">
+       <h1 className="title-h1 center">Nouveau mot de passe</h1>
         <form action="" method="get" className="form-new-password" onSubmit={handleSubmit}>
         <label className="form-label">
         Vous êtes sur la page de réinitialisation de mot de passe.Veuillez saisir un nouveau mot de passe ainsi que la confirmation.

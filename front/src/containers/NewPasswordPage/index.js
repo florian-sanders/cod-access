@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
   password: state.forget.password,
   passwordConfirm: state.forget.passwordConfirm,
   loading: state.forget.loading,
-  isDone: state.forget.isContactDone,
+  isDone: state.forget.isNewPassDone,
 });
 
 const mapDispatchToProps = (dispatch) => ({
