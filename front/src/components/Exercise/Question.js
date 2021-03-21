@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { nanoid } from 'nanoid';
 import DOMPurify from 'dompurify';
 
+import sailorImgPath from 'src/assets/img/sailor.svg';
 import DropAnswer from './DropAnswer';
 import DragPossibleAnswers from './DragPossibleAnswers';
 
@@ -101,12 +102,16 @@ const Question = ({
           explanation !== '' && (
             <article className="exercise-section__questions__question__explanation">
               <h3 className="title-h3">Explications</h3>
-              <div
-                className="rte-output"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(explanation),
-                }}
-              />
+              <div className="exercise-section__questions__question__explanation__content">
+                <div
+                  className="rte-output"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(explanation),
+                  }}
+                />
+                <img src={sailorImgPath} alt="" />
+              </div>
+
             </article>
           )
         }

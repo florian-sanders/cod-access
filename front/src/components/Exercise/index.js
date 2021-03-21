@@ -7,6 +7,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import DOMPurify from 'dompurify';
 
+import sailorImgPath from 'src/assets/img/sailor.svg';
 import Message from 'src/containers/Message';
 import Question from 'src/containers/Exercise/Question';
 import CircleLoader from 'src/components/CircleLoader';
@@ -63,12 +64,15 @@ const Exercise = ({
                 <Message {...messageParams} />
               )
               : (
-                <article
-                  className="exercise-section__brief rte-output"
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(brief),
-                  }}
-                />
+                <div className="exercise-section__brief">
+                  <img src={sailorImgPath} alt="" />
+                  <article
+                    className="exercise-section__brief__text rte-output"
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(brief),
+                    }}
+                  />
+                </div>
               )
           )
         }

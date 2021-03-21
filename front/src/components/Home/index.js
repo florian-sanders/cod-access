@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import diverImgPath from 'src/assets/img/diver.svg';
-import radarImgPath from 'src/assets/img/radar.svg';
-import spyglassImgPath from 'src/assets/img/spyglass.svg';
-import divingSuitImgPath from 'src/assets/img/diving-suit.svg';
 import submarineImgPath from 'src/assets/img/submarine.svg';
 import sailorImgPath from 'src/assets/img/sailor.svg';
 
