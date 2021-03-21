@@ -25,7 +25,7 @@ const Contact = ({
   return (
     <div className="contact wave-double-bottom">
       <h1 className="title-h1 center">Contactez-nous</h1>
-      <div className="contact__content">
+       <div className="contact__content">
           <img  className="contact__content__illustration" src={picture} alt="" />
         <form action="" method="get" className="contact__content__form" onSubmit={handleSubmit}>
           <FieldGroup
