@@ -44,7 +44,7 @@ const Answer = ({
     >
       {(provided, snapshot) => (
         <>
-          <div
+          <span
             className={
               classNames(
                 'exercise-section__questions__question__answers__answer',
@@ -100,13 +100,13 @@ const Answer = ({
               && !isUserAnswer
               && (<FontAwesomeIcon role="presentation" icon={faCheck} size="2x" />)
             }
-          </div>
+          </span>
           {snapshot.isDragging && (
-            <div
+            <span
               className="exercise-section__questions__question__answers__answer"
             >
               {content}
-            </div>
+            </span>
           )}
         </>
       )}

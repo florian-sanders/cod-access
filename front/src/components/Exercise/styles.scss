@@ -57,11 +57,27 @@
   }
 }
 
+.exercise-wrapper {
+  padding: $gutter $gutter * 2;
+
+  @media screen and (max-width: 60rem) {
+    padding: 0;
+
+    .exercise-section__quit {
+      position: absolute;
+      top: 2rem;
+      right: 3rem;
+    }
+  }
+}
+
 .exercise-section {
   max-width: 1100px;
   margin: 0 auto;
-  padding-top: $gutter * 2;
+  padding: 3rem $gutter * 2;
   position: relative;
+  background: rgb(229, 235, 237);
+  background: linear-gradient(177deg, rgba(229, 235, 237, 1) 0%, rgba(229, 235, 237, 1) 84%, rgba(3, 63, 136, 0) 100%);
 
   & .button--primary[disabled],
   & .button--secondary[disabled] {
@@ -74,8 +90,8 @@
 
   &__quit {
     position: absolute;
-    top: $gutter * 2;
-    right: 1rem;
+    top: 3rem;
+    right: 3rem;
 
     &__icon {
       margin-left: 0.5rem;
@@ -125,16 +141,15 @@
         word-wrap: break-word; /* Internet Explorer 5.5+ */
         font-family: $font-code;
 
-        & span:not(.exercise-section__questions__question__code__drop-area) {
-          display: block;
-          padding: 0;
-        }
-
         &__drop-area {
           padding: 2rem 1.7rem;
           border-radius: 1rem;
           display: block;
           box-shadow: inset 0 0 10px #000000;
+          
+          .exercise-section__questions__question__answers__answer:last-child {
+            margin-bottom: 0rem!important;
+          }
 
           &--hovered {
             border: dotted 2px $secondary-color;
@@ -191,7 +206,9 @@
             color: $gray-color;
             border: none;
             padding: $gutter 1.7rem $gutter 0;
+            margin-bottom: 1rem;
             transition: all ease-in-out 1s;
+            
             &:hover {
               cursor: auto;
             }
@@ -199,6 +216,9 @@
 
           &--is-corrected {
             padding: $gutter;
+            &:hover {
+              cursor: auto;
+            }
           }
 
           &--user-correct,
@@ -261,16 +281,20 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
+
+    & .button--primary {
+      text-align: center;
+    }
   }
 
-  @media screen and (max-width: 60rem) { 
+  @media screen and (max-width: 60rem) {
     padding: 4rem 1rem 1rem 1rem;
 
     .rte-output {
       padding: 0.5rem;
       overflow-wrap: anywhere;
     }
-    
+
     &__questions {
       &__question {
         padding: 0.5rem;
