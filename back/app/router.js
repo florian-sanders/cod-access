@@ -40,8 +40,8 @@ const authorizationMiddlewareNewPassword = jwt({
 // the csrf middleware in the entry file of the server is in charge of checking
 // that both the tokens (sent in cookie + sent in header) are a match.
 // This is to ensure the React App is the source of the request.
-// router.route('/csrf-token')
-//     .get(authController.getCSRFToken);
+router.route('/csrf-token')
+    .get(authController.getCSRFToken);
 
 
 router.route('/admin/image/:imageId')
