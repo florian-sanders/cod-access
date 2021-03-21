@@ -4,6 +4,7 @@
     width: 17%;
     min-height: calc(100vh - 12rem);
     background: $gray-color;
+    z-index: 1;
 }
 
 .admin__menu {
