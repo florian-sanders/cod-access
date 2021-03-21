@@ -1,7 +1,7 @@
 @import "src/styles/vars";
 
 .modal-confirm{
-  z-index: 1;
+  z-index: 2;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -10,7 +10,6 @@
   padding: 2rem;
 
   border-radius: 15px;
-  // background-color:$gray-color !important;
   background-color: $white-color;
   box-shadow: $shadow;
 

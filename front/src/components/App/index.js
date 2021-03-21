@@ -38,6 +38,11 @@ const App = ({
           />
         )
       }
+      <div className={classNames('modal-background', {
+        'modal-background--blur': modalConfirmParams.isVisible,
+      })}
+      >
+      </div>
       <div className="header-wrapper">
         <Header />
         <Menu />
