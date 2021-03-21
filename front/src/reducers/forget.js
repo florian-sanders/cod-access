@@ -7,6 +7,8 @@ import {
   SET_CONTACT_FIELD_VALUE,
   SET_CONTACT_LOADING,
   CONTACT,
+  FORGET,
+  NEWPASS,
   SET_CONTACT_CONTROL_MESSAGE,
   SET_PASSWORD_CONTROL_MESSAGE,
   VALIDATE_CONTACT_EMAIL,
@@ -44,6 +46,8 @@ const initialState = {
   },
   loading: false,
   isContactDone: false,
+  isForgetDone: false,
+  isNewPassDone: false,
 };
 
 const forget = (state = initialState, action = {}) => {
@@ -97,6 +101,16 @@ const forget = (state = initialState, action = {}) => {
       return {
         ...initialState,
         isContactDone: true,
+      };
+    case FORGET:
+      return {
+        ...initialState,
+        isForgetDone: true,
+      };
+    case NEWPASS:
+      return {
+        ...initialState,
+        isNewPassDone: true,
       };
     case SET_CONTACT_FIELD_VALUE:
       return {

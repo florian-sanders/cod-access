@@ -506,7 +506,7 @@ module.exports = {
                 include: 'themes'
             })
             //console.log('200 ok', exercise);
-            console.log('liaison supprimée')
+            console.log('associate delete')
             return res.status(200).json(exercise);
 
         } catch (error) {
@@ -628,7 +628,7 @@ module.exports = {
                             where: { client_id: id_client, exercise_id: id_exercise }
                         })
                         await updateScore.update({ score: scoreResult })
-                        console.log('deja joué mais j\'update car score meilleure', oldScore, updateScore)
+                        console.log('already played and update because better score', oldScore, updateScore)
                         return res.status(200).json({
                             message: `client finish with score: ${scoreResult}`,
                             correction,
@@ -637,7 +637,7 @@ module.exports = {
 
                     } else {
                         // older score was better i'm doing nothing
-                        console.log('je ne fait rien')
+                        console.log('i do nothing')
                         return res.status(200).json({
                             message: `client finish with score: ${scoreResult}`,
                             correction,
