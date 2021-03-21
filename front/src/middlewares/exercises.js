@@ -8,6 +8,7 @@ import {
   setAllThemesIdToDisplay,
   setCurrentExercise,
   setResults,
+  setExerciseResultsLoading,
 } from 'src/actions/exercises';
 import { setMessage } from 'src/actions/other';
 import axiosInstance from 'src/api';
@@ -86,6 +87,7 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case SEND_ANSWERS:
       try {
+        store.dispatch(setExerciseResultsLoading(true));
         const {
           exercises: {
             currentExercise,
@@ -135,6 +137,9 @@ export default (store) => (next) => async (action) => {
       }
       catch (err) {
         console.log(err);
+      }
+      finally {
+        store.dispatch(setExerciseResultsLoading(false));
       }
       return next(action);
     default:
