@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.scss';
-import radarImgPath from 'src/assets/img/radar.svg';
+import flo from 'src/assets/img/flo.jpg';
 import fred from 'src/assets/img/fred.jpg';
 import jerem from 'src/assets/img/jerem.jpg';
 import annekim from 'src/assets/img/anne-kim.jpg';
@@ -29,7 +29,7 @@ const About = () => (
 
         <article className="about__members__team">
         <div className="about__members__team__imageRight">
-          <img className="about__members__team__img" src={radarImgPath} alt="photo visage membre2" />
+          <img className="about__members__team__img" src={flo} alt="photo visage membre2" />
           </div>
           <div className="about__members__team__texte"> 
           <h2 className="about__members__team__name">Florian<br></br>SANDERS</h2>
