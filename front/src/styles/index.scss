@@ -7,8 +7,8 @@ body {
   color: $dark-color;
 }
 
-p {
-  line-height: 1.4rem;
+#root p {
+  line-height: 1.9rem;
 }
 
 th {
@@ -66,19 +66,22 @@ strong {
   color: $color-error;
   font-size: 0.8em;
   margin-bottom: $gutter;
+  word-wrap: break-word;
+
   &::before {
     content: "!";
     text-align: center;
     color: $white-color;
     padding: 1px;
-    margin-right: 0.5rem;
-    display: inline-block;
-    width: 15px;
-    height: 15px;
+    width: 17px;
+    height: 17px;
+    line-height: 15px;
     font-weight: bold;
     background-color: $color-error;
     border-radius: 50%;
     border: 1px $color-error solid;
+    display: inline-block;
+    margin-right: 0.5rem;
   }
 }
 
@@ -125,7 +128,7 @@ strong {
 
 .button--primary {
   margin: 1rem;
-  height: 36px;
+  min-height: 36px;
   letter-spacing: 1px;
   font-weight: bold;
   text-transform: uppercase;
@@ -148,7 +151,7 @@ strong {
 
 .button--secondary {
   margin: 1rem;
-  height: 36px;
+  min-height: 36px;
   letter-spacing: 1px;
   font-weight: bold;
   text-transform: uppercase;
