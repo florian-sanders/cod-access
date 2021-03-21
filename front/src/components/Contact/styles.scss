@@ -1,0 +1,58 @@
+@import 'src/styles/vars';
+
+.contact{
+  padding: $gutter;
+  &__content{
+    display: flex;
+    &__illustration{
+      width: 50%;
+      margin-bottom: 5rem;
+      padding: 0 2rem 4rem 2rem;
+    }
+    &__form{
+      margin: 3rem auto;
+      width: 40%;
+      &__group{
+        display:flex;
+        flex-direction: column;
+        text-align: left;
+      }
+    }
+    @media screen and (max-width: 60rem) {
+      /*
+      * Mobile, articles are below each other with no shift.
+      * Images are displayed above each article
+      */
+      &__illustration{
+        display:none;
+      }
+      &__form{
+        margin: auto;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.center{
+  text-align: center;
+}
+
+.textarea {
+  padding-bottom: 4rem;
+}
+
+.message {
+  margin-bottom: $gutter;
+  font-size: 0.8em;
+}
+
+.messsage-done {
+  background-color: $color-valid;
+  box-shadow: $shadow;
+  display: block;
+  margin-bottom: $gutter;
+  padding: 16px 8px;
+  border:solid 1px $dark-gray-color;
+  border-radius: 5px;
+}

@@ -1,0 +1,17 @@
+.header-wrapper__header {
+  &__link {
+    &__site-logo {
+      width: 180px;
+    }
+  }
+  
+
+  @media screen and (max-width:60rem) {
+    margin-left: calc(50% - 60px);
+    &__link {
+      &__site-logo {
+        width: 120px;
+      }
+    }
+  }
+}

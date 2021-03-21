@@ -1,0 +1,358 @@
+@import "src/styles/vars";
+
+.loading {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.rte-output {
+  padding: $gutter;
+  border-radius: 0.5rem;
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+  }
+  blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+  }
+  blockquote p {
+    display: inline;
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-left: $gutter;
+  }
+
+  a {
+    text-decoration: underline;
+    color: $primary-color;
+  }
+}
+
+.exercise-wrapper {
+  padding: $gutter $gutter * 2;
+
+  @media screen and (max-width: 60rem) {
+    padding: 0;
+
+    .exercise-section__quit {
+      position: absolute;
+      top: 2rem;
+      right: 3rem;
+    }
+  }
+}
+
+.exercise-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem $gutter * 2;
+  position: relative;
+  background: rgb(229, 235, 237);
+  background: linear-gradient(177deg, rgba(229, 235, 237, 1) 0%, rgba(229, 235, 237, 1) 84%, rgba(3, 63, 136, 0) 100%);
+
+  &__brief {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-flow: row wrap;
+
+    img {
+      max-height: 200px;
+    }
+
+    &__text {
+      max-width: 520px;
+    }
+  }
+
+  & .button--primary[disabled],
+  & .button--secondary[disabled] {
+    filter: grayscale(100%);
+    &:hover {
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+  }
+
+  &__quit {
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+
+    &__icon {
+      margin-left: 0.5rem;
+    }
+  }
+
+  &__questions {
+    &__question {
+      margin: $gutter auto;
+      background-color: $white-color;
+      padding: $gutter;
+      border-radius: 1rem;
+      box-shadow: $shadow;
+      line-height: 1.2rem;
+
+      &__explanation {
+        padding: $gutter;
+        border-radius: 1rem;
+        background-color: $white-color;
+        margin-top: $gutter * 2;
+        border-top: solid 1px $gray-color;
+
+        &__content {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          flex-flow: row wrap;
+
+          & .rte-output {
+            max-width: 520px;
+          }
+
+          img {
+            max-height: 200px;
+          }
+        }
+      }
+
+      &__heading {
+        margin-left: $gutter;
+        margin-top: $gutter;
+      }
+
+      &__brief {
+        background-color: $white-color;
+        padding: $gutter;
+        border-radius: 0.5rem;
+        max-width: 80%;
+        margin: 0 auto;
+      }
+
+      &__code {
+        box-shadow: $shadow;
+        background-color: #333;
+        border-radius: 0.5rem;
+        color: $gray-color;
+        padding: $gutter * 2 2rem;
+        white-space: pre-wrap; /* Since CSS 2.1 */
+        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+        font-family: $font-code;
+
+        &__drop-area {
+          padding: 2rem 1.7rem;
+          border-radius: 1rem;
+          display: block;
+          box-shadow: inset 0 0 10px #000000;
+          
+          .exercise-section__questions__question__answers__answer:last-child {
+            margin-bottom: 0rem!important;
+          }
+
+          &--hovered {
+            border: dotted 2px $secondary-color;
+            background-color: #3a3a3a;
+            box-shadow: inset 0 0 10px #808080;
+          }
+        }
+      }
+
+      &__img {
+        max-width: 90%;
+        box-shadow: $shadow;
+        margin: 1rem auto $gutter * 2 auto;
+        display: block;
+      }
+
+      &--hidden {
+        display: none;
+      }
+
+      &__answers {
+        display: flex;
+        flex-flow: row wrap;
+        gap: $gutter;
+        margin-top: $gutter;
+
+        &__answer {
+          flex: 1 1 40%;
+          border: dotted 1px $gray-color;
+          padding: 2rem 1rem 2rem 4rem;
+          border-radius: 1rem;
+          position: relative;
+          font-family: $font-code;
+          display: flex;
+          align-items: center;
+          background-color: #333;
+          color: $gray-color;
+
+          &:hover {
+            cursor: alias;
+          }
+
+          &--no-drag {
+            opacity: 0.2;
+            padding: 2rem;
+
+            &:hover {
+              cursor: auto;
+            }
+          }
+
+          &--user-answer {
+            background: none;
+            color: $gray-color;
+            border: none;
+            padding: $gutter 1.7rem $gutter 0;
+            margin-bottom: 1rem;
+            transition: all ease-in-out 1s;
+            
+            &:hover {
+              cursor: auto;
+            }
+          }
+
+          &--is-corrected {
+            padding: $gutter;
+            &:hover {
+              cursor: auto;
+            }
+          }
+
+          &--user-correct,
+          &--right-answer {
+            border: dashed 1px $color-valid;
+            padding: $gutter;
+            color: $color-valid;
+            position: relative;
+            padding-right: 4rem;
+
+            & svg {
+              position: absolute;
+              right: 1rem;
+            }
+          }
+
+          &--user-incorrect {
+            border: dashed 1px $color-error;
+            padding: $gutter;
+            color: $color-error;
+            position: relative;
+            padding-right: 4rem;
+
+            & svg {
+              position: absolute;
+              right: 1rem;
+            }
+          }
+
+          &--dropping {
+            opacity: 0.2;
+            transition: all ease-in-out 3s;
+          }
+
+          &__icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 1rem;
+            color: $gray-color;
+          }
+
+          &__remove {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+            color: $gray-color;
+            background: none;
+            border: none;
+            padding: 0;
+            color: $color-error;
+          }
+        }
+      }
+    }
+  }
+
+  &__navigation {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+
+    & .button--primary {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  @media screen and (max-width: 60rem) {
+    padding: 4rem 1rem 1rem 1rem;
+
+    .rte-output {
+      padding: 0.5rem;
+      overflow-wrap: anywhere;
+    }
+
+    &__questions {
+      &__question {
+        padding: 0.5rem;
+
+        &__heading {
+          margin: 1rem 0 1rem 1rem;
+        }
+
+        &__code {
+          padding: 1rem;
+
+          &__drop-area {
+            padding: $gutter 0.5rem;
+
+            & svg {
+              top: 7px;
+              max-width: 0.8rem;
+            }
+          }
+        }
+
+        &__answers {
+          &__answer {
+            flex: 1 1 100%;
+          }
+        }
+      }
+    }
+  }
+}

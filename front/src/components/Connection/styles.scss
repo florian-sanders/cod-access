@@ -1,0 +1,157 @@
+@import "src/styles/vars";
+
+.header-wrapper__connection {
+  position: relative;
+  &__toggle-btn {
+    &--logged {
+      border: none;
+      background: none;
+    }
+
+    &__profile-img {
+      width: 4rem;
+      height: 4rem;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+
+    &__icon {
+      display: none;
+    }
+  }
+
+  &__toggle-area {
+    display: none;
+    position: absolute;
+    right: 1rem;
+    background-color: $white-color;
+    border-radius: 0.5rem;
+    box-shadow: $shadow;
+    margin-top: 0.1rem;
+    min-width: 300px;
+    border: solid 0.3px #eee;
+    z-index: 1;
+    &--visible {
+      display: block;
+    }
+
+    &__title {
+      margin-bottom: 1rem;
+    }
+
+    &__form {
+      padding: $gutter $gutter 0 $gutter;
+      &__link {
+        display: block;
+        font-size: 0.7rem;
+        text-decoration: underline;
+      }
+
+      &__group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &__submit {
+        margin: $gutter auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        span {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+    &__list {
+      padding: $gutter 0;
+      &__link {
+        display: block;
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: inherit;
+        font-family: inherit;
+        width: 100%;
+        text-align: left;
+        padding: 1rem 1rem;
+
+        &--active {
+          font-weight: bold;
+          position: relative;
+
+          &::after {
+            content: "";
+            position: absolute;
+            right: 1rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: $primary-color;
+            border-radius: 100%;
+          }
+        }
+        &:hover {
+          background-color: $primary-color;
+          color: #fff;
+          &::after {
+            background-color: $white-color;
+          }
+        }
+      }
+    }
+
+    &__signup {
+      padding: 0 $gutter $gutter $gutter;
+      text-align: center;
+      text-decoration: underline;
+
+      &::before {
+        content: "";
+        display: block;
+        width: 2rem;
+        background-color: $dark-color;
+        height: 1px;
+        margin: $gutter auto;
+      }
+    }
+  }
+
+  @media screen and (max-width: 60rem) {
+    position: static;
+    &__toggle-btn {
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin: 0;
+      &__text {
+        display: none;
+      }
+
+      &__profile-img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        margin: auto;
+        margin-bottom: $gutter;
+        object-fit: cover;
+      }
+
+      &__icon {
+        display: block;
+      }
+    }
+
+    &__toggle-area {
+      left: 50%;
+      transform: translateX(-50%);
+      width: 93%;
+      margin-top: 0.6rem;
+    }
+  }
+}

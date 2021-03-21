@@ -1,0 +1,131 @@
+@import "src/styles/vars";
+
+.home-wrapper {
+  &__article {
+    &:nth-of-type(1) {
+      background-image: url("src/assets/img/wave-light.svg");
+      background-repeat: no-repeat;
+      background-position: bottom;
+      background-size: 100% auto;
+      padding: 7rem 0 13rem 0;
+      box-shadow: 0px 22px 0px 0px rgba(143,226,255,1);
+    }
+    &:nth-of-type(2n) {
+      background: rgba(143, 226, 255, 1);
+      box-shadow: 0px 0px 0px 1px rgba(143,226,255,1);
+      padding: 2rem 0;
+    }
+    &:nth-of-type(3) {
+      background-image: url("src/assets/img/wave-light-reversed.svg");
+      background-repeat: no-repeat;
+      background-position: top;
+      background-size: 100% auto;
+      padding-top: 13rem;
+      box-shadow: 0px -22px 0px 0px rgba(143,226,255,1);
+    }
+    /* odd articles (1, 3, 5) should be with white bg 
+    * + slightly shifted to left 
+    * + their img placed on the left of the text 
+    */
+    &:nth-of-type(2n + 1) {
+      div.home-wrapper__article__wrapper {
+        margin: 0 auto 0 20%;
+      }
+
+      div.home-wrapper__article__wrapper__text {
+        order: -1;
+      }
+    }
+
+    .link {
+      color: #A51263;
+    }
+
+    &__wrapper {
+      display: flex;
+      margin: 0 20% 0 auto;
+      max-width: 980px;
+      justify-content: space-around;
+      align-items: center;
+      line-height: 1.7rem;
+
+      &__text {
+        width: 55%;
+        font-size: 1.1rem;
+
+        &__heading,
+        &__page-heading {
+          text-align: center;
+          font-size: 2rem;
+          font-weight: bold;
+          margin-bottom: $gutter;
+        }
+        &__paraph{
+          font-size:1.3rem;
+          text-align: center;
+          margin-bottom: 1rem;
+        }
+        &__heading {
+          font-size: 1.5rem;
+        }
+
+        &__link {
+          display: block;
+          width: max-content;
+          margin: $gutter auto;
+        }
+      }
+
+      &__img {
+        max-height: 14rem;
+      }
+    }
+  }
+
+  @media screen and (max-width: 60rem) {
+    background-image: url("src/assets/img/wave.svg");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: auto 5%;
+    &__article {
+      &:nth-of-type(1) {
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: 100% auto;
+        padding: 2rem 0 6rem 0;
+      }
+      &:nth-of-type(2n) {
+        padding: 2rem 0;
+      }
+      &:nth-of-type(3) {
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: 100% auto;
+        padding-top: 4rem;
+      }
+      &:nth-of-type(2n + 1) {
+        div.home-wrapper__article__wrapper {
+          margin: 0 auto;
+        }
+
+        div.home-wrapper__article__wrapper__text {
+          order: 0;
+        }
+      }
+
+      &__wrapper {
+        margin: 0 auto;
+        padding: 3rem 1rem;
+        flex-direction: column;
+
+        &__text {
+          width: 100%;
+        }
+
+        &__img {
+          margin-bottom: $gutter * 2;
+        }
+      }
+    }
+  }
+}

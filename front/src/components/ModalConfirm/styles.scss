@@ -1,0 +1,33 @@
+@import "src/styles/vars";
+
+.modal-confirm{
+  z-index: 2;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 2rem;
+  padding: 2rem;
+
+  border-radius: 15px;
+  background-color: $white-color;
+  box-shadow: $shadow;
+
+  &__heading{
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: $gutter;
+  }
+
+  &__message{
+    margin-bottom: $gutter;
+  }
+
+  &__buttons{
+    text-align: right;
+  }
+}
+
+.to--right {
+  float: right;
+}

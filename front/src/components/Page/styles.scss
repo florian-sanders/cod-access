@@ -1,0 +1,8 @@
+main {
+  outline: 0;
+  min-height: calc(100vh - 12rem);
+
+  @media screen and (max-width: 60rem) {
+    min-height: 100%;   
+  }
+}

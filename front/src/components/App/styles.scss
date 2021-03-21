@@ -1,0 +1,42 @@
+@import "src/styles/vars";
+
+.loading {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.header-wrapper {
+  padding: 1rem 5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  box-shadow: $shadow;
+  min-height: 7rem;
+
+  @media screen and (max-width: 60rem) {
+    padding: 0.7rem 1rem;
+    justify-content: space-between;
+    min-height: 5rem;
+  }
+}
+
+a.skip-link.sr-only-focusable {
+  display: block;
+  margin: 1rem;
+}
+
+.modal-background {
+  &--blur {
+    backdrop-filter: blur(3px);
+    position: absolute;
+    transition: backdrop-filter 0.5s ease-in-out;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+  }
+}

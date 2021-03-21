@@ -1,0 +1,38 @@
+@import "src/styles/vars";
+
+.loading-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+th {
+  text-align: left;
+}
+
+.pagination {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: $gutter;
+
+  &__link {
+    border: 1px solid $primary-color;
+    transition: 0.5s;
+    margin-right: 1rem;
+      &:hover{
+        background-color: $gray-color;
+      } 
+      &:active{
+        opacity: 0.7;
+        background-color: $ligth-color;
+      }
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+
+    &--active {
+      background-color:  $gray-color;
+    }
+  }
+}
+

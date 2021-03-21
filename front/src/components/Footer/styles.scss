@@ -1,0 +1,31 @@
+@import 'src/styles/vars';
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: $gutter;
+  background-color: $gray-color;
+  min-height: 5rem;
+
+  &__list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    
+    & li {
+      padding: 0 $gutter * 2;
+    }
+  }
+
+  @media screen and (max-width: 60rem) {
+    min-height: 13rem;
+    &__list {
+      flex-flow: column wrap;
+      align-items: center;
+      & li {
+        padding: $gutter / 2 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+@import "src/styles/vars";
+
+.loading-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.admin__users {
+  padding: $gutter;
+  line-height: $gutter;
+  width: 100%;
+  &__table {
+    font-size: 0.8em;
+    width: 100%;
+  }
+}
+
+.button--actions {
+  border: none;
+  background-color: transparent;
+}
+
+.form-responsibility {
+  display: flex;
+  &__select {
+    font-weight: bold;
+    background-color: $white-color;
+    color: $primary-color;
+    border: solid 1px $dark-gray-color;
+    margin: 0 0.8rem 0 0;
+    padding: 0.2rem;
+    border-radius: 30px;
+    border: 1px solid $primary-color;
+      &:hover{
+        background-color: $gray-color;
+        cursor: pointer;
+      } 
+      &:active{
+        opacity: 0.7;
+        background-color: $ligth-color;
+      }
+  }
+ 
+}
+
+.option {
+  font-weight: bold;
+}
+
+.trash {
+  color: $color-error;
+  &:hover{
+    opacity: 0.7;
+  }
+}
+
+.valid {
+  color: $color-valid;
+  &:hover{
+    opacity: 0.7;
+  }
+}

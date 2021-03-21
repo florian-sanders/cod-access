@@ -1,0 +1,124 @@
+@import "src/styles/vars";
+
+.header-wrapper__menu {
+  margin-left: auto;
+
+  &__toggle-btn {
+    display: none;
+    background: none;
+    border: none;
+  }
+
+  &__list {
+    display: flex;
+
+    & li {
+      padding: 1rem $gutter;
+    }
+
+    &__link {
+      padding: 0.3rem 0.5rem;
+
+      &:hover{
+        color: $primary-color;
+        border-bottom: solid 3px $primary-color;
+      }
+
+      &--active {
+        border-bottom: solid 3px $primary-color;
+      }
+    }
+  }
+
+  @media screen and (max-width: 60rem) {
+    transform: translateX(-9.2rem);
+    position: fixed;
+    top: 0;
+    padding: 1.4rem 0.7rem;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    transition: transform 0.5s ease-out 0.3s, background-color 1s ease-out 0.3s, visibility 2s, z-index 1s ease-out 0.3s, box-shadow 1s ease-out 0.3s;
+    z-index: 0;
+
+    &__toggle-btn {
+      display: block;
+      position: absolute;
+      right: 1rem;
+
+      &__stripes {
+        display: flex;
+        flex-direction: column;
+        width: 33px;
+
+        span {
+          background: $primary-color;
+          border-radius: 10px;
+          height: 5px;
+          margin: 3px 0;
+          transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        }
+
+        span:nth-of-type(1) {
+          width: 50%;
+        }
+
+        span:nth-of-type(2) {
+          width: 100%;
+        }
+
+        span:nth-of-type(3) {
+          width: 75%;
+        }
+
+        &--cross {
+          span:nth-of-type(1) {
+            transform-origin: bottom;
+            transform: rotatez(45deg) translate(5px, 0px);
+          }
+
+          span:nth-of-type(2) {
+            transform-origin: top;
+            transform: rotatez(-45deg);
+          }
+
+          span:nth-of-type(3) {
+            transform-origin: bottom;
+            width: 50%;
+            transform: translate(16px, -7px) rotatez(45deg);
+          }
+        }
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      visibility: hidden;
+      transition: visibility 1s;
+      margin-top: $gutter * 2;
+      padding: 0 4rem 0 1.5rem;
+
+      & li {
+        padding: $gutter 0;
+      }
+    }
+
+    &--open {
+      z-index: 2;
+      margin: 0;
+      transform: translateX(0);
+      position: absolute;
+      top: 0;
+      background-color: $white-color;
+      transition: transform 0.5s ease-out 0.3s, background-color 0.5s ease-out, visibility 1s;
+      box-shadow: $shadow;
+
+      & .header-wrapper__menu__list {
+        display: flex;
+        flex-direction: column;
+        visibility: visible;
+      }
+    }
+  }
+}
