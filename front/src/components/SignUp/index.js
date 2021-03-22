@@ -28,10 +28,10 @@ const SignUp = ({
 
   return (
     <div className="signup wave-double-bottom">
-      <h1 className="title-h1 center">Inscription</h1>
       <div className="signup__content">
-      <img  className="contact__content__illustration" src={picture} alt="" />
+        <img className="contact__content__illustration" src={picture} alt="" />
         <form action="" method="get" className="signup__content__form" onSubmit={handleSubmit}>
+          <h1 className="title-h1 center">Inscription</h1>
           {
             messageParams.isVisible
             && messageParams.componentToDisplayIn === 'SignUp'
