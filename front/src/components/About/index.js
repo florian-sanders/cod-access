@@ -22,7 +22,7 @@ const About = () => (
             <img className="about__members__team__img" src={annekim} alt="photo visage membre1" />
             </div>
             <div className="about__members__team__texte">  
-          <p className="about__members__team__name">Anne-Kim<br></br>BANCHEREAU</p>
+          <h2 className="about__members__team__name">Anne-Kim<br></br>BANCHEREAU</h2>
           <p className="about__members__team__profil">Scrum Master,<br></br>Développeuse Front</p>
           </div>
         </article>
