@@ -4,9 +4,10 @@
   padding: $gutter;
   &__content{
     display: flex;
+    padding-bottom: 8rem;
     &__illustration{
-      width: 50%;
-      margin-bottom: 5rem;
+      width: 40%;
+      margin: 0 auto;
       padding: 0 2rem 4rem 2rem;
     }
     &__form{
