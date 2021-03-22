@@ -22,17 +22,17 @@
     &--active {
       font-weight: bold;
       position: relative;
-      &::after {
-        content: '';
-        position: absolute;
-        left: 14rem;
-        width: .5rem;
-        height: .5rem;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: $primary-color;
-        border-radius: 100%;
-      }
+      // &::after {
+      //   content: '';
+      //   position: absolute;
+      //   left: 14rem;
+      //   width: .5rem;
+      //   height: .5rem;
+      //   top: 50%;
+      //   transform: translateY(-50%);
+      //   background-color: $primary-color;
+      //   border-radius: 100%;
+      // }
     }
     &:hover {
       background-color: $primary-color;
