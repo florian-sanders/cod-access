@@ -10,12 +10,6 @@ module.exports = {
         try{
             const page = Number(req.query.page) - 1 || 0;
             const limit = Number(req.query.limit) || 30;
-            const role = req.user.clientRole
-            if(role !== 'admin'){
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const clients = await Client.findAndCountAll({
                 include:'responsibility',
                 distinct: true,
@@ -57,12 +51,6 @@ module.exports = {
     
     changeRoleClient: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if(role !== 'admin'){
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -100,12 +88,6 @@ module.exports = {
 
     deleteOneClient: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if(role !== 'admin'){
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({

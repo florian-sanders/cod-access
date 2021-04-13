@@ -6,7 +6,6 @@ const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const pathToSwaggerUi = require('swagger-ui-dist').absolutePath();
-const sanitizer = require('./app/middleware/body-sanitizer');
 
 const app = express();
 
@@ -21,12 +20,10 @@ const csrfProtection = csrf({
 // if they match, will go to next middleware, if not, will throw an error
 app.use(csrfProtection);
 
+// must delete this line?
 app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
-
-// app.use(sanitizer);
-
 
 // express static used by react
 app.use(express.static('upload'));

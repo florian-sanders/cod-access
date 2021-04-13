@@ -1,10 +1,9 @@
 const sanitizeHtml = require('sanitize-html');
 
-module.exports = (request, response, next) => {
-    
-    if (request.body) {
-        for (const propName in request.body) {
-            request.body[propName] = sanitizeHtml(request.body[propName]);
+module.exports = (req, res, next) => {
+    if(req.body) {
+        for (const propName in req.body) {
+            req.body[propName] = sanitizeHtml(req.body[propName]);
         }
     }
     next();

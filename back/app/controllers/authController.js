@@ -25,7 +25,6 @@ module.exports = {
 
   submitSignupForm: async (req, res) => {
     try {
-      console.log('sanitiz?', req.body)
       if (req.body.pseudo.length === 0) {
         console.log('need pseudo');
         return res.status(411).json({
@@ -317,7 +316,6 @@ module.exports = {
 
   newPassword: async (req, res) => {
     try {
-      console.log('hello')
       const client = await Client.findOne({where:{id: req.user.clientId, email: req.user.clientEmail}})
       if(!client) {
         console.log('client not found');
