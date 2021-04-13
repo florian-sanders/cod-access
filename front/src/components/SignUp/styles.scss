@@ -2,27 +2,42 @@
 
 .signup{
   padding: $gutter;
+
+  &__title{
+    text-align: center;
+  }
+
   &__content{
     display: flex;
+  
     &__illustration{
       width: 50%;
       margin-bottom: 5rem;
       padding: 0 2rem 4rem 2rem;
     }
+
     &__form{
       margin: 3rem auto;
       width: 40%;
+
       &__group{
         display:flex;
         flex-direction: column;
         text-align: left;
+
+        &__submit{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          span {
+            margin-right: 0.5rem;
+          }
+        }
       }
     }
+    
     @media screen and (max-width: 60rem) {
-      /*
-      * Mobile, articles are below each other with no shift.
-      * Images are displayed above each article
-      */
       &__illustration{
         display:none;
       }
@@ -33,8 +48,3 @@
     }
   }
 }
-
-.center{
-  text-align: center;
-}
-
