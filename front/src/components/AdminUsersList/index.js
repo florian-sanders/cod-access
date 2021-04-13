@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-// import ModalRole from './ModalRole';
 import PropTypes from 'prop-types';
+
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -86,13 +86,13 @@ const AdminUsersList = ({
         <table className="admin__users__table">
           <thead>
             <tr>
-              <th>id</th>
-              <th>email</th>
-              <th>pseudo</th>
-              <th>droit</th>
-              <th>date de création</th>
-              <th>dernière date de mise à jour</th>
-              <th>actions</th>
+              <th scope="col">id</th>
+              <th scope="col">email</th>
+              <th scope="col">pseudo</th>
+              <th scope="col">droit</th>
+              <th scope="col">date de création</th>
+              <th scope="col">dernière date de mise à jour</th>
+              <th scope="col">actions</th>
             </tr>
           </thead>
           <tbody>
@@ -103,7 +103,7 @@ const AdminUsersList = ({
                   <td>{user.email}</td>
                   <td>{user.pseudo}</td>
                   <td>
-                    <form className="form-responsibility" onSubmit={() => handleSubmit(user.id, event)}>
+                    <form className="form-responsibility" onSubmit={() => handleSubmit(user.id)}>
                       <select
                         className="form-responsibility__select"
                         value={usersRole[user.id]}
@@ -116,7 +116,7 @@ const AdminUsersList = ({
                         className="button--actions valid"
                         type="button"
                         onClick={() => {
-                          handleSubmit(user.id, event);
+                          handleSubmit(user.id);
                         }}
                       >
                         <FontAwesomeIcon size="lg" icon={faCheckCircle} />
