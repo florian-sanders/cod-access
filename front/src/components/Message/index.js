@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import './styles.scss';
 
 const Message = ({ type, message, closeMessage }) => {
@@ -24,7 +27,10 @@ const Message = ({ type, message, closeMessage }) => {
   return (
     <div role="alert" className={`message-box ${classname}`} ref={messageContainer}>
       <p className={`message-box__content ${classname}__content`}>{message}</p>
-      <button className={`message-box__cross ${classname}__cross`} type="button" onClick={closeMessage}>x</button>
+      <button className={`message-box__cross ${classname}__cross`} type="button" onClick={closeMessage}>
+        <FontAwesomeIcon icon={faTimes} size="1x" aria-hidden="true" focusable="false" role="presentation" />
+        <span className="sr-only">Fermer le message</span>
+      </button>
     </div>
   );
 };
