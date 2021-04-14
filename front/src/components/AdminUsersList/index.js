@@ -67,8 +67,7 @@ const AdminUsersList = ({
     });
   };
 
-  const handleSubmit = (idUser, event) => {
-    event.preventDefault();
+  const handleOnClickValidate = (idUser) => {
     editUserRole(idUser);
   };
 
@@ -103,7 +102,7 @@ const AdminUsersList = ({
                   <td>{user.email}</td>
                   <td>{user.pseudo}</td>
                   <td>
-                    <form className="form-responsibility" onSubmit={() => handleSubmit(user.id)}>
+                    <form className="form-responsibility">
                       <select
                         className="form-responsibility__select"
                         value={usersRole[user.id]}
@@ -116,7 +115,7 @@ const AdminUsersList = ({
                         className="button--actions valid"
                         type="button"
                         onClick={() => {
-                          handleSubmit(user.id);
+                          handleOnClickValidate(user.id);
                         }}
                       >
                         <FontAwesomeIcon size="lg" icon={faCheckCircle} />
