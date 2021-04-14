@@ -73,7 +73,7 @@ router.route('/upload_client')
     .post(authorizationMiddlewareNotPass, sanitizer, multerConfig.imageToClient, clientController.getOneClient);
 
 router.route('/upload_question')
-    .post(authorizationMiddlewareNotPass, sanitizer, multerConfig.imageToQuestion);
+    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, multerConfig.imageToQuestion);
 
 router.route('/images/:imageId')
     .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, imageController.changeImageAlt);
