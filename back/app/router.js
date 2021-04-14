@@ -5,10 +5,15 @@ const clientController = require('./controllers/clientController');
 const authController = require('./controllers/authController');
 const exerciseController = require('./controllers/exerciseController');
 const themeController = require('./controllers/themeController');
-const docController = require('./controllers/docController');
 const swaggerController = require('./controllers/swaggerController');
 const imageController = require('./controllers/imageController');
 const multerConfig = require('./middleware/multer-config');
+
+// used to filter any dirty html
+const sanitizer = require('./middleware/body-sanitizer');
+
+// used to check if the user is an admin
+const isAdmin = require('./middleware/is-admin');
 
 const jwt = require('express-jwt');
 const jwtSecret = process.env.JWTSECRET;
@@ -43,45 +48,44 @@ const authorizationMiddlewareNewPassword = jwt({
 router.route('/csrf-token')
     .get(authController.getCSRFToken);
 
-
 router.route('/admin/image/:imageId')
-    .delete(authorizationMiddlewareNotPass, imageController.deleteOneImage);
+    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, imageController.deleteOneImage);
 
 router.route('/signout')
     .get(authController.signout);
 
 router.route('/clients')
-    .get(authorizationMiddlewareNotPass, clientController.getAllClients);
+    .get(authorizationMiddlewareNotPass, isAdmin, clientController.getAllClients);
 
 router.route('/clients/:id')
-    .patch(authorizationMiddlewareNotPass, clientController.changeRoleClient)
-    .delete(authorizationMiddlewareNotPass, clientController.deleteOneClient);
+    .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.changeRoleClient)
+    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.deleteOneClient);
 
 router.route('/profile')
     .get(authorizationMiddlewareNotPass, clientController.getOneClient)
-    .patch(authorizationMiddlewareNotPass, clientController.updateClient)
-    .delete(authorizationMiddlewareNotPass, clientController.deleteProfileClient);
+    .patch(authorizationMiddlewareNotPass, sanitizer, clientController.updateClient)
+    .delete(authorizationMiddlewareNotPass, sanitizer, clientController.deleteProfileClient);
 
 router.route('/signin')
-    .post(authController.submitLoginForm);
+    .post(sanitizer, authController.submitLoginForm);
 
 router.route('/upload_client')
-    .post(authorizationMiddlewareNotPass, multerConfig.imageToClient, clientController.getOneClient);
+    .post(authorizationMiddlewareNotPass, sanitizer, multerConfig.imageToClient, clientController.getOneClient);
 
 router.route('/upload_question')
-    .post(authorizationMiddlewareNotPass, multerConfig.imageToQuestion);
+    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, multerConfig.imageToQuestion);
 
 router.route('/images/:imageId')
-    .patch(authorizationMiddlewareNotPass, imageController.changeImageAlt);
+    .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, imageController.changeImageAlt);
 
 router.route('/signup')
     .post(authController.submitSignupForm);
 
 router.route('/contact')
-    .post(authController.submitContact);
+    .post(sanitizer, authController.submitContact);
 
 router.route('/exercises')
-    .get(authorizationMiddlewareNotPass, exerciseController.getAllExercises);
+    .get(authorizationMiddlewareNotPass, isAdmin, exerciseController.getAllExercises);
 
 router.route('/exercises_score')
     .get(authorizationMiddlewareNotPass, exerciseController.getAllExercisesWithScore);
@@ -99,57 +103,38 @@ router.route('/themes_score')
 router.route('/themes')
     .get(themeController.getAllThemes);
 
-router.route('/docs')
-    .get(docController.getAllDocs);
-
-router.route('/docs/:id')
-    .get(authorizationMiddlewareLetPass, docController.getOneDoc)
-    .patch(authorizationMiddlewareNotPass, docController.changeOneDoc)
-    .delete(authorizationMiddlewareNotPass, docController.deleteOneDoc);
-
-router.route('/docs/:id/client')
-    .post(authorizationMiddlewareNotPass, docController.addDocToClient)
-    .delete(authorizationMiddlewareNotPass, docController.deleteDocToClient);
-
-router.route('/published_docs')
-    .get(authorizationMiddlewareLetPass, docController.getAllDocsPublished);
-
-router.route('/docs/new')
-    .post(authorizationMiddlewareNotPass, docController.newDoc);
-
-
 // create exercise
 router.route('/admin/exercises/new_exercise')
-    .post(authorizationMiddlewareNotPass, exerciseController.newExercise);
+    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.newExercise);
 
 // create question
 router.route('/admin/exercises/new_question/:id')
-    .post(authorizationMiddlewareNotPass, exerciseController.newQuestion)
-    .patch(authorizationMiddlewareNotPass, exerciseController.changeQuestion)
-    .delete(authorizationMiddlewareNotPass, exerciseController.deleteQuestion);
+    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.newQuestion)
+    .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.changeQuestion)
+    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.deleteQuestion);
+
 // create answer
 router.route('/admin/exercises/new_answer/:id')
-    .post(authorizationMiddlewareNotPass, exerciseController.newAnswer)
-    .patch(authorizationMiddlewareNotPass, exerciseController.changeAnswer)
-    .delete(authorizationMiddlewareNotPass, exerciseController.deleteAnswer);
+    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.newAnswer)
+    .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.changeAnswer)
+    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.deleteAnswer);
+
 // create assosiation exercise/theme
 router.route('/admin/exercises/associate_exercise_theme')
-    .post(authorizationMiddlewareNotPass, exerciseController.associate_exercise_theme)
-    .delete(authorizationMiddlewareNotPass, exerciseController.delete_exercise_theme);
+    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.associate_exercise_theme)
+    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.delete_exercise_theme);
 
 router.route('/admin/exercises/:id')
-    .get(authorizationMiddlewareNotPass, exerciseController.getOneExerciseAdmin)
-    .patch(authorizationMiddlewareNotPass, exerciseController.changeExercise)
-    .delete(authorizationMiddlewareNotPass, exerciseController.deleteOneExercise);
-
+    .get(authorizationMiddlewareNotPass, isAdmin, exerciseController.getOneExerciseAdmin)
+    .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.changeExercise)
+    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.deleteOneExercise);
 
 // forget password client
 router.route('/forget')
-    .post(authController.forgetPassword)
-    .patch(authorizationMiddlewareNewPassword, authController.newPassword);
+    .post( sanitizer, authController.forgetPassword)
+    .patch(authorizationMiddlewareNewPassword, sanitizer, authController.newPassword);
 
-
-// route used to see all the API in swagger
+// road used to see all the API with swagger
 router.route('/getAllAPI')
     .get(swaggerController.getAllAPI);
 

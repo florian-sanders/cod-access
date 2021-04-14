@@ -46,12 +46,6 @@ module.exports = {
         try {
             const page = Number(req.query.page) - 1 || 0;
             const limit = Number(req.query.limit) || 30;
-            const role = req.user.clientRole;
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const exercises = await Exercise.findAndCountAll({
                 include: ['themes'],
                 distinct: true,
@@ -111,12 +105,6 @@ module.exports = {
 
     getOneExerciseAdmin: async (req, res, next) => {
         try {
-            const role = req.user.clientRole;
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -134,7 +122,6 @@ module.exports = {
                 ],
 
             });
-            console.log('exercise', exercise);
             return res.status(200).json(
                 exercise
             );
@@ -146,12 +133,6 @@ module.exports = {
 
     changeExercise: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const data = req.body;
             const id = Number(req.params.id);
             if (isNaN(id)) {
@@ -171,7 +152,6 @@ module.exports = {
                 }
             }
             await result.save();
-            console.log('200 ok', result);
             return res.status(200).json(result);
 
         } catch (error) {
@@ -182,12 +162,6 @@ module.exports = {
 
     deleteOneExercise: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -219,12 +193,6 @@ module.exports = {
 
     newExercise: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const newExercise = new Exercise({
                 title: req.body.title,
                 brief: req.body.brief,
@@ -245,12 +213,6 @@ module.exports = {
 
     newQuestion: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -281,12 +243,6 @@ module.exports = {
 
     changeQuestion: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const data = req.body;
             if (data.picture_id) {
                 data.picture_id = Number(data.picture_id);
@@ -317,12 +273,6 @@ module.exports = {
 
     deleteQuestion: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -352,12 +302,6 @@ module.exports = {
 
     newAnswer: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -381,16 +325,8 @@ module.exports = {
 
     changeAnswer: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const data = req.body;
-            console.log(data);
             data.correct = Boolean(data.correct)
-            console.log(typeof data.correct)
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -415,12 +351,6 @@ module.exports = {
 
     deleteAnswer: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(400).json({
@@ -445,12 +375,6 @@ module.exports = {
 
     associate_exercise_theme: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const id_exercise = Number(req.body.exercise_id)
             const id_theme = Number(req.body.theme_id)
             if ((id_exercise || id_theme) === null) {
@@ -481,12 +405,6 @@ module.exports = {
 
     delete_exercise_theme: async (req, res, next) => {
         try {
-            const role = req.user.clientRole
-            if (role !== 'admin') {
-                return res.status(400).json({
-                    error: `access only by admin`
-                });
-            }
             const id_exercise = Number(req.body.exercise_id)
             const id_theme = Number(req.body.theme_id)
             if ((id_exercise || id_theme) === null) {
@@ -505,8 +423,6 @@ module.exports = {
             exercise = await Exercise.findByPk(id_exercise, {
                 include: 'themes'
             })
-            //console.log('200 ok', exercise);
-            console.log('associate delete')
             return res.status(200).json(exercise);
 
         } catch (error) {
@@ -517,7 +433,6 @@ module.exports = {
 
     submitExercise: async (req, res, next) => {
         try {
-            // console.log('req.body', req.body)
             const id_exercise = Number(req.params.id);
             if (isNaN(id_exercise)) {
                 console.log('not id')
