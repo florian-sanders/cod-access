@@ -2,6 +2,7 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import picture from 'src/assets/img/contact-signup.svg';
 import Message from 'src/containers/Message';
+import CircleLoader from 'src/components/CircleLoader';
 import FieldGroup from './FieldGroup';
 
 import './styles.scss';
@@ -14,7 +15,6 @@ const SignUp = ({
   passwordConfirm,
   trySignUp,
   loading,
-  isSignedUp,
   setControlMessage,
   validateEmail,
   testPasswordStrength,
@@ -25,12 +25,11 @@ const SignUp = ({
     evt.preventDefault();
     trySignUp();
   };
-
   return (
     <div className="signup wave-double-bottom">
-      <h1 className="title-h1 center">Inscription</h1>
+      <h1 className="title-h1 signup__title">Inscription</h1>
       <div className="signup__content">
-      <img  className="contact__content__illustration" src={picture} alt="" />
+        <img className="contact__content__illustration" src={picture} alt="" />
         <form action="" method="get" className="signup__content__form" onSubmit={handleSubmit}>
           {
             messageParams.isVisible
@@ -88,10 +87,20 @@ const SignUp = ({
           />
           <div className="signup__content__form__group">
             <button
-              className="button--primary"
+              className="button--primary signup__content__form__group__submit"
               type="submit"
             >
-              {loading ? 'chargement' : 'S\'enregistrer'}
+              <span>S'enregistrer</span>
+              {
+                loading && (
+                  <CircleLoader
+                    colour="#7ED8F7"
+                    radius={8}
+                    duration={2}
+                    strokeWidth={3}
+                  />
+                )
+              }
             </button>
           </div>
         </form>
@@ -124,6 +133,11 @@ SignUp.propTypes = {
   setControlMessage: Proptypes.func.isRequired,
   validateEmail: Proptypes.func.isRequired,
   testPasswordStrength: Proptypes.func.isRequired,
+  messageParams: Proptypes.shape({
+    isVisible: Proptypes.bool.isRequired,
+    componentToDisplayIn: Proptypes.string.isRequired,
+  }).isRequired,
+  comparePasswordConfirm: Proptypes.func.isRequired,
 };
 
 SignUp.defaultProps = {

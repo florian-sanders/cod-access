@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Message from 'src/containers/Message';
-import ModalConfirm from 'src/containers/ModalConfirm';
-
 import { returnFileSize } from 'src/utils';
-import FieldGroup from './FieldGroup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons';
+import FieldGroup from './FieldGroup';
+
 import './styles.scss';
 
 const Settings = ({
@@ -27,7 +25,6 @@ const Settings = ({
   deleteAccount,
   messageParams,
   displayModalConfirm,
-  modalConfirmParams,
   validateEmail,
   testPasswordStrength,
   comparePasswordConfirm,
@@ -272,7 +269,10 @@ Settings.propTypes = {
   testPasswordStrength: PropTypes.func.isRequired,
   comparePasswordConfirm: PropTypes.func.isRequired,
   checkEmptyField: PropTypes.func.isRequired,
-  messageParams: PropTypes.string.isRequired,
+  messageParams: PropTypes.shape({
+    componentToDisplayIn: PropTypes.string.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+  }).isRequired,
   displayModalConfirm: PropTypes.func.isRequired,
   modalConfirmParams: PropTypes.object.isRequired,
 };
