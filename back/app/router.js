@@ -61,6 +61,23 @@ router.route('/clients/:id')
     .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.changeRoleClient)
     .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.deleteOneClient);
 
+/**
+ * Road used by the user to see/change/delete his profile.
+ * @route GET /profile
+ * @group client - everythings about client
+ * @returns {object} 200 - An array of user info
+ * @returns {Error}  default - Unexpected error
+ * 
+ * @route PATCH /profile
+ * @group client - everythings about client
+ * @returns {object} 200 - An array of user info
+ * @returns {Error}  default - Unexpected error
+ * 
+ * @route DELETE /profile
+ * @group client - everythings about client
+ * @returns {object} 200 - An array of user info
+ * @returns {Error}  default - Unexpected error
+ */
 router.route('/profile')
     .get(authorizationMiddlewareNotPass, clientController.getOneClient)
     .patch(authorizationMiddlewareNotPass, sanitizer, clientController.updateClient)

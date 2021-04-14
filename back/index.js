@@ -5,9 +5,21 @@ const router = require('./app/router');
 const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const pathToSwaggerUi = require('swagger-ui-dist').absolutePath();
 
 const app = express();
+
+const port = process.env.PORT || 5000;
+
+// used by swagger (old version before jsdoc)
+const pathToSwaggerUi = require('swagger-ui-dist').absolutePath();
+// used by swagger (new version)
+const expressSwagger = require('express-swagger-generator')(app);
+
+// to use swagger: http://localhost(host):${port}/api-docs
+let options = require('./swagger-generator.json');
+options.basedir = __dirname;
+options.swaggerDefinition.host = `localhost:${port}`;
+expressSwagger(options);
 
 app.use(cookieParser());
 
@@ -35,12 +47,10 @@ app.use((req, res, next) => {
         return next();
 });
 
-// express static used by swagger
-app.use("/swagger", express.static(pathToSwaggerUi));
+// express static used by swagger (old version before jsdoc)
+app.use("/api/swagger", express.static(pathToSwaggerUi));
 
 // road in router
 app.use('/api', router);
-
-const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`app on http://localhost:${port}`));
