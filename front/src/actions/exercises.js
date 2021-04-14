@@ -1,6 +1,3 @@
-
-
-
 export const SET_EXERCISE_RESULTS_LOADING = 'SET_EXERCISE_RESULTS_LOADING';
 
 export const setExerciseResultsLoading = (status) => ({
