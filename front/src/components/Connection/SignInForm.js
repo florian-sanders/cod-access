@@ -25,8 +25,7 @@ const SignInForm = ({
     <>
       <form className="header-wrapper__connection__toggle-area__form" onSubmit={handleSubmit}>
         {
-          messageParams.isVisible
-          && messageParams.componentToDisplayIn === 'SignInForm'
+          messageParams.targetComponent === 'SignInForm'
           && (
             <Message {...messageParams} />
           )
@@ -81,10 +80,7 @@ const SignInForm = ({
 SignInForm.propTypes = {
   trySignIn: PropTypes.func.isRequired,
   messageParams: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    componentToDisplayIn: PropTypes.string.isRequired,
-    isVisible: PropTypes.bool.isRequired,
+    targetComponent: PropTypes.string.isRequired,
   }).isRequired,
   checkEmptyField: PropTypes.func.isRequired,
   validateInput: PropTypes.func.isRequired,

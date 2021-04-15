@@ -71,8 +71,7 @@ const AdminExercisesList = ({
       <div className="admin__users">
         <h1 className="title-h2">Liste des Exercices</h1>
         {
-          messageParams.isVisible
-          && messageParams.componentToDisplayIn === 'AdminExercisesList'
+          messageParams.targetComponent === 'AdminExercisesList'
           && (
             <Message {...messageParams} />
           )
@@ -156,10 +155,7 @@ AdminExercisesList.propTypes = {
   isVisible: PropTypes.bool,
   displayMessage: PropTypes.func.isRequired,
   messageParams: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    componentToDisplayIn: PropTypes.string.isRequired,
-    isVisible: PropTypes.bool.isRequired,
+    targetComponent: PropTypes.string.isRequired,
   }).isRequired,
 };
 

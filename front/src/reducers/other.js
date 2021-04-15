@@ -6,8 +6,8 @@ import {
   SET_MESSAGE,
   UNSET_MESSAGE,
   SET_APP_LOADING,
+  SET_MOBILE_MENU_VISIBILITY,
 } from 'src/actions/other';
-import { SET_MOBILE_MENU_VISIBILITY } from '../actions/other';
 
 const initialState = {
   mobileMenuVisibility: false,
@@ -32,8 +32,7 @@ const initialState = {
   messageParams: {
     type: '',
     message: '',
-    componentToDisplayIn: '',
-    isVisible: false,
+    targetComponent: '',
   },
 };
 
@@ -49,7 +48,6 @@ const other = (state = initialState, action = {}) => {
         ...state,
         messageParams: {
           ...action.messageParams,
-          isVisible: true,
         },
       };
     case UNSET_MESSAGE:
