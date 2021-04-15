@@ -4,13 +4,16 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Message from 'src/containers/Message';
-import FieldGroup from 'src/containers/Connection/FieldGroup';
 import CircleLoader from 'src/components/CircleLoader';
+import FieldGroup from './FieldGroup';
 
 import './styles.scss';
 
 const SignInForm = ({
   trySignIn,
+  changeValue,
+  email,
+  password,
   messageParams,
   checkEmptyField,
   validateInput,
@@ -38,6 +41,9 @@ const SignInForm = ({
           name="email"
           autocomplete="email"
           isMandatory
+          value={email.value}
+          message={email.controlMessage}
+          changeValue={changeValue}
           checkEmptyField={checkEmptyField}
           validateInput={validateInput}
         />
@@ -47,6 +53,9 @@ const SignInForm = ({
           label="Mot de passe"
           name="password"
           autocomplete="current-password"
+          value={password.value}
+          message={password.controlMessage}
+          changeValue={changeValue}
           checkEmptyField={checkEmptyField}
         />
         <Link className="header-wrapper__connection__toggle-area__form__link" to="/oubli-mot-de-passe">
@@ -80,6 +89,15 @@ const SignInForm = ({
 
 SignInForm.propTypes = {
   trySignIn: PropTypes.func.isRequired,
+  changeValue: PropTypes.func.isRequired,
+  email: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    controlMessage: PropTypes.string.isRequired,
+  }).isRequired,
+  password: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    controlMessage: PropTypes.string.isRequired,
+  }).isRequired,
   messageParams: PropTypes.shape({
     type: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
