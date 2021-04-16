@@ -32,7 +32,7 @@ export default (store) => (next) => async (action) => {
         store.dispatch(setMessage({
           type: 'confirm',
           message: `Votre compte a bien été créé avec l'adresse ${email.value}. Vous pouvez vous connecter dès à présent`,
-          componentToDisplayIn: 'SignUp',
+          targetComponent: 'SignUp',
         }));
         store.dispatch(signUp());
       }
@@ -41,7 +41,7 @@ export default (store) => (next) => async (action) => {
           store.dispatch(setMessage({
             type: 'error',
             message: `L'adresse e-mail est déjà utilisée`,
-            componentToDisplayIn: 'SignUp',
+            targetComponent: 'SignUp',
           }));
         }
       }

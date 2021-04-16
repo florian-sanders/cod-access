@@ -1,5 +1,5 @@
 import React from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import picture from 'src/assets/img/contact-signup.svg';
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
@@ -32,8 +32,7 @@ const SignUp = ({
         <img className="contact__content__illustration" src={picture} alt="" />
         <form action="" method="get" className="signup__content__form" onSubmit={handleSubmit}>
           {
-            messageParams.isVisible
-            && messageParams.componentToDisplayIn === 'SignUp'
+            messageParams.targetComponent === 'SignUp'
             && (
               <Message {...messageParams} />
             )
@@ -110,34 +109,33 @@ const SignUp = ({
 };
 
 SignUp.propTypes = {
-  email: Proptypes.shape({
-    value: Proptypes.string.isRequired,
-    controlMessage: Proptypes.string.isRequired,
+  email: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    controlMessage: PropTypes.string.isRequired,
   }).isRequired,
-  pseudo: Proptypes.shape({
-    value: Proptypes.string.isRequired,
-    controlMessage: Proptypes.string.isRequired,
+  pseudo: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    controlMessage: PropTypes.string.isRequired,
   }).isRequired,
-  password: Proptypes.shape({
-    value: Proptypes.string.isRequired,
-    controlMessage: Proptypes.string.isRequired,
+  password: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    controlMessage: PropTypes.string.isRequired,
   }).isRequired,
-  passwordConfirm: Proptypes.shape({
-    value: Proptypes.string.isRequired,
-    controlMessage: Proptypes.string.isRequired,
+  passwordConfirm: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    controlMessage: PropTypes.string.isRequired,
   }).isRequired,
-  changeField: Proptypes.func.isRequired,
-  trySignUp: Proptypes.func.isRequired,
-  loading: Proptypes.bool,
-  isSignedUp: Proptypes.bool.isRequired,
-  setControlMessage: Proptypes.func.isRequired,
-  validateEmail: Proptypes.func.isRequired,
-  testPasswordStrength: Proptypes.func.isRequired,
-  messageParams: Proptypes.shape({
-    isVisible: Proptypes.bool.isRequired,
-    componentToDisplayIn: Proptypes.string.isRequired,
+  changeField: PropTypes.func.isRequired,
+  trySignUp: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  isSignedUp: PropTypes.bool.isRequired,
+  setControlMessage: PropTypes.func.isRequired,
+  validateEmail: PropTypes.func.isRequired,
+  testPasswordStrength: PropTypes.func.isRequired,
+  messageParams: PropTypes.shape({
+    targetComponent: PropTypes.string.isRequired,
   }).isRequired,
-  comparePasswordConfirm: Proptypes.func.isRequired,
+  comparePasswordConfirm: PropTypes.func.isRequired,
 };
 
 SignUp.defaultProps = {

@@ -157,8 +157,7 @@ const QuestionManager = ({
               )
           }
           {
-            messageParams.isVisible
-            && messageParams.componentToDisplayIn === `QuestionManager-q${id}`
+            messageParams.targetComponent === `QuestionManager-q${id}`
             && (
               <div className="large">
                 <Message {...messageParams} />
@@ -251,8 +250,7 @@ QuestionManager.propTypes = {
   saveOnBlur: PropTypes.func.isRequired,
   isSaved: PropTypes.bool.isRequired,
   messageParams: PropTypes.shape({
-    isVisible: PropTypes.bool.isRequired,
-    componentToDisplayIn: PropTypes.string.isRequired,
+    targetComponent: PropTypes.string.isRequired,
   }).isRequired,
   selectedFile: PropTypes.object,
   imageAlternative: PropTypes.string,

@@ -76,8 +76,7 @@ const AdminUsersList = ({
       <div className="admin__users">
         <h1 className="title-h2">Liste des utilisateurs</h1>
         {
-          messageParams.isVisible
-          && messageParams.componentToDisplayIn === 'AdminUsersList'
+          messageParams.targetComponent === 'AdminUsersList'
           && (
             <Message {...messageParams} />
           )
@@ -174,10 +173,7 @@ AdminUsersList.propTypes = {
   handleChangeSelect: PropTypes.func.isRequired,
   totalPages: PropTypes.number.isRequired,
   messageParams: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    componentToDisplayIn: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    isVisible: PropTypes.bool.isRequired,
+    targetComponent: PropTypes.string.isRequired,
   }).isRequired,
   displayModalConfirm: PropTypes.func.isRequired,
   displayMessage: PropTypes.func.isRequired,

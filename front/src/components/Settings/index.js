@@ -71,8 +71,7 @@ const Settings = ({
       <h1 className="title-h1 center">Paramètres</h1>
       <div className="container-message-box">
         {
-          messageParams.isVisible
-          && messageParams.componentToDisplayIn === 'Settings'
+          messageParams.targetComponent === 'Settings'
           && (
             <Message {...messageParams} />
           )
@@ -270,8 +269,7 @@ Settings.propTypes = {
   comparePasswordConfirm: PropTypes.func.isRequired,
   checkEmptyField: PropTypes.func.isRequired,
   messageParams: PropTypes.shape({
-    componentToDisplayIn: PropTypes.string.isRequired,
-    isVisible: PropTypes.bool.isRequired,
+    targetComponent: PropTypes.string.isRequired,
   }).isRequired,
   displayModalConfirm: PropTypes.func.isRequired,
   modalConfirmParams: PropTypes.object.isRequired,

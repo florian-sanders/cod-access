@@ -59,7 +59,7 @@ const Exercise = ({
         </Link>
         {
           currentQuestionIndex === 0 && (
-            messageParams.isVisible && messageParams.componentToDisplayIn === 'Exercise'
+            messageParams.targetComponent === 'Exercise'
               ? (
                 <Message {...messageParams} />
               )
@@ -177,12 +177,11 @@ Exercise.propTypes = {
   submitAnswers: PropTypes.func.isRequired,
   resetCurrentExercise: PropTypes.func.isRequired,
   messageParams: PropTypes.shape({
-    isVisible: PropTypes.bool.isRequired,
-    componentToDisplayIn: PropTypes.string.isRequired,
+    targetComponent: PropTypes.string.isRequired,
   }).isRequired,
   closeMessage: PropTypes.func.isRequired,
   isCorrected: PropTypes.bool.isRequired,
-  resultsLoading: PropTypes.bool.isRequired
+  resultsLoading: PropTypes.bool.isRequired,
 };
 
 Exercise.defaultProps = {
