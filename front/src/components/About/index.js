@@ -19,41 +19,41 @@ const About = () => (
 
         <article className="about__members__team">
           <div className="about__members__team__imageLeft">
-            <img className="about__members__team__img" src={annekim} alt="Anne-Kim" />
+            <img className="about__members__team__img" src={annekim} alt="" />
           </div>
           <div className="about__members__team__texte">
-            <h2 className="about__members__team__name">Anne-Kim<br></br>BANCHEREAU</h2>
-            <p className="about__members__team__profil">Scrum Master,<br></br>Développeuse Front</p>
+            <h2 className="about__members__team__name">Anne-Kim BANCHEREAU</h2>
+            <p className="about__members__team__profil">Scrum Master, Développeuse Front</p>
           </div>
         </article>
 
         <article className="about__members__team">
           <div className="about__members__team__imageRight">
-            <img className="about__members__team__img" src={flo} alt="Florian" />
+            <img className="about__members__team__img" src={flo} alt="" />
           </div>
           <div className="about__members__team__texte"> 
-            <h2 className="about__members__team__name">Florian<br></br>SANDERS</h2>
-            <p className="about__members__team__profil">Product Owner,<br></br>Lead Dev Front</p>
+            <h2 className="about__members__team__name">Florian SANDERS</h2>
+            <p className="about__members__team__profil">Product Owner, Lead Dev Front</p>
           </div>
         </article>
 
         <article className="about__members__team">
           <div className="about__members__team__imageLeft">
-            <img className="about__members__team__img" src={fred} alt="Frédéric" />
+            <img className="about__members__team__img" src={fred} alt="" />
           </div>
           <div className="about__members__team__texte">
-            <h2 className="about__members__team__name">Frédéric<br></br>BOURIGEAUD</h2>
-            <p className="about__members__team__profil">Lead Dev Back,<br></br>Développeur Front</p>
+            <h2 className="about__members__team__name">Frédéric BOURIGEAUD</h2>
+            <p className="about__members__team__profil">Lead Dev Back, Développeur Front</p>
           </div>
         </article>
 
         <article className="about__members__team">
           <div className="about__members__team__imageRight">
-            <img className="about__members__team__img" src={jerem} alt="Jérémy" />
+            <img className="about__members__team__img" src={jerem} alt="" />
           </div>
           <div className="about__members__team__texte">
-            <h2 className="about__members__team__name">Jérémy<br></br>YVON</h2>
-            <p className="about__members__team__profil">Git Master,<br></br>Développeur Back</p>
+            <h2 className="about__members__team__name">Jérémy YVON</h2>
+            <p className="about__members__team__profil">Git Master, Développeur Back</p>
           </div>
         </article>
       </div>

@@ -1,7 +1,9 @@
 import React from 'react';
 import Proptypes from 'prop-types';
-import FieldGroup from './FieldGroup';
 import picture from 'src/assets/img/contact-signup.svg';
+import CircleLoader from 'src/components/CircleLoader';
+import FieldGroup from './FieldGroup';
+
 import './styles.scss';
 
 const Contact = ({
@@ -21,12 +23,11 @@ const Contact = ({
     evt.preventDefault();
     tryContact();
   };
-  const button = isContactDone ? "hidden" : "button--primary"
   return (
     <div className="contact wave-double-bottom">
-      <h1 className="title-h1 center">Contactez-nous</h1>
-       <div className="contact__content">
-          <img  className="contact__content__illustration" src={picture} alt="" />
+      <img className="contact__illustration" src={picture} alt="" />
+      <div className="contact__content">
+        <h1 className="title-h1 center contact__content__title">Contactez-nous</h1>
         <form action="" method="get" className="contact__content__form" onSubmit={handleSubmit}>
           <FieldGroup
             type="text"
@@ -64,22 +65,29 @@ const Contact = ({
             setControlMessage={setControlMessage}
             validateInput={validateContentLenght}
           />
-             { 
-           isContactDone  && (
-             <>
-            {/* <p className="messsage-done"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p> */}
-            <div role="alert" className="message-box confirm">
-            <p className="messsage-box__content confirm__content"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p>
-          </div>
-          </>
+          {
+            isContactDone && (
+              <div role="alert" className="message-box confirm">
+                <p className="messsage-box__content confirm__content"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p>
+              </div>
             )
           }
           <div className="contact__content__form__group">
             <button
-              className={button}
+              className={isContactDone ? 'hidden' : 'button--primary contact__content__form__group__submit'}
               type="submit"
             >
-              {loading ? 'chargement' : 'Envoyer'}
+              <span>Envoyer</span>
+              {
+                loading && (
+                  <CircleLoader
+                    colour="#7ED8F7"
+                    radius={8}
+                    duration={2}
+                    strokeWidth={3}
+                  />
+                )
+              }
             </button>
           </div>
         </form>
