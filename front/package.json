@@ -7,8 +7,8 @@
     "lint:fix": "eslint --fix src/**/*.js",
     "clean": "rm -rf ../back/assets/*",
     "clean:all": "rm -rf ../back/assets/ node_modules yarn.lock package-lock.json",
-    "test": "cross-env NODE_PATH=./ mocha --require tests/.setup.js './{,!(node_modules)/**/}*.test.js'",
-    "test:watch": "cross-env NODE_PATH=./ mocha --watch --require tests/.setup.js './{,!(node_modules)/**/}*.test.js'"
+    "test": "cross-env NODE_PATH=./ mocha --require tests/.setup.js \"./{,!(node_modules)/**/}*.test.js\"",
+    "test:watch": "cross-env NODE_PATH=./ mocha --watch --require tests/.setup.js \"./{,!(node_modules)/**/}*.test.js\""
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -25,7 +25,6 @@
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
     "core-js": "3",
-    "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
     "cssnano": "^4.1.10",
     "dotenv-webpack": "^7.0.1",
@@ -64,6 +63,7 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
+    "cross-env": "^7.0.3",
     "dompurify": "^2.2.7",
     "nanoid": "^3.1.22",
     "prop-types": "^15.7.2",
