@@ -2,23 +2,27 @@
 
 .signup{
   padding: $gutter;
+  display: flex;
 
-  &__title{
-    text-align: center;
+  &__illustration{
+    width: 50%;
+    margin-bottom: 5rem;
+    padding: 0 2rem 4rem 2rem;
   }
-
+  
   &__content{
     display: flex;
-  
-    &__illustration{
-      width: 50%;
-      margin-bottom: 5rem;
-      padding: 0 2rem 4rem 2rem;
+    flex-direction: column;
+    width: 50%;
+
+    &__title{
+      margin-top: 1rem;
+      text-align: center;
     }
 
     &__form{
       margin: 3rem auto;
-      width: 40%;
+      width: 70%;
 
       &__group{
         display:flex;
@@ -36,11 +40,14 @@
         }
       }
     }
-    
-    @media screen and (max-width: 60rem) {
-      &__illustration{
-        display:none;
-      }
+  }
+  @media screen and (max-width: 60rem) {
+    &__illustration{
+      display:none;
+    }
+
+    &__content{
+      width: 100%;
       &__form{
         margin: auto;
         width: 100%;
