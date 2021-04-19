@@ -27,9 +27,9 @@ const SignUp = ({
   };
   return (
     <div className="signup wave-double-bottom">
-      <h1 className="title-h1 signup__title">Inscription</h1>
+      <img className="signup__illustration" src={picture} alt="" />
       <div className="signup__content">
-        <img className="contact__content__illustration" src={picture} alt="" />
+        <h1 className="title-h1 signup__content__title">Inscription</h1>
         <form action="" method="get" className="signup__content__form" onSubmit={handleSubmit}>
           {
             messageParams.targetComponent === 'SignUp'
