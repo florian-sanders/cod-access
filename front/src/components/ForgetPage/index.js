@@ -33,7 +33,7 @@ const ForgetPage = ({
   };
   const button = isDone ? "hidden" : "button--primary"
   return (
-    <>
+    <section className="forget">
       <div className="container wave-double-bottom">
        <h1 className="title-h1 center">Mot de passe oublié</h1>
         <form action="" method="get" className="form-forget" onSubmit={handleSubmit}>
@@ -69,7 +69,7 @@ const ForgetPage = ({
           </button>
         </form>
       </div>
-    </>
+    </section>
   );
 };
 
