@@ -1,4 +1,6 @@
+// must be deleted ?
 const { ClientBase } = require('pg');
+
 const {
     Exercise,
     Client,
@@ -8,6 +10,9 @@ const {
     Theme,
 } = require('../models');
 
+/**
+ * @module exerciseController
+ */
 module.exports = {
 
     getAllExercisesWithScore: async (req, res, next) => {
@@ -486,7 +491,6 @@ module.exports = {
 
                 if (!client.exercises[0]) {
                     console.log('never played i have to save');
-                    // await client.addExercise(exercise);
                     const result = new Client_exercise({
                         score: scoreResult,
                         client_id: id_client,

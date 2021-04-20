@@ -1,5 +1,8 @@
-const { Theme, Exercise, Client } = require('../models');
+const { Theme, Client } = require('../models');
 
+/**
+ * @module themeController
+ */
 module.exports = {
 
     getAllThemesForExercises: async (req, res, next) => {

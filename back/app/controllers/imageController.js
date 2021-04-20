@@ -1,11 +1,10 @@
-const {
-    Picture
-} = require('../models');
-
+const { Picture } = require('../models');
 const path = require('path');
-
 const fs = require('fs');
 
+/**
+ * @module imageController
+ */
 module.exports = {
     changeImageAlt: async (req, res, next) => {
         try {

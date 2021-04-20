@@ -24,6 +24,9 @@ const storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single('profile');
 
+/**
+ * @module mutler-config
+ */
 module.exports = {
   imageToClient: async (req, res, next) => {
     upload(req, res, (err) => {

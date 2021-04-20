@@ -1,9 +1,10 @@
 const { Client } = require('../models');
-// const jsonwebtoken = require('jsonwebtoken');
-// const jwt = require('express-jwt');
 const bcrypt = require('bcrypt');
 const emailValidator = require('email-validator');
 
+/**
+ * @module clientController
+ */
 module.exports = {
 
     getAllClients: async (req, res) => {

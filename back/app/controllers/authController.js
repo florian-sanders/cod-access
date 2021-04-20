@@ -7,6 +7,9 @@ const mailPath = process.env.MAILPATH;
 const { Client } = require('../models');
 const nodemailer = require('nodemailer');
 
+/**
+ * @module authController
+ */
 module.exports = {
 
   signout: async (req, res) => {
@@ -15,10 +18,12 @@ module.exports = {
       .json({ message: 'signed out' });
   },
 
-  // this token will be sent into a cookie as well as a header set by the React App
-  // the csrf middleware in the entry file of the server is in charge of checking
-  // that both the tokens (sent in cookie + sent in header) are a match.
-  // This is to ensure the React App is the source of the request.
+  /**
+   * @function getCSRFToken - this token will be sent into a cookie as well as a header set by the React App,
+   * the csrf middleware in the entry file of the server is in charge of checking 
+   * that both the tokens (sent in cookie + sent in header) are a match,
+   * this is to ensure the React App is the source of the request
+   */
   getCSRFToken: (req, res) => {
     res.json({ csrfToken: req.csrfToken() });
   },
