@@ -32,7 +32,8 @@ module.exports = {
         try{
             const id = Number(req.user.clientId);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -54,8 +55,9 @@ module.exports = {
         try {
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             if(req.body.responsibility === 'utilisateur'){
@@ -64,7 +66,8 @@ module.exports = {
                 req.body.responsibility = 2
             }else{
                 return res.status(400).json({
-                    error: `the status must be client or admin`
+                    errorType: 400,
+                    message: `the status must be client or admin`
                 });
             }
             const client = await Client.findByPk(id, {
@@ -79,7 +82,9 @@ module.exports = {
                 });
             }
             await client.update({responsibility_id: req.body.responsibility});
-            return res.json({message: 'client update'});
+            return res.status(200).json({
+                message: 'client update'
+            });
 
         } catch (error) {
             console.error(error);
@@ -91,7 +96,8 @@ module.exports = {
         try {
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -116,7 +122,8 @@ module.exports = {
         try {
             const id = Number(req.user.clientId);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -140,7 +147,8 @@ module.exports = {
         try {
             const id = Number(req.user.clientId);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -180,7 +188,6 @@ module.exports = {
                         });
                     }
                     if (req.body.newPassword !== req.body.newPasswordConfirm) {
-                        console.log('password and confirm not same')
                         return res.status(406).json({
                             errorType: 406,
                             message: 'password and confirm not same'

@@ -52,6 +52,7 @@ const authorizationMiddlewareNewPassword = jwt({
     algorithms: [algorithmsJWT],
 });
 
+router.route('/csrf-token')
 /**
  * road used by the React App upon loading to retrieve a csrf token,
  * this token will be sent into a cookie as well as a header set by the React App,
@@ -59,164 +60,220 @@ const authorizationMiddlewareNewPassword = jwt({
  * that both the tokens (sent in cookie + sent in header) are a match,
  * this is to ensure the React App is the source of the request
  * @route GET /csrf-token
- * @group auth - authorisation about client
- * @returns {object} 200 
- * @returns {Error}  default - Unexpected error
+ * @group auth - authorisation and security
+ * @returns {Error}  default - invalid csrf token
  */
-router.route('/csrf-token')
     .get(authController.getCSRFToken);
 
+
+router.route('/admin/image/:imageId')
 /**
  * @route DELETE /admin/image/:imageId
- * @group picture - picture controle
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @param {number} [imageId] - id from picture
+ * @group picture - picture management
+ * @returns {object} 200 - { message: "success" }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  404 - { errorType: 404, message: `miss image` }
+ * @returns {Error}  500 - { error: err, message: 'error deleting file' }
  */
-router.route('/admin/image/:imageId')
     .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, imageController.deleteOneImage);
 
+
+router.route('/signout')
 /**
  * @route GET /signout
- * @group auth - authorisation about client
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @group auth - authorisation and security
+ * @returns {object} 200 - { message: 'signed out' }
  */
-router.route('/signout')
-    .get(authController.signout);
+    .get(sanitizer, authController.signout);
 
+
+router.route('/clients')
 /**
  * @route GET /clients
- * @group client - everythings about client
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @group client - everythings about user
+ * @returns {object} 200 - count of total users and an array with all users
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/clients')
-    .get(authorizationMiddlewareNotPass, isAdmin, clientController.getAllClients);
+    .get(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.getAllClients);
 
+
+router.route('/clients/:id')
 /**
  * @route PATCH /clients/:id
- * @group client - everythings about client
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
- * @route DELETE /clients/:id
- * @group client - everythings about client
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @param {number} [id] - id from user
+ * @group client - everythings about user
+ * @returns {object} 200 - { message: 'client update' }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  400 - { errorType: 400, message: `the status must be client or admin` }
+ * @returns {Error}  404 - { errorType: 404, message: `miss client` }
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/clients/:id')
     .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.changeRoleClient)
+ /**
+ * @route DELETE /clients/:id
+ * @param {number} [id] - id from user
+ * @group client - everythings about user
+ * @returns {object} 200 - { message: 'client deleted' }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  404 - { errorType: 404, message: `miss client` }
+ * @returns {Error}  500 - Unexpected error
+ */
     .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.deleteOneClient);
 
+
+router.route('/profile')
 /**
  * Road used by the user to see/change/delete his profile.
  * @route GET /profile
- * @group client - everythings about client
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
- * @route PATCH /profile
- * @group client - everythings about client
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
- * @route DELETE /profile
- * @group client - everythings about client
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @group client - everythings about user
+ * @returns {object} 200 - An object with user info
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/profile')
-    .get(authorizationMiddlewareNotPass, clientController.getOneClient)
+    .get(authorizationMiddlewareNotPass, sanitizer, clientController.getOneClient)
+/**
+ * @route PATCH /profile
+ * @group client - everythings about user
+ * @returns {object} 200 - An object with user info
+ * @returns {Error}  401 - { errorType: 401, message: `unauthorized` }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number, or email used, or incorrect, or password and confirm is not the same` }
+ * @returns {Error}  411 - { errorType: 411, message: `password need 6` }
+ * @returns {Error}  500 - Unexpected error
+*/ 
     .patch(authorizationMiddlewareNotPass, sanitizer, clientController.updateClient)
+/**
+ * @route DELETE /profile
+ * @group client - everythings about user
+ * @returns {object} 200 - { message: 'profile deleted' }
+ * @returns {Error}  404 - { errorType: 404, message: `miss client` }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
+ */
     .delete(authorizationMiddlewareNotPass, sanitizer, clientController.deleteProfileClient);
 
 
+router.route('/signin')
 /**
  * @route POST /signin
- * @group auth - authorisation about client
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @group auth - authorisation and security
+ * @returns {object} 200 - {
+              id: client.id,
+              pseudo: client.pseudo,
+              email: client.email,
+              responsibility: client.responsibility,
+              picture_id: client.picture_id,
+              client_picture: client.client_picture
+            }
+ * @returns {Error}  401 - { errorType: 401, message: `unauthorized` }
+ * @returns {Error}  404 - { errorType: 404, message: `miss client` }
+ * @returns {Error}  411 - { errorType: 411, message: `need email or password` }
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/signin')
     .post(sanitizer, authController.submitLoginForm);
 
+
+router.route('/upload_client')
 /**
  * @route POST /upload_client
- * @group client - everythings about client
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @group client - everythings about user
+ * @returns {object} 200 - { message: 'ok' }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/upload_client')
     .post(authorizationMiddlewareNotPass, sanitizer, multerConfig.imageToClient, clientController.getOneClient);
 
+
+router.route('/upload_question')
 /**
  * @route POST /upload_question
- * @group picture - picture controle
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @group picture - picture management
+ * @returns {object} 200 - {
+              pictureId: result.id,
+              picturePath: result.path,
+              pictureAlt: result.alternative
+            }
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/upload_question')
     .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, multerConfig.imageToQuestion);
 
+
+router.route('/images/:imageId')
 /**
  * @route PATCH /images/:imageId
- * @group picture - picture controle
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @param {number} [id] - id from picture
+ * @group picture - picture management
+ * @returns {object} 200 - { message: 'updated' }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/images/:imageId')
     .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, imageController.changeImageAlt);
 
 
+router.route('/signup')
 /**
  * @route POST /signup
- * @group auth - authorisation about client
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @group auth - authorisation and security
+ * @returns {object} 200 - An object with user info
+ * @returns {Error}  411 - { errorType: 411, message: `need pseudo, or password need 6` }
+ * @returns {Error}  406 - { errorType: 406, message: `email incorrect, or password and confirm not same, or email used` }
+ * @returns {Error}  500 - Unexpected error or { errorType: 500, message: `mail failed` }
  */
-router.route('/signup')
     .post(authController.submitSignupForm);
 
+
+router.route('/contact')
 /**
  * @route POST /contact
- * @group auth - authorisation about client
+ * @group auth - authorisation and security
  * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {Error}  411 - { errorType: 411, message: `need name, or need content` }
+ * @returns {Error}  406 - { errorType: 406, message: `email incorrect` }
+ * @returns {Error}  500 - Unexpected error or { errorType: 500, message: `mail failed` }
  */
-router.route('/contact')
     .post(sanitizer, authController.submitContact);
 
+
+router.route('/exercises')
 /**
  * @route GET /exercises
  * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - An object with all exercises
+ * @returns {Error}  500 - Unexpected error 
  */
-router.route('/exercises')
-    .get(authorizationMiddlewareNotPass, isAdmin, exerciseController.getAllExercises);
+    .get(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.getAllExercises);
 
+
+router.route('/exercises_score')
 /**
  * @route GET /exercises_score
  * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - An object with all exercises and score about the user
+ * @returns {Error}  500 - Unexpected error 
  */
-router.route('/exercises_score')
     .get(authorizationMiddlewareNotPass, exerciseController.getAllExercisesWithScore);
 
+
+router.route('/exercises/dragndrop/:id')
 /**
  * @route GET /exercises/dragndrop/:id
  * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
+ * @returns {object} 200 - An object with a complete exercise
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error 
+ */
+    .get(authorizationMiddlewareLetPass, sanitizer, exerciseController.getOneExerciseVisitor)
+/**
  * @route POST /exercises/dragndrop/:id
  * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - {
+                message: `user finish with score: ${scoreResult}`,
+                correction,
+                scoreResult,
+            }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error 
  */
-router.route('/exercises/dragndrop/:id')
-    .get(authorizationMiddlewareLetPass, exerciseController.getOneExerciseVisitor)
     .post(authorizationMiddlewareLetPass, exerciseController.submitExercise);
 
 /**
@@ -340,12 +397,12 @@ router.route('/admin/exercises/:id')
 /**
  * forget password client
  * @route POST /forget
-  * @group auth - authorisation about client
+  * @group auth - authorisation and security
  * @returns {object} 200 - An array of user info
  * @returns {Error}  default - Unexpected error
  * 
  * @route PATCH /forget
- * @group auth - authorisation about client
+ * @group auth - authorisation and security
  * @returns {object} 200 - An array of user info
  * @returns {Error}  default - Unexpected error
  */

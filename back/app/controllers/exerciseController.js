@@ -57,7 +57,6 @@ module.exports = {
                 offset: page * limit,
                 limit: limit,
             });
-            console.log('exercises', exercises);
             return res.status(200).json(
                 exercises
             );
@@ -75,7 +74,8 @@ module.exports = {
             }
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -98,7 +98,6 @@ module.exports = {
                 ],
 
             });
-            console.log('exercise', exercise);
             return res.status(200).json(
                 exercise
             );
@@ -207,7 +206,6 @@ module.exports = {
                 picture_id: Number(req.body.picture_id),
             });
             await newExercise.save();
-            console.log('200 ok');
             return res.status(200).json(newExercise);
 
         } catch (error) {
@@ -220,7 +218,8 @@ module.exports = {
         try {
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -237,7 +236,6 @@ module.exports = {
                 picture_id: req.body.picture_id,
             });
             await newQuestion.save();
-            console.log('200 ok');
             return res.status(200).json(newQuestion);
 
         } catch (error) {
@@ -256,7 +254,8 @@ module.exports = {
             }
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -267,7 +266,6 @@ module.exports = {
                 }
             }
             await result.save();
-            console.log('200 ok', result);
             return res.status(200).json(result);
 
         } catch (error) {
@@ -280,15 +278,17 @@ module.exports = {
         try {
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
             const question = await Question.findByPk(id);
 
             if (!question) {
-                return res.status(400).json({
-                    error: 'Question does not exist'
+                return res.status(404).json({
+                    errorType: 404,
+                    error: 'question does not exist'
                 });
             }
             await question.destroy({
@@ -441,7 +441,8 @@ module.exports = {
             const id_exercise = Number(req.params.id);
             if (isNaN(id_exercise)) {
                 console.log('not id')
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -475,8 +476,6 @@ module.exports = {
                 const userAnswers = req.body.find((userData) => userData.questionId === question.id).answers;
                 const countUserAnswers = userAnswers.reduce(reducer);
                 const countRightAnswers = question.rightAnswers.reduce(reducer);
-                // console.log('countUA', countUserAnswers);
-                // console.log('countRA', countRightAnswers);
                 if (countUserAnswers === countRightAnswers) {
                     successfulQuestions.push(question.id);
                 }
@@ -499,7 +498,7 @@ module.exports = {
                     await result.save()
                     console.log('first play', result)
                     return res.status(200).json({
-                        message: `client finish with score: ${scoreResult}`,
+                        message: `user finish with score: ${scoreResult}`,
                         correction,
                         scoreResult
                     });
@@ -514,7 +513,7 @@ module.exports = {
                         await updateScore.update({ score: scoreResult })
                         console.log('already played and update because better score', oldScore, updateScore)
                         return res.status(200).json({
-                            message: `client finish with score: ${scoreResult}`,
+                            message: `user finish with score: ${scoreResult}`,
                             correction,
                             explanation,
                         });
@@ -522,7 +521,7 @@ module.exports = {
                     } else {
                         console.log('older score was better im doing nothing')
                         return res.status(200).json({
-                            message: `client finish with score: ${scoreResult}`,
+                            message: `user finish with score: ${scoreResult}`,
                             correction,
                             scoreResult,
                         });
@@ -530,9 +529,9 @@ module.exports = {
                 }
             };
 
-            console.log('score du user sans co', scoreResult);
+            console.log('score user without co', scoreResult);
             return res.status(200).json({
-                message: `client finish with score: ${scoreResult}`,
+                message: `user finish with score: ${scoreResult}`,
                 correction,
                 scoreResult,
             });

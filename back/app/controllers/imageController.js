@@ -11,7 +11,8 @@ module.exports = {
             const imgAlt = req.body.alternative;
             const id = Number(req.params.imageId);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -36,7 +37,8 @@ module.exports = {
         try {
             const id = Number(req.params.imageId);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -61,8 +63,7 @@ module.exports = {
                 }
                 
                 res.status(200).json({
-                    status: "200",
-                    response: "success"
+                    message: "success"
                 });
             });
 

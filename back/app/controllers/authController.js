@@ -100,13 +100,14 @@ module.exports = {
         transporter.sendMail(mailOptions, function (error, info) {
           if (error) {
             console.log(error);
-            return res.status(500).json('mail failed');
+            return res.status(500).json({
+              errorType: 500,
+              message: 'mail failed'
+            });
           } else {
             console.log('Email sent: ' + info.response);
           }
         });
-
-        console.log('200 ok', newClient);
         return res.status(200).json(newClient);
       }
     } catch (error) {
@@ -221,7 +222,10 @@ module.exports = {
       transporter.sendMail(mailOptionsToClient, function (error, info) {
         if (error) {
           console.log(error);
-          return res.status(500).json('mail failed');
+          return res.status(500).json({
+            errorType: 500,
+            message: 'mail failed'
+          });
         } else {
           console.log('Email sent: ' + info.response);
         }
@@ -236,10 +240,15 @@ module.exports = {
       transporter.sendMail(mailOptionsToUs, function (error, info) {
         if (error) {
           console.log(error);
-          return res.status(500).json('mail failed');
+          return res.status(500).json({
+            errorType: 500,
+            message: 'mail failed'
+          });
         } else {
           console.log('Email sent: ' + info.response);
-          return res.status(200).json('mails send');
+          return res.status(200).json({
+            message: 'mail send'
+          });
         }
       });
     } catch (error) {
@@ -306,10 +315,15 @@ module.exports = {
       transporter.sendMail(mailOptionsToClient, function (error, info) {
         if (error) {
           console.log(error);
-          return res.status(500).json('mail failed');
+          return res.status(500).json({
+            errorType: 500,
+            message: 'mail failed'
+          });
         } else {
           console.log('Email sent: ' + info.response);
-          return res.status(200).json('mail ok');
+          return res.status(200).json({
+            message: 'mail send'
+          });
         }
       });
      
@@ -346,7 +360,6 @@ module.exports = {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       if(client){
         await client.update({password: hashedPassword});
-        console.log('client updated');
       }
       // need email to front for sending email
       const transporter = nodemailer.createTransport({
@@ -369,10 +382,15 @@ module.exports = {
       transporter.sendMail(mailOptionsToClient, function (error, info) {
         if (error) {
           console.log(error);
-          return res.status(500).json('mail failed');
+          return res.status(500).json({
+            errorType: 500,
+            message: 'mail failed'
+          });
         } else {
           console.log('Email sent: ' + info.response);
-          return res.status(200).json('mdp updated, mail ok');
+          return res.status(200).json({
+            message: 'mdp updated, mail send'
+          });
         }
       });
       
