@@ -337,10 +337,9 @@ module.exports = {
     try {
       const client = await Client.findOne({where:{id: req.user.clientId, email: req.user.clientEmail}})
       if(!client) {
-        console.log('client not found');
         return res.status(404).json({
           errorType: 404,
-          message: 'client not found'
+          message: 'user not found'
         });
       };
       if (req.body.password.length < 6) {

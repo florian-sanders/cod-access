@@ -76,7 +76,7 @@ module.exports = {
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
-                    error: `the provided id must be a number`
+                    message: `the provided id must be a number`
                 });
             }
             const exercise = await Exercise.findByPk(id, {
@@ -111,8 +111,9 @@ module.exports = {
         try {
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const exercise = await Exercise.findByPk(id, {
@@ -140,7 +141,8 @@ module.exports = {
             const data = req.body;
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
@@ -168,15 +170,17 @@ module.exports = {
         try {
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const exercise = await Exercise.findByPk(id);
 
             if (!exercise) {
                 return res.status(404).json({
-                    error: 'no exercise',
+                    errorType: 404,
+                    message: 'miss exercise',
                 });
             }
             await exercise.destroy({
@@ -187,11 +191,10 @@ module.exports = {
                     },
                 ],
             });
-            return res.json({ message: 'exercise delete' });
+            return res.json({ message: 'exercise deleted' });
         } catch (error) {
-            return res.status(500).json({
-                error: error.message,
-            });
+            console.error(error);
+            return res.status(500);
         }
     },
 
@@ -220,7 +223,7 @@ module.exports = {
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
-                    error: `the provided id must be a number`
+                    message: `the provided id must be a number`
                 });
             }
             if (req.body.picture_id) {
@@ -256,7 +259,7 @@ module.exports = {
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
-                    error: `the provided id must be a number`
+                    message: `the provided id must be a number`
                 });
             }
             const result = await Question.findByPk(id);
@@ -280,7 +283,7 @@ module.exports = {
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
-                    error: `the provided id must be a number`
+                    message: `the provided id must be a number`
                 });
             }
             const question = await Question.findByPk(id);
@@ -288,7 +291,7 @@ module.exports = {
             if (!question) {
                 return res.status(404).json({
                     errorType: 404,
-                    error: 'question does not exist'
+                    message: 'question does not exist'
                 });
             }
             await question.destroy({
@@ -297,7 +300,7 @@ module.exports = {
                     'question_picture'
                 ],
             });
-            return res.json({ message: 'question delete' });
+            return res.json({ message: 'question deleted' });
 
         } catch (error) {
             console.error(error);
@@ -309,8 +312,9 @@ module.exports = {
         try {
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const newAnswer = new Possible_answer({
@@ -319,7 +323,6 @@ module.exports = {
                 question_id: id,
             });
             await newAnswer.save();
-            console.log('200 ok');
             return res.status(200).json(newAnswer);
 
         } catch (error) {
@@ -334,8 +337,9 @@ module.exports = {
             data.correct = Boolean(data.correct)
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const result = await Possible_answer.findByPk(id);
@@ -345,7 +349,6 @@ module.exports = {
                 }
             }
             await result.save();
-            console.log('200 ok', result);
             return res.status(200).json(result);
 
         } catch (error) {
@@ -358,15 +361,17 @@ module.exports = {
         try {
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const answer = await Possible_answer.findByPk(id);
 
             if (!answer) {
-                return res.status(400).json({
-                    error: 'Answer does not exist'
+                return res.status(404).json({
+                    errorType: 404,
+                    message: 'answer does not exist'
                 });
             }
             await answer.destroy();
@@ -384,22 +389,22 @@ module.exports = {
             const id_theme = Number(req.body.theme_id)
             if ((id_exercise || id_theme) === null) {
                 return res.status(406).json({
-                    error: `need exercise_id and theme_id`
+                    errorType: 406,
+                    message: `need exercise_id and theme_id`
                 });
             }
             let exercise = await Exercise.findByPk(id_exercise);
             let theme = await Theme.findByPk(id_theme)
             if (!exercise || !theme) {
                 return res.status(406).json({
-                    error: `need exercise and theme`
+                    errorType: 406,
+                    message: `need exercise and theme`
                 });
             }
             await exercise.addTheme(theme);
             exercise = await Exercise.findByPk(id_exercise, {
                 include: 'themes'
             })
-            console.log('200 ok', exercise);
-
             return res.status(200).json(exercise);
 
         } catch (error) {
@@ -414,14 +419,16 @@ module.exports = {
             const id_theme = Number(req.body.theme_id)
             if ((id_exercise || id_theme) === null) {
                 return res.status(406).json({
-                    error: `need exercise_id and theme_id`
+                    errorType: 406,
+                    message: `need exercise_id and theme_id`
                 });
             }
             let exercise = await Exercise.findByPk(id_exercise);
             let theme = await Theme.findByPk(id_theme)
             if (!exercise || !theme) {
                 return res.status(406).json({
-                    error: `need exercise and theme`
+                    errorType: 406,
+                    message: `need exercise and theme`
                 });
             }
             await exercise.removeTheme(theme);
@@ -443,7 +450,7 @@ module.exports = {
                 console.log('not id')
                 return res.status(406).json({
                     errorType: 406,
-                    error: `the provided id must be a number`
+                    message: `the provided id must be a number`
                 });
             }
 

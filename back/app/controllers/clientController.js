@@ -34,7 +34,7 @@ module.exports = {
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
-                    error: `the provided id must be a number`
+                    message: `the provided id must be a number`
                 });
             }
             const client = await Client.findByPk(id, {
@@ -98,7 +98,7 @@ module.exports = {
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
-                    error: `the provided id must be a number`
+                    message: `the provided id must be a number`
                 });
             }
             const client = await Client.findByPk(id);
@@ -124,7 +124,7 @@ module.exports = {
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
-                    error: `the provided id must be a number`
+                    message: `the provided id must be a number`
                 });
             }
             const client = await Client.findByPk(id);
@@ -149,7 +149,7 @@ module.exports = {
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
-                    error: `the provided id must be a number`
+                    message: `the provided id must be a number`
                 });
             }
             const client = await Client.findByPk(id);

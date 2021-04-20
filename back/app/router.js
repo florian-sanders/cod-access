@@ -69,7 +69,7 @@ router.route('/csrf-token')
 router.route('/admin/image/:imageId')
 /**
  * @route DELETE /admin/image/:imageId
- * @param {number} [imageId] - id from picture
+ * @param {Number} [imageId] - id from picture
  * @group picture - picture management
  * @returns {object} 200 - { message: "success" }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
@@ -101,7 +101,7 @@ router.route('/clients')
 router.route('/clients/:id')
 /**
  * @route PATCH /clients/:id
- * @param {number} [id] - id from user
+ * @param {Number} [id] - id from user
  * @group client - everythings about user
  * @returns {object} 200 - { message: 'client update' }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
@@ -112,7 +112,7 @@ router.route('/clients/:id')
     .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.changeRoleClient)
  /**
  * @route DELETE /clients/:id
- * @param {number} [id] - id from user
+ * @param {Number} [id] - id from user
  * @group client - everythings about user
  * @returns {object} 200 - { message: 'client deleted' }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
@@ -201,7 +201,7 @@ router.route('/upload_question')
 router.route('/images/:imageId')
 /**
  * @route PATCH /images/:imageId
- * @param {number} [id] - id from picture
+ * @param {Number} [id] - id from picture
  * @group picture - picture management
  * @returns {object} 200 - { message: 'updated' }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
@@ -257,6 +257,7 @@ router.route('/exercises_score')
 router.route('/exercises/dragndrop/:id')
 /**
  * @route GET /exercises/dragndrop/:id
+ * @param {Number} [id] - id from exercise
  * @group exercise - gestion exercises
  * @returns {object} 200 - An object with a complete exercise
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
@@ -265,6 +266,7 @@ router.route('/exercises/dragndrop/:id')
     .get(authorizationMiddlewareLetPass, sanitizer, exerciseController.getOneExerciseVisitor)
 /**
  * @route POST /exercises/dragndrop/:id
+ * @param {Number} [id] - id from exercise
  * @group exercise - gestion exercises
  * @returns {object} 200 - {
                 message: `user finish with score: ${scoreResult}`,
@@ -276,138 +278,188 @@ router.route('/exercises/dragndrop/:id')
  */
     .post(authorizationMiddlewareLetPass, exerciseController.submitExercise);
 
+
+router.route('/themes_exercises')
 /**
  * @route GET /themes_exercises
  * @group themes - all themes for exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - An object with all themes and exercises published
+ * @returns {Error}  500 - Unexpected error 
  */
-router.route('/themes_exercises')
-    .get(authorizationMiddlewareLetPass, themeController.getAllThemesForExercises);
+    .get(authorizationMiddlewareLetPass, sanitizer, themeController.getAllThemesForExercises);
 
+
+router.route('/themes_score')
 /**
  * @route GET /themes_score
  * @group themes - all themes for exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - An object with all score by themes
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/themes_score')
-    .get(authorizationMiddlewareNotPass, themeController.getScoreByTheme);
+    .get(authorizationMiddlewareNotPass, sanitizer, themeController.getScoreByTheme);
 
+
+router.route('/themes')
 /**
  * @route GET /themes
  * @group themes - all themes for exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - An object with all themes
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/themes')
-    .get(themeController.getAllThemes);
+    .get(sanitizer, themeController.getAllThemes);
 
+    
+router.route('/admin/exercises/new_exercise')
 /**
  * create exercise
  * @route POST /admin/exercises/new_exercise
  * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - An object with a new exercise
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/admin/exercises/new_exercise')
     .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.newExercise);
 
+
+router.route('/admin/exercises/new_question/:id')
 /**
  * create question
  * @route POST /admin/exercises/new_question/:id
+ * @param {Number} [id] - id from exercise
  * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
- * @route PATCH /admin/exercises/new_question/:id
- * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
- * @route DELETE /admin/exercises/new_question/:id
- * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - An object with a new question
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/admin/exercises/new_question/:id')
     .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.newQuestion)
+/**
+ * @route PATCH /admin/exercises/new_question/:id
+ * @param {Number} [id] - id from exercise
+ * @group exercise - gestion exercises
+ * @returns {object} 200 - An object with the question changed
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
+ */
     .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.changeQuestion)
+/**
+ * @route DELETE /admin/exercises/new_question/:id
+ * @param {Number} [id] - id from exercise
+ * @group exercise - gestion exercises
+ * @returns {object} 200 - { message: 'question deleted' }
+ * @returns {Error}  404 - { errorType: 404, message: `question does not exist` }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
+ */
     .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.deleteQuestion);
+    
 
+router.route('/admin/exercises/new_answer/:id')
 /**
  * create answer
  * @route POST /admin/exercises/new_answer/:id
+ * @param {Number} [id] - id from question
  * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
- * @route PATCH /admin/exercises/new_answer/:id
- * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
- * @route DELETE /admin/exercises/new_answer/:id
- * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - An object with a new answer
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/admin/exercises/new_answer/:id')
     .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.newAnswer)
+/**
+ * @route PATCH /admin/exercises/new_answer/:id
+ * @param {Number} [id] - id from question
+ * @group exercise - gestion exercises
+ * @returns {object} 200 - An object with the answer changed
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
+ */
     .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.changeAnswer)
+/**
+ * @route DELETE /admin/exercises/new_answer/:id
+ * @param {Number} [id] - id from question
+ * @group exercise - gestion exercises
+ * @returns {object} 200 - { message: 'answer deleted' }
+ * @returns {Error}  404 - { errorType: 404, message: `answer does not exist` }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
+ */
     .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.deleteAnswer);
 
+    
+router.route('/admin/exercises/associate_exercise_theme')
 /**
  * create assosiation exercise/theme
  * @route POST /admin/exercises/associate_exercise_theme
+ * @param {Number} [exercise_id] - id from exercise
+ * @param {Number} [theme_id] - id from theme
  * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
- * @route DELETE /admin/exercises/associate_exercise_theme
- * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - An object with the current exercise
+ * @returns {Error}  406 - { errorType: 406, message: `need exercise_id and theme_id`, or need exercise and theme }
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/admin/exercises/associate_exercise_theme')
     .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.associate_exercise_theme)
+/**
+ * @route DELETE /admin/exercises/associate_exercise_theme
+ * @param {Number} [exercise_id] - id from exercise
+ * @param {Number} [theme_id] - id from theme
+ * @group exercise - gestion exercises
+ * @returns {object} 200 - An object with the current exercise
+ * @returns {Error}  406 - { errorType: 406, message: `need exercise_id and theme_id`, or need exercise and theme }
+ * @returns {Error}  500 - Unexpected error
+ */
     .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.delete_exercise_theme);
 
+
+router.route('/admin/exercises/:id')
 /**
  * @route GET /admin/exercises/:id
+ * @param {Number} [id] - id from exercise
  * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
- * @route PATCH /admin/exercises/:id
- * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
- * @route DELETE /admin/exercises/:id
- * @group exercise - gestion exercises
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - An object with a complete exercise
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
  */
-router.route('/admin/exercises/:id')
-    .get(authorizationMiddlewareNotPass, isAdmin, exerciseController.getOneExerciseAdmin)
+    .get(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.getOneExerciseAdmin)
+/**
+ * @route PATCH /admin/exercises/:id
+ * @param {Number} [id] - id from exercise
+ * @group exercise - gestion exercises
+ * @returns {object} 200 - An object with the exercise changed
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
+ */
     .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.changeExercise)
+/**
+ * @route DELETE /admin/exercises/:id
+ * @param {Number} [id] - id from exercise
+ * @group exercise - gestion exercises
+ * @returns {object} 200 - { message: 'exercise deleted' }
+ * @returns {Error}  404 - { errorType: 404, message: `miss exercise` }
+ * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
+ * @returns {Error}  500 - Unexpected error
+ */
     .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.deleteOneExercise);
 
+
+router.route('/forget')
 /**
  * forget password client
  * @route POST /forget
-  * @group auth - authorisation and security
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- * 
+ * @group auth - authorisation and security
+ * @returns {object} 200 - { message: 'mail send' }
+ * @returns {Error}  404 - { errorType: 404, message: `email not found` }
+ * @returns {Error}  406 - { errorType: 406, message: `email incorrect` }
+ * @returns {Error}  411 - { errorType: 411, message: `need name` }
+ * @returns {Error}  500 - Unexpected error, or { errorType: 500, message: `mail failed` }
+ */
+    .post( sanitizer, authController.forgetPassword)
+/**
  * @route PATCH /forget
  * @group auth - authorisation and security
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - { message: ''mdp updated, mail send' }
+ * @returns {Error}  404 - { errorType: 404, message: `user not found` }
+ * @returns {Error}  406 - { errorType: 406, message: `password and confirm not same` }
+ * @returns {Error}  411 - { errorType: 411, message: `password need 6` }
+ * @returns {Error}  500 - Unexpected error, or { errorType: 500, message: `mail failed` }
  */
-router.route('/forget')
-    .post( sanitizer, authController.forgetPassword)
     .patch(authorizationMiddlewareNewPassword, sanitizer, authController.newPassword);
 
 module.exports = router;
