@@ -9,7 +9,8 @@ module.exports = {
     changeImageAlt: async (req, res, next) => {
         try {
             const imgAlt = req.body.alternative;
-            const id = Number(req.params.imageId);
+            /** @name id - id of picture */
+            const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
@@ -21,10 +22,8 @@ module.exports = {
                 { alternative: imgAlt },
                 { where: { id: id } },
             );
-
-            console.log(status);
             res.status(200).json({
-                message: "updated",
+                message: "picture updated",
             })
         }
         catch (err) {
@@ -35,7 +34,8 @@ module.exports = {
 
     deleteOneImage: async (req, res, next) => {
         try {
-            const id = Number(req.params.imageId);
+            /** @name id - id of picture */
+            const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
@@ -45,7 +45,6 @@ module.exports = {
 
             const image = await Picture.findByPk(id);
             if (!image) {
-                console.log('miss image');
                 return res.status(404).json({
                     errorType: 404,
                     message: 'miss image'
@@ -53,7 +52,6 @@ module.exports = {
             }
 
             await image.destroy();
-            console.log();
             fs.unlink(path.join(__dirname, `../../upload/${image.path}`), (err) => {
                 if (err) {
                     return res.status(500).json({
@@ -63,7 +61,7 @@ module.exports = {
                 }
                 
                 res.status(200).json({
-                    message: "success"
+                    message: "picture deleted"
                 });
             });
 

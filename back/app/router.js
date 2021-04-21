@@ -66,12 +66,12 @@ router.route('/csrf-token')
     .get(authController.getCSRFToken);
 
 
-router.route('/admin/image/:imageId')
+router.route('/admin/image/:id')
 /**
  * @route DELETE /admin/image/:imageId
  * @param {Number} [imageId] - id from picture
  * @group picture - picture management
- * @returns {object} 200 - { message: "success" }
+ * @returns {object} 200 - { message: "picture deleted" }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  404 - { errorType: 404, message: `miss image` }
  * @returns {Error}  500 - { error: err, message: 'error deleting file' }
@@ -198,12 +198,12 @@ router.route('/upload_question')
     .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, multerConfig.imageToQuestion);
 
 
-router.route('/images/:imageId')
+router.route('/images/:id')
 /**
  * @route PATCH /images/:imageId
  * @param {Number} [id] - id from picture
  * @group picture - picture management
- * @returns {object} 200 - { message: 'updated' }
+ * @returns {object} 200 - { message: 'picture updated' }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */

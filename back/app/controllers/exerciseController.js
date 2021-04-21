@@ -17,9 +17,9 @@ module.exports = {
 
     getAllExercisesWithScore: async (req, res, next) => {
         try {
-            let myClient = null;
+            let clientId = null;
             if (req.user) {
-                myClient = req.user.clientId
+                clientId = req.user.clientId
             }
             const exercises = await Exercise.findAndCountAll({
                 where: {
@@ -30,14 +30,13 @@ module.exports = {
                     {
                         association: 'clients',
                         where: {
-                            id: myClient,
+                            id: clientId,
                         },
                         required: false,
                         attributes: { exclude: ['password', 'email', 'pseudo', 'responsibility_id', 'picture_id'] },
                     }
                 ]
             });
-            console.log('exercises', exercises);
             return res.status(200).json(
                 exercises
             );
@@ -68,10 +67,11 @@ module.exports = {
 
     getOneExerciseVisitor: async (req, res, next) => {
         try {
-            let myClient = null;
+            let clientId = null;
             if (req.user) {
-                myClient = req.user.clientId
+                clientId = req.user.clientId
             }
+            /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -94,7 +94,7 @@ module.exports = {
                             'question_picture'
                         ],
                     },
-                    { model: Client, as: 'clients', where: { id: myClient }, required: false }
+                    { model: Client, as: 'clients', where: { id: clientId }, required: false }
                 ],
 
             });
@@ -109,6 +109,7 @@ module.exports = {
 
     getOneExerciseAdmin: async (req, res, next) => {
         try {
+            /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -139,6 +140,7 @@ module.exports = {
     changeExercise: async (req, res, next) => {
         try {
             const data = req.body;
+            /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -168,6 +170,7 @@ module.exports = {
 
     deleteOneExercise: async (req, res, next) => {
         try {
+            /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -219,6 +222,7 @@ module.exports = {
 
     newQuestion: async (req, res, next) => {
         try {
+            /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -255,6 +259,7 @@ module.exports = {
             } else {
                 data.picture_id = null
             }
+            /** @name id - id of question */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -279,6 +284,7 @@ module.exports = {
 
     deleteQuestion: async (req, res, next) => {
         try {
+            /** @name id - id of question */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -310,6 +316,7 @@ module.exports = {
 
     newAnswer: async (req, res, next) => {
         try {
+            /** @name id - id of question */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -335,6 +342,7 @@ module.exports = {
         try {
             const data = req.body;
             data.correct = Boolean(data.correct)
+            /** @name id - id of answer */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -359,6 +367,7 @@ module.exports = {
 
     deleteAnswer: async (req, res, next) => {
         try {
+            /** @name id - id of answer */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -385,15 +394,15 @@ module.exports = {
 
     associate_exercise_theme: async (req, res, next) => {
         try {
-            const id_exercise = Number(req.body.exercise_id)
+            const exerciseId = Number(req.body.exercise_id)
             const id_theme = Number(req.body.theme_id)
-            if ((id_exercise || id_theme) === null) {
+            if ((exerciseId || id_theme) === null) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `need exercise_id and theme_id`
                 });
             }
-            let exercise = await Exercise.findByPk(id_exercise);
+            let exercise = await Exercise.findByPk(exerciseId);
             let theme = await Theme.findByPk(id_theme)
             if (!exercise || !theme) {
                 return res.status(406).json({
@@ -402,7 +411,7 @@ module.exports = {
                 });
             }
             await exercise.addTheme(theme);
-            exercise = await Exercise.findByPk(id_exercise, {
+            exercise = await Exercise.findByPk(exerciseId, {
                 include: 'themes'
             })
             return res.status(200).json(exercise);
@@ -415,15 +424,15 @@ module.exports = {
 
     delete_exercise_theme: async (req, res, next) => {
         try {
-            const id_exercise = Number(req.body.exercise_id)
+            const exerciseId = Number(req.body.exercise_id)
             const id_theme = Number(req.body.theme_id)
-            if ((id_exercise || id_theme) === null) {
+            if ((exerciseId || id_theme) === null) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `need exercise_id and theme_id`
                 });
             }
-            let exercise = await Exercise.findByPk(id_exercise);
+            let exercise = await Exercise.findByPk(exerciseId);
             let theme = await Theme.findByPk(id_theme)
             if (!exercise || !theme) {
                 return res.status(406).json({
@@ -432,7 +441,7 @@ module.exports = {
                 });
             }
             await exercise.removeTheme(theme);
-            exercise = await Exercise.findByPk(id_exercise, {
+            exercise = await Exercise.findByPk(exerciseId, {
                 include: 'themes'
             })
             return res.status(200).json(exercise);
@@ -445,16 +454,15 @@ module.exports = {
 
     submitExercise: async (req, res, next) => {
         try {
-            const id_exercise = Number(req.params.id);
-            if (isNaN(id_exercise)) {
-                console.log('not id')
+            const exerciseId = Number(req.params.id);
+            if (isNaN(exerciseId)) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `the provided id must be a number`
                 });
             }
 
-            const exercise = await Exercise.findByPk(id_exercise, {
+            const exercise = await Exercise.findByPk(exerciseId, {
                 include: [
                     'clients',
                     {
@@ -490,8 +498,8 @@ module.exports = {
             const rightAnswers = correction.map((question) => question.rightAnswers).flat();
             const scoreResult = Math.round((successfulQuestions.length / exercise.questions.length) * 100)
             if (req.user) {
-                const id_client = req.user.clientId
-                const client = await Client.findByPk(id_client, {
+                const clientId = req.user.clientId
+                const client = await Client.findByPk(clientId, {
                     include: [{ model: Exercise, as: 'exercises', where: { id: exercise.id }, required: false }],
                 })
 
@@ -499,8 +507,8 @@ module.exports = {
                     console.log('never played i have to save');
                     const result = new Client_exercise({
                         score: scoreResult,
-                        client_id: id_client,
-                        exercise_id: id_exercise
+                        client_id: clientId,
+                        exercise_id: exerciseId
                     })
                     await result.save()
                     console.log('first play', result)
@@ -515,7 +523,7 @@ module.exports = {
                     const oldScore = client.exercises[0].Client_exercise.score
                     if (oldScore === null || oldScore < scoreResult) {
                         const updateScore = await Client_exercise.findOne({
-                            where: { client_id: id_client, exercise_id: id_exercise }
+                            where: { client_id: clientId, exercise_id: exerciseId }
                         })
                         await updateScore.update({ score: scoreResult })
                         console.log('already played and update because better score', oldScore, updateScore)

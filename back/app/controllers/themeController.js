@@ -7,9 +7,9 @@ module.exports = {
 
     getAllThemesForExercises: async (req, res, next) => {
         try{
-            let client = null;
+            let clientId = null;
             if (req.user) {
-                client = req.user.clientId
+                clientId = req.user.clientId
             }
             const themes = await Theme.findAll({
                 include: [
@@ -19,7 +19,7 @@ module.exports = {
                         attributes: { exclude: ['brief', 'published', 'exercise_theme'] },
                         include: [ 
                             {
-                                model: Client, as: 'clients', where: { id: client },
+                                model: Client, as: 'clients', where: { id: clientId },
                                 required: false,
                                 attributes: { exclude: ['password', 'responsibility_id', 'picture_id'] },
                             },
@@ -52,9 +52,9 @@ module.exports = {
     
     getScoreByTheme: async (req, res, next) => {
         try{
-            let client = null;
+            let clientId = null;
             if (req.user) {
-                client = req.user.clientId
+                clientId = req.user.clientId
             }
             const themes = await Theme.findAll({
                 include: [
@@ -64,7 +64,7 @@ module.exports = {
                         attributes: { exclude: ['brief', 'published', 'exercise_theme'] },
                         include: [ 
                             {   
-                                model: Client, as: 'clients', where: { id: client },
+                                model: Client, as: 'clients', where: { id: clientId },
                                 required: false,
                                 attributes: { exclude: ['password', 'responsibility_id', 'picture_id'] },
                             },

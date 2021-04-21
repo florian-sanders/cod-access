@@ -17,7 +17,6 @@ module.exports = {
                 offset: page * limit,
                 limit: limit,
             });
-            console.log('clients', clients);
             return res.status(200).json(
             clients
             );
@@ -30,17 +29,16 @@ module.exports = {
 
     getOneClient: async (req, res, next) => {
         try{
-            const id = Number(req.user.clientId);
+            const clientId = Number(req.user.clientId);
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `the provided id must be a number`
                 });
             }
-            const client = await Client.findByPk(id, {
+            const client = await Client.findByPk(clientId, {
                 include: ['client_picture','responsibility','docs','exercises']
               });
-            console.log('client', client);
             return res.status(200).json(
                 client
                 );
@@ -53,6 +51,7 @@ module.exports = {
     
     changeRoleClient: async (req, res, next) => {
         try {
+            /** @name id - the id is actually the clientId but taking in the url parameters */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -75,7 +74,6 @@ module.exports = {
             });
             
             if (!client) {
-                console.log('miss client');
                 return res.status(404).json({
                   errorType: 404,
                   message: 'miss client'
@@ -94,6 +92,7 @@ module.exports = {
 
     deleteOneClient: async (req, res, next) => {
         try {
+            /** @name id - the id is actually the clientId but taking in the url parameters */
             const id = Number(req.params.id);
             if (isNaN(id)) {
                 return res.status(406).json({
@@ -103,7 +102,6 @@ module.exports = {
             }
             const client = await Client.findByPk(id);
             if (!client) {
-                console.log('miss client');
                 return res.status(404).json({
                   errorType: 404,
                   message: 'miss client'
@@ -120,16 +118,15 @@ module.exports = {
 
     deleteProfileClient: async (req, res, next) => {
         try {
-            const id = Number(req.user.clientId);
+            const clientId = Number(req.user.clientId);
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `the provided id must be a number`
                 });
             }
-            const client = await Client.findByPk(id);
+            const client = await Client.findByPk(clientId);
             if (!client) {
-                console.log('miss client');
                 return res.status(404).json({
                   errorType: 404,
                   message: 'miss client'
@@ -145,18 +142,17 @@ module.exports = {
 
     updateClient: async (req, res, next) => {
         try {
-            const id = Number(req.user.clientId);
+            const clientId = Number(req.user.clientId);
             if (isNaN(id)) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `the provided id must be a number`
                 });
             }
-            const client = await Client.findByPk(id);
+            const client = await Client.findByPk(clientId);
             if(req.body.email){
                 const otherClient = await Client.findOne({where: {email: req.body.email}})
                 if (otherClient) {
-                console.log('email used');
                 return res.status(406).json({
                     errorType: 406,
                     message: 'email used'
@@ -164,7 +160,6 @@ module.exports = {
                 } else {
                 const isValidEmail = emailValidator.validate(req.body.email);
                 if (!isValidEmail) {
-                    console.log('email incorrect');
                     return res.status(406).json({
                     errorType: 406,
                     message: 'email incorrect'
@@ -181,7 +176,6 @@ module.exports = {
                 if (isValidPassword) {
 
                     if (req.body.newPassword.length < 6) {
-                        console.log('password need 6');
                         return res.status(411).json({
                             errorType: 411,
                             message: 'password need 6'
@@ -200,7 +194,6 @@ module.exports = {
                     );
 
                 } else {
-                    console.log('unauthorized');
                     return res.status(401).json({
                         errorType: 401,
                         message: 'unauthorized'
