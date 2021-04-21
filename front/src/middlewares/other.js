@@ -1,6 +1,9 @@
 import {
   FETCH_THEMES,
   setThemes,
+  TRY_SEND_CONTACT_MESSAGE,
+  setContactLoading,
+  setMessage,
 } from 'src/actions/other';
 
 import {
@@ -24,6 +27,40 @@ export default (store) => (next) => async (action) => {
       }
       catch (err) {
         console.log(err);
+      }
+      return next(action);
+    case TRY_SEND_CONTACT_MESSAGE:
+      try {
+        store.dispatch(setContactLoading(true));
+        const { other } = store.getState();
+
+        const response = await axiosInstance.post('/contact', {
+          name: other.contact.name.value,
+          email: other.contact.email.value,
+          content: other.contact.content.value,
+        });
+
+        if (response.status !== 200) {
+          throw new Error();
+        }
+
+        store.dispatch(setMessage({
+          type: 'confirm',
+          message: 'Merci votre message a bien été envoyé. Vous allez recevoir un e-mail de confirmation.',
+          canBeClosed: false,
+          targetComponent: 'Contact',
+        }));
+      }
+      catch (err) {
+        console.log('error', err);
+        store.dispatch(setMessage({
+          type: 'error',
+          message: 'Une erreur est survenue lors de l\'envoi de votre message',
+          targetComponent: 'Contact',
+        }));
+      }
+      finally {
+        store.dispatch(setContactLoading(false));
       }
       return next(action);
     default:

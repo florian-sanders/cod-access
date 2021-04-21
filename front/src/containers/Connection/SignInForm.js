@@ -10,14 +10,14 @@ import {
 
 const mapStateToProps = ({ other, auth }) => ({
   messageParams: other.messageParams,
-  loading: auth.loading,
-  email: auth.email,
-  password: auth.password,
+  loading: auth.signIn.loading,
+  email: auth.signIn.email,
+  password: auth.signIn.password,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   trySignIn: () => dispatch(trySignIn()),
-  changeValue: ({ value, name }) => dispatch(setSignInFieldValue({ value, name })),
+  changeValue: (fieldInfo) => dispatch(setSignInFieldValue(fieldInfo)),
   checkEmptyField:
   (controlMessageInfo) => dispatch(setSignInControlMessage(controlMessageInfo)),
   validateInput: ({ message, value }) => dispatch(validateSignInEmail({ message, email: value })),

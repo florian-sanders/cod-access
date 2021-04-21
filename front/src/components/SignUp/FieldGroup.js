@@ -17,7 +17,7 @@ const FieldGroup = ({
   validateInput,
 }) => {
   const handleOnBlur = (valueToTest) => {
-    if (!valueToTest && isMandatory) {
+    if (isMandatory) {
       setControlMessage({
         name,
         message,

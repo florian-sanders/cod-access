@@ -1,9 +1,9 @@
 /* login / logout actions */
-export const SET_AUTH_LOADING = 'SET_AUTH_LOADING';
+export const SET_SIGN_IN_LOADING = 'SET_SIGN_IN_LOADING';
 
-export const setAuthLoading = (status) => ({
-  type: SET_AUTH_LOADING,
-  status,
+export const setSignInLoading = (isLoading) => ({
+  type: SET_SIGN_IN_LOADING,
+  isLoading,
 });
 
 export const TOGGLE_CONNECTION_VISIBILITY = 'TOGGLE_CONNECTION_VISIBILITY';
@@ -14,9 +14,9 @@ export const toggleConnectionVisibility = () => ({
 
 export const SET_CONNECTION_VISIBILITY = 'SET_CONNECTION_VISIBILITY';
 
-export const setConnectionVisibility = (visibility) => ({
+export const setConnectionVisibility = (isVisible) => ({
   type: SET_CONNECTION_VISIBILITY,
-  visibility,
+  isVisible,
 });
 
 export const SET_SIGN_IN_FIELD_VALUE = 'SET_SIGN_IN_FIELD_VALUE';
@@ -190,4 +190,69 @@ export const checkSettingsEmptyField = ({ message, name, value }) => ({
   message,
   name,
   value,
+});
+
+/* password reset actions */
+export const SET_PASSWORD_RESET_REQUEST_LOADING = 'SET_PASSWORD_RESET_REQUEST_LOADING';
+
+export const setPasswordResetRequestLoading = (isLoading) => ({
+  type: SET_PASSWORD_RESET_REQUEST_LOADING,
+  isLoading,
+});
+
+export const SET_PASSWORD_RESET_FIELD_VALUE = 'SET_PASSWORD_RESET_FIELD_VALUE';
+
+export const setPasswordResetFieldValue = ({ value, name }) => ({
+  type: SET_PASSWORD_RESET_FIELD_VALUE,
+  value,
+  name,
+});
+
+export const SEND_PASSWORD_RESET_REQUEST = 'SEND_PASSWORD_RESET_REQUEST';
+
+export const sendPasswordResetRequest = () => ({
+  type: SEND_PASSWORD_RESET_REQUEST,
+});
+
+export const VALIDATE_PASSWORD_RESET_REQUEST_EMAIL = 'VALIDATE_PASSWORD_RESET_REQUEST_EMAIL';
+
+export const validatePasswordResetRequestEmail = ({ message, email }) => ({
+  type: VALIDATE_PASSWORD_RESET_REQUEST_EMAIL,
+  message,
+  email,
+});
+
+export const SAVE_NEW_PASSWORD = 'SAVE_NEW_PASSWORD';
+
+export const saveNewPassword = (newToken) => ({
+  type: SAVE_NEW_PASSWORD,
+  newToken,
+});
+
+export const SET_PASSWORD_RESET_CONTROL_MESSAGE = 'SET_PASSWORD_RESET_CONTROL_MESSAGE';
+
+export const setPasswordResetControlMessage = ({
+  message, name, value,
+}) => ({
+  type: SET_PASSWORD_RESET_CONTROL_MESSAGE,
+  message,
+  name,
+  value,
+});
+
+export const TEST_PASSWORD_RESET_STRENGTH = 'TEST_PASSWORD_RESET_STRENGTH';
+
+export const testPasswordResetStength = ({ message, password }) => ({
+  type: TEST_PASSWORD_RESET_STRENGTH,
+  message,
+  password,
+});
+
+export const COMPARE_PASSWORD_RESET_CONFIRM = 'COMPARE_PASSWORD_RESET_CONFIRM';
+
+export const comparePasswordResetConfirm = ({ message, password, passwordConfirm }) => ({
+  type: COMPARE_PASSWORD_RESET_CONFIRM,
+  message,
+  password,
+  passwordConfirm,
 });

@@ -86,7 +86,7 @@ const SignUp = ({
           />
           <div className="signup__content__form__group">
             <button
-              className="button--primary signup__content__form__group__submit"
+              className="button button--primary signup__content__form__group__submit"
               type="submit"
             >
               <span>S'enregistrer</span>

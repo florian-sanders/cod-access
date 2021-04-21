@@ -9,7 +9,6 @@ import exerciseManagerMiddleware from 'src/middlewares/exerciseManager/';
 import questionManagerMiddleware from 'src/middlewares/exerciseManager/questionManager/';
 import answerManagerMiddleware from 'src/middlewares/exerciseManager/answerManager/';
 import themeManagerMiddleware from 'src/middlewares/exerciseManager/themeManager/';
-import forgetMiddleware from 'src/middlewares/forget';
 import usersMiddleware from 'src/middlewares/users';
 import adminExercisesListMiddleware from 'src/middlewares/adminExercisesList';
 import inputControl from 'src/middlewares/inputControl';
@@ -26,7 +25,6 @@ const enhancers = composeEnhancers(
     questionManagerMiddleware,
     answerManagerMiddleware,
     themeManagerMiddleware,
-    forgetMiddleware,
     usersMiddleware,
     adminExercisesListMiddleware,
     inputControl,

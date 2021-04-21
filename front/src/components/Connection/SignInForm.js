@@ -52,6 +52,7 @@ const SignInForm = ({
           label="Mot de passe"
           name="password"
           autocomplete="current-password"
+          isMandatory
           value={password.value}
           message={password.controlMessage}
           changeValue={changeValue}
@@ -61,10 +62,10 @@ const SignInForm = ({
           Mot de passe oublié
         </Link>
         <button
-          className="button--secondary header-wrapper__connection__toggle-area__form__submit"
+          className="button button--secondary header-wrapper__connection__toggle-area__form__submit"
           type="submit"
         >
-          <span className="">Se connecter</span>
+          <span className="button__text">Se connecter</span>
           {
             loading && (
               <CircleLoader

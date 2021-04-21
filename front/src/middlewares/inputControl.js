@@ -5,18 +5,17 @@ import {
   COMPARE_SETTINGS_PASSWORD_CONFIRM,
   VALIDATE_SIGN_IN_EMAIL,
   CHECK_SETTINGS_EMPTY_FIELD,
+  SET_PASSWORD_RESET_CONTROL_MESSAGE,
+  VALIDATE_PASSWORD_RESET_REQUEST_EMAIL,
+  TEST_PASSWORD_RESET_STRENGTH,
+  COMPARE_PASSWORD_RESET_CONFIRM,
 } from 'src/actions/auth';
 import {
   SET_CONTACT_CONTROL_MESSAGE,
   VALIDATE_CONTACT_EMAIL,
   VALIDATE_LENGTH,
   VALIDATE_CONTENT_LENGTH,
-  SET_FORGET_CONTROL_MESSAGE,
-  VALIDATE_FORGET_EMAIL,
-  SET_PASSWORD_CONTROL_MESSAGE,
-  VALIDATE_PASSWORD,
-  COMPARE_NEW_PASSWORD_CONFIRM,
-} from 'src/actions/forget';
+} from 'src/actions/other';
 import {
   SET_SIGN_UP_CONTROL_MESSAGE,
   VALIDATE_SIGN_UP_EMAIL,
@@ -31,8 +30,7 @@ export default (store) => (next) => async (action) => {
     case SET_SIGN_IN_CONTROL_MESSAGE:
     case SET_SIGN_UP_CONTROL_MESSAGE:
     case SET_CONTACT_CONTROL_MESSAGE:
-    case SET_PASSWORD_CONTROL_MESSAGE:
-    case SET_FORGET_CONTROL_MESSAGE:
+    case SET_PASSWORD_RESET_CONTROL_MESSAGE:
       if (!action.value) {
         action.message = 'Ce champ est obligatoire. Veuillez renseigner une valeur.';
       }
@@ -66,9 +64,9 @@ export default (store) => (next) => async (action) => {
     case VALIDATE_SETTINGS_EMAIL:
     case VALIDATE_SIGN_UP_EMAIL:
     case VALIDATE_CONTACT_EMAIL:
-    case VALIDATE_FORGET_EMAIL:
+    case VALIDATE_PASSWORD_RESET_REQUEST_EMAIL:
       const emailRegex = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
-      
+
       if (!emailRegex.test(action.email)) {
         action.message = 'Votre email ne semble pas valide';
       }
@@ -79,7 +77,7 @@ export default (store) => (next) => async (action) => {
 
     case TEST_SETTINGS_NEW_PASSWORD_STRENGTH:
     case TEST_SIGN_UP_PASSWORD_STRENGTH:
-    case VALIDATE_PASSWORD:
+    case TEST_PASSWORD_RESET_STRENGTH:
       if (action.password.length < 6) {
         action.message = 'Votre mot de passe doit contenir au moins 6 caractères';
       }
@@ -105,7 +103,7 @@ export default (store) => (next) => async (action) => {
       }
       return next(action);
 
-    case COMPARE_NEW_PASSWORD_CONFIRM:
+    case COMPARE_PASSWORD_RESET_CONFIRM:
       if (action.password !== action.passwordConfirm) {
         action.message = 'Vous avez saisi deux mots de passe différents';
       }

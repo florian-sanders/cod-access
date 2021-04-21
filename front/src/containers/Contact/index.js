@@ -2,35 +2,35 @@ import { connect } from 'react-redux';
 import Contact from 'src/components/Contact';
 import {
   setContactFieldValue,
-  tryContact,
+  trySendContactMessage,
   setContactControlMessage,
   validateContactEmail,
-  validateLenght,
-  validateContentLenght,
-} from 'src/actions/forget';
+  validateLength,
+  validateContentLength,
+} from 'src/actions/other';
 
-const mapStateToProps = (state) => ({
-  name: state.forget.name,
-  emailContact: state.forget.emailContact,
-  content: state.forget.content,
-  loading: state.forget.loading,
-  isContactDone: state.forget.isContactDone,
+const mapStateToProps = ({ other }) => ({
+  name: other.contact.name,
+  email: other.contact.email,
+  content: other.contact.content,
+  loading: other.contact.isLoading,
+  messageParams: other.messageParams,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeField: (value, name) => dispatch(setContactFieldValue(value, name)),
-  tryContact: () => dispatch(tryContact()),
+  changeValue: (value, name) => dispatch(setContactFieldValue(value, name)),
+  trySendContactMessage: () => dispatch(trySendContactMessage()),
   setControlMessage: ({ message, name, value }) => dispatch(
     setContactControlMessage({ message, name, value }),
   ),
   validateEmail: ({ message, value }) => {
     dispatch(validateContactEmail({ message, emailContact: value }));
   },
-  validateLenght: ({ message, value }) => {
-    dispatch(validateLenght({ message, name: value }));
+  validateNameLength: ({ message, value }) => {
+    dispatch(validateLength({ message, name: value }));
   },
-  validateContentLenght: ({ message, value }) => {
-    dispatch(validateContentLenght({ message, content: value }));
+  validateContentLength: ({ message, value }) => {
+    dispatch(validateContentLength({ message, content: value }));
   },
 });
 

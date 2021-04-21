@@ -114,7 +114,7 @@ const Settings = ({
         </div>
         <div className="">
           <button
-            className="button--primary"
+            className="button button--primary"
             type="submit"
           >
             Valider la modification
@@ -140,7 +140,7 @@ const Settings = ({
         />
         <div className="">
           <button
-            className="button--primary"
+            className="button button--primary"
             type="submit"
           >
             Valider la modification
@@ -165,7 +165,7 @@ const Settings = ({
         />
         <div className="">
           <button
-            className="button--primary"
+            className="button button--primary"
             type="submit"
           >
             Valider la modification
@@ -215,7 +215,7 @@ const Settings = ({
         />
         <div className="">
           <button
-            className="button--primary"
+            className="button button--primary"
             type="submit"
           >
             Valider la modification
@@ -223,7 +223,7 @@ const Settings = ({
         </div>
       </form>
       <div className=" to-right">
-        <button className="button--delete" type="button" onClick={handleDelAccountClick}>
+        <button className="button button--delete" type="button" onClick={handleDelAccountClick}>
           Supprimer mon compte
         </button>
       </div>

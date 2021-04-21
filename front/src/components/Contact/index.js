@@ -1,85 +1,98 @@
 import React from 'react';
 import Proptypes from 'prop-types';
-import FieldGroup from './FieldGroup';
+
+import Message from 'src/containers/Message';
+import CircleLoader from 'src/components/CircleLoader';
+import TextField from 'src/components/TextField';
 import picture from 'src/assets/img/contact-signup.svg';
 import './styles.scss';
 
 const Contact = ({
-  changeField,
+  changeValue,
   name,
-  emailContact,
+  email,
   content,
-  tryContact,
+  trySendContactMessage,
   loading,
-  isContactDone,
   setControlMessage,
   validateEmail,
-  validateLenght,
-  validateContentLenght,
+  validateNameLength,
+  validateContentLength,
+  messageParams,
 }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    tryContact();
+    trySendContactMessage();
   };
-  const button = isContactDone ? "hidden" : "button--primary"
+
   return (
     <div className="contact wave-double-bottom">
       <h1 className="title-h1 center">Contactez-nous</h1>
-       <div className="contact__content">
-          <img  className="contact__content__illustration" src={picture} alt="" />
+      <div className="contact__content">
+        <img className="contact__content__illustration" src={picture} alt="" />
         <form action="" method="get" className="contact__content__form" onSubmit={handleSubmit}>
-          <FieldGroup
+          {
+            messageParams.targetComponent === 'Contact'
+            && (
+              <Message {...messageParams} />
+            )
+          }
+          <TextField
             type="text"
             id="name"
             value={name.value}
             label="Nom / Prénom"
             name="name"
-            onChange={changeField}
+            changeValue={changeValue}
             isMandatory
             message={name.controlMessage}
             setControlMessage={setControlMessage}
-            validateInput={validateLenght}
+            validateInput={validateNameLength}
+            inputClassName="full"
           />
-          <FieldGroup
+          <TextField
             type="email"
             id="emailContact"
-            value={emailContact.value}
+            value={email.value}
             label="Adresse e-mail (nom@domaine.fr)"
-            name="emailContact"
-            onChange={changeField}
+            name="email"
+            changeValue={changeValue}
             isMandatory
-            message={emailContact.controlMessage}
+            message={email.controlMessage}
             setControlMessage={setControlMessage}
             validateInput={validateEmail}
+            inputClassName="full"
           />
-          <FieldGroup
+          <TextField
             type="textarea"
             id="content"
             value={content.value}
             label="Ecrivez votre message"
             name="content"
-            onChange={changeField}
+            changeValue={changeValue}
             isMandatory
             message={content.controlMessage}
             setControlMessage={setControlMessage}
-            validateInput={validateContentLenght}
+            validateInput={validateContentLength}
+            inputClassName="full"
           />
-             { 
-           isContactDone  && (
-             <>
-            {/* <p className="messsage-done"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p> */}
-            <div role="alert" className="message-box confirm">
-            <p className="messsage-box__content confirm__content"> Merci votre message a bien été envoyé : vous allez recevoir un email de confirmation. </p>
-          </div>
-          </>
-            )
-          }
           <div className="contact__content__form__group">
             <button
-              className={button}
+              className="button button--primary"
               type="submit"
+              disabled={messageParams.targetComponent === 'Contact'}
             >
-              {loading ? 'chargement' : 'Envoyer'}
+              <span>Envoyer le message</span>
+              {
+                loading && (
+                  <CircleLoader
+                    colour="#FFFFFF"
+                    radius={8}
+                    duration={2}
+                    strokeWidth={3}
+                  />
+                )
+              }
             </button>
           </div>
         </form>
@@ -93,7 +106,7 @@ Contact.propTypes = {
     value: Proptypes.string.isRequired,
     controlMessage: Proptypes.string.isRequired,
   }).isRequired,
-  emailContact: Proptypes.shape({
+  email: Proptypes.shape({
     value: Proptypes.string.isRequired,
     controlMessage: Proptypes.string.isRequired,
   }).isRequired,
@@ -101,14 +114,16 @@ Contact.propTypes = {
     value: Proptypes.string.isRequired,
     controlMessage: Proptypes.string.isRequired,
   }).isRequired,
-  changeField: Proptypes.func.isRequired,
-  tryContact: Proptypes.func.isRequired,
+  messageParams: Proptypes.shape({
+    targetComponent: Proptypes.string.isRequired,
+  }).isRequired,
+  changeValue: Proptypes.func.isRequired,
+  trySendContactMessage: Proptypes.func.isRequired,
   loading: Proptypes.bool,
-  isContactDone: Proptypes.bool.isRequired,
   setControlMessage: Proptypes.func.isRequired,
   validateEmail: Proptypes.func.isRequired,
-  validateLenght: Proptypes.func.isRequired,
-  validateContentLenght: Proptypes.func.isRequired,
+  validateNameLength: Proptypes.func.isRequired,
+  validateContentLength: Proptypes.func.isRequired,
 };
 
 Contact.defaultProps = {

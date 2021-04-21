@@ -17,7 +17,7 @@ const FieldGroup = ({
   checkEmptyField,
 }) => {
   const handleOnBlur = (valueToTest) => {
-    if (!valueToTest && isMandatory) {
+    if (isMandatory) {
       checkEmptyField({
         name,
         message,
