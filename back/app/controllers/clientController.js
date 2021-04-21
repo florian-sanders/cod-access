@@ -30,7 +30,7 @@ module.exports = {
     getOneClient: async (req, res, next) => {
         try{
             const clientId = Number(req.user.clientId);
-            if (isNaN(id)) {
+            if (isNaN(clientId)) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `the provided id must be a number`
@@ -119,7 +119,7 @@ module.exports = {
     deleteProfileClient: async (req, res, next) => {
         try {
             const clientId = Number(req.user.clientId);
-            if (isNaN(id)) {
+            if (isNaN(clientId)) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `the provided id must be a number`
@@ -143,7 +143,7 @@ module.exports = {
     updateClient: async (req, res, next) => {
         try {
             const clientId = Number(req.user.clientId);
-            if (isNaN(id)) {
+            if (isNaN(clientId)) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `the provided id must be a number`
