@@ -1,19 +1,20 @@
-const {
-    Picture
-} = require('../models');
-
+const { Picture } = require('../models');
 const path = require('path');
-
 const fs = require('fs');
 
+/**
+ * @module imageController
+ */
 module.exports = {
     changeImageAlt: async (req, res, next) => {
         try {
             const imgAlt = req.body.alternative;
-            const id = Number(req.params.imageId);
+            /** @name id - id of picture */
+            const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
 
@@ -21,10 +22,8 @@ module.exports = {
                 { alternative: imgAlt },
                 { where: { id: id } },
             );
-
-            console.log(status);
             res.status(200).json({
-                message: "updated",
+                message: "picture updated",
             })
         }
         catch (err) {
@@ -35,16 +34,17 @@ module.exports = {
 
     deleteOneImage: async (req, res, next) => {
         try {
-            const id = Number(req.params.imageId);
+            /** @name id - id of picture */
+            const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
 
             const image = await Picture.findByPk(id);
             if (!image) {
-                console.log('miss image');
                 return res.status(404).json({
                     errorType: 404,
                     message: 'miss image'
@@ -52,7 +52,6 @@ module.exports = {
             }
 
             await image.destroy();
-            console.log();
             fs.unlink(path.join(__dirname, `../../upload/${image.path}`), (err) => {
                 if (err) {
                     return res.status(500).json({
@@ -62,8 +61,7 @@ module.exports = {
                 }
                 
                 res.status(200).json({
-                    status: "200",
-                    response: "success"
+                    message: "picture deleted"
                 });
             });
 
