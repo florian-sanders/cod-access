@@ -126,6 +126,7 @@ module.exports = {
           include: ['responsibility', 'client_picture']
         });
         if (!client) {
+          console.log("miss client")
           return res.status(404).json({
             errorType: 404,
             message: 'miss client'
@@ -133,7 +134,6 @@ module.exports = {
         } else {
           const isValidPassword = await bcrypt.compare(req.body.password, client.password);
           if (isValidPassword) {
-
             const jwtContent = {
               clientId: client.id,
               clientRole: client.responsibility.entitled,
@@ -154,6 +154,7 @@ module.exports = {
             });
             
           } else {
+            console.log("mauvais mot de passe")
             return res.status(401).json({
               errorType: 401,
               message: 'unauthorized'

@@ -36,6 +36,7 @@ export default (store) => (next) => async (action) => {
         });
 
         if (response.status !== 200) {
+          console.log("erreur")
           throw new Error();
         }
 
@@ -198,16 +199,9 @@ export default (store) => (next) => async (action) => {
       try {
         const { auth: { selectedFile } } = store.getState();
         const data = new FormData();
-        data.append('profile', selectedFile);
-        const {
-          data: {
-            myFile: {
-              path: pathPicture,
-            },
-          },
-          status,
-        } = await axiosInstance.post('/upload_client', data, {});
-        if (status !== 200) {
+        data.append('picture', selectedFile);
+        const response = await axiosInstance.post('/upload_client', data);
+        if (response.status !== 200) {
           throw new Error();
         }
         store.dispatch(setMessage({
@@ -215,7 +209,8 @@ export default (store) => (next) => async (action) => {
           message: 'Votre image a bien été modifiée.',
           targetComponent: 'Settings',
         }));
-        store.dispatch(setInfoUser('picturePath', pathPicture.substring(6)));
+
+        store.dispatch(setInfoUser('picturePath', response.data.picturePath));
         store.dispatch(setSelectedFile(null));
       }
       catch (err) {

@@ -8,6 +8,7 @@ const {
     Question,
     Possible_answer,
     Theme,
+    Picture,
 } = require('../models');
 
 /**
@@ -139,7 +140,7 @@ module.exports = {
 
     changeExercise: async (req, res, next) => {
         try {
-            const data = req.body;
+            const dataExercise = req.body;
             /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
@@ -148,19 +149,19 @@ module.exports = {
                     error: `the provided id must be a number`
                 });
             }
-            const result = await Exercise.findByPk(id);
-            if (data.published) {
-                data.published = Boolean(data.published);
+            const exercise = await Exercise.findByPk(id);
+            if (dataExercise.published) {
+                dataExercise.published = Boolean(dataExercise.published);
             } else {
-                data.published = false
+                dataExercise.published = false
             }
-            for (const properties in data) {
-                if (typeof result[properties] !== 'undefined') {
-                    result[properties] = data[properties];
+            for (const properties in dataExercise) {
+                if (typeof exercise[properties] !== 'undefined') {
+                    exercise[properties] = dataExercise[properties];
                 }
             }
-            await result.save();
-            return res.status(200).json(result);
+            await exercise.save();
+            return res.status(200).json(exercise);
 
         } catch (error) {
             console.error(error);
@@ -253,11 +254,11 @@ module.exports = {
 
     changeQuestion: async (req, res, next) => {
         try {
-            const data = req.body;
-            if (data.picture_id) {
-                data.picture_id = Number(data.picture_id);
+            const dataQuestion = req.body;
+            if (dataQuestion.picture_id) {
+                dataQuestion.picture_id = Number(dataQuestion.picture_id);
             } else {
-                data.picture_id = null
+                dataQuestion.picture_id = null
             }
             /** @name id - id of question */
             const id = Number(req.params.id);
@@ -267,14 +268,14 @@ module.exports = {
                     message: `the provided id must be a number`
                 });
             }
-            const result = await Question.findByPk(id);
-            for (const properties in data) {
-                if (typeof result[properties] !== 'undefined') {
-                    result[properties] = data[properties];
+            const question = await Question.findByPk(id);
+            for (const properties in dataQuestion) {
+                if (typeof question[properties] !== 'undefined') {
+                    question[properties] = dataQuestion[properties];
                 }
             }
-            await result.save();
-            return res.status(200).json(result);
+            await question.save();
+            return res.status(200).json(question);
 
         } catch (error) {
             console.error(error);
@@ -340,8 +341,8 @@ module.exports = {
 
     changeAnswer: async (req, res, next) => {
         try {
-            const data = req.body;
-            data.correct = Boolean(data.correct)
+            const dataAnswer = req.body;
+            dataAnswer.correct = Boolean(dataAnswer.correct)
             /** @name id - id of answer */
             const id = Number(req.params.id);
             if (isNaN(id)) {
@@ -350,14 +351,14 @@ module.exports = {
                     message: `the provided id must be a number`
                 });
             }
-            const result = await Possible_answer.findByPk(id);
-            for (const properties in data) {
-                if (typeof result[properties] !== 'undefined') {
-                    result[properties] = data[properties];
+            const answer = await Possible_answer.findByPk(id);
+            for (const properties in dataAnswer) {
+                if (typeof answer[properties] !== 'undefined') {
+                    answer[properties] = dataAnswer[properties];
                 }
             }
-            await result.save();
-            return res.status(200).json(result);
+            await answer.save();
+            return res.status(200).json(answer);
 
         } catch (error) {
             console.error(error);
@@ -395,15 +396,15 @@ module.exports = {
     associate_exercise_theme: async (req, res, next) => {
         try {
             const exerciseId = Number(req.body.exercise_id)
-            const id_theme = Number(req.body.theme_id)
-            if ((exerciseId || id_theme) === null) {
+            const themeId = Number(req.body.theme_id)
+            if ((exerciseId || themeId) === null) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `need exercise_id and theme_id`
                 });
             }
             let exercise = await Exercise.findByPk(exerciseId);
-            let theme = await Theme.findByPk(id_theme)
+            let theme = await Theme.findByPk(themeId)
             if (!exercise || !theme) {
                 return res.status(406).json({
                     errorType: 406,
@@ -425,15 +426,15 @@ module.exports = {
     delete_exercise_theme: async (req, res, next) => {
         try {
             const exerciseId = Number(req.body.exercise_id)
-            const id_theme = Number(req.body.theme_id)
-            if ((exerciseId || id_theme) === null) {
+            const themeId = Number(req.body.theme_id)
+            if ((exerciseId || themeId) === null) {
                 return res.status(406).json({
                     errorType: 406,
                     message: `need exercise_id and theme_id`
                 });
             }
             let exercise = await Exercise.findByPk(exerciseId);
-            let theme = await Theme.findByPk(id_theme)
+            let theme = await Theme.findByPk(themeId)
             if (!exercise || !theme) {
                 return res.status(406).json({
                     errorType: 406,
@@ -495,7 +496,6 @@ module.exports = {
                     successfulQuestions.push(question.id);
                 }
             }
-            const rightAnswers = correction.map((question) => question.rightAnswers).flat();
             const scoreResult = Math.round((successfulQuestions.length / exercise.questions.length) * 100)
             if (req.user) {
                 const clientId = req.user.clientId
@@ -504,14 +504,12 @@ module.exports = {
                 })
 
                 if (!client.exercises[0]) {
-                    console.log('never played i have to save');
                     const result = new Client_exercise({
                         score: scoreResult,
                         client_id: clientId,
                         exercise_id: exerciseId
                     })
                     await result.save()
-                    console.log('first play', result)
                     return res.status(200).json({
                         message: `user finish with score: ${scoreResult}`,
                         correction,
@@ -519,14 +517,12 @@ module.exports = {
                     });
 
                 } else {
-                    console.log('played already i have to update');
                     const oldScore = client.exercises[0].Client_exercise.score
                     if (oldScore === null || oldScore < scoreResult) {
                         const updateScore = await Client_exercise.findOne({
                             where: { client_id: clientId, exercise_id: exerciseId }
                         })
                         await updateScore.update({ score: scoreResult })
-                        console.log('already played and update because better score', oldScore, updateScore)
                         return res.status(200).json({
                             message: `user finish with score: ${scoreResult}`,
                             correction,
@@ -534,7 +530,6 @@ module.exports = {
                         });
 
                     } else {
-                        console.log('older score was better im doing nothing')
                         return res.status(200).json({
                             message: `user finish with score: ${scoreResult}`,
                             correction,
@@ -543,8 +538,6 @@ module.exports = {
                     }
                 }
             };
-
-            console.log('score user without co', scoreResult);
             return res.status(200).json({
                 message: `user finish with score: ${scoreResult}`,
                 correction,
@@ -556,4 +549,35 @@ module.exports = {
             return res.status(500);
         }
     },
+
+    imageToQuestion: async (req, res, next) => {
+        try{
+            const questionId = Number(req.body.question_id);
+            const myFile = req.file;
+            const pathPicture = myFile.path.substring(6);
+            const picture = new Picture({
+                name: myFile.filename,
+                path: pathPicture,
+                alternative: req.body.alternative,
+            })
+        
+            picture.save().then(result => {
+                Question.findByPk(questionId, {
+                include: 'question_picture'
+                }).then(question => {
+                    question.update({ picture_id: result.id })
+                    return res.status(200).json(
+                        {
+                            pictureId: result.id,
+                            picturePath: result.path,
+                            pictureAlt: result.alternative
+                        }
+                    );
+                })
+            })
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    }
 }

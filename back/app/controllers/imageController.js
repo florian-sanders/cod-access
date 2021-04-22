@@ -6,32 +6,6 @@ const fs = require('fs');
  * @module imageController
  */
 module.exports = {
-    changeImageAlt: async (req, res, next) => {
-        try {
-            const imgAlt = req.body.alternative;
-            /** @name id - id of picture */
-            const id = Number(req.params.id);
-            if (isNaN(id)) {
-                return res.status(406).json({
-                    errorType: 406,
-                    message: `the provided id must be a number`
-                });
-            }
-
-            const status = await Picture.update(
-                { alternative: imgAlt },
-                { where: { id: id } },
-            );
-            res.status(200).json({
-                message: "picture updated",
-            })
-        }
-        catch (err) {
-            console.error(err);
-            return res.status(500);
-        }
-    },
-
     deleteOneImage: async (req, res, next) => {
         try {
             /** @name id - id of picture */

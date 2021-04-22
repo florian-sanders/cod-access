@@ -134,16 +134,14 @@ export default (store) => (next) => async (action) => {
         store.dispatch(setExerciseManagerUpdateLoading(true));
 
         const fileInfo = new FormData();
-        fileInfo.append('profile', action.file);
+        fileInfo.append('picture', action.file);
         fileInfo.append('question_id', action.questionId);
         fileInfo.append('alternative', action.alternative);
 
         if (!action.file) {
           return next(action);
         }
-
         const response = await axiosInstance.post('/upload_question', fileInfo);
-
         if (response.status !== 200) {
           throw new Error();
         }

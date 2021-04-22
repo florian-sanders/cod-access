@@ -39,9 +39,9 @@ module.exports = {
 
     getAllThemes: async (req, res, next) => {
         try{
-            const theme = await Theme.findAll();
+            const themes = await Theme.findAll();
             return res.status(200).json(
-            theme
+            themes
             );
 
         } catch(error) {
@@ -87,7 +87,6 @@ module.exports = {
                 const progress = Math.round((exerciseComplete/numberOfExercises)*100) 
                 progressUser.push({theme: theme.name, color: theme.color, progress: progress})
             }
-            console.log('progressUser', progressUser)
             return res.status(200).json(
                 progressUser
             );
