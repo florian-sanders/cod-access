@@ -550,7 +550,7 @@ module.exports = {
         }
     },
 
-    imageToQuestion: async (req, res, next) => {
+    updateImageQuestion: async (req, res, next) => {
         try{
             const questionId = Number(req.body.question_id);
             const myFile = req.file;
