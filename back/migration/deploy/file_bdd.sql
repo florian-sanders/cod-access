@@ -3,7 +3,7 @@
 BEGIN;
 
 -- XXX Add DDLs here.
-DROP TABLE IF EXISTS client, responsibility, picture, question, kind, exercise, doc, theme, possible_answer, client_exercise, client_doc, theme_doc, exercise_theme;
+DROP TABLE IF EXISTS client, responsibility, picture, question, kind, exercise, theme, possible_answer, client_exercise, exercise_theme;
 
 CREATE TABLE responsibility (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -61,18 +61,6 @@ CREATE TABLE question (
     updated_at TIMESTAMP
 );
 
-CREATE TABLE doc (
-    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    title text NOT NULL,
-    brief text,
-    slug text NOT NULL,
-    content text NOT NULL,
-    published boolean NOT NULL,
-    picture_id int REFERENCES picture(id) ON DELETE SET NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP
-);
-
 CREATE TABLE theme (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" text NOT NULL,
@@ -95,22 +83,6 @@ CREATE TABLE client_exercise (
     score int,
     client_id int REFERENCES client(id) ON DELETE CASCADE,
     exercise_id int REFERENCES exercise(id) ON DELETE CASCADE,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP
-);
-
-CREATE TABLE client_doc (
-    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    client_id int REFERENCES client(id) ON DELETE CASCADE,
-    doc_id int REFERENCES doc(id) ON DELETE CASCADE,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP
-);
-
-CREATE TABLE theme_doc (
-    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    theme_id int REFERENCES theme(id) ON DELETE CASCADE,
-    doc_id int REFERENCES doc(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );

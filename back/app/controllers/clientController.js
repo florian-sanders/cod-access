@@ -1,4 +1,4 @@
-const { Client } = require('../models');
+const { Picture, Client, Question } = require('../models');
 const bcrypt = require('bcrypt');
 const emailValidator = require('email-validator');
 
@@ -37,7 +37,7 @@ module.exports = {
                 });
             }
             const client = await Client.findByPk(clientId, {
-                include: ['client_picture','responsibility','docs','exercises']
+                include: ['client_picture','responsibility','exercises']
               });
             return res.status(200).json(
                 client
@@ -208,6 +208,37 @@ module.exports = {
             }
           
         } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
+
+    updateImageClient: async (req, res, next) => {
+        try{
+            const clientId = Number(req.user.clientId);
+            const myFile = req.file;
+            const pathPicture = myFile.path.substring(6);
+            const picture = new Picture({
+                name: myFile.filename,
+                path: pathPicture,
+                alternative: null
+            })
+        
+            picture.save().then(result => {
+                Client.findByPk(clientId, {
+                include: 'client_picture'
+                }).then(user => {
+                user.update({ picture_id: result.id })
+                })
+                return res.status(200).json(
+                {
+                    pictureId: result.id,
+                    picturePath: result.path,
+                    pictureAlt: result.alternative
+                }
+                );
+            });
+        }catch (error) {
             console.error(error);
             return res.status(500);
         }

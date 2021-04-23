@@ -181,8 +181,7 @@ router.route('/upload_client')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .post(authorizationMiddlewareNotPass, sanitizer, multerConfig.imageToClient, clientController.getOneClient);
-
+    .post(authorizationMiddlewareNotPass, sanitizer,multerConfig, clientController.addImageToClient);
 
 router.route('/upload_question')
 /**
@@ -195,19 +194,7 @@ router.route('/upload_question')
             }
  * @returns {Error}  500 - Unexpected error
  */
-    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, multerConfig.imageToQuestion);
-
-
-router.route('/images/:id')
-/**
- * @route PATCH /images/:imageId
- * @param {Number} [id] - id from picture
- * @group picture - picture management
- * @returns {object} 200 - { message: 'picture updated' }
- * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
- * @returns {Error}  500 - Unexpected error
- */
-    .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, imageController.changeImageAlt);
+    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, multerConfig,  exerciseController.addImageToQuestion);
 
 
 router.route('/signup')
