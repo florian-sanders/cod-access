@@ -19,18 +19,12 @@ export const setConnectionVisibility = (isVisible) => ({
   isVisible,
 });
 
-export const SET_SIGN_IN_FIELD_VALUE = 'SET_SIGN_IN_FIELD_VALUE';
-
-export const setSignInFieldValue = ({ value, name }) => ({
-  type: SET_SIGN_IN_FIELD_VALUE,
-  value,
-  name,
-});
-
 export const TRY_SIGN_IN = 'TRY_SIGN_IN';
 
-export const trySignIn = () => ({
+export const trySignIn = ({ email, password }) => ({
   type: TRY_SIGN_IN,
+  email,
+  password,
 });
 
 export const SIGN_IN = 'SIGN_IN';
@@ -69,30 +63,28 @@ export const getCSRFToken = () => ({
 });
 
 /* Settings actions */
-export const SET_SETTINGS_FIELD_VALUE = 'SET_SETTINGS_FIELD_VALUE';
-
-export const setSettingsFieldValue = (value, name) => ({
-  type: SET_SETTINGS_FIELD_VALUE,
-  value,
-  name,
-});
 
 export const EDIT_EMAIL_USER = 'EDIT_EMAIL_USER';
 
-export const editEmailUser = () => ({
+export const editEmailUser = ({ email }) => ({
   type: EDIT_EMAIL_USER,
+  email,
 });
 
 export const EDIT_PSEUDO_USER = 'EDIT_PSEUDO_USER';
 
-export const editPseudoUser = () => ({
+export const editPseudoUser = ({ pseudo }) => ({
   type: EDIT_PSEUDO_USER,
+  pseudo,
 });
 
 export const EDIT_PASSWORD_USER = 'EDIT_PASSWORD_USER';
 
-export const editPasswordUser = () => ({
+export const editPasswordUser = ({ currentPassword, newPassword, newPasswordConfirm }) => ({
   type: EDIT_PASSWORD_USER,
+  currentPassword,
+  newPassword,
+  newPasswordConfirm,
 });
 
 export const SET_INFO_USER = 'SET_INFO_USER';
@@ -103,34 +95,14 @@ export const setInfoUser = (name, newInfo) => ({
   newInfo,
 });
 
-export const SET_SELECTED_FILE = 'SET_SELECTED_FILE';
-
-export const setSelectedFile = (file) => ({
-  type: SET_SELECTED_FILE,
-  file,
-});
-
 export const UPLOAD_FILE_PROFILE = 'UPLOAD_FILE_PROFILE';
 
-export const uploadFileProfile = () => ({
+export const uploadFileProfile = ({ selectedFile }) => ({
   type: UPLOAD_FILE_PROFILE,
+  selectedFile,
 });
 
-export const CLEAN_SELECTED_FILE = 'CLEAN_SELECTED_FILE';
-
-export const cleanSelectedFile = () => ({
-  type: CLEAN_SELECTED_FILE,
-});
-
-export const SET_SIGN_IN_CONTROL_MESSAGE = 'SET_SIGN_IN_CONTROL_MESSAGE';
-
-export const setSignInControlMessage = ({ message, name, value }) => ({
-  type: SET_SIGN_IN_CONTROL_MESSAGE,
-  message,
-  name,
-  value,
-});
-
+/* users */
 export const FETCH_PROGRESS_BY_THEME = 'FETCH_PROGRESS_BY_THEME';
 
 export const fetchProgressByTheme = () => ({
@@ -150,48 +122,6 @@ export const deleteAccount = () => ({
   type: DELETE_ACCOUNT,
 });
 
-export const VALIDATE_SETTINGS_EMAIL = 'VALIDATE_SETTINGS_EMAIL';
-
-export const validateSettingsEmail = ({ message, email }) => ({
-  type: VALIDATE_SETTINGS_EMAIL,
-  message,
-  email,
-});
-
-export const VALIDATE_SIGN_IN_EMAIL = 'VALIDATE_SIGN_IN_EMAIL';
-
-export const validateSignInEmail = ({ message, email }) => ({
-  type: VALIDATE_SIGN_IN_EMAIL,
-  message,
-  email,
-});
-
-
-export const TEST_SETTINGS_NEW_PASSWORD_STRENGTH = 'TEST_SETTINGS_NEW_PASSWORD_STRENGTH';
-
-export const testSettingsNewPasswordStrength = ({ message, password }) => ({
-  type: TEST_SETTINGS_NEW_PASSWORD_STRENGTH,
-  message,
-  password,
-});
-
-export const COMPARE_SETTINGS_PASSWORD_CONFIRM = 'COMPARE_SETTINGS_PASSWORD_CONFIRM';
-
-export const compareSettingsPasswordConfirm = ({ passwordConfirm, message }) => ({
-  type: COMPARE_SETTINGS_PASSWORD_CONFIRM,
-  passwordConfirm,
-  message,
-});
-
-export const CHECK_SETTINGS_EMPTY_FIELD = 'CHECK_SETTINGS_EMPTY_FIELD';
-
-export const checkSettingsEmptyField = ({ message, name, value }) => ({
-  type: CHECK_SETTINGS_EMPTY_FIELD,
-  message,
-  name,
-  value,
-});
-
 /* password reset actions */
 export const SET_PASSWORD_RESET_REQUEST_LOADING = 'SET_PASSWORD_RESET_REQUEST_LOADING';
 
@@ -200,59 +130,18 @@ export const setPasswordResetRequestLoading = (isLoading) => ({
   isLoading,
 });
 
-export const SET_PASSWORD_RESET_FIELD_VALUE = 'SET_PASSWORD_RESET_FIELD_VALUE';
-
-export const setPasswordResetFieldValue = ({ value, name }) => ({
-  type: SET_PASSWORD_RESET_FIELD_VALUE,
-  value,
-  name,
-});
-
 export const SEND_PASSWORD_RESET_REQUEST = 'SEND_PASSWORD_RESET_REQUEST';
 
-export const sendPasswordResetRequest = () => ({
+export const sendPasswordResetRequest = ({ email }) => ({
   type: SEND_PASSWORD_RESET_REQUEST,
-});
-
-export const VALIDATE_PASSWORD_RESET_REQUEST_EMAIL = 'VALIDATE_PASSWORD_RESET_REQUEST_EMAIL';
-
-export const validatePasswordResetRequestEmail = ({ message, email }) => ({
-  type: VALIDATE_PASSWORD_RESET_REQUEST_EMAIL,
-  message,
   email,
 });
 
 export const SAVE_NEW_PASSWORD = 'SAVE_NEW_PASSWORD';
 
-export const saveNewPassword = (newToken) => ({
+export const saveNewPassword = ({ token, password, passwordConfirm }) => ({
   type: SAVE_NEW_PASSWORD,
-  newToken,
-});
-
-export const SET_PASSWORD_RESET_CONTROL_MESSAGE = 'SET_PASSWORD_RESET_CONTROL_MESSAGE';
-
-export const setPasswordResetControlMessage = ({
-  message, name, value,
-}) => ({
-  type: SET_PASSWORD_RESET_CONTROL_MESSAGE,
-  message,
-  name,
-  value,
-});
-
-export const TEST_PASSWORD_RESET_STRENGTH = 'TEST_PASSWORD_RESET_STRENGTH';
-
-export const testPasswordResetStength = ({ message, password }) => ({
-  type: TEST_PASSWORD_RESET_STRENGTH,
-  message,
-  password,
-});
-
-export const COMPARE_PASSWORD_RESET_CONFIRM = 'COMPARE_PASSWORD_RESET_CONFIRM';
-
-export const comparePasswordResetConfirm = ({ message, password, passwordConfirm }) => ({
-  type: COMPARE_PASSWORD_RESET_CONFIRM,
-  message,
+  token,
   password,
   passwordConfirm,
 });

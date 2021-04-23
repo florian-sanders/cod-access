@@ -6,7 +6,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import './styles.scss';
 
-const Message = ({ type, message, closeMessage, canBeClosed }) => {
+const Message = ({
+  type, message, closeMessage, canBeClosed,
+}) => {
   const messageContainer = useRef('');
   let classname = '';
   switch (type) {

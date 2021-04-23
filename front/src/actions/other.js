@@ -58,18 +58,13 @@ export const setMobileMenuVisibility = (visibility) => ({
 });
 
 /* contact */
-export const SET_CONTACT_FIELD_VALUE = 'SET_CONTACT_FIELD_VALUE';
-
-export const setContactFieldValue = ({ value, name }) => ({
-  type: SET_CONTACT_FIELD_VALUE,
-  value,
-  name,
-});
-
 export const TRY_SEND_CONTACT_MESSAGE = 'TRY_SEND_CONTACT_MESSAGE';
 
-export const trySendContactMessage = () => ({
+export const trySendContactMessage = ({ name, email, message }) => ({
   type: TRY_SEND_CONTACT_MESSAGE,
+  name,
+  email,
+  message,
 });
 
 export const SET_CONTACT_LOADING = 'SET_CONTACT_LOADING';
@@ -77,37 +72,4 @@ export const SET_CONTACT_LOADING = 'SET_CONTACT_LOADING';
 export const setContactLoading = (isLoading) => ({
   type: SET_CONTACT_LOADING,
   isLoading,
-});
-
-export const SET_CONTACT_CONTROL_MESSAGE = 'SET_CONTACT_CONTROL_MESSAGE';
-
-export const setContactControlMessage = ({ message, name, value }) => ({
-  type: SET_CONTACT_CONTROL_MESSAGE,
-  message,
-  name,
-  value,
-});
-
-export const VALIDATE_CONTACT_EMAIL = 'VALIDATE_CONTACT_EMAIL';
-
-export const validateContactEmail = ({ message, emailContact }) => ({
-  type: VALIDATE_CONTACT_EMAIL,
-  message,
-  email: emailContact,
-});
-
-export const VALIDATE_LENGTH = 'VALIDATE_LENGTH';
-
-export const validateLength = ({ message, name }) => ({
-  type: VALIDATE_LENGTH,
-  message,
-  name,
-});
-
-export const VALIDATE_CONTENT_LENGTH = 'VALIDATE_CONTENT_LENGTH';
-
-export const validateContentLength = ({ message, content }) => ({
-  type: VALIDATE_CONTENT_LENGTH,
-  message,
-  content,
 });

@@ -7,12 +7,7 @@ import {
   UNSET_MESSAGE,
   SET_APP_LOADING,
   SET_MOBILE_MENU_VISIBILITY,
-  SET_CONTACT_CONTROL_MESSAGE,
-  SET_CONTACT_FIELD_VALUE,
   SET_CONTACT_LOADING,
-  VALIDATE_LENGTH,
-  VALIDATE_CONTACT_EMAIL,
-  VALIDATE_CONTENT_LENGTH,
 } from 'src/actions/other';
 
 const initialState = {
@@ -22,18 +17,6 @@ const initialState = {
     data: [],
   },
   contact: {
-    name: {
-      value: '',
-      controlMessage: '',
-    },
-    email: {
-      value: '',
-      controlMessage: '',
-    },
-    content: {
-      value: '',
-      controlMessage: '',
-    },
     isLoading: false,
   },
   appLoading: false,
@@ -112,68 +95,12 @@ const other = (state = initialState, action = {}) => {
         ...state,
         appLoading: action.loading,
       };
-
-    case SET_CONTACT_FIELD_VALUE:
-      return {
-        ...state,
-        contact: {
-          ...state.contact,
-          [action.name]: {
-            ...state.contact[action.name],
-            value: action.value,
-          },
-        },
-      };
     case SET_CONTACT_LOADING:
       return {
         ...state,
         contact: {
           ...state.contact,
           isLoading: action.isLoading,
-        },
-      };
-    case SET_CONTACT_CONTROL_MESSAGE:
-      return {
-        ...state,
-        contact: {
-          ...state.contact,
-          [action.name]: {
-            ...state.contact[action.name],
-            controlMessage: action.message,
-          },
-        },
-      };
-    case VALIDATE_CONTACT_EMAIL:
-      return {
-        ...state,
-        contact: {
-          ...state.contact,
-          email: {
-            ...state.contact.email,
-            controlMessage: action.message,
-          },
-        },
-      };
-    case VALIDATE_LENGTH:
-      return {
-        ...state,
-        contact: {
-          ...state.contact,
-          name: {
-            ...state.contact.name,
-            controlMessage: action.message,
-          },
-        },
-      };
-    case VALIDATE_CONTENT_LENGTH:
-      return {
-        ...state,
-        contact: {
-          ...state.contact,
-          content: {
-            ...state.contact.content,
-            controlMessage: action.message,
-          },
         },
       };
     default:

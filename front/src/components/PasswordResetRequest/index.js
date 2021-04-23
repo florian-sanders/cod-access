@@ -1,24 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Proptypes from 'prop-types';
 
+import useFormManager from 'src/hooks/useFormManager';
 import TextField from 'src/components/TextField';
-import Message from 'src/components/Message';
+import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
 
 import './styles.scss';
 
 const PasswordResetRequest = ({
   sendResetPasswordEmail,
-  changeValue,
-  email,
   loading,
-  setControlMessage,
-  validateEmail,
   messageParams,
+  displayMessage,
 }) => {
+  const formManagerConfig = {
+    submitCallback: sendResetPasswordEmail,
+    cannotSubmitCallback: () => displayMessage({
+      type: 'error',
+      message: 'Le formulaire contient des erreurs. Veuillez les corriger avant de soumettre le formulaire.',
+      targetComponent: 'PasswordResetRequest',
+    }),
+    initialFields: {
+      email: {
+        value: '',
+        isRequired: true,
+      },
+    },
+  };
+
+  const formManager = useFormManager(formManagerConfig);
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    sendResetPasswordEmail();
+    formManager.trySubmit();
   };
 
   return (
@@ -36,20 +51,20 @@ const PasswordResetRequest = ({
             id="password-reset-email"
             type="text"
             name="email"
-            label="Renseignez votre e-mail pour recevoir le lien de réinitialisation. (nom@domaine.fr)"
-            value={email.value}
-            message={email.controlMessage}
-            changeValue={changeValue}
-            placeholder="Veuillez renseigner votre e-mail"
-            isMandatory
-            validateInput={validateEmail}
-            setControlMessage={setControlMessage}
             inputClassName="full"
+            label="Renseignez votre e-mail pour recevoir le lien de réinitialisation. (nom@domaine.fr)"
+            placeholder="Veuillez renseigner votre e-mail"
+            isRequired
+            value={formManager.fields.email.value}
+            changeValue={formManager.updateValue}
+            checkIsFilled={formManager.checkIsFilled}
+            checkEmailFormat={formManager.checkEmailFormat}
+            errorMessage={formManager.fieldErrors.email}
           />
           <button
             className="button button--primary passwordreset__form__submit"
             type="submit"
-            disabled={messageParams.targetComponent === 'PasswordResetRequest'}
+            disabled={messageParams.targetComponent === 'PasswordResetRequest' && messageParams.type === 'confirm'}
           >
             <span>Envoyer la demande de réinitialisation</span>
             {
@@ -70,16 +85,11 @@ const PasswordResetRequest = ({
 };
 
 PasswordResetRequest.propTypes = {
+  displayMessage: Proptypes.func.isRequired,
   sendResetPasswordEmail: Proptypes.func.isRequired,
-  changeValue: Proptypes.func.isRequired,
-  email: Proptypes.shape({
-    value: Proptypes.string.isRequired,
-    controlMessage: Proptypes.string.isRequired,
-  }).isRequired,
   loading: Proptypes.bool,
-  setControlMessage: Proptypes.func.isRequired,
-  validateEmail: Proptypes.func.isRequired,
   messageParams: Proptypes.shape({
+    type: Proptypes.string.isRequired,
     targetComponent: Proptypes.string.isRequired,
   }).isRequired,
 };

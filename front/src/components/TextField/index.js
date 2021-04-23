@@ -2,6 +2,10 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import classNames from 'classnames';
 
+/*
+Generic component 
+*/
+
 const TextField = ({
   value,
   changeValue,
@@ -13,23 +17,44 @@ const TextField = ({
   groupClassName,
   labelClassName,
   name,
-  isMandatory,
-  setControlMessage,
-  message,
-  validateInput,
+  errorMessage,
+  isRequired,
+  checkIsFilled,
+  checkEmailFormat,
+  checkLength,
+  requiredLength,
+  checkPasswordConfirm,
   valueToCompare,
 }) => {
   const handleOnBlur = (valueToTest) => {
-    if (isMandatory) {
-      setControlMessage({
-        name,
-        message,
-        value,
+    checkIsFilled({
+      fieldName: name,
+      valueToTest,
+    });
+    if (valueToTest) {
+      checkEmailFormat({
+        fieldName: name,
+        valueToTest,
+      });
+      checkLength({
+        fieldName: name,
+        valueToTest,
+        requiredLength,
+      });
+      checkPasswordConfirm({
+        fieldName: name,
+        passwordConfirm: valueToTest,
+        password: valueToCompare,
       });
     }
-    if (valueToTest) {
-      validateInput({ value, message, valueToCompare });
-    }
+  };
+
+  const handleOnChange = (newValue) => {
+    changeValue({
+      fieldName: name,
+      fieldValue: newValue,
+      isRequired,
+    });
   };
 
   return (
@@ -46,13 +71,9 @@ const TextField = ({
               type={type}
               value={value}
               autoComplete={autocomplete}
+              aria-required={isRequired}
               name={name}
-              onChange={
-                (evt) => changeValue({
-                  value: evt.target.value,
-                  name,
-                })
-              }
+              onChange={(evt) => handleOnChange(evt.target.value)}
               onBlur={(evt) => handleOnBlur(evt.target.value)}
             />
           )
@@ -62,20 +83,16 @@ const TextField = ({
               id={id}
               value={value}
               autoComplete={autocomplete}
+              aria-required={isRequired}
               name={name}
-              onChange={
-                (evt) => changeValue({
-                  value: evt.target.value,
-                  name,
-                })
-              }
+              onChange={(evt) => handleOnChange(evt.target.value)}
               onBlur={(evt) => handleOnBlur(evt.target.value)}
             />
           )
       }
       {
-        message && (
-          <p className="message--warning">{message}</p>
+        errorMessage && (
+          <p className="message--warning">{errorMessage}</p>
         )
       }
     </div>
@@ -91,12 +108,16 @@ TextField.propTypes = {
   name: Proptypes.string.isRequired,
   autocomplete: Proptypes.string,
   groupClassName: Proptypes.string,
-  isMandatory: Proptypes.bool,
-  setControlMessage: Proptypes.func,
-  message: Proptypes.string,
-  validateInput: Proptypes.func,
+  isRequired: Proptypes.bool,
   inputClassName: Proptypes.string,
   labelClassName: Proptypes.string,
+  checkIsFilled: Proptypes.func,
+  checkEmailFormat: Proptypes.func,
+  checkLength: Proptypes.func,
+  requiredLength: Proptypes.number,
+  checkPasswordConfirm: Proptypes.func,
+  valueToCompare: Proptypes.string,
+  errorMessage: Proptypes.string,
 };
 
 TextField.defaultProps = {
@@ -105,11 +126,14 @@ TextField.defaultProps = {
   groupClassName: '',
   inputClassName: '',
   labelClassName: '',
-  isMandatory: false,
-  setControlMessage: () => { },
-  validateInput: () => { },
-  message: '',
-
+  isRequired: false,
+  errorMessage: '',
+  checkIsFilled: () => { },
+  checkEmailFormat: () => { },
+  checkLength: () => { },
+  requiredLength: 0,
+  checkPasswordConfirm: () => { },
+  valueToCompare: '',
 };
 
 export default TextField;

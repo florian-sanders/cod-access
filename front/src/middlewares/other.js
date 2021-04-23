@@ -32,12 +32,11 @@ export default (store) => (next) => async (action) => {
     case TRY_SEND_CONTACT_MESSAGE:
       try {
         store.dispatch(setContactLoading(true));
-        const { other } = store.getState();
 
         const response = await axiosInstance.post('/contact', {
-          name: other.contact.name.value,
-          email: other.contact.email.value,
-          content: other.contact.content.value,
+          name: action.name,
+          email: action.email,
+          content: action.message,
         });
 
         if (response.status !== 200) {

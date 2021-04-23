@@ -1,6 +1,7 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
+import useFormManager from 'src/hooks/useFormManager';
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
 import TextField from 'src/components/TextField';
@@ -8,21 +9,38 @@ import picture from 'src/assets/img/contact-signup.svg';
 import './styles.scss';
 
 const Contact = ({
-  changeValue,
-  name,
-  email,
-  content,
   trySendContactMessage,
   loading,
-  setControlMessage,
-  validateEmail,
-  validateNameLength,
-  validateContentLength,
   messageParams,
+  displayMessage,
 }) => {
+  const formManagerConfig = {
+    submitCallback: trySendContactMessage,
+    cannotSubmitCallback: () => displayMessage({
+      type: 'error',
+      message: 'Le formulaire contient des erreurs. Veuillez les corriger avant de soumettre le formulaire.',
+      targetComponent: 'Contact',
+    }),
+    initialFields: {
+      email: {
+        value: '',
+        isRequired: true,
+      },
+      name: {
+        value: '',
+        isRequired: true,
+      },
+      message: {
+        value: '',
+        isRequired: true,
+      },
+    },
+  };
+  const formManager = useFormManager(formManagerConfig);
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    trySendContactMessage();
+    formManager.trySubmit();
   };
 
   return (
@@ -40,47 +58,49 @@ const Contact = ({
           <TextField
             type="text"
             id="name"
-            value={name.value}
+            inputClassName="full"
+            value={formManager.fields.name.value}
             label="Nom / Prénom"
             name="name"
-            changeValue={changeValue}
-            isMandatory
-            message={name.controlMessage}
-            setControlMessage={setControlMessage}
-            validateInput={validateNameLength}
-            inputClassName="full"
+            changeValue={formManager.updateValue}
+            isRequired
+            errorMessage={formManager.fieldErrors.name}
+            checkLength={formManager.checkLength}
+            requiredLength={2}
+            checkIsFilled={formManager.checkIsFilled}
           />
           <TextField
             type="email"
             id="emailContact"
-            value={email.value}
+            inputClassName="full"
+            value={formManager.fields.email.value}
             label="Adresse e-mail (nom@domaine.fr)"
             name="email"
-            changeValue={changeValue}
-            isMandatory
-            message={email.controlMessage}
-            setControlMessage={setControlMessage}
-            validateInput={validateEmail}
-            inputClassName="full"
+            changeValue={formManager.updateValue}
+            isRequired
+            errorMessage={formManager.fieldErrors.email}
+            checkEmailFormat={formManager.checkEmailFormat}
+            checkIsFilled={formManager.checkIsFilled}
           />
           <TextField
             type="textarea"
             id="content"
-            value={content.value}
-            label="Ecrivez votre message"
-            name="content"
-            changeValue={changeValue}
-            isMandatory
-            message={content.controlMessage}
-            setControlMessage={setControlMessage}
-            validateInput={validateContentLength}
             inputClassName="full"
+            value={formManager.fields.message.value}
+            label="Votre message (10 caractères minimum)"
+            name="message"
+            changeValue={formManager.updateValue}
+            isRequired
+            errorMessage={formManager.fieldErrors.message}
+            checkLength={formManager.checkLength}
+            requiredLength={10}
+            checkIsFilled={formManager.checkIsFilled}
           />
           <div className="contact__content__form__group">
             <button
               className="button button--primary"
               type="submit"
-              disabled={messageParams.targetComponent === 'Contact'}
+              disabled={messageParams.targetComponent === 'Contact' && messageParams.type === 'confirm'}
             >
               <span>Envoyer le message</span>
               {
@@ -102,28 +122,13 @@ const Contact = ({
 };
 
 Contact.propTypes = {
-  name: Proptypes.shape({
-    value: Proptypes.string.isRequired,
-    controlMessage: Proptypes.string.isRequired,
-  }).isRequired,
-  email: Proptypes.shape({
-    value: Proptypes.string.isRequired,
-    controlMessage: Proptypes.string.isRequired,
-  }).isRequired,
-  content: Proptypes.shape({
-    value: Proptypes.string.isRequired,
-    controlMessage: Proptypes.string.isRequired,
-  }).isRequired,
   messageParams: Proptypes.shape({
+    type: Proptypes.string.isRequired,
     targetComponent: Proptypes.string.isRequired,
   }).isRequired,
-  changeValue: Proptypes.func.isRequired,
   trySendContactMessage: Proptypes.func.isRequired,
   loading: Proptypes.bool,
-  setControlMessage: Proptypes.func.isRequired,
-  validateEmail: Proptypes.func.isRequired,
-  validateNameLength: Proptypes.func.isRequired,
-  validateContentLength: Proptypes.func.isRequired,
+  displayMessage: Proptypes.func.isRequired,
 };
 
 Contact.defaultProps = {

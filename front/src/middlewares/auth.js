@@ -14,7 +14,6 @@ import {
   signIn,
   signOut,
   setInfoUser,
-  setSelectedFile,
   setProgressByTheme,
   setSignInLoading,
   setPasswordResetRequestLoading,
@@ -31,11 +30,10 @@ export default (store) => (next) => async (action) => {
     case TRY_SIGN_IN:
       try {
         store.dispatch(setSignInLoading(true));
-        const { auth } = store.getState();
 
         const response = await axiosInstance.post('/signin', {
-          email: auth.signIn.email.value,
-          password: auth.signIn.password.value,
+          email: action.email,
+          password: action.password,
         });
 
         if (response.status !== 200) {
@@ -112,9 +110,8 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case EDIT_PSEUDO_USER:
       try {
-        const { auth } = store.getState();
         const response = await axiosInstance.patch('/profile', {
-          pseudo: auth.settings.newPseudo.value,
+          pseudo: action.pseudo,
         });
 
         if (response.status !== 200) {
@@ -124,7 +121,7 @@ export default (store) => (next) => async (action) => {
         store.dispatch(setMessage({
           type: 'confirm',
           message: 'Votre pseudo a bien été modifié.',
-          targetComponent: 'Settings',
+          targetComponent: 'EditUserPseudoForm',
         }));
 
         store.dispatch(setInfoUser('pseudo', response.data.pseudo));
@@ -134,15 +131,14 @@ export default (store) => (next) => async (action) => {
         store.dispatch(setMessage({
           type: 'error',
           message: 'Une erreur est survenue lors de la modification de votre pseudo.',
-          targetComponent: 'Settings',
+          targetComponent: 'EditUserPseudoForm',
         }));
       }
       return next(action);
     case EDIT_EMAIL_USER:
       try {
-        const { auth } = store.getState();
         const response = await axiosInstance.patch('/profile', {
-          email: auth.settings.newEmail.value,
+          email: action.email,
         });
 
         if (response.status !== 200) {
@@ -152,7 +148,7 @@ export default (store) => (next) => async (action) => {
         store.dispatch(setMessage({
           type: 'confirm',
           message: 'Votre adresse e-mail a bien été modifiée.',
-          targetComponent: 'Settings',
+          targetComponent: 'EditUserEmailForm',
         }));
 
         store.dispatch(setInfoUser('email', response.data.email));
@@ -162,17 +158,16 @@ export default (store) => (next) => async (action) => {
         store.dispatch(setMessage({
           type: 'error',
           message: 'Une erreur est survenue lors de la modification de votre adresse e-mail.',
-          targetComponent: 'Settings',
+          targetComponent: 'EditUserEmailForm',
         }));
       }
       return next(action);
     case EDIT_PASSWORD_USER:
       try {
-        const { auth } = store.getState();
         const response = await axiosInstance.patch('/profile', {
-          password: auth.settings.currentPassword.value,
-          newPassword: auth.settings.newPassword.value,
-          newPasswordConfirm: auth.settings.newPasswordConfirm.value,
+          password: action.currentPassword,
+          newPassword: action.newPassword,
+          newPasswordConfirm: action.newPasswordConfirm,
         });
 
         if (response.status !== 200) {
@@ -182,7 +177,7 @@ export default (store) => (next) => async (action) => {
         store.dispatch(setMessage({
           type: 'confirm',
           message: 'Votre mot de passe a bien été modifié.',
-          targetComponent: 'Settings',
+          targetComponent: 'EditUserPasswordForm',
         }));
       }
       catch (err) {
@@ -190,15 +185,14 @@ export default (store) => (next) => async (action) => {
         store.dispatch(setMessage({
           type: 'error',
           message: 'Une erreur est survenue lors de la modification de votre mot de passe.',
-          targetComponent: 'Settings',
+          targetComponent: 'EditUserPasswordForm',
         }));
       }
       return next(action);
     case UPLOAD_FILE_PROFILE:
       try {
-        const { auth } = store.getState();
         const formData = new FormData();
-        formData.append('profile', auth.settings.selectedFile);
+        formData.append('profile', action.selectedFile);
         const { data, status } = await axiosInstance.post('/upload_client', formData);
 
         if (status !== 200) {
@@ -208,19 +202,17 @@ export default (store) => (next) => async (action) => {
         store.dispatch(setMessage({
           type: 'confirm',
           message: 'Votre image a bien été modifiée.',
-          targetComponent: 'Settings',
+          targetComponent: 'EditUserImageForm',
         }));
 
         store.dispatch(setInfoUser('picturePath', data.myFile.path.substring(6)));
-
-        store.dispatch(setSelectedFile(null));
       }
       catch (err) {
         console.log(err);
         store.dispatch(setMessage({
           type: 'error',
           message: 'Une erreur est survenue lors de la modification de votre image.',
-          targetComponent: 'Settings',
+          targetComponent: 'EditUserImageForm',
         }));
       }
       return next(action);
@@ -255,10 +247,9 @@ export default (store) => (next) => async (action) => {
     case SEND_PASSWORD_RESET_REQUEST:
       try {
         store.dispatch(setPasswordResetRequestLoading(true));
-        const { auth } = store.getState();
 
         const response = await axiosInstance.post('/forget', {
-          email: auth.passwordReset.email.value,
+          email: action.email,
         });
 
         if (response.status !== 200) {
@@ -282,15 +273,14 @@ export default (store) => (next) => async (action) => {
     case SAVE_NEW_PASSWORD:
       try {
         store.dispatch(setPasswordResetRequestLoading(true));
-        const { auth } = store.getState();
 
         const response = await axiosInstance.patch('/forget',
           {
-            password: auth.passwordReset.password.value,
-            passwordConfirm: auth.passwordReset.passwordConfirm.value,
+            password: action.password,
+            passwordConfirm: action.passwordConfirm,
           },
           {
-            headers: { Authorization: `Bearer ${action.newToken}` },
+            headers: { Authorization: `Bearer ${action.token}` },
           });
 
         if (response.status !== 200) {

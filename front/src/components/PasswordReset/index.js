@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
+import useFormManager from 'src/hooks/useFormManager';
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
 import TextField from 'src/components/TextField';
@@ -9,21 +10,37 @@ import './styles.scss';
 
 const PasswordReset = ({
   saveNewPassword,
-  changeValue,
-  password,
-  passwordConfirm,
-  setControlMessage,
-  validatePassword,
-  comparePasswordResetConfirm,
   loading,
   messageParams,
+  displayMessage,
 }) => {
   const { token } = useParams();
+  const formManagerConfig = {
+    submitCallback: (fields) => saveNewPassword({
+      token: token.replace(/\$/g, '.'),
+      ...fields,
+    }),
+    cannotSubmitCallback: () => displayMessage({
+      type: 'error',
+      message: 'Le formulaire contient des erreurs. Veuillez les corriger avant de soumettre le formulaire.',
+      targetComponent: 'PasswordReset',
+    }),
+    initialFields: {
+      password: {
+        value: '',
+        isRequired: true,
+      },
+      passwordConfirm: {
+        value: '',
+        isRequired: true,
+      },
+    },
+  };
+  const formManager = useFormManager(formManagerConfig);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const newToken = token.replace(/\$/g, '.');
-    saveNewPassword(newToken);
+    formManager.trySubmit();
   };
 
   return (
@@ -42,34 +59,35 @@ const PasswordReset = ({
             type="password"
             name="password"
             label="Saisissez votre nouveau mot de passe"
-            value={password.value}
-            message={password.controlMessage}
-            changeValue={changeValue}
-            placeholder="Veuillez renseigner votre nouveau mot de passe"
-            isMandatory
-            validateInput={validatePassword}
-            setControlMessage={setControlMessage}
             inputClassName="full"
+            placeholder="Veuillez renseigner votre nouveau mot de passe"
+            isRequired
+            value={formManager.fields.password.value}
+            errorMessage={formManager.fieldErrors.password}
+            checkIsFilled={formManager.checkIsFilled}
+            checkLength={formManager.checkLength}
+            requiredLength={6}
+            changeValue={formManager.updateValue}
           />
           <TextField
             id="password-reset-password-confirm"
             type="password"
             name="passwordConfirm"
             label="Saisissez à nouveau votre mot de passe"
-            value={passwordConfirm.value}
-            message={passwordConfirm.controlMessage}
-            changeValue={changeValue}
             placeholder="Veuillez confirmer votre nouveau mot de passe"
-            isMandatory
-            setControlMessage={setControlMessage}
-            validateInput={comparePasswordResetConfirm}
-            valueToCompare={password.value}
+            isRequired
             inputClassName="full"
+            value={formManager.fields.passwordConfirm.value}
+            errorMessage={formManager.fieldErrors.passwordConfirm}
+            checkIsFilled={formManager.checkIsFilled}
+            changeValue={formManager.updateValue}
+            checkPasswordConfirm={formManager.checkPasswordConfirm}
+            valueToCompare={formManager.fields.password.value}
           />
           <button
             className="button button--primary passwordreset__form__submit"
             type="submit"
-            disabled={messageParams.targetComponent === 'PasswordReset'}
+            disabled={messageParams.targetComponent === 'PasswordReset' && messageParams.type === 'confirm'}
           >
             <span>Envoyer la demande de réinitialisation</span>
             {
@@ -90,24 +108,15 @@ const PasswordReset = ({
 };
 
 PasswordReset.propTypes = {
-  changeValue: Proptypes.func.isRequired,
   saveNewPassword: Proptypes.func.isRequired,
-  password: Proptypes.shape({
-    value: Proptypes.string.isRequired,
-    controlMessage: Proptypes.string.isRequired,
-  }).isRequired,
-  passwordConfirm: Proptypes.shape({
-    value: Proptypes.string.isRequired,
-    controlMessage: Proptypes.string.isRequired,
-  }).isRequired,
   loading: Proptypes.bool,
-  setControlMessage: Proptypes.func.isRequired,
-  validatePassword: Proptypes.func.isRequired,
-  comparePasswordResetConfirm: Proptypes.func.isRequired,
   messageParams: Proptypes.shape({
+    type: Proptypes.string.isRequired,
     targetComponent: Proptypes.string.isRequired,
   }).isRequired,
+  displayMessage: Proptypes.func.isRequired,
 };
+
 PasswordReset.defaultProps = {
   loading: false,
 };
