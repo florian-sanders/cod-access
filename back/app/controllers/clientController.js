@@ -213,7 +213,7 @@ module.exports = {
         }
     },
 
-    updateImageClient: async (req, res, next) => {
+    addImageToClient: async (req, res, next) => {
         try{
             const clientId = Number(req.user.clientId);
             const myFile = req.file;
