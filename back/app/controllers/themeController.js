@@ -1,12 +1,15 @@
-const { Theme, Exercise, Client } = require('../models');
+const { Theme, Client } = require('../models');
 
+/**
+ * @module themeController
+ */
 module.exports = {
 
     getAllThemesForExercises: async (req, res, next) => {
         try{
-            let myClient = null;
+            let clientId = null;
             if (req.user) {
-                myClient = req.user.clientId
+                clientId = req.user.clientId
             }
             const themes = await Theme.findAll({
                 include: [
@@ -16,7 +19,7 @@ module.exports = {
                         attributes: { exclude: ['brief', 'published', 'exercise_theme'] },
                         include: [ 
                             {
-                                model: Client, as: 'clients', where: { id: myClient },
+                                model: Client, as: 'clients', where: { id: clientId },
                                 required: false,
                                 attributes: { exclude: ['password', 'responsibility_id', 'picture_id'] },
                             },
@@ -36,9 +39,9 @@ module.exports = {
 
     getAllThemes: async (req, res, next) => {
         try{
-            const theme = await Theme.findAll();
+            const themes = await Theme.findAll();
             return res.status(200).json(
-            theme
+            themes
             );
 
         } catch(error) {
@@ -49,9 +52,9 @@ module.exports = {
     
     getScoreByTheme: async (req, res, next) => {
         try{
-            let myClient = null;
+            let clientId = null;
             if (req.user) {
-                myClient = req.user.clientId
+                clientId = req.user.clientId
             }
             const themes = await Theme.findAll({
                 include: [
@@ -61,7 +64,7 @@ module.exports = {
                         attributes: { exclude: ['brief', 'published', 'exercise_theme'] },
                         include: [ 
                             {   
-                                model: Client, as: 'clients', where: { id: myClient },
+                                model: Client, as: 'clients', where: { id: clientId },
                                 required: false,
                                 attributes: { exclude: ['password', 'responsibility_id', 'picture_id'] },
                             },
@@ -84,7 +87,6 @@ module.exports = {
                 const progress = Math.round((exerciseComplete/numberOfExercises)*100) 
                 progressUser.push({theme: theme.name, color: theme.color, progress: progress})
             }
-            console.log('progressUser', progressUser)
             return res.status(200).json(
                 progressUser
             );

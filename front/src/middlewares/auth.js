@@ -37,6 +37,7 @@ export default (store) => (next) => async (action) => {
         });
 
         if (response.status !== 200) {
+          console.log("erreur")
           throw new Error();
         }
 
@@ -191,11 +192,11 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case UPLOAD_FILE_PROFILE:
       try {
-        const formData = new FormData();
-        formData.append('profile', action.selectedFile);
-        const { data, status } = await axiosInstance.post('/upload_client', formData);
+        const data = new FormData();
+        data.append('profile', action.selectedFile);
+        const response = await axiosInstance.post('/upload_client', data);
 
-        if (status !== 200) {
+        if (reponse.status !== 200) {
           throw new Error();
         }
 
@@ -205,7 +206,7 @@ export default (store) => (next) => async (action) => {
           targetComponent: 'EditUserImageForm',
         }));
 
-        store.dispatch(setInfoUser('picturePath', data.myFile.path.substring(6)));
+        store.dispatch(setInfoUser('picturePath', response.data.picturePath));
       }
       catch (err) {
         console.log(err);

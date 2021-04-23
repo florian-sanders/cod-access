@@ -5,7 +5,9 @@ import useFormManager from 'src/hooks/useFormManager';
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
 import TextField from 'src/components/TextField';
+
 import picture from 'src/assets/img/contact-signup.svg';
+
 import './styles.scss';
 
 const Contact = ({
@@ -42,12 +44,12 @@ const Contact = ({
     evt.preventDefault();
     formManager.trySubmit();
   };
-
+  
   return (
     <div className="contact wave-double-bottom">
-      <h1 className="title-h1 center">Contactez-nous</h1>
+      <img className="contact__illustration" src={picture} alt="" />
       <div className="contact__content">
-        <img className="contact__content__illustration" src={picture} alt="" />
+        <h1 className="title-h1 center contact__content__title">Contactez-nous</h1>
         <form action="" method="get" className="contact__content__form" onSubmit={handleSubmit}>
           {
             messageParams.targetComponent === 'Contact'

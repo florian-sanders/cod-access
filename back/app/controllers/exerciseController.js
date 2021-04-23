@@ -1,4 +1,6 @@
+// must be deleted ?
 const { ClientBase } = require('pg');
+
 const {
     Exercise,
     Client,
@@ -6,15 +8,19 @@ const {
     Question,
     Possible_answer,
     Theme,
+    Picture,
 } = require('../models');
 
+/**
+ * @module exerciseController
+ */
 module.exports = {
 
     getAllExercisesWithScore: async (req, res, next) => {
         try {
-            let myClient = null;
+            let clientId = null;
             if (req.user) {
-                myClient = req.user.clientId
+                clientId = req.user.clientId
             }
             const exercises = await Exercise.findAndCountAll({
                 where: {
@@ -25,14 +31,13 @@ module.exports = {
                     {
                         association: 'clients',
                         where: {
-                            id: myClient,
+                            id: clientId,
                         },
                         required: false,
                         attributes: { exclude: ['password', 'email', 'pseudo', 'responsibility_id', 'picture_id'] },
                     }
                 ]
             });
-            console.log('exercises', exercises);
             return res.status(200).json(
                 exercises
             );
@@ -52,7 +57,6 @@ module.exports = {
                 offset: page * limit,
                 limit: limit,
             });
-            console.log('exercises', exercises);
             return res.status(200).json(
                 exercises
             );
@@ -64,14 +68,16 @@ module.exports = {
 
     getOneExerciseVisitor: async (req, res, next) => {
         try {
-            let myClient = null;
+            let clientId = null;
             if (req.user) {
-                myClient = req.user.clientId
+                clientId = req.user.clientId
             }
+            /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const exercise = await Exercise.findByPk(id, {
@@ -89,11 +95,10 @@ module.exports = {
                             'question_picture'
                         ],
                     },
-                    { model: Client, as: 'clients', where: { id: myClient }, required: false }
+                    { model: Client, as: 'clients', where: { id: clientId }, required: false }
                 ],
 
             });
-            console.log('exercise', exercise);
             return res.status(200).json(
                 exercise
             );
@@ -105,10 +110,12 @@ module.exports = {
 
     getOneExerciseAdmin: async (req, res, next) => {
         try {
+            /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const exercise = await Exercise.findByPk(id, {
@@ -133,26 +140,28 @@ module.exports = {
 
     changeExercise: async (req, res, next) => {
         try {
-            const data = req.body;
+            const dataExercise = req.body;
+            /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
+                return res.status(406).json({
+                    errorType: 406,
                     error: `the provided id must be a number`
                 });
             }
-            const result = await Exercise.findByPk(id);
-            if (data.published) {
-                data.published = Boolean(data.published);
+            const exercise = await Exercise.findByPk(id);
+            if (dataExercise.published) {
+                dataExercise.published = Boolean(dataExercise.published);
             } else {
-                data.published = false
+                dataExercise.published = false
             }
-            for (const properties in data) {
-                if (typeof result[properties] !== 'undefined') {
-                    result[properties] = data[properties];
+            for (const properties in dataExercise) {
+                if (typeof exercise[properties] !== 'undefined') {
+                    exercise[properties] = dataExercise[properties];
                 }
             }
-            await result.save();
-            return res.status(200).json(result);
+            await exercise.save();
+            return res.status(200).json(exercise);
 
         } catch (error) {
             console.error(error);
@@ -162,17 +171,20 @@ module.exports = {
 
     deleteOneExercise: async (req, res, next) => {
         try {
+            /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const exercise = await Exercise.findByPk(id);
 
             if (!exercise) {
                 return res.status(404).json({
-                    error: 'no exercise',
+                    errorType: 404,
+                    message: 'miss exercise',
                 });
             }
             await exercise.destroy({
@@ -183,11 +195,10 @@ module.exports = {
                     },
                 ],
             });
-            return res.json({ message: 'exercise delete' });
+            return res.json({ message: 'exercise deleted' });
         } catch (error) {
-            return res.status(500).json({
-                error: error.message,
-            });
+            console.error(error);
+            return res.status(500);
         }
     },
 
@@ -202,7 +213,6 @@ module.exports = {
                 picture_id: Number(req.body.picture_id),
             });
             await newExercise.save();
-            console.log('200 ok');
             return res.status(200).json(newExercise);
 
         } catch (error) {
@@ -213,10 +223,12 @@ module.exports = {
 
     newQuestion: async (req, res, next) => {
         try {
+            /** @name id - id of exercise */
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             if (req.body.picture_id) {
@@ -232,7 +244,6 @@ module.exports = {
                 picture_id: req.body.picture_id,
             });
             await newQuestion.save();
-            console.log('200 ok');
             return res.status(200).json(newQuestion);
 
         } catch (error) {
@@ -243,27 +254,28 @@ module.exports = {
 
     changeQuestion: async (req, res, next) => {
         try {
-            const data = req.body;
-            if (data.picture_id) {
-                data.picture_id = Number(data.picture_id);
+            const dataQuestion = req.body;
+            if (dataQuestion.picture_id) {
+                dataQuestion.picture_id = Number(dataQuestion.picture_id);
             } else {
-                data.picture_id = null
+                dataQuestion.picture_id = null
             }
+            /** @name id - id of question */
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
-            const result = await Question.findByPk(id);
-            for (const properties in data) {
-                if (typeof result[properties] !== 'undefined') {
-                    result[properties] = data[properties];
+            const question = await Question.findByPk(id);
+            for (const properties in dataQuestion) {
+                if (typeof question[properties] !== 'undefined') {
+                    question[properties] = dataQuestion[properties];
                 }
             }
-            await result.save();
-            console.log('200 ok', result);
-            return res.status(200).json(result);
+            await question.save();
+            return res.status(200).json(question);
 
         } catch (error) {
             console.error(error);
@@ -273,17 +285,20 @@ module.exports = {
 
     deleteQuestion: async (req, res, next) => {
         try {
+            /** @name id - id of question */
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const question = await Question.findByPk(id);
 
             if (!question) {
-                return res.status(400).json({
-                    error: 'Question does not exist'
+                return res.status(404).json({
+                    errorType: 404,
+                    message: 'question does not exist'
                 });
             }
             await question.destroy({
@@ -292,7 +307,7 @@ module.exports = {
                     'question_picture'
                 ],
             });
-            return res.json({ message: 'question delete' });
+            return res.json({ message: 'question deleted' });
 
         } catch (error) {
             console.error(error);
@@ -302,10 +317,12 @@ module.exports = {
 
     newAnswer: async (req, res, next) => {
         try {
+            /** @name id - id of question */
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const newAnswer = new Possible_answer({
@@ -314,7 +331,6 @@ module.exports = {
                 question_id: id,
             });
             await newAnswer.save();
-            console.log('200 ok');
             return res.status(200).json(newAnswer);
 
         } catch (error) {
@@ -325,23 +341,24 @@ module.exports = {
 
     changeAnswer: async (req, res, next) => {
         try {
-            const data = req.body;
-            data.correct = Boolean(data.correct)
+            const dataAnswer = req.body;
+            dataAnswer.correct = Boolean(dataAnswer.correct)
+            /** @name id - id of answer */
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
-            const result = await Possible_answer.findByPk(id);
-            for (const properties in data) {
-                if (typeof result[properties] !== 'undefined') {
-                    result[properties] = data[properties];
+            const answer = await Possible_answer.findByPk(id);
+            for (const properties in dataAnswer) {
+                if (typeof answer[properties] !== 'undefined') {
+                    answer[properties] = dataAnswer[properties];
                 }
             }
-            await result.save();
-            console.log('200 ok', result);
-            return res.status(200).json(result);
+            await answer.save();
+            return res.status(200).json(answer);
 
         } catch (error) {
             console.error(error);
@@ -351,17 +368,20 @@ module.exports = {
 
     deleteAnswer: async (req, res, next) => {
         try {
+            /** @name id - id of answer */
             const id = Number(req.params.id);
             if (isNaN(id)) {
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
             const answer = await Possible_answer.findByPk(id);
 
             if (!answer) {
-                return res.status(400).json({
-                    error: 'Answer does not exist'
+                return res.status(404).json({
+                    errorType: 404,
+                    message: 'answer does not exist'
                 });
             }
             await answer.destroy();
@@ -375,26 +395,26 @@ module.exports = {
 
     associate_exercise_theme: async (req, res, next) => {
         try {
-            const id_exercise = Number(req.body.exercise_id)
-            const id_theme = Number(req.body.theme_id)
-            if ((id_exercise || id_theme) === null) {
+            const exerciseId = Number(req.body.exercise_id)
+            const themeId = Number(req.body.theme_id)
+            if ((exerciseId || themeId) === null) {
                 return res.status(406).json({
-                    error: `need exercise_id and theme_id`
+                    errorType: 406,
+                    message: `need exercise_id and theme_id`
                 });
             }
-            let exercise = await Exercise.findByPk(id_exercise);
-            let theme = await Theme.findByPk(id_theme)
+            let exercise = await Exercise.findByPk(exerciseId);
+            let theme = await Theme.findByPk(themeId)
             if (!exercise || !theme) {
                 return res.status(406).json({
-                    error: `need exercise and theme`
+                    errorType: 406,
+                    message: `need exercise and theme`
                 });
             }
             await exercise.addTheme(theme);
-            exercise = await Exercise.findByPk(id_exercise, {
+            exercise = await Exercise.findByPk(exerciseId, {
                 include: 'themes'
             })
-            console.log('200 ok', exercise);
-
             return res.status(200).json(exercise);
 
         } catch (error) {
@@ -405,22 +425,24 @@ module.exports = {
 
     delete_exercise_theme: async (req, res, next) => {
         try {
-            const id_exercise = Number(req.body.exercise_id)
-            const id_theme = Number(req.body.theme_id)
-            if ((id_exercise || id_theme) === null) {
+            const exerciseId = Number(req.body.exercise_id)
+            const themeId = Number(req.body.theme_id)
+            if ((exerciseId || themeId) === null) {
                 return res.status(406).json({
-                    error: `need exercise_id and theme_id`
+                    errorType: 406,
+                    message: `need exercise_id and theme_id`
                 });
             }
-            let exercise = await Exercise.findByPk(id_exercise);
-            let theme = await Theme.findByPk(id_theme)
+            let exercise = await Exercise.findByPk(exerciseId);
+            let theme = await Theme.findByPk(themeId)
             if (!exercise || !theme) {
                 return res.status(406).json({
-                    error: `need exercise and theme`
+                    errorType: 406,
+                    message: `need exercise and theme`
                 });
             }
             await exercise.removeTheme(theme);
-            exercise = await Exercise.findByPk(id_exercise, {
+            exercise = await Exercise.findByPk(exerciseId, {
                 include: 'themes'
             })
             return res.status(200).json(exercise);
@@ -433,15 +455,15 @@ module.exports = {
 
     submitExercise: async (req, res, next) => {
         try {
-            const id_exercise = Number(req.params.id);
-            if (isNaN(id_exercise)) {
-                console.log('not id')
-                return res.status(400).json({
-                    error: `the provided id must be a number`
+            const exerciseId = Number(req.params.id);
+            if (isNaN(exerciseId)) {
+                return res.status(406).json({
+                    errorType: 406,
+                    message: `the provided id must be a number`
                 });
             }
 
-            const exercise = await Exercise.findByPk(id_exercise, {
+            const exercise = await Exercise.findByPk(exerciseId, {
                 include: [
                     'clients',
                     {
@@ -470,55 +492,51 @@ module.exports = {
                 const userAnswers = req.body.find((userData) => userData.questionId === question.id).answers;
                 const countUserAnswers = userAnswers.reduce(reducer);
                 const countRightAnswers = question.rightAnswers.reduce(reducer);
-                // console.log('countUA', countUserAnswers);
-                // console.log('countRA', countRightAnswers);
                 if (countUserAnswers === countRightAnswers) {
                     successfulQuestions.push(question.id);
                 }
             }
-            const rightAnswers = correction.map((question) => question.rightAnswers).flat();
             const scoreResult = Math.round((successfulQuestions.length / exercise.questions.length) * 100)
             if (req.user) {
-                const id_client = req.user.clientId
-                const client = await Client.findByPk(id_client, {
+                const clientId = req.user.clientId
+                const client = await Client.findByPk(clientId, {
                     include: [{ model: Exercise, as: 'exercises', where: { id: exercise.id }, required: false }],
                 })
 
+                //If user never played this exercise, i can directly save his score
                 if (!client.exercises[0]) {
-                    console.log('never played i have to save');
-                    // await client.addExercise(exercise);
                     const result = new Client_exercise({
                         score: scoreResult,
-                        client_id: id_client,
-                        exercise_id: id_exercise
+                        client_id: clientId,
+                        exercise_id: exerciseId
                     })
                     await result.save()
-                    console.log('first play', result)
+                    //return the result for his first play
                     return res.status(200).json({
-                        message: `client finish with score: ${scoreResult}`,
+                        message: `user finish with score: ${scoreResult}`,
                         correction,
                         scoreResult
                     });
 
                 } else {
-                    console.log('played already i have to update');
+                    //if user has already played this exercise, we need to compare last and new scores
                     const oldScore = client.exercises[0].Client_exercise.score
                     if (oldScore === null || oldScore < scoreResult) {
                         const updateScore = await Client_exercise.findOne({
-                            where: { client_id: id_client, exercise_id: id_exercise }
+                            where: { client_id: clientId, exercise_id: exerciseId }
                         })
+                        //the new score is the best, we save it and return
                         await updateScore.update({ score: scoreResult })
-                        console.log('already played and update because better score', oldScore, updateScore)
                         return res.status(200).json({
-                            message: `client finish with score: ${scoreResult}`,
+                            message: `user finish with score: ${scoreResult}`,
                             correction,
                             explanation,
                         });
 
                     } else {
-                        console.log('older score was better im doing nothing')
+                        //the new score is NOT the best, we DON'T save it and we return
                         return res.status(200).json({
-                            message: `client finish with score: ${scoreResult}`,
+                            message: `user finish with score: ${scoreResult}`,
                             correction,
                             scoreResult,
                         });
@@ -526,9 +544,9 @@ module.exports = {
                 }
             };
 
-            console.log('score du user sans co', scoreResult);
+            //the user is not connecting, we return the score without saving it
             return res.status(200).json({
-                message: `client finish with score: ${scoreResult}`,
+                message: `user finish with score: ${scoreResult}`,
                 correction,
                 scoreResult,
             });
@@ -538,4 +556,35 @@ module.exports = {
             return res.status(500);
         }
     },
+
+    addImageToQuestion: async (req, res, next) => {
+        try{
+            const questionId = Number(req.body.question_id);
+            const myFile = req.file;
+            const pathPicture = myFile.path.substring(6);
+            const picture = new Picture({
+                name: myFile.filename,
+                path: pathPicture,
+                alternative: req.body.alternative,
+            })
+        
+            picture.save().then(result => {
+                Question.findByPk(questionId, {
+                include: 'question_picture'
+                }).then(question => {
+                    question.update({ picture_id: result.id })
+                    return res.status(200).json(
+                        {
+                            pictureId: result.id,
+                            picturePath: result.path,
+                            pictureAlt: result.alternative
+                        }
+                    );
+                })
+            })
+        } catch (error) {
+            console.error(error);
+            return res.status(500);
+        }
+    }
 }

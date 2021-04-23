@@ -4,15 +4,15 @@ const express = require('express');
 const router = require('./app/router');
 const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+
+// must be deleted
+// const bodyParser = require('body-parser');
 
 const app = express();
 
 const port = process.env.PORT || 5000;
 
-// used by swagger (old version before jsdoc)
-const pathToSwaggerUi = require('swagger-ui-dist').absolutePath();
-// used by swagger (new version)
+// used by swagger
 const expressSwagger = require('express-swagger-generator')(app);
 
 // to use swagger: http://localhost(host):${port}/api-docs
@@ -33,7 +33,7 @@ const csrfProtection = csrf({
 app.use(csrfProtection);
 
 // must delete this line?
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -46,9 +46,6 @@ app.use((req, res, next) => {
     else 
         return next();
 });
-
-// express static used by swagger (old version before jsdoc)
-app.use("/api/swagger", express.static(pathToSwaggerUi));
 
 // road in router
 app.use('/api', router);
