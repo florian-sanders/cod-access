@@ -49,6 +49,17 @@ module.exports = {
             return res.status(500);
         }
     },
+
+    getAllThemesTest: async (req, res, next) => {
+        try{
+            const themes = await Theme.findAll();
+            return themes
+
+        } catch(error) {
+            console.error(error);
+            return res.status(500);
+        }
+    },
     
     getScoreByTheme: async (req, res, next) => {
         try{
