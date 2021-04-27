@@ -1,30 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import TextField from 'src/components/TextField';
+import useFormManager from 'src/hooks/useFormManager';
 import picture from 'src/assets/img/contact-signup.svg';
 import Message from 'src/containers/Message';
 import CircleLoader from 'src/components/CircleLoader';
-import FieldGroup from './FieldGroup';
 
 import './styles.scss';
 
 const SignUp = ({
-  changeField,
-  email,
-  pseudo,
-  password,
-  passwordConfirm,
   trySignUp,
   loading,
-  setControlMessage,
-  validateEmail,
-  testPasswordStrength,
-  comparePasswordConfirm,
   messageParams,
+  displayMessage,
 }) => {
+  const formManagerConfig = {
+    submitCallback: trySignUp,
+    cannotSubmitCallback: () => displayMessage({
+      type: 'error',
+      message: 'Le formulaire contient des erreurs. Veuillez les corriger avant de soumettre le formulaire.',
+      targetComponent: 'SignUp',
+    }),
+    initialFields: {
+      email: {
+        value: '',
+        isRequired: true,
+      },
+      pseudo: {
+        value: '',
+        isRequired: true,
+      },
+      password: {
+        value: '',
+        isRequired: true,
+      },
+      passwordConfirm: {
+        value: '',
+        isRequired: true,
+      },
+    },
+  };
+  const formManager = useFormManager(formManagerConfig);
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    trySignUp();
+    formManager.trySubmit();
   };
+
   return (
     <div className="signup wave-double-bottom">
       <img className="signup__illustration" src={picture} alt="" />
@@ -37,56 +60,62 @@ const SignUp = ({
               <Message {...messageParams} />
             )
           }
-          <FieldGroup
+          <TextField
             type="email"
             id="email"
-            value={email.value}
+            inputClassName="full"
+            value={formManager.fields.email.value}
             label="Adresse e-mail (nom@domaine.fr)"
             name="email"
-            onChange={changeField}
-            isMandatory
-            message={email.controlMessage}
-            setControlMessage={setControlMessage}
-            validateInput={validateEmail}
+            changeValue={formManager.updateValue}
+            isRequired
+            errorMessage={formManager.fieldErrors.email}
+            checkEmailFormat={formManager.checkEmailFormat}
+            checkIsFilled={formManager.checkIsFilled}
           />
-          <FieldGroup
+          <TextField
             type="text"
             id="pseudo"
-            value={pseudo.value}
+            inputClassName="full"
+            value={formManager.fields.pseudo.value}
             label="Pseudo"
             name="pseudo"
-            onChange={changeField}
-            isMandatory
-            message={pseudo.controlMessage}
-            setControlMessage={setControlMessage}
+            changeValue={formManager.updateValue}
+            isRequired
+            errorMessage={formManager.fieldErrors.pseudo}
+            checkIsFilled={formManager.checkIsFilled}
           />
-          <FieldGroup
+          <TextField
             type="password"
             id="password"
-            value={password.value}
+            inputClassName="full"
+            value={formManager.fields.password.value}
             label="Mot de passe"
             name="password"
-            onChange={changeField}
-            isMandatory
-            message={password.controlMessage}
-            setControlMessage={setControlMessage}
-            validateInput={testPasswordStrength}
+            changeValue={formManager.updateValue}
+            isRequired
+            errorMessage={formManager.fieldErrors.password}
+            checkLength={formManager.checkLength}
+            requiredLength={6}
+            checkIsFilled={formManager.checkIsFilled}
           />
-          <FieldGroup
+          <TextField
             type="password"
             id="password_confirm"
-            value={passwordConfirm.value}
+            inputClassName="full"
+            value={formManager.fields.passwordConfirm.value}
             label="Confirmez votre mot de passe"
             name="passwordConfirm"
-            onChange={changeField}
-            isMandatory
-            message={passwordConfirm.controlMessage}
-            setControlMessage={setControlMessage}
-            validateInput={comparePasswordConfirm}
+            changeValue={formManager.updateValue}
+            isRequired
+            errorMessage={formManager.fieldErrors.passwordConfirm}
+            checkPasswordConfirm={formManager.checkPasswordConfirm}
+            valueToCompare={formManager.fields.password.value}
+            checkIsFilled={formManager.checkIsFilled}
           />
           <div className="signup__content__form__group">
             <button
-              className="button--primary signup__content__form__group__submit"
+              className="button button--primary signup__content__form__group__submit"
               type="submit"
             >
               <span>S'enregistrer</span>
@@ -109,33 +138,12 @@ const SignUp = ({
 };
 
 SignUp.propTypes = {
-  email: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    controlMessage: PropTypes.string.isRequired,
-  }).isRequired,
-  pseudo: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    controlMessage: PropTypes.string.isRequired,
-  }).isRequired,
-  password: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    controlMessage: PropTypes.string.isRequired,
-  }).isRequired,
-  passwordConfirm: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    controlMessage: PropTypes.string.isRequired,
-  }).isRequired,
-  changeField: PropTypes.func.isRequired,
   trySignUp: PropTypes.func.isRequired,
   loading: PropTypes.bool,
-  isSignedUp: PropTypes.bool.isRequired,
-  setControlMessage: PropTypes.func.isRequired,
-  validateEmail: PropTypes.func.isRequired,
-  testPasswordStrength: PropTypes.func.isRequired,
   messageParams: PropTypes.shape({
     targetComponent: PropTypes.string.isRequired,
   }).isRequired,
-  comparePasswordConfirm: PropTypes.func.isRequired,
+  displayMessage: PropTypes.func.isRequired,
 };
 
 SignUp.defaultProps = {

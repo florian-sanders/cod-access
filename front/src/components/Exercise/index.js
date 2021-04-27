@@ -91,7 +91,7 @@ const Exercise = ({
           {
             currentQuestionIndex > 0 && (
               <button
-                className="button--secondary"
+                className="button button--secondary"
                 type="button"
                 onClick={() => changeQuestion(currentQuestionIndex - 1)}
                 disabled={resultsLoading}
@@ -110,7 +110,7 @@ const Exercise = ({
                     : ''
                 }
                 disabled={!questions[currentQuestionIndex].userAnswers.length}
-                className="exercise-section__navigation__submit button--primary"
+                className="exercise-section__navigation__submit button button--primary"
                 type="button"
                 onClick={
                   () => changeQuestion(currentQuestionIndex + 1)
@@ -129,7 +129,7 @@ const Exercise = ({
                     ? 'Veuillez renseigner une réponse'
                     : ''
                 }
-                className="button--primary"
+                className="button button--primary"
                 type="button"
                 disabled={!questions[currentQuestionIndex].userAnswers.length || resultsLoading}
                 onClick={submitAnswers}
@@ -155,7 +155,7 @@ const Exercise = ({
           {
             isCorrected
             && (currentQuestionIndex === questions.length - 1) && (
-              <Link to="/challenges" className="button--primary">
+              <Link to="/challenges" className="button button--primary">
                 Retourner à la liste des challenges
               </Link>
             )

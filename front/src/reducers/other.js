@@ -7,6 +7,7 @@ import {
   UNSET_MESSAGE,
   SET_APP_LOADING,
   SET_MOBILE_MENU_VISIBILITY,
+  SET_CONTACT_LOADING,
 } from 'src/actions/other';
 
 const initialState = {
@@ -14,6 +15,9 @@ const initialState = {
   themes: {
     loading: true,
     data: [],
+  },
+  contact: {
+    isLoading: false,
   },
   appLoading: false,
   modalConfirmParams: {
@@ -32,6 +36,7 @@ const initialState = {
   messageParams: {
     type: '',
     message: '',
+    canBeClosed: true,
     targetComponent: '',
   },
 };
@@ -89,6 +94,14 @@ const other = (state = initialState, action = {}) => {
       return {
         ...state,
         appLoading: action.loading,
+      };
+    case SET_CONTACT_LOADING:
+      return {
+        ...state,
+        contact: {
+          ...state.contact,
+          isLoading: action.isLoading,
+        },
       };
     default:
       return state;

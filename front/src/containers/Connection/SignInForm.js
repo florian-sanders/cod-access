@@ -1,26 +1,18 @@
 import { connect } from 'react-redux';
 import SignInForm from 'src/components/Connection/SignInForm';
 
-import {
-  trySignIn,
-  setSignInFieldValue,
-  setSignInControlMessage,
-  validateSignInEmail,
-} from 'src/actions/auth';
+import { trySignIn } from 'src/actions/auth';
+
+import { setMessage } from 'src/actions/other';
 
 const mapStateToProps = ({ other, auth }) => ({
   messageParams: other.messageParams,
-  loading: auth.loading,
-  email: auth.email,
-  password: auth.password,
+  loading: auth.signIn.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  trySignIn: () => dispatch(trySignIn()),
-  changeValue: ({ value, name }) => dispatch(setSignInFieldValue({ value, name })),
-  checkEmptyField:
-  (controlMessageInfo) => dispatch(setSignInControlMessage(controlMessageInfo)),
-  validateInput: ({ message, value }) => dispatch(validateSignInEmail({ message, email: value })),
+  trySignIn: (signInInfo) => dispatch(trySignIn(signInInfo)),
+  displayMessage: (messageParams) => dispatch(setMessage(messageParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInForm);
