@@ -24,10 +24,11 @@
   }
 
   &__buttons{
-    text-align: right;
+    display: flex;
   }
 }
 
 .to--right {
   float: right;
+  margin: 0;
 }
