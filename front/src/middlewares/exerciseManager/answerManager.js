@@ -2,7 +2,6 @@ import {
   POST_ANSWER_MANAGER,
   PATCH_ANSWER_MANAGER,
   DELETE_ANSWER_MANAGER,
-  setAnswerManagerLoading,
   setAnswerManagerError,
   setAnswerManager,
   unsetAnswerManager,
@@ -58,10 +57,10 @@ export default (store) => (next) => async (action) => {
         } = store.getState();
 
         const thisAnswer = possibleAnswers.find((answer) => answer.id === action.answerId);
-
+        console.log(action);
         const { status } = await axiosInstance.patch(`/admin/exercises/new_answer/${action.answerId}`, {
           content: thisAnswer.content,
-          correct: !thisAnswer.correct,
+          correct: action.name === 'correct' ? action.value : thisAnswer.correct,
         });
 
         if (status !== 200) {

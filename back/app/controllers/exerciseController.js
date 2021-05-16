@@ -150,7 +150,7 @@ module.exports = {
             }
             const exercise = await Exercise.findByPk(id);
             if (dataExercise.published) {
-                dataExercise.published = Boolean(dataExercise.published);
+                dataExercise.published = JSON.parse(dataExercise.published.toLowerCase());
             } else {
                 dataExercise.published = false
             }
@@ -326,7 +326,7 @@ module.exports = {
             }
             const newAnswer = new Possible_answer({
                 content: req.body.content,
-                correct: Boolean(req.body.correct),
+                correct: JSON.parse(req.body.correct.toLowerCase()) || false,
                 question_id: id,
             });
             await newAnswer.save();
@@ -341,7 +341,7 @@ module.exports = {
     changeAnswer: async (req, res, next) => {
         try {
             const dataAnswer = req.body;
-            dataAnswer.correct = Boolean(dataAnswer.correct)
+            dataAnswer.correct = JSON.parse(dataAnswer.correct.toLowerCase());
             /** @name id - id of answer */
             const id = Number(req.params.id);
             if (isNaN(id)) {
