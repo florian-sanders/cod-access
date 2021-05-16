@@ -54,6 +54,7 @@ const SignUp = ({
       <div className="signup__content">
         <h1 className="title-h1 signup__content__title">Inscription</h1>
         <form action="" method="get" className="signup__content__form" onSubmit={handleSubmit}>
+          <h1 className="title-h1 center">Inscription</h1>
           {
             messageParams.targetComponent === 'SignUp'
             && (
