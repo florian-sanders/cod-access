@@ -13,6 +13,7 @@ module.exports = {
             const limit = Number(req.query.limit) || 30;
             const clients = await Client.findAndCountAll({
                 include:'responsibility',
+                order: [['created_at', 'ASC']],
                 distinct: true,
                 offset: page * limit,
                 limit: limit,
