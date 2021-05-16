@@ -57,7 +57,7 @@ export default (store) => (next) => async (action) => {
         } = store.getState();
 
         const thisAnswer = possibleAnswers.find((answer) => answer.id === action.answerId);
-        console.log(action);
+
         const { status } = await axiosInstance.patch(`/admin/exercises/new_answer/${action.answerId}`, {
           content: thisAnswer.content,
           correct: action.name === 'correct' ? action.value : thisAnswer.correct,
