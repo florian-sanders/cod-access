@@ -29,19 +29,6 @@ const Home = () => (
         </div>
       </div>
     </article>
-{/* 
-    <article className="home-wrapper__article">
-      <div className="home-wrapper__article__wrapper">
-        <img className="home-wrapper__article__wrapper__img" src={spyglassImgPath} alt="" />
-        <div className="home-wrapper__article__wrapper__text">
-          <h2 className="home-wrapper__article__wrapper__text__heading">Etudions un peu !</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor blandit integer aliquam mi nisi habitasse nunc sit mi.</p>
-          <p>Vestibulum ullamcorper nibh sagittis etiam mattis adipiscing velit. Sagittis vivamus amet massa suspendisse nunc euismod.</p>
-          <p>Tristique tincidunt vestibulum netus justo. Rhoncus leo massa sed quam. Volutpat gravida vitae faucibus sem nulla molestie consectetur.</p>
-          <Link className="home-wrapper__article__wrapper__text__link" to="/challenges">Commencer les challenges</Link>
-        </div>
-      </div>
-    </article> */}
 
     <article className="home-wrapper__article">
       <div className="home-wrapper__article__wrapper">
