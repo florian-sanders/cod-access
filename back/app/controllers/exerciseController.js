@@ -1,6 +1,3 @@
-// must be deleted ?
-const { ClientBase } = require('pg');
-
 const {
     Exercise,
     Client,
@@ -53,6 +50,7 @@ module.exports = {
             const limit = Number(req.query.limit) || 30;
             const exercises = await Exercise.findAndCountAll({
                 include: ['themes'],
+                order: [['created_at', 'ASC']],
                 distinct: true,
                 offset: page * limit,
                 limit: limit,
@@ -97,7 +95,7 @@ module.exports = {
                     },
                     { model: Client, as: 'clients', where: { id: clientId }, required: false }
                 ],
-
+                order: [[{ model: Question, as: 'questions' }, 'created_at', 'ASC']]
             });
             return res.status(200).json(
                 exercise
@@ -125,9 +123,10 @@ module.exports = {
                     {
                         association: 'questions',
                         include: ['possible_answers', 'question_picture'],
+                        order: [[{ model: Possible_answer, as: 'possible_answers' }, 'created_at', 'ASC']]
                     },
                 ],
-
+                order: [[{ model: Question, as: 'questions' }, 'created_at', 'ASC']]
             });
             return res.status(200).json(
                 exercise
@@ -558,7 +557,7 @@ module.exports = {
     },
 
     addImageToQuestion: async (req, res, next) => {
-        try{
+        try {
             const questionId = Number(req.body.question_id);
             const myFile = req.file;
             const pathPicture = myFile.path.substring(6);
@@ -567,10 +566,10 @@ module.exports = {
                 path: pathPicture,
                 alternative: req.body.alternative,
             })
-        
+
             picture.save().then(result => {
                 Question.findByPk(questionId, {
-                include: 'question_picture'
+                    include: 'question_picture'
                 }).then(question => {
                     question.update({ picture_id: result.id })
                     return res.status(200).json(
