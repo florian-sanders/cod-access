@@ -88,9 +88,8 @@ export const setExerciseManagerIsLeaving = (status) => ({
 
 export const RESET_MANAGERS = 'RESET_MANAGERS';
 
-export const resetManagers = (themes) => ({
+export const resetManagers = () => ({
   type: RESET_MANAGERS,
-  themes,
 });
 
 export const FETCH_EXERCISE_MANAGER = 'FETCH_EXERCISE_MANAGER';
