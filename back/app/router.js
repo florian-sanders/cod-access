@@ -19,38 +19,20 @@ const sanitizer = require('./middleware/bodySanitizer');
 const isAdmin = require('./middleware/isAdmin');
 
 /**
- * @module jwt - used to check the token validity,
- * jwtSecret and algorithmsJWT are required to setup,
- * jwt is stored into httpOnly cookie,
- * If token is valid, will go to next middleware, if not, will throw an error
+ * @function checkJWTCookie - used to check the token in the cookie and stop everyone if the token is not valid
  */
-const jwt = require('express-jwt');
-const jwtSecret = process.env.JWTSECRET;
-const algorithmsJWT = process.env.JWTALGO;
+const checkJWTCookie = require('./middleware/checkJWTCookie');
+
 /**
- * @function authorizationMiddlewareLetPass - used to check the token but let pass everyone if the token is not present by the line credentialsRequired: false
+ * @function checkJWTHeader - used to check the token in the headers and stop everyone if the token is not valid
  */
-const authorizationMiddlewareLetPass = jwt({
-    secret: jwtSecret,
-    algorithms: [algorithmsJWT],
-    credentialsRequired: false,
-    getToken: (req) => req.cookies.token,
-});
+const checkJWTHeader = require('./middleware/checkJWTHeader');
+
 /**
- * @function authorizationMiddlewareNotPass - used to check the token and stop everyone if the token is not valid
+ * @function decodeJWT - used to decode the token but let pass everyone. This is used to get user info in case it is needed.
  */
-const authorizationMiddlewareNotPass = jwt({
-    secret: jwtSecret,
-    algorithms: [algorithmsJWT],
-    getToken: (req) => req.cookies.token,
-});
-/**
- * @function authorizationMiddlewareNewPassword - used to check the token in the headers and stop everyone if the token is not valid
- */
-const authorizationMiddlewareNewPassword = jwt({
-    secret: jwtSecret,
-    algorithms: [algorithmsJWT],
-});
+const decodeJWT = require('./middleware/decodeJWT');
+
 
 router.route('/csrf-token')
 /**
@@ -76,7 +58,7 @@ router.route('/admin/image/:id')
  * @returns {Error}  404 - { errorType: 404, message: `miss image` }
  * @returns {Error}  500 - { error: err, message: 'error deleting file' }
  */
-    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, imageController.deleteOneImage);
+    .delete(checkJWTCookie, sanitizer, isAdmin, imageController.deleteOneImage);
 
 
 router.route('/signout')
@@ -95,7 +77,7 @@ router.route('/clients')
  * @returns {object} 200 - count of total users and an array with all users
  * @returns {Error}  500 - Unexpected error
  */
-    .get(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.getAllClients);
+    .get(checkJWTCookie, sanitizer, isAdmin, clientController.getAllClients);
 
 
 router.route('/clients/:id')
@@ -109,7 +91,7 @@ router.route('/clients/:id')
  * @returns {Error}  404 - { errorType: 404, message: `miss client` }
  * @returns {Error}  500 - Unexpected error
  */
-    .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.changeRoleClient)
+    .patch(checkJWTCookie, sanitizer, isAdmin, clientController.changeRoleClient)
  /**
  * @route DELETE /clients/:id
  * @param {Number} [id] - id from user
@@ -119,7 +101,7 @@ router.route('/clients/:id')
  * @returns {Error}  404 - { errorType: 404, message: `miss client` }
  * @returns {Error}  500 - Unexpected error
  */
-    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, clientController.deleteOneClient);
+    .delete(checkJWTCookie, sanitizer, isAdmin, clientController.deleteOneClient);
 
 
 router.route('/profile')
@@ -131,7 +113,7 @@ router.route('/profile')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .get(authorizationMiddlewareNotPass, sanitizer, clientController.getOneClient)
+    .get(checkJWTCookie, sanitizer, clientController.getOneClient)
 /**
  * @route PATCH /profile
  * @group client - everything about users
@@ -141,7 +123,7 @@ router.route('/profile')
  * @returns {Error}  411 - { errorType: 411, message: `password need 6` }
  * @returns {Error}  500 - Unexpected error
 */ 
-    .patch(authorizationMiddlewareNotPass, sanitizer, clientController.updateClient)
+    .patch(checkJWTCookie, sanitizer, clientController.updateClient)
 /**
  * @route DELETE /profile
  * @group client - everything about users
@@ -150,7 +132,7 @@ router.route('/profile')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .delete(authorizationMiddlewareNotPass, sanitizer, clientController.deleteProfileClient);
+    .delete(checkJWTCookie, sanitizer, clientController.deleteProfileClient);
 
 
 router.route('/signin')
@@ -181,7 +163,7 @@ router.route('/upload_client')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .post(authorizationMiddlewareNotPass, sanitizer,multerConfig, clientController.addImageToClient);
+    .post(checkJWTCookie, sanitizer,multerConfig, clientController.addImageToClient);
 
 router.route('/upload_question')
 /**
@@ -194,7 +176,7 @@ router.route('/upload_question')
             }
  * @returns {Error}  500 - Unexpected error
  */
-    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, multerConfig,  exerciseController.addImageToQuestion);
+    .post(checkJWTCookie, sanitizer, isAdmin, multerConfig,  exerciseController.addImageToQuestion);
 
 
 router.route('/signup')
@@ -228,7 +210,7 @@ router.route('/exercises')
  * @returns {object} 200 - An object with all exercises
  * @returns {Error}  500 - Unexpected error 
  */
-    .get(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.getAllExercises);
+    .get(checkJWTCookie, sanitizer, isAdmin, exerciseController.getAllExercises);
 
 
 router.route('/exercises_score')
@@ -238,7 +220,7 @@ router.route('/exercises_score')
  * @returns {object} 200 - An object with all exercises and score about the user
  * @returns {Error}  500 - Unexpected error 
  */
-    .get(authorizationMiddlewareNotPass, exerciseController.getAllExercisesWithScore);
+    .get(checkJWTCookie, exerciseController.getAllExercisesWithScore);
 
 
 router.route('/exercises/dragndrop/:id')
@@ -250,7 +232,7 @@ router.route('/exercises/dragndrop/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error 
  */
-    .get(authorizationMiddlewareLetPass, sanitizer, exerciseController.getOneExerciseVisitor)
+    .get(decodeJWT, sanitizer, exerciseController.getOneExerciseVisitor)
 /**
  * @route POST /exercises/dragndrop/:id
  * @param {Number} [id] - id from exercise
@@ -263,7 +245,7 @@ router.route('/exercises/dragndrop/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error 
  */
-    .post(authorizationMiddlewareLetPass, exerciseController.submitExercise);
+    .post(decodeJWT, exerciseController.submitExercise);
 
 
 router.route('/themes_exercises')
@@ -273,7 +255,7 @@ router.route('/themes_exercises')
  * @returns {object} 200 - An object with all themes and exercises published
  * @returns {Error}  500 - Unexpected error 
  */
-    .get(authorizationMiddlewareLetPass, sanitizer, themeController.getAllThemesForExercises);
+    .get(decodeJWT, sanitizer, themeController.getAllThemesForExercises);
 
 
 router.route('/themes_score')
@@ -283,7 +265,7 @@ router.route('/themes_score')
  * @returns {object} 200 - An object with all score by themes
  * @returns {Error}  500 - Unexpected error
  */
-    .get(authorizationMiddlewareNotPass, sanitizer, themeController.getScoreByTheme);
+    .get(checkJWTCookie, sanitizer, themeController.getScoreByTheme);
 
 
 router.route('/themes')
@@ -304,7 +286,7 @@ router.route('/admin/exercises/new_exercise')
  * @returns {object} 200 - An object with a new exercise
  * @returns {Error}  500 - Unexpected error
  */
-    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.newExercise);
+    .post(checkJWTCookie, sanitizer, isAdmin, exerciseController.newExercise);
 
 
 router.route('/admin/exercises/new_question/:id')
@@ -317,7 +299,7 @@ router.route('/admin/exercises/new_question/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.newQuestion)
+    .post(checkJWTCookie, sanitizer, isAdmin, exerciseController.newQuestion)
 /**
  * @route PATCH /admin/exercises/new_question/:id
  * @param {Number} [id] - id from exercise
@@ -326,7 +308,7 @@ router.route('/admin/exercises/new_question/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.changeQuestion)
+    .patch(checkJWTCookie, sanitizer, isAdmin, exerciseController.changeQuestion)
 /**
  * @route DELETE /admin/exercises/new_question/:id
  * @param {Number} [id] - id from exercise
@@ -336,7 +318,7 @@ router.route('/admin/exercises/new_question/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.deleteQuestion);
+    .delete(checkJWTCookie, sanitizer, isAdmin, exerciseController.deleteQuestion);
     
 
 router.route('/admin/exercises/new_answer/:id')
@@ -349,7 +331,7 @@ router.route('/admin/exercises/new_answer/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.newAnswer)
+    .post(checkJWTCookie, sanitizer, isAdmin, exerciseController.newAnswer)
 /**
  * @route PATCH /admin/exercises/new_answer/:id
  * @param {Number} [id] - id from question
@@ -358,7 +340,7 @@ router.route('/admin/exercises/new_answer/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.changeAnswer)
+    .patch(checkJWTCookie, sanitizer, isAdmin, exerciseController.changeAnswer)
 /**
  * @route DELETE /admin/exercises/new_answer/:id
  * @param {Number} [id] - id from question
@@ -368,7 +350,7 @@ router.route('/admin/exercises/new_answer/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.deleteAnswer);
+    .delete(checkJWTCookie, sanitizer, isAdmin, exerciseController.deleteAnswer);
 
     
 router.route('/admin/exercises/associate_exercise_theme')
@@ -382,7 +364,7 @@ router.route('/admin/exercises/associate_exercise_theme')
  * @returns {Error}  406 - { errorType: 406, message: `need exercise_id and theme_id`, or need exercise and theme }
  * @returns {Error}  500 - Unexpected error
  */
-    .post(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.associate_exercise_theme)
+    .post(checkJWTCookie, sanitizer, isAdmin, exerciseController.associate_exercise_theme)
 /**
  * @route DELETE /admin/exercises/associate_exercise_theme
  * @param {Number} [exercise_id] - id from exercise
@@ -392,7 +374,7 @@ router.route('/admin/exercises/associate_exercise_theme')
  * @returns {Error}  406 - { errorType: 406, message: `need exercise_id and theme_id`, or need exercise and theme }
  * @returns {Error}  500 - Unexpected error
  */
-    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.delete_exercise_theme);
+    .delete(checkJWTCookie, sanitizer, isAdmin, exerciseController.delete_exercise_theme);
 
 
 router.route('/admin/exercises/:id')
@@ -404,7 +386,7 @@ router.route('/admin/exercises/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .get(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.getOneExerciseAdmin)
+    .get(checkJWTCookie, sanitizer, isAdmin, exerciseController.getOneExerciseAdmin)
 /**
  * @route PATCH /admin/exercises/:id
  * @param {Number} [id] - id from exercise
@@ -413,7 +395,7 @@ router.route('/admin/exercises/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .patch(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.changeExercise)
+    .patch(checkJWTCookie, sanitizer, isAdmin, exerciseController.changeExercise)
 /**
  * @route DELETE /admin/exercises/:id
  * @param {Number} [id] - id from exercise
@@ -423,7 +405,7 @@ router.route('/admin/exercises/:id')
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
  */
-    .delete(authorizationMiddlewareNotPass, sanitizer, isAdmin, exerciseController.deleteOneExercise);
+    .delete(checkJWTCookie, sanitizer, isAdmin, exerciseController.deleteOneExercise);
 
 
 router.route('/forget')
@@ -437,7 +419,7 @@ router.route('/forget')
  * @returns {Error}  411 - { errorType: 411, message: `need name` }
  * @returns {Error}  500 - Unexpected error, or { errorType: 500, message: `mail failed` }
  */
-    .post( sanitizer, authController.forgetPassword)
+    .post(sanitizer, authController.forgetPassword)
 /**
  * @route PATCH /forget
  * @group auth - authorisation and security
@@ -447,6 +429,6 @@ router.route('/forget')
  * @returns {Error}  411 - { errorType: 411, message: `password need 6` }
  * @returns {Error}  500 - Unexpected error, or { errorType: 500, message: `mail failed` }
  */
-    .patch(authorizationMiddlewareNewPassword, sanitizer, authController.newPassword);
+    .patch(checkJWTHeader, sanitizer, authController.newPassword);
 
 module.exports = router;
