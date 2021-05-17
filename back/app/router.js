@@ -54,7 +54,7 @@ const authorizationMiddlewareNewPassword = jwt({
 
 router.route('/csrf-token')
 /**
- * road used by the React App upon loading to retrieve a csrf token,
+ * route used by the React App upon loading to retrieve a csrf token,
  * this token will be sent into a cookie as well as a header set by the React App,
  * the csrf middleware in the entry file of the server is in charge of checking 
  * that both the tokens (sent in cookie + sent in header) are a match,
@@ -91,7 +91,7 @@ router.route('/signout')
 router.route('/clients')
 /**
  * @route GET /clients
- * @group client - everythings about user
+ * @group client - everything about users
  * @returns {object} 200 - count of total users and an array with all users
  * @returns {Error}  500 - Unexpected error
  */
@@ -102,7 +102,7 @@ router.route('/clients/:id')
 /**
  * @route PATCH /clients/:id
  * @param {Number} [id] - id from user
- * @group client - everythings about user
+ * @group client - everything about users
  * @returns {object} 200 - { message: 'client update' }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  400 - { errorType: 400, message: `the status must be client or admin` }
@@ -113,7 +113,7 @@ router.route('/clients/:id')
  /**
  * @route DELETE /clients/:id
  * @param {Number} [id] - id from user
- * @group client - everythings about user
+ * @group client - everything about user
  * @returns {object} 200 - { message: 'client deleted' }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  404 - { errorType: 404, message: `miss client` }
@@ -124,9 +124,9 @@ router.route('/clients/:id')
 
 router.route('/profile')
 /**
- * Road used by the user to see/change/delete his profile.
+ * route used by the user to see/change/delete his profile.
  * @route GET /profile
- * @group client - everythings about user
+ * @group client - everything about users
  * @returns {object} 200 - An object with user info
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
@@ -134,7 +134,7 @@ router.route('/profile')
     .get(authorizationMiddlewareNotPass, sanitizer, clientController.getOneClient)
 /**
  * @route PATCH /profile
- * @group client - everythings about user
+ * @group client - everything about users
  * @returns {object} 200 - An object with user info
  * @returns {Error}  401 - { errorType: 401, message: `unauthorized` }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number, or email used, or incorrect, or password and confirm is not the same` }
@@ -144,7 +144,7 @@ router.route('/profile')
     .patch(authorizationMiddlewareNotPass, sanitizer, clientController.updateClient)
 /**
  * @route DELETE /profile
- * @group client - everythings about user
+ * @group client - everything about users
  * @returns {object} 200 - { message: 'profile deleted' }
  * @returns {Error}  404 - { errorType: 404, message: `miss client` }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
@@ -156,7 +156,7 @@ router.route('/profile')
 router.route('/signin')
 /**
  * @route POST /signin
- * @group auth - authorisation and security
+ * @group auth - authorization and security
  * @returns {object} 200 - {
               id: client.id,
               pseudo: client.pseudo,
@@ -176,7 +176,7 @@ router.route('/signin')
 router.route('/upload_client')
 /**
  * @route POST /upload_client
- * @group client - everythings about user
+ * @group client - everything about user
  * @returns {object} 200 - { message: 'ok' }
  * @returns {Error}  406 - { errorType: 406, message: `the provided id must be a number` }
  * @returns {Error}  500 - Unexpected error
