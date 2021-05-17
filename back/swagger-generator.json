@@ -2,7 +2,7 @@
     "swagger":"2.0",
     "swaggerDefinition": {
         "info": {
-        "description": "cod'access roads",
+        "description": "cod'access routes",
         "version": "2.0.0",
         "title": "Cod'access",
         "contact": {
