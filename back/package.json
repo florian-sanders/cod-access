@@ -28,8 +28,7 @@
     "sanitize-html": "^2.3.2",
     "sequelize": "^6.5.0",
     "swagger-ui": "^3.44.1",
-    "swagger-ui-dist": "^3.44.1",
-    "xss": "^1.0.9"
+    "swagger-ui-dist": "^3.44.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
