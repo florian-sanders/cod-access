@@ -9,7 +9,7 @@ import auth from 'src/reducers/auth';
 import signup from 'src/reducers/signup';
 import exercises from 'src/reducers/exercises';
 import adminExercisesList from 'src/reducers/adminExercisesList';
-import users from './users';
+import users from 'src/reducers/users';
 
 export default combineReducers({
   other,
