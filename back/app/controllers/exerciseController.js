@@ -19,7 +19,7 @@ module.exports = {
             if (req.user) {
                 clientId = req.user.clientId
             }
-            const exercises = await Exercise.findAndCountAll({
+            const exercises = await Exercise.findAll({
                 where: {
                     published: true,
                 },

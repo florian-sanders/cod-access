@@ -47,7 +47,7 @@ export default (store) => (next) => async (action) => {
       return next(action);
     case FETCH_EXERCISE:
       try {
-        const { status, data } = await axiosInstance.get(`/exercises/dragndrop/${action.exerciseId}`); // sanitize ?
+        const { status, data } = await axiosInstance.get(`/exercises/dragndrop/${action.exerciseId}`);
 
         if (status !== 200) {
           throw new Error();
