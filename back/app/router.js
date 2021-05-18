@@ -431,4 +431,8 @@ router.route('/forget')
  */
     .patch(checkJWTHeader, sanitizer, authController.newPassword);
 
+router.use((req, res) => res.status(404).json({
+    error: 'request does not match any API endpoint'
+}));
+
 module.exports = router;
