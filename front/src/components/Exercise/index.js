@@ -11,6 +11,7 @@ import sailorImgPath from 'src/assets/img/sailor.svg';
 import Message from 'src/containers/Message';
 import Question from 'src/containers/Exercise/Question';
 import CircleLoader from 'src/components/CircleLoader';
+import ExerciseMenu from 'src/containers/Exercise/ExerciseMenu';
 import './styles.scss';
 
 const Exercise = ({
@@ -20,13 +21,9 @@ const Exercise = ({
   loading,
   currentQuestionIndex,
   getExercise,
-  changeQuestion,
-  submitAnswers,
   resetCurrentExercise,
   messageParams,
   closeMessage,
-  isCorrected,
-  resultsLoading,
 }) => {
   useEffect(() => {
     getExercise();
@@ -87,80 +84,7 @@ const Exercise = ({
             ))
           }
         </section>
-        <nav role="navigation" className="exercise-section__navigation" aria-label="questions">
-          {
-            currentQuestionIndex > 0 && (
-              <button
-                className="button button--secondary"
-                type="button"
-                onClick={() => changeQuestion(currentQuestionIndex - 1)}
-                disabled={resultsLoading}
-              >
-                Question précédente
-              </button>
-            )
-          }
-          {// move these tests to container later
-            currentQuestionIndex < questions.length - 1
-            && (
-              <button
-                title={
-                  !questions[currentQuestionIndex].userAnswers.length
-                    ? 'Veuillez renseigner une réponse'
-                    : ''
-                }
-                disabled={!questions[currentQuestionIndex].userAnswers.length}
-                className="exercise-section__navigation__submit button button--primary"
-                type="button"
-                onClick={
-                  () => changeQuestion(currentQuestionIndex + 1)
-                }
-              >
-                Question suivante
-              </button>
-            )
-          }
-          {
-            !isCorrected
-            && (currentQuestionIndex === questions.length - 1) && (
-              <button
-                title={
-                  !questions[currentQuestionIndex].userAnswers.length
-                    ? 'Veuillez renseigner une réponse'
-                    : ''
-                }
-                className="button button--primary"
-                type="button"
-                disabled={!questions[currentQuestionIndex].userAnswers.length || resultsLoading}
-                onClick={submitAnswers}
-              >
-                {
-                  resultsLoading
-                    ? (
-                      <>
-                        Calcul du score en cours
-                        <CircleLoader
-                          colour="#7ED8F7"
-                          radius={8}
-                          duration={2}
-                          strokeWidth={3}
-                        />
-                      </>
-                    )
-                    : 'Valider mes réponses'
-                }
-              </button>
-            )
-          }
-          {
-            isCorrected
-            && (currentQuestionIndex === questions.length - 1) && (
-              <Link to="/challenges" className="button button--primary">
-                Retourner à la liste des challenges
-              </Link>
-            )
-          }
-        </nav>
+        <ExerciseMenu />
       </section>
     </div>
   );
@@ -173,15 +97,11 @@ Exercise.propTypes = {
   loading: PropTypes.bool,
   currentQuestionIndex: PropTypes.number,
   getExercise: PropTypes.func.isRequired,
-  changeQuestion: PropTypes.func.isRequired,
-  submitAnswers: PropTypes.func.isRequired,
   resetCurrentExercise: PropTypes.func.isRequired,
   messageParams: PropTypes.shape({
     targetComponent: PropTypes.string.isRequired,
   }).isRequired,
   closeMessage: PropTypes.func.isRequired,
-  isCorrected: PropTypes.bool.isRequired,
-  resultsLoading: PropTypes.bool.isRequired,
 };
 
 Exercise.defaultProps = {
