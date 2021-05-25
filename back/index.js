@@ -31,9 +31,7 @@ app.use(csrfProtection);
 
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: true }));
-
-// express static used by react
+// express static used to serv static resources
 app.use(express.static('upload'));
 app.use(express.static('assets'));
 

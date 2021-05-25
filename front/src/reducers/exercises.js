@@ -160,17 +160,28 @@ const reducer = (state = initialState, action = {}) => {
           ...state.currentExercise,
           currentQuestionIndex: 0,
           userScore: action.userScore,
+          // display explanation and result
           isCorrected: true,
           questions: state.currentExercise.questions.map(
             (question) => {
+              // find the correction of the question
               const thisCorrectedQuestion = action.corrections.find(
                 (correctedQuestion) => question.id === correctedQuestion.id,
               );
+
+              // add explanation content so that it can be displayed at the bottom of the page
               question.explanation = thisCorrectedQuestion.explanation;
+
+              // flag each answer of the question as userCorrect or not, rightAnswer or not
               question.possibleAnswers = question.possibleAnswers.map((answer) => {
+                // if answer id is in the correction, this answer is one of the right answers
                 answer.isRightAnswer = thisCorrectedQuestion.rightAnswers.includes(answer.id);
-                answer.userCorrect = thisCorrectedQuestion.rightAnswers.includes(answer.id)
+                // if answer id is in the correct AND has been selected by the user
+                // user is correct, this answer is good
+                answer.isUserCorrect = thisCorrectedQuestion.rightAnswers.includes(answer.id)
                   && question.userAnswers.includes(answer.id);
+
+                // flag this answer as corrected (makes it not draggable)
                 answer.isCorrected = true;
                 return answer;
               });

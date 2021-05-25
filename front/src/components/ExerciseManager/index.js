@@ -51,7 +51,13 @@ const ExerciseManager = ({
           duration={2}
           strokeWidth={20}
         />
-        <p className="loading-text-big">Création d'un brouillon d'exercice en cours</p>
+        <p className="loading-text-big">
+          {
+            createNew
+              ? 'Création d\'un brouillon d\'exercice'
+              : 'Récupération de l\'exercice'
+          }
+        </p>
       </div>
     );
   }

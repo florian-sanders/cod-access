@@ -15,7 +15,7 @@ const Answer = ({
   content,
   isCorrected,
   isRightAnswer,
-  userCorrect,
+  isUserCorrect,
   userAnswers,
   index,
   isDragDisabled,
@@ -51,8 +51,8 @@ const Answer = ({
                 {
                   'exercise-section__questions__question__answers__answer--user-answer': isUserAnswer,
                   'exercise-section__questions__question__answers__answer--no-drag': isDragDisabled && !isUserAnswer,
-                  'exercise-section__questions__question__answers__answer--user-correct': isUserAnswer && userCorrect,
-                  'exercise-section__questions__question__answers__answer--user-incorrect': isUserAnswer && isCorrected && !userCorrect,
+                  'exercise-section__questions__question__answers__answer--user-correct': isUserAnswer && isCorrected && isUserCorrect,
+                  'exercise-section__questions__question__answers__answer--user-incorrect': isUserAnswer && isCorrected && !isUserCorrect,
                   'exercise-section__questions__question__answers__answer--is-corrected': !isUserAnswer && isCorrected,
                   'exercise-section__questions__question__answers__answer--dropping': snapshot.isDragging && snapshot.isDropAnimating,
                   'exercise-section__questions__question__answers__answer--right-answer': isRightAnswer,
@@ -83,7 +83,7 @@ const Answer = ({
             }
             {
               isCorrected
-              && userCorrect
+              && isUserCorrect
               && isUserAnswer
               && (
                 <FontAwesomeIcon role="presentation" icon={faThumbsUp} size="2x" />
@@ -92,7 +92,7 @@ const Answer = ({
             {
               isUserAnswer
               && isCorrected
-              && !userCorrect
+              && !isUserCorrect
               && (<FontAwesomeIcon role="presentation" icon={faThumbsDown} size="2x" />)
             }
             {
@@ -118,7 +118,7 @@ Answer.propTypes = {
   id: PropTypes.number.isRequired,
   content: PropTypes.string.isRequired,
   isRightAnswer: PropTypes.bool,
-  userCorrect: PropTypes.bool,
+  isUserCorrect: PropTypes.bool,
   index: PropTypes.number.isRequired,
   isDragDisabled: PropTypes.bool,
   isUserAnswer: PropTypes.bool,
@@ -134,7 +134,7 @@ Answer.defaultProps = {
   questionId: null,
   userAnswers: [],
   isCorrected: false,
-  userCorrect: false,
+  isUserCorrect: false,
   isRightAnswer: false,
 };
 

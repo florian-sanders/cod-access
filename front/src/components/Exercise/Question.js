@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { DragDropContext } from 'react-beautiful-dnd';
 import classNames from 'classnames';
-import { nanoid } from 'nanoid';
 import DOMPurify from 'dompurify';
 
 import sailorImgPath from 'src/assets/img/sailor.svg';
@@ -74,19 +73,19 @@ const Question = ({
         <pre className="exercise-section__questions__question__code">
           <code>
             {
-              slicedCode.map((codeSlice) => {
+              slicedCode.map((codeSlice, index) => {
                 if (codeSlice === 'drop') {
                   return (
                     <DropAnswer
                       possibleAnswers={possibleAnswers}
                       userAnswers={userAnswers}
                       questionId={id}
-                      key={nanoid()}
+                      key={index}
                     />
                   );
                 }
                 return (
-                  <span key={nanoid()}>{codeSlice}</span>
+                  <span key={index}>{codeSlice}</span>
                 );
               })
             }

@@ -10,7 +10,7 @@ const ExercisesList = ({ exercises, color }) => (
   <ul className="exercises__wrapper__block-list__theme__list">
     {exercises.map((exercise) => (
       <li className="exercises__wrapper__block-list__theme__list__exercise" key={exercise.id}>
-        <div className="exercises__wrapper__block-list__theme__list__exercise__color" style={{ backgroundColor: color }}>
+        <div className="exercises__wrapper__block-list__theme__list__exercise__color" style={{ border: 'solid .5px #b8bcbd', borderBottom: `solid 5px ${color}`, borderLeft: `solid 5px ${color}` }}>
           {
             exercise.clients[0] && <span className="exercises__wrapper__block-list__theme__list__exercise__color__score">{exercise.clients[0].Client_exercise.score}%</span>
           }
@@ -18,6 +18,7 @@ const ExercisesList = ({ exercises, color }) => (
         <Link
           to={`/challenges/${exercise.id}`}
           className="exercises__wrapper__block-list__theme__list__exercise__link"
+          style={{ border: 'solid .5px #b8bcbd', borderBottom: `solid 3px ${color}`, borderLeft: 'none' }}
         >
           <p className="exercises__wrapper__block-list__theme__list__exercise__link__text">{exercise.title}</p>
           {

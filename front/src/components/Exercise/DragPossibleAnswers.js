@@ -39,6 +39,7 @@ DragPossibleAnswers.propTypes = {
     content: PropTypes.string,
   })).isRequired,
   userAnswers: PropTypes.array.isRequired,
+  questionId: PropTypes.number.isRequired,
 };
 
 export default DragPossibleAnswers;

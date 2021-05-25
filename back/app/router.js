@@ -220,7 +220,7 @@ router.route('/exercises_score')
  * @returns {object} 200 - An object with all exercises and score about the user
  * @returns {Error}  500 - Unexpected error 
  */
-    .get(checkJWTCookie, exerciseController.getAllExercisesWithScore);
+    .get(decodeJWT, exerciseController.getAllExercisesWithScore);
 
 
 router.route('/exercises/dragndrop/:id')
@@ -430,5 +430,9 @@ router.route('/forget')
  * @returns {Error}  500 - Unexpected error, or { errorType: 500, message: `mail failed` }
  */
     .patch(checkJWTHeader, sanitizer, authController.newPassword);
+
+router.use((req, res) => res.status(404).json({
+    error: 'request does not match any API endpoint'
+}));
 
 module.exports = router;
