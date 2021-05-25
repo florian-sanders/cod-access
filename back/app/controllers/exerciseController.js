@@ -495,55 +495,40 @@ module.exports = {
                     successfulQuestions.push(question.id);
                 }
             }
-            const scoreResult = Math.round((successfulQuestions.length / exercise.questions.length) * 100)
+
+            const scoreResult = Math.round((successfulQuestions.length / exercise.questions.length) * 100);
+
             if (req.user) {
                 const clientId = req.user.clientId
                 const client = await Client.findByPk(clientId, {
                     include: [{ model: Exercise, as: 'exercises', where: { id: exercise.id }, required: false }],
-                })
+                });
 
-                //If user never played this exercise, i can directly save his score
+                // If user has never played this exercise, directly save their score
                 if (!client.exercises[0]) {
                     const result = new Client_exercise({
                         score: scoreResult,
                         client_id: clientId,
                         exercise_id: exerciseId
-                    })
-                    await result.save()
-                    //return the result for his first play
-                    return res.status(200).json({
-                        message: `user finish with score: ${scoreResult}`,
-                        correction,
-                        scoreResult
                     });
 
+                    await result.save()
                 } else {
-                    //if user has already played this exercise, we need to compare last and new scores
-                    const oldScore = client.exercises[0].Client_exercise.score
+                    // If user has already played this exercise, compare scores and save if score is better than old score
+                    const oldScore = client.exercises[0].Client_exercise.score;
+
                     if (oldScore === null || oldScore < scoreResult) {
                         const updateScore = await Client_exercise.findOne({
                             where: { client_id: clientId, exercise_id: exerciseId }
-                        })
-                        //the new score is the best, we save it and return
-                        await updateScore.update({ score: scoreResult })
-                        return res.status(200).json({
-                            message: `user finish with score: ${scoreResult}`,
-                            correction,
-                            explanation,
                         });
 
-                    } else {
-                        //the new score is NOT the best, we DON'T save it and we return
-                        return res.status(200).json({
-                            message: `user finish with score: ${scoreResult}`,
-                            correction,
-                            scoreResult,
-                        });
+                        //the new score is the best, we save it
+                        await updateScore.update({ score: scoreResult });
                     }
                 }
-            };
+            }
 
-            //the user is not connecting, we return the score without saving it
+            // return the score with correction
             return res.status(200).json({
                 message: `user finish with score: ${scoreResult}`,
                 correction,

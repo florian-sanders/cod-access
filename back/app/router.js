@@ -220,7 +220,7 @@ router.route('/exercises_score')
  * @returns {object} 200 - An object with all exercises and score about the user
  * @returns {Error}  500 - Unexpected error 
  */
-    .get(checkJWTCookie, exerciseController.getAllExercisesWithScore);
+    .get(decodeJWT, exerciseController.getAllExercisesWithScore);
 
 
 router.route('/exercises/dragndrop/:id')

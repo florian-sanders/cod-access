@@ -6,12 +6,10 @@ import {
   fetchExercise,
   resetCurrentExercise,
 } from 'src/actions/exercises';
+
 import { unsetMessage } from 'src/actions/other';
 
-const mapStateToProps = ({
-  exercises,
-  other,
-}) => ({
+const mapStateToProps = ({ exercises, other }) => ({
   ...exercises.currentExercise,
   messageParams: other.messageParams,
 });
