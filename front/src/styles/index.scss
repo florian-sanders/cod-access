@@ -19,6 +19,11 @@ tbody tr:nth-child(odd) {
   background-color: $ligth-color;
 }
 
+*:focus-visible {
+  outline: dashed 2px $dark-color;
+  outline-offset: 4px;
+}
+
 .hidden {
   display: none;
 }
