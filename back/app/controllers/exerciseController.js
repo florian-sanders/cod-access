@@ -489,14 +489,19 @@ module.exports = {
 
             for (question of correction) {
                 const userAnswers = req.body.find((userData) => userData.questionId === question.id).answers;
-                const countUserAnswers = userAnswers.reduce(reducer);
-                const countRightAnswers = question.rightAnswers.reduce(reducer);
-                if (countUserAnswers === countRightAnswers) {
-                    successfulQuestions.push(question.id);
+
+                // first check if user has selected as many answers as there are correct answers
+                if (userAnswers.length === question.rightAnswers.length) {
+
+                    // then check if user answers match right answers by summing up their ids
+                    const sumUserAnswerIds = userAnswers.reduce(reducer);
+                    const sumRightAnswerIds = question.rightAnswers.reduce(reducer);
+                    // if sums are equal, save the question id so that we know how many questions the user got right
+                    if (sumUserAnswerIds === sumRightAnswerIds) {
+                        successfulQuestions.push(question.id);
+                    }
                 }
             }
-
-            const scoreResult = Math.round((successfulQuestions.length / exercise.questions.length) * 100);
 
             if (req.user) {
                 const clientId = req.user.clientId
