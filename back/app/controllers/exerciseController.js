@@ -477,7 +477,7 @@ module.exports = {
                     },
                 ]
             });
-
+            
             const correction = exercise.questions.map((question) => ({
                 id: question.id,
                 rightAnswers: question.possible_answers.map((answer) => answer.id),
@@ -488,6 +488,7 @@ module.exports = {
             const successfulQuestions = [];
 
             for (question of correction) {
+                // get userAnswers for this question
                 const userAnswers = req.body.find((userData) => userData.questionId === question.id).answers;
 
                 // first check if user has selected as many answers as there are correct answers
@@ -502,6 +503,8 @@ module.exports = {
                     }
                 }
             }
+
+            const scoreResult = Math.round((successfulQuestions.length / exercise.questions.length) * 100);
 
             if (req.user) {
                 const clientId = req.user.clientId
