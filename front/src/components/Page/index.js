@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './styles.scss';
+import usePageTitleManager from 'src/hooks/usePageTitleManager';
 import Home from 'src/components/Home';
 import SignUp from 'src/containers/SignUp';
 import Profile from 'src/containers/Profile';
@@ -40,6 +41,7 @@ const Page = ({
     if (mobileMenuVisibility) {
       closeMobileMenu();
     }
+    usePageTitleManager(location);
   }, [location]);
 
   return (
