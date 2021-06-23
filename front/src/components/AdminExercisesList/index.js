@@ -30,6 +30,8 @@ const AdminExercisesList = ({
     fetchExercises({
       page,
     });
+
+    document.title = `Exercices - Page ${page} - Admin -  Cod'Access`;
   }, [page, exercises.length]);
 
   if (loadingExercisesList) {

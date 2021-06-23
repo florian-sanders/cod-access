@@ -31,6 +31,10 @@ const PasswordResetRequest = ({
 
   const formManager = useFormManager(formManagerConfig);
 
+  useEffect(() => {
+    document.title = 'Mot de passe oublié - Cod\'Access';
+  });
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     formManager.trySubmit();

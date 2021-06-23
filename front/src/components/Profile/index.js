@@ -11,6 +11,7 @@ const Profile = ({
 }) => {
   useEffect(() => {
     fetchProgressByTheme();
+    document.title = 'Profil - Cod\'Access';
   }, []);
 
   return (
