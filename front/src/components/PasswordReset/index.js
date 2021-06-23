@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
@@ -37,6 +37,10 @@ const PasswordReset = ({
     },
   };
   const formManager = useFormManager(formManagerConfig);
+
+  useEffect(() => {
+    document.title = 'Renseignez un nouveau mot de passe - Cod\'Access';
+  }, []);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

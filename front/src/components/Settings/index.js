@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import EditUserImageForm from './EditUserImageForm';
@@ -35,6 +35,10 @@ const Settings = ({
       isVisible: true,
     });
   };
+
+  useEffect(() => {
+    document.title = 'Modification profil - Cod\'Access';
+  });
 
   return (
     <section className="settings wave-double-bottom">

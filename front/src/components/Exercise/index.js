@@ -24,14 +24,23 @@ const Exercise = ({
   resetCurrentExercise,
   messageParams,
   closeMessage,
+  isCorrected,
 }) => {
   useEffect(() => {
     getExercise();
+
+    document.title = 'Chargement du challenge -  Cod\'Access';
     return () => {
       resetCurrentExercise();
       closeMessage();
     };
   }, []);
+
+  useEffect(() => {
+    document.title = isCorrected
+      ? `Corrigé -  ${title}`
+      : `${title} -  Cod'Access`;
+  }, [loading, isCorrected]);
 
   if (loading) {
     return (
@@ -102,6 +111,7 @@ Exercise.propTypes = {
     targetComponent: PropTypes.string.isRequired,
   }).isRequired,
   closeMessage: PropTypes.func.isRequired,
+  isCorrected: PropTypes.bool.isRequired,
 };
 
 Exercise.defaultProps = {

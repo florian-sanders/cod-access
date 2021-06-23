@@ -28,6 +28,8 @@ const AdminUsersList = ({
 
   useEffect(() => {
     fetchUsers(page);
+
+    document.title = `Utilisateurs - Page ${page} - Admin - Cod'Access`;
   }, [page, users.length]);
 
   if (loadingUsersList) {
