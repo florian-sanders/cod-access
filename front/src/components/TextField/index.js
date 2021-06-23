@@ -3,7 +3,7 @@ import Proptypes from 'prop-types';
 import classNames from 'classnames';
 
 /*
-Generic component 
+Generic component
 */
 
 const TextField = ({
@@ -75,6 +75,7 @@ const TextField = ({
               name={name}
               onChange={(evt) => handleOnChange(evt.target.value)}
               onBlur={(evt) => handleOnBlur(evt.target.value)}
+              aria-describedby={`error-${id}`}
             />
           )
           : (
@@ -87,12 +88,13 @@ const TextField = ({
               name={name}
               onChange={(evt) => handleOnChange(evt.target.value)}
               onBlur={(evt) => handleOnBlur(evt.target.value)}
+              aria-describedby={`error-${id}`}
             />
           )
       }
       {
         errorMessage && (
-          <p className="message--warning">{errorMessage}</p>
+          <p id={`error-${id}`} className="message--warning">{errorMessage}</p>
         )
       }
     </div>
