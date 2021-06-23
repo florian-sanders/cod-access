@@ -30,6 +30,7 @@ const Exercise = ({
     getExercise();
 
     document.title = 'Chargement du challenge -  Cod\'Access';
+
     return () => {
       resetCurrentExercise();
       closeMessage();
