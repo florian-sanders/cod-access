@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { FocusScope } from '@react-aria/focus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,6 +14,20 @@ const ModalConfirm = ({
   shouldDisplayHeading,
   closeModal,
 }) => {
+  const handleKeydown = (evt) => {
+    if (evt.code === 'Escape') {
+      closeModal();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeydown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeydown);
+    };
+  }, []);
+
   const handleConfirm = () => {
     confirmParams.onConfirm();
     closeModal();
@@ -23,34 +38,35 @@ const ModalConfirm = ({
   };
 
   return (
-
-    <div className="modal-confirm" role="dialog" aria-modal="true" tabIndex="-1" aria-label={heading}>
-      <button className="button button--actions to--right" type="button" onClick={closeModal}>
-        <FontAwesomeIcon icon={faWindowClose} size="2x" />
-      </button>
-
-      {
-        shouldDisplayHeading && (<h1 className="modal-confirm__heading">{heading}</h1>)
-      }
-      <p className="modal-confirm__message">{message}</p>
-      <div className="modal-confirm__buttons">
-        <button
-          type="button"
-          className="button button--primary"
-          onClick={handleConfirm}
-        >
-          {confirmParams.label}
+    <FocusScope contain restoreFocus autoFocus>
+      <div className="modal-confirm" role="dialog" aria-modal="true" tabIndex="-1" aria-label={heading}>
+        <button className="button button--actions to--right" type="button" onClick={closeModal}>
+          <FontAwesomeIcon icon={faWindowClose} size="2x" />
         </button>
 
-        <button
-          type="button"
-          className="button button--secondary"
-          onClick={handleCancel}
-        >
-          {cancelParams.label}
-        </button>
+        {
+          shouldDisplayHeading && (<h1 className="modal-confirm__heading">{heading}</h1>)
+        }
+        <p className="modal-confirm__message">{message}</p>
+        <div className="modal-confirm__buttons">
+          <button
+            type="button"
+            className="button button--primary"
+            onClick={handleConfirm}
+          >
+            {confirmParams.label}
+          </button>
+
+          <button
+            type="button"
+            className="button button--secondary"
+            onClick={handleCancel}
+          >
+            {cancelParams.label}
+          </button>
+        </div>
       </div>
-    </div>
+    </FocusScope>
   );
 };
 
