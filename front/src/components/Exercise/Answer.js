@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
+import { useFocusManager } from '@react-aria/focus';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -22,13 +23,41 @@ const Answer = ({
   isUserAnswer,
   removeAnswer,
   questionId,
+  newUserAnswer,
 }) => {
+  const focusManager = useFocusManager();
+  const userAnswerRef = useRef(null);
+  useEffect(() => {
+    if (isUserAnswer) {
+      userAnswerRef.current.focus();
+    }
+  }, []);
+
   const handleClick = () => {
     removeAnswer({
       answerId: Number(id),
       questionId,
       previousAnswers: userAnswers,
     });
+    focusManager.focusPrevious({ wrap: true });
+  };
+
+  const handleDoubleClick = () => {
+    newUserAnswer({
+      questionId,
+      answerId: Number(id),
+      previousAnswers: userAnswers,
+    });
+  };
+
+  const handleKeyDown = (evt) => {
+    if (evt.code === 'Space' || evt.code === 'Enter') {
+      newUserAnswer({
+        questionId,
+        answerId: Number(id),
+        previousAnswers: userAnswers,
+      });
+    }
   };
 
   return (
@@ -40,7 +69,6 @@ const Answer = ({
       }
       index={index}
       isDragDisabled={isDragDisabled || isCorrected}
-      shouldRespectForcePress
     >
       {(provided, snapshot) => (
         <>
@@ -56,12 +84,15 @@ const Answer = ({
                   'exercise-section__questions__question__answers__answer--is-corrected': !isUserAnswer && isCorrected,
                   'exercise-section__questions__question__answers__answer--dropping': snapshot.isDragging && snapshot.isDropAnimating,
                   'exercise-section__questions__question__answers__answer--right-answer': isRightAnswer,
+                  'exercise-section__questions_question__answers__answer--isNotDragging': !snapshot.isDragging,
                 },
               )
             }
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
+            onDoubleClick={handleDoubleClick}
+            onKeyDown={handleKeyDown}
           >
             {
               !isCorrected
@@ -76,7 +107,7 @@ const Answer = ({
               isUserAnswer
               && !isCorrected
               && (
-                <button type="button" onClick={handleClick} className="exercise-section__questions__question__answers__answer__remove" aria-label={`Supprimer l'attribut ${content}`}>
+                <button type="button" onClick={handleClick} className="exercise-section__questions__question__answers__answer__remove" aria-label={`Supprimer la réponse ${content}`} ref={userAnswerRef}>
                   <FontAwesomeIcon role="presentation" icon={faEraser} size="2x" />
                 </button>
               )
@@ -126,6 +157,7 @@ Answer.propTypes = {
   questionId: PropTypes.number,
   userAnswers: PropTypes.array,
   isCorrected: PropTypes.bool,
+  newUserAnswer: PropTypes.func,
 };
 
 Answer.defaultProps = {
@@ -136,6 +168,7 @@ Answer.defaultProps = {
   isCorrected: false,
   isUserCorrect: false,
   isRightAnswer: false,
+  newUserAnswer: () => {},
 };
 
 export default Answer;
