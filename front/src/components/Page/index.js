@@ -32,10 +32,10 @@ const Page = ({
   closeMobileMenu,
   appRef,
 }) => {
-  const location = useLocation();
-  appRef.current?.focus();
+  const location = useLocation(null);
   useEffect(() => {
     window.scrollTo(0, 0);
+    appRef.current?.focus();
     if (connectionMenuVisibility) {
       closeConnectionMenu();
     }

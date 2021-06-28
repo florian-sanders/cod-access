@@ -17,7 +17,17 @@ const Connection = ({
   isLogged,
   profileImage,
 }) => {
-  const toggleContainer = useRef();
+  const toggleContainer = useRef(null);
+  const toggleBtn = useRef(null);
+  const handleKeydownConnection = (evt) => {
+    if (evt.code === 'Escape') {
+      hideConnection();
+      toggleBtn.current.focus();
+
+      document.removeEventListener('keydown', handleKeydownConnection);
+    }
+  };
+
   const closeConnectionArea = (evt) => {
     if (!toggleContainer.current.contains(evt.target)) {
       hideConnection();
@@ -26,9 +36,12 @@ const Connection = ({
 
   useEffect(() => {
     if (isVisible) {
+      document.addEventListener('keydown', handleKeydownConnection);
       window.addEventListener('click', closeConnectionArea);
     }
+
     return () => {
+      document.removeEventListener('keydown', handleKeydownConnection);
       window.removeEventListener('click', closeConnectionArea);
     };
   }, [isVisible]);
@@ -44,6 +57,7 @@ const Connection = ({
         aria-expanded={isVisible}
         aria-controls="connection-menu"
         onClick={toggleConnection}
+        ref={toggleBtn}
       >
         {
           isLogged
