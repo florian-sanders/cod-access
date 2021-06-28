@@ -10,6 +10,7 @@ const DragPossibleAnswers = ({
   possibleAnswers,
   userAnswers,
   questionId,
+  newUserAnswer,
 }) => (
   <Droppable droppableId="possible-answers" isDropDisabled>
     {(provided, snapshot) => (
@@ -24,6 +25,8 @@ const DragPossibleAnswers = ({
               }
               questionId={questionId}
               key={possibleAnswer.id}
+              newUserAnswer={newUserAnswer}
+              userAnswers={userAnswers}
             />
           ))
         }
@@ -40,6 +43,7 @@ DragPossibleAnswers.propTypes = {
   })).isRequired,
   userAnswers: PropTypes.array.isRequired,
   questionId: PropTypes.number.isRequired,
+  newUserAnswer: PropTypes.func.isRequired,
 };
 
 export default DragPossibleAnswers;

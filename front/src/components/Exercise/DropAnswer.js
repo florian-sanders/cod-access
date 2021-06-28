@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { FocusScope } from '@react-aria/focus';
 import { Droppable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
 
@@ -14,35 +15,39 @@ const DropAnswer = ({
 }) => (
   <Droppable droppableId="user-answers">
     {(provided, snapshot) => (
-      <span
-        className={
-          classNames(
-            'exercise-section__questions__question__code__drop-area',
-            {
-              'exercise-section__questions__question__code__drop-area--hovered': snapshot.isDraggingOver,
-            },
-          )
-        }
-        ref={provided.innerRef}
-        {...provided.droppableProps}
-      >
-        {provided.placeholder}
-        {
-          userAnswers.map((answerId, index) => (
-            <Answer
-              {...possibleAnswers.find((answer) => (
-                answer.id === answerId
-              ))}
-              userAnswers={userAnswers}
-              isUserAnswer
-              questionId={questionId}
-              index={index}
-              isDragDisabled
-              key={`drop-${answerId}`}
-            />
-          ))
-        }
-      </span>
+      <FocusScope>
+        <span
+          className={
+            classNames(
+              'exercise-section__questions__question__code__drop-area',
+              {
+                'exercise-section__questions__question__code__drop-area--hovered': snapshot.isDraggingOver,
+              },
+            )
+          }
+          tabIndex="-1"
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+        >
+          <span className="sr-only">Ajoutez vos réponses pour compléter ce code.</span>
+          {provided.placeholder}
+          {
+            userAnswers.map((answerId, index) => (
+              <Answer
+                {...possibleAnswers.find((answer) => (
+                  answer.id === answerId
+                ))}
+                userAnswers={userAnswers}
+                isUserAnswer
+                questionId={questionId}
+                index={index}
+                isDragDisabled
+                key={`drop-${answerId}`}
+              />
+            ))
+          }
+        </span>
+      </FocusScope>
     )}
   </Droppable>
 );

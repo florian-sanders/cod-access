@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, useMouseSensor, useTouchSensor } from 'react-beautiful-dnd';
 import classNames from 'classnames';
 import DOMPurify from 'dompurify';
 
@@ -47,7 +47,15 @@ const Question = ({
   };
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
+    <DragDropContext
+      onDragEnd={handleDragEnd}
+      enableDefaultSensors={false}
+      sensors={[
+        useMouseSensor,
+        useTouchSensor,
+      ]}
+      dragHandleUsageInstructions="Utilisez la touche espace ou entrée pour sélectionner cette réponse."
+    >
       <article
         className={
           classNames('exercise-section__questions__question', {
@@ -96,6 +104,7 @@ const Question = ({
           possibleAnswers={possibleAnswers}
           userAnswers={userAnswers}
           questionId={id}
+          newUserAnswer={newUserAnswer}
         />
         {
           explanation !== '' && (

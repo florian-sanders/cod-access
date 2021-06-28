@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import {
   Switch,
   Route,
@@ -30,11 +30,11 @@ const Page = ({
   mobileMenuVisibility,
   closeConnectionMenu,
   closeMobileMenu,
+  appRef,
 }) => {
-  const mainRegion = useRef(null);
   const location = useLocation();
+  appRef.current?.focus();
   useEffect(() => {
-    mainRegion.current.focus();
     window.scrollTo(0, 0);
     if (connectionMenuVisibility) {
       closeConnectionMenu();
@@ -45,7 +45,7 @@ const Page = ({
   }, [location]);
 
   return (
-    <main id="main-content" role="main" tabIndex="-1" className="main-content" ref={mainRegion}>
+    <main id="main-content" role="main" tabIndex="-1" className="main-content">
       <Switch>
         <Route exact path="/">
           <Home />
@@ -106,6 +106,7 @@ Page.propTypes = {
   connectionMenuVisibility: PropTypes.bool.isRequired,
   mobileMenuVisibility: PropTypes.bool.isRequired,
   closeMobileMenu: PropTypes.func.isRequired,
+  appRef: PropTypes.object.isRequired,
 };
 
 export default Page;
