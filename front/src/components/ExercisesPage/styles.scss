@@ -1,3 +1,4 @@
+@use "sass:math";
 @import 'src/styles/vars';
 
 .loading{
@@ -46,7 +47,7 @@
         }
         &__filter{
           position: absolute;
-          padding: $gutter $gutter $gutter $gutter/2;
+          padding: $gutter $gutter $gutter math.div($gutter, 2);
           background-color: $white-color;
           box-shadow: $shadow;
     
