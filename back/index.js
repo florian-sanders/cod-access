@@ -38,9 +38,11 @@ app.use(express.static('assets'));
 // route in router
 app.use('/api', router);
 
-// if url does not start with /api, serve React app
-app.use((req, res) => {
-    res.sendFile(path.join(__dirname, "assets", "index.html"));
-});
+if (process.env.NODE_ENV === 'production') {
+    // if url does not start with /api, serve React app
+    app.use((req, res) => {
+        res.sendFile(path.join(__dirname, "assets", "index.html"));
+    });
+}
 
-app.listen(port, () => console.log(`app on http://localhost:${port}`));
+app.listen(port, () => console.log('Server Running'));
