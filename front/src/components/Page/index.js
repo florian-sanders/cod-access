@@ -30,12 +30,13 @@ const Page = ({
   mobileMenuVisibility,
   closeConnectionMenu,
   closeMobileMenu,
-  appRef,
 }) => {
   const location = useLocation(null);
   useEffect(() => {
     window.scrollTo(0, 0);
-    appRef.current?.focus();
+
+    if (!location.hash) document.body.focus();
+
     if (connectionMenuVisibility) {
       closeConnectionMenu();
     }
@@ -106,7 +107,6 @@ Page.propTypes = {
   connectionMenuVisibility: PropTypes.bool.isRequired,
   mobileMenuVisibility: PropTypes.bool.isRequired,
   closeMobileMenu: PropTypes.func.isRequired,
-  appRef: PropTypes.object.isRequired,
 };
 
 export default Page;
