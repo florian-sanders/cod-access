@@ -76,5 +76,8 @@
     "react-router-navigation-prompt": "^1.8.13",
     "redux": "^4.0.5"
   },
-  "version": "0.0.0"
+  "resolutions": {
+    "glob-parent": "5.1.2"
+  },
+  "version": "1.0.0"
 }
