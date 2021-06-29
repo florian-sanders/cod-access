@@ -1,5 +1,5 @@
 // == Import npm
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -13,7 +13,6 @@ import Modal from 'src/containers/ModalConfirm';
 import CircleLoader from '../CircleLoader';
 import './styles.scss';
 
-// == Composant
 const App = ({
   checkAuth,
   getCSRFToken,
@@ -21,7 +20,6 @@ const App = ({
   appLoading,
   modalConfirmParams,
 }) => {
-  const appRef = useRef(null);
   useEffect(() => {
     loadThemes();
     getCSRFToken();
@@ -29,8 +27,9 @@ const App = ({
       checkAuth();
     }
   }, []);
+
   return (
-    <div className="app" ref={appRef} tabIndex="-1">
+    <>
       <a className="skip-link sr-only-focusable" href="#main-content">Contenu</a> {/* skipLink for a11y, keyboard users mainly */}
       {
         modalConfirmParams.isVisible && (
@@ -61,10 +60,10 @@ const App = ({
               />
             </div>
           )
-          : <Page appRef={appRef} />
+          : <Page />
       }
       <Footer />
-    </div>
+    </>
   );
 };
 
