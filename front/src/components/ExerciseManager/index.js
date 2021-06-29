@@ -42,6 +42,18 @@ const ExerciseManager = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (loading) {
+      document.title = 'Chargement exercice - Admin - Cod\'Access';
+    }
+    else if (createNew) {
+      document.title = 'Création exercice - Admin - Cod\'Access';
+    }
+    else if (title) {
+      document.title = `Modification - ${title} - Admin - Cod'Access`;
+    }
+  }, [loading]);
+
   if (loading) {
     return (
       <div className="loading-centered">
@@ -73,7 +85,13 @@ const ExerciseManager = ({
           />
         )}
       </NavigationPrompt>
-      <h1 className="title-h1">Créer un exercice</h1>
+      <h1 className="title-h1">
+        {
+          createNew
+            ? 'Créer un exercice'
+            : 'Modifier l\'exercice'
+        }
+      </h1>
       <StatusManager />
       <form className="admin-exercise__form grey">
         <section>

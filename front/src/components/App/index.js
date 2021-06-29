@@ -1,5 +1,5 @@
 // == Import npm
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -21,6 +21,7 @@ const App = ({
   appLoading,
   modalConfirmParams,
 }) => {
+  const appRef = useRef(null);
   useEffect(() => {
     loadThemes();
     getCSRFToken();
@@ -29,7 +30,7 @@ const App = ({
     }
   }, []);
   return (
-    <>
+    <div className="app" ref={appRef} tabIndex="-1">
       <a className="skip-link sr-only-focusable" href="#main-content">Contenu</a> {/* skipLink for a11y, keyboard users mainly */}
       {
         modalConfirmParams.isVisible && (
@@ -60,10 +61,10 @@ const App = ({
               />
             </div>
           )
-          : <Page />
+          : <Page appRef={appRef} />
       }
       <Footer />
-    </>
+    </div>
   );
 };
 

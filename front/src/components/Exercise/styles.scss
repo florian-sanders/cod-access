@@ -1,5 +1,9 @@
 @import "src/styles/vars";
 
+.exercise-section__questions_question__answers__answer--isNotDragging {
+  transform: none!important;
+}
+
 .loading {
   display: flex;
   flex-flow: row wrap;

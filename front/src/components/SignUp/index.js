@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import TextField from 'src/components/TextField';
@@ -42,6 +42,10 @@ const SignUp = ({
     },
   };
   const formManager = useFormManager(formManagerConfig);
+
+  useEffect(() => {
+    document.title = 'Inscription - Cod\'Access';
+  });
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

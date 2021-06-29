@@ -20,6 +20,7 @@ const ExercisesPage = ({
 }) => {
   useEffect(() => {
     fetchThemesExercises();
+    document.title = 'Challenges - Cod\'Access';
   }, []);
   if (loadingExercisesPage) {
     return (

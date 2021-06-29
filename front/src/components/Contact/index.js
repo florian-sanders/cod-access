@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Proptypes from 'prop-types';
 
 import useFormManager from 'src/hooks/useFormManager';
@@ -40,11 +40,15 @@ const Contact = ({
   };
   const formManager = useFormManager(formManagerConfig);
 
+  useEffect(() => {
+    document.title = 'Contact -  Cod\'Access';
+  });
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     formManager.trySubmit();
   };
-  
+
   return (
     <div className="contact wave-double-bottom">
       <img className="contact__illustration" src={picture} alt="" />
