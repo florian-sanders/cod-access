@@ -294,7 +294,7 @@ module.exports = {
         from: mailPath,
         to: req.body.email,
         subject: 'Creation d\'un nouveau mot de passe',
-        text: `Veuillez cliquer sur le lien ci-dessous pour pouvoir créer un nouveau mot de passe: http://localhost:8080/changement-mot-de-passe/${token}`
+        text: `Veuillez cliquer sur le lien ci-dessous pour pouvoir créer un nouveau mot de passe: ${process.env.FRONT_HOST}/changement-mot-de-passe/${token}`
       };
       transporter.sendMail(mailOptionsToClient, function (error, info) {
         if (error) {
