@@ -20,7 +20,7 @@ tbody tr:nth-child(odd) {
 }
 
 *:focus-visible {
-  outline: dashed 2px $dark-color;
+  outline: dashed 2px $primary-color;
   outline-offset: 4px;
 }
 
@@ -34,7 +34,7 @@ tbody tr:nth-child(odd) {
   padding-bottom: 4.9rem;
 
   @media screen and (max-width: 60rem) {
-    padding-bottom: 12.9rem;
+    padding-bottom: 9.9rem;
   }
 }
 
@@ -47,14 +47,15 @@ strong {
 }
 
 .wave-double-bottom {
-  background-image: url("src/assets/img/wave.svg");
+  background-image: url("src/assets/img/wave-triple.svg");
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: 100% auto;
   padding-bottom: 20rem;
 
   @media screen and (max-width: 55rem) {
-    background: none;
+    background-repeat: no-repeat;
+    background-size: auto 170px;
   }
 
   @media screen and (max-width: 60rem) {

@@ -7,9 +7,6 @@ const Footer = () => (
   <footer className="footer" role="contentinfo">
     <ul className="footer__list">
       <li>
-        Copyright 2021
-      </li>
-      <li>
         <Link className="footer__list__link" to="/mentions-legales">
           Mentions légales
         </Link>
