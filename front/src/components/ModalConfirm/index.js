@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FocusScope } from '@react-aria/focus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import './styles.scss';
 
@@ -41,7 +41,7 @@ const ModalConfirm = ({
     <FocusScope contain restoreFocus autoFocus>
       <div className="modal-confirm" role="dialog" aria-modal="true" tabIndex="-1" aria-label={heading}>
         <button className="button button--actions to--right" type="button" onClick={closeModal}>
-          <FontAwesomeIcon icon={faWindowClose} size="2x" />
+          <FontAwesomeIcon icon={faTimes} size="2x" />
         </button>
 
         {
