@@ -50,13 +50,19 @@ const Answer = ({
     });
   };
 
-  const handleKeyDown = (evt) => {
+  const handleKeyUp = (evt) => {
     if (evt.code === 'Space' || evt.code === 'Enter') {
       newUserAnswer({
         questionId,
         answerId: Number(id),
         previousAnswers: userAnswers,
       });
+    }
+  };
+
+  const handleKeyDown = (evt) => {
+    if (evt.code === 'Space') {
+      evt.preventDefault();
     }
   };
 
@@ -92,6 +98,7 @@ const Answer = ({
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             onDoubleClick={handleDoubleClick}
+            onKeyUp={handleKeyUp}
             onKeyDown={handleKeyDown}
           >
             {
@@ -168,7 +175,7 @@ Answer.defaultProps = {
   isCorrected: false,
   isUserCorrect: false,
   isRightAnswer: false,
-  newUserAnswer: () => {},
+  newUserAnswer: () => { },
 };
 
 export default Answer;
