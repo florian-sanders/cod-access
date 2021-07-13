@@ -29,6 +29,7 @@ const Question = ({
   useEffect(() => {
     if (!isHidden && !initialMount.current) {
       questionContainer.current.scrollIntoView({ behavior: 'smooth' });
+      questionContainer.current.focus();
     }
 
     if (initialMount.current) {
@@ -63,6 +64,7 @@ const Question = ({
           })
         }
         ref={questionContainer}
+        tabIndex="-1"
       >
         <h2 className="title-h2 exercise-section__questions__question__heading">Question {questionIndex + 1}</h2>
         {
