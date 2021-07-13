@@ -10,7 +10,7 @@ import {
 } from 'src/actions/exercises';
 
 const mapStateToProps = (state) => ({
-  allThemesExercises: state.exercises.allThemesExercises,
+  allExercises: state.exercises.allExercises,
   loadingExercisesPage: state.exercises.loadingExercisesPage,
   themeFilterVisibility: state.exercises.themeFilterVisibility,
   themesFilterCheckbox: state.exercises.themesFilterCheckbox,

@@ -45,21 +45,21 @@ const Filter = ({
     <>
       <button
         type="button"
-        className={classNames('exercises__wrapper__header__intro__filter__btn', {
-          'exercises__wrapper__header__intro__filter__btn--visible': visibility,
+        className={classNames('exercises__wrapper__filter__btn', {
+          'exercises__wrapper__filter__btn--visible': visibility,
         })}
         onClick={toggleFilter}
         aria-expanded={visibility}
         aria-controls="exercises-filters"
         ref={toggleBtn}
       >
-        <FontAwesomeIcon icon={faFilter} className="exercises__wrapper__header__intro__filter__btn__icon" />
+        <FontAwesomeIcon icon={faFilter} className="exercises__wrapper__filter__btn__icon" />
         Thèmes
       </button>
       {
         visibility && (
-          <fieldset id="exercises-filters" className="exercises__wrapper__header__intro__filter" ref={toggleContainer}>
-            <legend className="exercises__wrapper__header__intro__filter__legend">Thèmes</legend>
+          <fieldset id="exercises-filters" className="exercises__wrapper__filter" ref={toggleContainer}>
+            <legend className="exercises__wrapper__filter__legend">Thèmes</legend>
             <ul>
               {
                 themes.map((theme) => (
@@ -67,7 +67,7 @@ const Filter = ({
                 ))
               }
             </ul>
-            <button type="button" className="exercises__wrapper__header__intro__filter__btn--valid button button--secondary" onClick={validateFilter}>Valider</button>
+            <button type="button" className="exercises__wrapper__filter__btn--valid button button--secondary" onClick={validateFilter}>Valider</button>
           </fieldset>
         )
       }
