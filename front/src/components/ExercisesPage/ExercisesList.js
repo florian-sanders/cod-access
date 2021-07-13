@@ -35,6 +35,7 @@ const ExercisesList = ({ exercises }) => (
                   <li
                     className="exercises__wrapper__block-list__exercise__themes__tag"
                     style={{ backgroundColor: theme.color }}
+                    key={`exercise-theme-${theme.id}`}
                   >
                     {theme.name}
                   </li>

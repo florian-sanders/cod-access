@@ -26,7 +26,7 @@ export default (store) => (next) => async (action) => {
         const themes = response.data.flatMap((exercise) => exercise.themes)
           .reduce((themesCount, theme) => {
             const similarTheme = themesCount.find(
-              (themeToCheck) => themeToCheck.name === theme.name
+              (themeToCheck) => themeToCheck.name === theme.name,
             );
 
             if (!similarTheme) {
