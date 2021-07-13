@@ -15,7 +15,7 @@ const ExercisesList = ({ exercises }) => (
             to={`/challenges/${exercise.id}`}
             className="exercises__wrapper__block-list__exercise__link"
           >
-            <p>{exercise.title}</p>
+            <h2>{exercise.title}</h2>
           </Link>
           {
             exercise.clients[0] && exercise.clients[0].Client_exercise.score === 100
