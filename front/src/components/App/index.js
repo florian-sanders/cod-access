@@ -30,7 +30,6 @@ const App = ({
 
   return (
     <>
-      <a className="skip-link sr-only-focusable" href="#main-content">Contenu</a> {/* skipLink for a11y, keyboard users mainly */}
       {
         modalConfirmParams.isVisible && (
           <Modal
@@ -38,31 +37,37 @@ const App = ({
           />
         )
       }
-      <div className={classNames('modal-background', {
-        'modal-background--blur': modalConfirmParams.isVisible,
+      <div className={classNames('app-background', {
+        'app-background--blur': modalConfirmParams.isVisible,
       })}
-      />
+      >
+        <a className="skip-link sr-only-focusable" href="#main-content">Contenu</a> {/* skipLink for a11y, keyboard users mainly */}
+        <div className={classNames('modal-background', {
+          'modal-background--blur': modalConfirmParams.isVisible,
+        })}
+        />
 
-      <div className="header-wrapper">
-        <Header />
-        <Menu />
-        <Connection />
+        <div className="header-wrapper">
+          <Header />
+          <Menu />
+          <Connection />
+        </div>
+        {
+          appLoading
+            ? (
+              <div className="loading">
+                <CircleLoader
+                  colour="#7ED8F7"
+                  radius={100}
+                  duration={2}
+                  strokeWidth={20}
+                />
+              </div>
+            )
+            : <Page />
+        }
+        <Footer />
       </div>
-      {
-        appLoading
-          ? (
-            <div className="loading">
-              <CircleLoader
-                colour="#7ED8F7"
-                radius={100}
-                duration={2}
-                strokeWidth={20}
-              />
-            </div>
-          )
-          : <Page />
-      }
-      <Footer />
     </>
   );
 };

@@ -20,7 +20,7 @@ tbody tr:nth-child(odd) {
 }
 
 *:focus-visible {
-  outline: dashed 2px $primary-color;
+  outline: dashed 2px $secondary-color;
   outline-offset: 4px;
 }
 
@@ -191,6 +191,24 @@ strong {
     opacity: 0.7;
     background-color: $ligth-color;
     // box-shadow:  0px 10px 10px 0px rgba(86, 105, 112,0.5);
+  }
+}
+
+.button--highlight {
+  color: $white-color;
+  background-color: $secondary-color;
+  border: none;
+  padding: 8px 20px;
+  box-shadow: 0px 1px 5px 0px rgba(37, 7, 94, 0.5);
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+    box-shadow: 0px 4px 10px 0px rgba(37, 7, 94, 0.5);
+  }
+  &:active {
+    opacity: 0.7;
+    box-shadow: 0px 8px 10px 0px rgba(37, 7, 94, 0.5);
   }
 }
 

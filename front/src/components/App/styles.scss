@@ -29,14 +29,14 @@ a.skip-link.sr-only-focusable {
   margin: 1rem;
 }
 
-.modal-background {
+.app-background {
   &--blur {
-    backdrop-filter: blur(3px);
+    filter: blur(3px);
     position: absolute;
-    transition: backdrop-filter 0.5s ease-in-out;
     min-height: 100vh;
-    height: 100%;
     width: 100%;
-    z-index: 1;
+    transition: filter 0.2s;
+    z-index: 4;
   }
+  transition: filter 0.2s;
 }

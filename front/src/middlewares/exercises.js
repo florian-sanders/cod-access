@@ -18,20 +18,37 @@ export default (store) => (next) => async (action) => {
     case FETCH_THEMES_EXERCISES:
       try {
         store.dispatch(setExercisesPageLoading(true));
-        const response = await axiosInstance.get('/themes_exercises');
+        const response = await axiosInstance.get('/exercises_score');
         if (response.status !== 200) {
           throw new Error();
         }
-        const ThemesFilterCheckbox = response.data.map((themeWithExercices) => (
+
+        const themes = response.data.flatMap((exercise) => exercise.themes)
+          .reduce((themesCount, theme) => {
+            const similarTheme = themesCount.find(
+              (themeToCheck) => themeToCheck.name === theme.name,
+            );
+
+            if (!similarTheme) {
+              theme.count = 1;
+              return [...themesCount, theme];
+            }
+
+            similarTheme.count += 1;
+            return themesCount;
+          }, []);
+
+        const ThemesFilterCheckbox = themes.map((theme) => (
           {
-            id: themeWithExercices.id,
-            name: themeWithExercices.name,
-            color: themeWithExercices.color,
+            id: theme.id,
+            name: theme.name,
+            color: theme.color,
             checked: false,
+            count: theme.count,
           }));
 
-        const themesIdToDisplay = response.data.map(
-          (themeWithExercices) => (themeWithExercices.id),
+        const themesIdToDisplay = themes.map(
+          (theme) => theme.id,
         );
 
         store.dispatch(setAllThemesIdToDisplay(themesIdToDisplay));
