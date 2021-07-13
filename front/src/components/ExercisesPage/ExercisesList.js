@@ -28,7 +28,7 @@ const ExercisesList = ({ exercises }) => (
             )
           }
           <div className="exercises__wrapper__block-list__exercise__themes">
-            <p>Thèmes :</p>
+            <p>Thèmes&nbsp;:</p>
             <ul>
               {
                 exercise.themes.map((theme) => (
