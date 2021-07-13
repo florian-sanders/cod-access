@@ -16,7 +16,7 @@ import {
 } from 'src/actions/exercises';
 
 const initialState = {
-  allThemesExercises: [],
+  allExercises: [],
   loadingExercisesPage: false,
   themeFilterVisibility: false,
   themesFilterCheckbox: [],
@@ -52,7 +52,7 @@ const reducer = (state = initialState, action = {}) => {
     case SET_THEMES_EXERCISES:
       return {
         ...state,
-        allThemesExercises: action.data,
+        allExercises: action.data,
       };
     case SET_EXERCISESPAGE_LOADING:
       return {

@@ -14,7 +14,7 @@ const ThemeCheckBox = ({ theme, handleCheckbox }) => (
       onChange={() => handleCheckbox(theme.id, theme.checked)}
       checked={theme.checked}
     />
-    <label htmlFor={theme.id} className="exercises__wrapper__header__intro__filter__item__label">{theme.name} </label>
+    <label htmlFor={theme.id} className="exercises__wrapper__header__intro__filter__item__label">{theme.name} ({theme.count} challenges)</label>
   </li>
 );
 
@@ -23,6 +23,7 @@ ThemeCheckBox.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired,
+    count: PropTypes.number.isRequired,
   }),
   handleCheckbox: PropTypes.func.isRequired,
 };

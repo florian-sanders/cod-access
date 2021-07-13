@@ -48,6 +48,7 @@ module.exports = merge(common, {
     stats: 'minimal',
     compress: true,
     hot: true,
+    host: '0.0.0.0',
     watchOptions: {
       ignored: /node_modules/,
     },

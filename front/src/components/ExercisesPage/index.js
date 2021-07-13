@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import submarineImgPath from 'src/assets/img/submarine.svg';
+import submarineImgPath from 'src/assets/img/fix_bug.svg';
 import ExercisesList from './ExercisesList';
 import Filter from './Filter';
 import CircleLoader from '../CircleLoader';
@@ -9,7 +9,7 @@ import './styles.scss';
 
 const ExercisesPage = ({
   fetchThemesExercises,
-  allThemesExercises,
+  allExercises,
   loadingExercisesPage,
   themeFilterVisibility,
   toggleFilter,
@@ -39,36 +39,25 @@ const ExercisesPage = ({
     <section className="exercises wave-double-bottom">
       <h1 className="title-h1 center">Challenges</h1>
       <div className="exercises__wrapper">
-        <div className="exercises__wrapper__header">
-          <div className="exercises__wrapper__header__intro">
-            <div className="exercises__wrapper__header__intro__text">
-              <p>"Laisse moi me présenter, je suis le capitaine Némo et je suis à la recherche de <strong>développeuses et développeurs</strong> experts en accessibilité web.</p>
-              <p className="exercises__wrapper__header__intro__text__paraph">J'ai commandé un sous-marin Nautilus tout neuf dernier cri et dans le cahier des charges j'avais stipulé qu'il fallait que <strong>l'interface et la documentation de ce Nautilus soient totalement accessibles</strong>. En effet, plusieurs membres de mon équipage sont en situation de handicap et c'était donc un critère indispensable.</p>
-              <p className="exercises__wrapper__header__intro__text__paraph">Mais malheureusement le résultat livré semble contenir de nombreux problèmes, je cherche donc des experts pour m'aider à <strong>réparer les interfaces</strong> à travers les challenges ci-dessous. Ceux-ci sont triés par thématiques correspondent aux thématiques du <a className="link" href="https://www.numerique.gouv.fr/publications/rgaa-accessibilite/">Référentiel Général d'Amélioration d'Accessibilité</a> français.</p>
-              <p>Tu peux effectuer les réparations dans <strong>l'ordre que tu le souhaites</strong> et si tu te trompes, n'hésite pas à retenter ta chance !"</p>
-            </div>
-            <Filter
-              themes={themesFilterCheckbox}
-              visibility={themeFilterVisibility}
-              toggleFilter={toggleFilter}
-              handleCheckbox={handleCheckbox}
-              validateFilter={validateFilter}
-            />
+        <div className="exercises__wrapper__intro">
+          <div className="exercises__wrapper__intro__text">
+            <p>Tu trouveras ci-dessous les réparations à effectuer pour rendre les interfaces du Nautilus accessibles.</p>
+            <p>Tu peux effectuer les réparations dans <strong>l'ordre que tu le souhaites</strong> et si tu te trompes, n'hésite pas à retenter ta chance&nbsp;!</p>
           </div>
-          <img className="exercises__wrapper__header__img" src={submarineImgPath} alt="" />
+          <img className="exercises__wrapper__img" src={submarineImgPath} alt="" width="350" />
         </div>
+        <Filter
+          themes={themesFilterCheckbox}
+          visibility={themeFilterVisibility}
+          toggleFilter={toggleFilter}
+          handleCheckbox={handleCheckbox}
+          validateFilter={validateFilter}
+        />
         <div className="exercises__wrapper__block-list">
-          {
-            allThemesExercises.filter(
-              (theme) => themesIdToDisplay.includes(theme.id)
-            ).map((theme) => (
-              <div className="exercises__wrapper__block-list__theme" key={theme.id}>
-                <h2 className="exercises__wrapper__block-list__theme__title">{theme.name}</h2>
-                <ExercisesList exercises={theme.exercises} color={theme.color} />
-              </div>
-            ))
-          }
-
+          <ExercisesList exercises={allExercises.filter((exercise) => exercise.themes.some(
+            (theme) => themesIdToDisplay.includes(theme.id),
+          ))}
+          />
         </div>
       </div>
     </section>
@@ -77,13 +66,7 @@ const ExercisesPage = ({
 
 ExercisesPage.propTypes = {
   fetchThemesExercises: PropTypes.func.isRequired,
-  allThemesExercises: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      exercises: PropTypes.array,
-    }),
-  ),
+  allExercises: PropTypes.array,
   loadingExercisesPage: PropTypes.bool,
   toggleFilter: PropTypes.func,
   themeFilterVisibility: PropTypes.bool,
@@ -97,8 +80,8 @@ ExercisesPage.defaultProps = {
   loadingExercisesPage: false,
   themeFilterVisibility: false,
   themesFilterCheckbox: [],
-  allThemesExercises: [],
-  toggleFilter: () => {},
+  allExercises: [],
+  toggleFilter: () => { },
 };
 
 export default ExercisesPage;
