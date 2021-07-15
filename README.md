@@ -54,7 +54,7 @@ This project was mostly made to practice and learn new things.
 
 ## Room for improvements
 
-* The whole website should be audited for accessibility to make sure nothing was missed (because right now, I am pretty sure somethings were missed),
+* The whole website should be audited for accessibility to make sure nothing was missed (because right now, I am pretty sure some things were missed),
 * General performance improvements (there may be costly repaints),
 * Responsive for the Admin Dashboard (the dashboard is responsive but could use some tweaks to make it better),
 * Components should be reorganized to make it easier browsing through the Components folder,
