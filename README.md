@@ -37,7 +37,8 @@ This project runs as a **NodeJS** REST API communicating with a **React Applicat
 | Transpiler | Babel |
 | Main Libraries | React, Redux, React-Redux, React-router-dom, Axios, ckeditor, react-beautiful-dnd, dompurify |
 
-## What did I learn ?
+## What did I learn building this project ?
+This project was mostly made to practice and learn new things.
 
 - JSON Web Token based authentification (stored in an HTTP Only Cookie),
 - CSRF and XSS attacks,
