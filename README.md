@@ -27,6 +27,7 @@ This project runs as a **NodeJS** REST API communicating with a **React Applicat
 | Database System | PostgreSQL originally, migrated to MySQL to match my hosting services |
 | Object-relational Mapping (ORM) | Sequelize |
 | Main libraries | bcrypt, express-jwt, nodemailer, sanitize-html, multer, csurf |
+
 ### Front-end Stack
 
 | Type | Details |
@@ -47,18 +48,18 @@ This project was mostly made to practice and learn new things.
 - Generic reusable components (toast components, dialog component, etc.),
 - Website hosting management with Amazon Web Service (EC2 + RDS)...
 
+## Things I am currently working on
+* Writing decent and actual legal notice,
+* Notice about cookie usage,
+* SEO (meta keywords need to be added),
+* Accessibility.
+
 ## Features that did not make it (yet ?)
 
 * Different types of exercises (Drag'n'drop exercise with multiple drop locations, Live coding exercise with automated testing),
 * Documentation pages (small articles),
 * Sign up link confirmation sent by e-mail.
 * "Remember me" checkbox and cookie options that match the user preferences.
-
-## Things I am currently working on
-* Writing decent and actual legal notice,
-* Notice about cookie usage,
-* SEO (meta keywords need to be added),
-* Accessibility.
 
 ## Room for improvements
 
