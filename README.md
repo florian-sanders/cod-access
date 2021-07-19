@@ -55,6 +55,7 @@ This project was mostly made to practice and learn new things.
 * "Remember me" checkbox and cookie options that match the user preferences.
 
 ## Things I am currently working on
+* Writing decent and actual legal notice,
 * SEO (meta keywords need to be added),
 * Accessibility.
 
