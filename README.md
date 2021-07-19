@@ -24,7 +24,7 @@ This project runs as a **NodeJS** REST API communicating with a **React Applicat
 | Languages | JavaScript, SQL |
 | Running environment | NodeJS |
 | Framework | Express
-| Database System | PostgreSQL |
+| Database System | PostgreSQL originally, migrated to MySQL to match my hosting services |
 | Object-relational Mapping (ORM) | Sequelize |
 | Main libraries | bcrypt, express-jwt, nodemailer, sanitize-html, multer, csurf |
 ### Front-end Stack
