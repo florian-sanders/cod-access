@@ -11,7 +11,7 @@ Administrators can **manage registered users** (modify their role, delete their 
 
 ## Want to see it in action ?
 * A [short video of presentation, in French](https://youtu.be/DBsur_GxC9E?t=2881), is available. Although a little bit outdated when it comes to the visual aspect, this video does go through the main features of the website.
-* A [demo version of the website](http://ec2-15-188-14-79.eu-west-3.compute.amazonaws.com/) with updated visuals is also available. **Note that this version does not support HTTPS as of yet**.
+* A [demo version of the website](https://cod-access-demo.fr/) with updated visuals is also available.
 
 ## How does it work ?
 
@@ -24,9 +24,10 @@ This project runs as a **NodeJS** REST API communicating with a **React Applicat
 | Languages | JavaScript, SQL |
 | Running environment | NodeJS |
 | Framework | Express
-| Database System | PostgreSQL |
+| Database System | PostgreSQL originally, migrated to MySQL to match my hosting services |
 | Object-relational Mapping (ORM) | Sequelize |
 | Main libraries | bcrypt, express-jwt, nodemailer, sanitize-html, multer, csurf |
+
 ### Front-end Stack
 
 | Type | Details |
@@ -37,7 +38,8 @@ This project runs as a **NodeJS** REST API communicating with a **React Applicat
 | Transpiler | Babel |
 | Main Libraries | React, Redux, React-Redux, React-router-dom, Axios, ckeditor, react-beautiful-dnd, dompurify |
 
-## What did I learn ?
+## Things I learned building this project ?
+This project was mostly made to practice and learn new things.
 
 - JSON Web Token based authentification (stored in an HTTP Only Cookie),
 - CSRF and XSS attacks,
@@ -45,15 +47,23 @@ This project runs as a **NodeJS** REST API communicating with a **React Applicat
 - React Custom Hooks (creation of a useFormManager custom hook to manage form Data and input control),
 - Generic reusable components (toast components, dialog component, etc.),
 - Website hosting management with Amazon Web Service (EC2 + RDS)...
+
+## Things I am currently working on
+* Writing decent and actual legal notice,
+* Notice about cookie usage,
+* SEO (meta keywords need to be added),
+* Accessibility.
+
 ## Features that did not make it (yet ?)
 
 * Different types of exercises (Drag'n'drop exercise with multiple drop locations, Live coding exercise with automated testing),
 * Documentation pages (small articles),
 * Sign up link confirmation sent by e-mail.
+* "Remember me" checkbox and cookie options that match the user preferences.
 
 ## Room for improvements
 
-* The whole website should be audited for accessibility to make sure nothing was missed (because right now, I am pretty sure somethings were missed),
+* The whole website should be audited for accessibility to make sure nothing was missed (because right now, I am pretty sure some things were missed),
 * General performance improvements (there may be costly repaints),
 * Responsive for the Admin Dashboard (the dashboard is responsive but could use some tweaks to make it better),
 * Components should be reorganized to make it easier browsing through the Components folder,
