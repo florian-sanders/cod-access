@@ -6,6 +6,11 @@ const mailPassword = process.env.MAILPASSWORD;
 const mailPath = process.env.MAILPATH;
 const { Client } = require('../models');
 const nodemailer = require('nodemailer');
+const tokenCookieOptions = {
+  httpOnly: true,
+  sameSite: true,
+  secure: true
+};
 
 /**
  * @module authController
@@ -14,7 +19,7 @@ module.exports = {
 
   signout: async (req, res) => {
     res.status(200)
-      .clearCookie('token', { httpOnly: true })
+      .clearCookie('token', tokenCookieOptions)
       .json({ message: 'signed out' });
   },
 
@@ -143,7 +148,7 @@ module.exports = {
               expiresIn: '3h'
             };
             const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
-            res.cookie('token', token, { httpOnly: true });
+            res.cookie('token', token, tokenCookieOptions);
             return res.status(200).json({
               id: client.id,
               pseudo: client.pseudo,
