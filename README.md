@@ -11,7 +11,7 @@ Administrators can **manage registered users** (modify their role, delete their 
 
 ## Want to see it in action ?
 * A [short video of presentation, in French](https://youtu.be/DBsur_GxC9E?t=2881), is available. Although a little bit outdated when it comes to the visual aspect, this video does go through the main features of the website.
-* A [demo version of the website](http://ec2-15-188-14-79.eu-west-3.compute.amazonaws.com/) with updated visuals is also available. **Note that this version does not support HTTPS as of yet**.
+* A [demo version of the website](https://cod-access-demo.fr/) with updated visuals is also available.
 
 ## How does it work ?
 
