@@ -56,6 +56,7 @@ This project was mostly made to practice and learn new things.
 
 ## Things I am currently working on
 * Writing decent and actual legal notice,
+* Notice about cookie usage,
 * SEO (meta keywords need to be added),
 * Accessibility.
 
