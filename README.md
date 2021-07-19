@@ -46,11 +46,17 @@ This project was mostly made to practice and learn new things.
 - React Custom Hooks (creation of a useFormManager custom hook to manage form Data and input control),
 - Generic reusable components (toast components, dialog component, etc.),
 - Website hosting management with Amazon Web Service (EC2 + RDS)...
+
 ## Features that did not make it (yet ?)
 
 * Different types of exercises (Drag'n'drop exercise with multiple drop locations, Live coding exercise with automated testing),
 * Documentation pages (small articles),
 * Sign up link confirmation sent by e-mail.
+* "Remember me" checkbox and cookie options that match the user preferences.
+
+## Things I am currently working on
+* SEO (meta keywords need to be added),
+* Accessibility.
 
 ## Room for improvements
 
