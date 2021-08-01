@@ -22,9 +22,10 @@ app.use(cookieParser());
 
 // use double submit cookie policy
 const csrfProtection = csrf({
-    cookie: true,
-    secure: true,
-    sameSite: true
+    cookie: {
+        secure: true,
+        sameSite: true
+    }
 });
 
 // for every  post / patch / delete request, check whether csrf cookie token value and request header token value match
