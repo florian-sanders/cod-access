@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import ErrorPage from 'src/assets/img/404.svg';
 import './styles.scss';
 
 const Error = () => {
@@ -8,8 +7,9 @@ const Error = () => {
   });
 
   return (
-    <div className="errorPage">
-      <img className="errorPage__picture" src={ErrorPage} alt="page non trouvée" />
+    <div className="error-page wave-double-bottom">
+      <h1 className="error-heading">Page non trouvée</h1>
+      <p className="error-text">Désolé, cette page n'existe pas.</p>
     </div>
   );
 };
