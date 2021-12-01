@@ -1,0 +1,20 @@
+{
+  "name": "cod-access",
+  "version": "1.0.0",
+  "description": "## What is it ?",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd front && npm i -f && npm run build && cd ../back && npm i"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/florian-sanders/cod-access.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/florian-sanders/cod-access/issues"
+  },
+  "homepage": "https://github.com/florian-sanders/cod-access#readme"
+}
