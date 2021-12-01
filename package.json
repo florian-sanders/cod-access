@@ -4,7 +4,7 @@
   "description": "## What is it ?",
   "main": "index.js",
   "scripts": {
-    "start": "cd front && npm i -f && npm run build && cd ../back && npm i"
+    "start": "cd front && npm i && npm run build && cd ../back && npm i"
   },
   "repository": {
     "type": "git",
