@@ -2,9 +2,9 @@
   "name": "cod-access",
   "version": "1.0.0",
   "description": "## What is it ?",
-  "main": "index.js",
+  "main": "back/index.js",
   "scripts": {
-    "start": "cd front && npm i && npm run build && cd ../back && npm i"
+    "install": "cd front && yarn && yarn build && cd ../back && npm i"
   },
   "repository": {
     "type": "git",
@@ -15,6 +15,9 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/florian-sanders/cod-access/issues"
+  },
+  "engines": {
+    "node": "16.15.0"
   },
   "homepage": "https://github.com/florian-sanders/cod-access#readme"
 }

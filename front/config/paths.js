@@ -6,6 +6,6 @@ module.exports = {
   build: path.resolve(__dirname, '../../back/assets'), // production build files
   static: path.resolve(__dirname, '../public'), // static files to copy to build folder
   envPath: path.resolve(__dirname,
-    path.join('../', process.env.NODE_ENV === 'production' ? '.env.public.prod' : '.env.public.dev')
+    path.join('../', process.env.IS_PROD ? '.env.public.prod' : '.env.public.dev'),
   ), // switch .env file path depending on production / dev
 };
