@@ -11,7 +11,7 @@ Administrators can **manage registered users** (modify their role, delete their 
 
 ## Want to see it in action ?
 * A [short video of presentation, in French](https://youtu.be/DBsur_GxC9E?t=2881), is available. Although a little bit outdated when it comes to the visual aspect, this video does go through the main features of the website.
-* A [demo version of the website](https://cod-access-demo.fr/) with updated visuals is also available.
+* A [demo version of the website](https://cod-access.cleverapps.io/) with updated visuals is also available.
 
 ## How does it work ?
 
@@ -24,7 +24,7 @@ This project runs as a **NodeJS** REST API communicating with a **React Applicat
 | Languages | JavaScript, SQL |
 | Running environment | NodeJS |
 | Framework | Express
-| Database System | PostgreSQL originally, migrated to MySQL to match my hosting services |
+| Database System | PostgreSQL originally, migrated to MySQL to match my previous hosting services |
 | Object-relational Mapping (ORM) | Sequelize |
 | Main libraries | bcrypt, express-jwt, nodemailer, sanitize-html, multer, csurf |
 

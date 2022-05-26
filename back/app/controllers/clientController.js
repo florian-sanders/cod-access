@@ -218,12 +218,14 @@ module.exports = {
         try{
             const clientId = Number(req.user.clientId);
             const myFile = req.file;
-            const pathPicture = myFile.path.substring(6);
+            const pathPicture = myFile.path.replace(/.+upload/gm, '');
             const picture = new Picture({
                 name: myFile.filename,
                 path: pathPicture,
                 alternative: null
             })
+
+            console.log(pathPicture);
         
             picture.save().then(result => {
                 Client.findByPk(clientId, {

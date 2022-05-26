@@ -553,7 +553,7 @@ module.exports = {
         try {
             const questionId = Number(req.body.question_id);
             const myFile = req.file;
-            const pathPicture = myFile.path.substring(6);
+            const pathPicture = myFile.path.replace(/.+upload/gm, '');
             const picture = new Picture({
                 name: myFile.filename,
                 path: pathPicture,

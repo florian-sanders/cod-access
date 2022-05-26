@@ -30,6 +30,9 @@
     "swagger-ui-dist": "^3.51.0",
     "express-swagger-generator": "^1.1.17"
   },
+  "engines": {
+    "node": "16.15.0"
+  },
   "devDependencies": {
     "cross-env": "^7.0.3"
   }

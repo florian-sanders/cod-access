@@ -1,12 +1,13 @@
 /**
  * @module multerConfig
  */
-
+const path = require("path");
 const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, 'upload');
+    console.log('multer', path.join(__dirname, "../../upload"));
+    callback(null, path.join(__dirname, "../../upload"));
   },
   filename: (req, file, callback) => {
     const name = file.originalname.split(' ').join('_');
